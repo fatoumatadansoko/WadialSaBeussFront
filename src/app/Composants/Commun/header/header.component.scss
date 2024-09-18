@@ -1,0 +1,47 @@
+.navbar {
+    .brand-name {
+      font-family: 'Lato', sans-serif;
+      color: #725111;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .brand-tagline {
+      font-family: 'Lato', sans-serif;
+      color: #cba04d;
+      font-size: 0.9rem;
+      margin-left: 0.2rem;
+    }
+  
+    .nav-link {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #000;
+      transition: all 0.3s ease-in-out;
+      margin-right: 1.5rem;
+      padding-bottom: 10px;
+  
+      &:hover {
+        color: #725111;
+        border-bottom: 2px solid #725111;
+      }
+  
+      &.active {
+        color: #725111;
+        border-bottom: 2px solid #725111;
+      }
+    }
+  
+    .btn-connexion {
+      background-color: #725111;
+      color: white;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      &:hover {
+        background-color: darken(#725111, 10%);
+      }
+    }
+  }
+  

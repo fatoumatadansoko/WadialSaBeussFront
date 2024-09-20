@@ -6,11 +6,12 @@ import { FooterComponent } from './Composants/Commun/footer/footer.component';
 import { AcceuilComponent } from './Composants/Visiteur/acceuil/acceuil.component';
 import { SidebarComponent } from './Composants/Commun/sidebar/sidebar.component';
 
-export const routes: Routes = [
-    { path: '', redirectTo: 'Acceuil', pathMatch: 'full' },
-    
 
-    // Routes pour l'authentification
+export const routes: Routes = [
+    { path: '', redirectTo: 'acceuil', pathMatch: 'full' },
+    
+     
+  // Routes pour l'authentification
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 

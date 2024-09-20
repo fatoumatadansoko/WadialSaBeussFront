@@ -1,9 +1,8 @@
-/*** Navbar Fixed on Scroll ***/
 .navbar-light {
-    background: transparent; /* Fond initial transparent */
-    transition: background 0.5s ease, box-shadow 0.5s ease; /* Transition pour le fond et l'ombre portée */
-    padding-bottom: 200px;
+    background: rgb(255, 255, 255); /* Ajoute un fond légèrement opaque dès le départ */
+    transition: background 0.5s ease, box-shadow 0.5s ease;
 }
+
 
 .navbar-light.scrolled {
     background: rgba(255, 255, 255, 0.9); /* Fond opaque lorsque défilé */
@@ -35,7 +34,7 @@
 }
 
 .navbar-light .navbar-nav .nav-item .nav-link {
-    color: var(--bs-white);
+    color: #ffffff;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,

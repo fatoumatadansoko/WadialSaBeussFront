@@ -1,25 +1,39 @@
 .event-section {
+  background-image: url('../../../../assets/images/fondba.png');
+  padding-top: 150px;
     background-color: #051D30;
   }
   
-  .event-section h1 {
-    color: #fff;
+  .event-section h4 {
+    padding-top: 100px;
+    font-size: 36px;
+font-family: 'Oswald', sans-serif;
+font-weight: 'bold';
+color: #fff;
+  }
+  .event-section h3 {
+    font-size: 48px;
+    font-family: 'oswald', sans-serif;
+    font-weight: 'bold';
+    color: #725111;
   }
   
-  .event-section .text-warning {
-    color: #d0a461;
-  }
   
   .event-section p {
     color: #fff;
+    font-size: 16px;
+    font-family: 'playfair display', sans-serif;
+    font-weight: 'regular';
   }
   
   .event-section .btn-warning {
-    background-color: #d0a461;
-    border: none;
+    background-color: #725111;
+    color: #fff;
+    border: 10px;
   }
   
   img {
     border-radius: 15px;
+    margin-top: 150px;
   }
   

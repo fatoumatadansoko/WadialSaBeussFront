@@ -101,4 +101,147 @@ color: #fff;
 .aboutsection p {
   margin-top: 5px;
 }
-  
+.card{
+  border: 0;
+}
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+h5.card-title {
+  font-size: 1.25rem;
+}
+
+p.card-text {
+  font-size: 0.95rem;
+}
+
+.text-warning {
+  color: #FF9700 !important;
+}
+
+
+// section pourquoi budgétiser
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.budget-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+}
+
+.budget-section .text-side {
+  width: 50%;
+}
+
+.budget-section h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.budget-section p {
+  text-align: left;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.budget-section .image-side {
+  width: 40%;
+  text-align: right;
+}
+
+.budget-section .image-side img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.contact-section {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Style pour la section image */
+.contact-section .image-side {
+  width: 45%;
+  margin-right: 5%; /* Marge entre l'image et le formulaire */
+}
+
+.contact-section .image-side img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Style pour la section formulaire */
+.contact-section .form-side {
+  width: 45%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-side h2 {
+  font-weight: 700;
+  color: #2c2c2c;
+  margin-bottom: 30px;
+}
+
+.form-side form input,
+.form-side form textarea {
+  border: none;
+  border-bottom: 2px solid #2c2c2c;
+  border-radius: 0;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.form-side .contact-info {
+  margin-top: 30px;
+}
+
+.form-side .contact-info p {
+  margin-bottom: 5px;
+  color: #2c2c2c;
+  font-weight: 400;
+}
+
+.form-side .social-icons a {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #2c2c2c;
+  text-decoration: none;
+}
+
+.btn-submit {
+  background-color: #CBA04D;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 0;
+}
+
+.btn-submit:hover {
+  background-color: #725111;
+}

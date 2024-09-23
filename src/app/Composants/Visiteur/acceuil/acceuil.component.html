@@ -20,50 +20,54 @@
 </section>
 
 <!-- Carousel Partenaires -->
-<section>
+<section class="caroussel">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
+      <h6 class="">Nos réalisations</h6>
+
       <!-- Carousel Item 1 -->
       <div class="carousel-item active">
         <div class="container">
           <div class="row">
-            <div class="col">
-              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire" class="partenaire"/>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 1" class="img-fluid partenaire"/>
+            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 2" class="img-fluid partenaire"/>
+            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 3" class="img-fluid partenaire"/>
+            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 4" class="img-fluid partenaire"/>
             </div>
           </div>
         </div>
       </div>
+      
       <!-- Carousel Item 2 -->
       <div class="carousel-item">
         <div class="container">
           <div class="row">
-            <div class="col">
-              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire" class="partenaire"/>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 5" class="img-fluid partenaire"/>
+            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 6" class="img-fluid partenaire"/>
+            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 7" class="img-fluid partenaire"/>
+            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 8" class="img-fluid partenaire"/>
             </div>
           </div>
         </div>
       </div>
-      <!-- Carousel Item 3 -->
-      <div class="carousel-item">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire" class="partenaire"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Carousel Item 4 -->
-      <div class="carousel-item">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire" class="partenaire"/>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+      <!-- Ajoute d'autres éléments au besoin -->
     </div>
+    
     <!-- Carousel Controls -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -73,6 +77,7 @@
     </button>
   </div>
 </section>
+
 
 <!-- Section À propos de nous -->
 <div class="aboutsection">
@@ -88,7 +93,6 @@
           <h5>Simplicité et fluidité</h5>
           <img class="img-fluid rounded mb-4 mb-lg-0" src="../../../../assets/images/group15.png" alt="..." />
         </div>
-
         <p>Wadial sama beuss, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur. </p>
       </div>
     </div>
@@ -105,17 +109,21 @@
       </div>
     </div>
     <!--second section-->
-    <div class="row align-items-center justify-content-end how-it-works d-flex">
-      <div class="col-6 text-right">
-        <h5>Personnalisation et élégance </h5>
-        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="../../../../assets/images/group13.png" alt="..." /></div>
-
-        <p>Wadial sama beuss, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur. </p>
-      </div>
-      <div class="col-2 text-center full d-inline-flex justify-content-center align-items-center">
-        <div class="circle font-weight-bold">2</div>
-      </div>
+    <!--second section-->
+<!-- Deuxième section -->
+<div class="row align-items-center justify-content-end how-it-works d-flex">
+  <div class="col-6 text-right">
+    <h5>Personnalisation et élégance</h5>
+    <div class="col-lg-7">
+      <img class="img-fluid rounded mb-4 mb-lg-0" src="../../../../assets/images/group13.png" alt="..." />
     </div>
+    <p>Wadial sama beuss, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur.</p>
+  </div>
+  <div class="col-2 text-center full d-inline-flex justify-content-center align-items-center">
+    <div class="circle font-weight-bold">2</div>
+  </div>
+</div>
+
     <!--path between 2-3-->
     <div class="row timeline">
       <div class="col-2">
@@ -135,8 +143,8 @@
       </div>
       <div class="col-6">
         <h5>Innovation et modernité</h5>
-        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="../../../../assets/images/group14.png" alt="..." /></div>
-
+        <div class="col-lg-7">
+          <img class="img-fluid rounded mb-4 mb-lg-0" src="../../../../assets/images/group14.png" alt="..." /></div>
         <p>Wadial sama beuss, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur.</p>
       </div>
     </div>
@@ -148,10 +156,10 @@
 
 
 <!-- Section Prestations -->
-<div class="container my-5">
+<div class="container my-5 mt-6 mb-6">
   <div class="text-center">
-    <h2 class="fw-bold">Nos prestations</h2>
-    <p>Découvrez nos prestataires de services, les meilleurs sur le marché</p>
+    <h2 class="fw-bold">Nos prestataires </h2>
+    <!-- <p class="mt-6">Découvrez nos prestataires de services, les meilleurs sur le marché</p> -->
   </div>
 
   <div class="row">
@@ -159,8 +167,9 @@
       <div class="card border-0">
         <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
         <div class="card-body">
-          <h5 class="card-title text-warning fw-bold">Traiteur</h5>
-          <p class="card-text">Offrez à vos invités une expérience culinaire inoubliable avec nos prestations de traiteur personnalisées, adaptées à chaque occasion.</p>
+          <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable avec nos prestations de traiteur personnalisées, adaptées à chaque occasion.</p>
+          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
+
         </div>
       </div>
     </div>
@@ -169,8 +178,9 @@
       <div class="card border-0">
         <img src="../../../../assets/images/image1.png" class="card-img-top rounded" alt="Couture">
         <div class="card-body">
-          <h5 class="card-title text-warning fw-bold">Couture</h5>
-          <p class="card-text">Sublimez votre événement avec des tenues et accessoires sur mesure grâce à nos services de couture, pour une touche d'élégance incomparable.</p>
+          <p class="card-text text-left">Sublimez votre événement avec des tenues et accessoires sur mesure grâce à nos services de couture, pour une touche d'élégance incomparable.</p>
+          <h5 class="card-title text-warning fw-bold text-left">Couture</h5>
+
         </div>
       </div>
     </div>
@@ -179,12 +189,17 @@
       <div class="card border-0">
         <img src="../../../../assets/images/image2.png" class="card-img-top rounded" alt="Décoration">
         <div class="card-body">
-          <h5 class="card-title text-warning fw-bold">Décoration</h5>
-          <p class="card-text">Créez des ambiances uniques avec nos services de décoration sur mesure, pour des événements qui reflètent votre style et vos envies.</p>
+          <p class="card-text text-left">Créez des ambiances uniques avec nos services de décoration sur mesure, pour des événements qui reflètent votre style et vos envies.</p>
+          <h5 class="card-title text-warning fw-bold text-left">Décoration</h5>
+
         </div>
       </div>
     </div>
   </div>
+  <!-- <div class="presta">
+    <button class="btnpresta">voir plus</button>
+
+  </div> -->
 </div>
 
 
@@ -192,9 +207,10 @@
 <section class="budget-section">
   <div class="text-side">
     <h1>Pourquoi budgétiser?</h1>
-    <p>1. Fixe un budget clair pour chaque aspect de l'événement.</p>
-    <p>2. Prévois une marge pour les imprévus.</p>
-    <p>3. Compare les prestataires et négocie pour obtenir de meilleures offres.</p>
+    <p>1. Fixe un budget clair pour chaque aspect de l'événement : Identifie les principales catégories de dépenses comme le lieu, la restauration, la décoration, et les divertissements, puis alloue un montant précis à chacune..</p>
+    <p>2. Prévois une marge pour les imprévus : Lors de la budgétisation, réserve environ 10 % de ton budget total pour les dépenses imprévues ou les ajustements de dernière minute.</p>
+    <p>3. Compare les prestataires et négocie : Demande plusieurs devis pour chaque service afin de comparer les prix et la qualité, et n'hésite pas à négocier les tarifs pour obtenir de meilleures offres.</p>
+    
   </div>
   <div class="image-side">
     <img src="../../../../assets/images/budget.png" alt="Budgétisation"/>

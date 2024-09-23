@@ -5,6 +5,7 @@ import { HeaderComponent } from './Composants/Commun/header/header.component';
 import { FooterComponent } from './Composants/Commun/footer/footer.component';
 import { AcceuilComponent } from './Composants/Visiteur/acceuil/acceuil.component';
 import { SidebarComponent } from './Composants/Commun/sidebar/sidebar.component';
+import { CategorieEvenementComponent } from './Composants/Visiteur/categorie-evenement/categorie-evenement.component';
 
 
 export const routes: Routes = [
@@ -20,5 +21,6 @@ export const routes: Routes = [
    { path: 'header', component: HeaderComponent },
    { path: 'footer', component: FooterComponent},
    { path: 'acceuil', component: AcceuilComponent},
-   { path: 'sidebar', component: SidebarComponent}
+   { path: 'sidebar', component: SidebarComponent},
+   { path: 'categorie-evenement', component: CategorieEvenementComponent}
 ]

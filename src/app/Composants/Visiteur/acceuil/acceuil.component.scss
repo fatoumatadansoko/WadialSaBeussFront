@@ -1,15 +1,18 @@
 .event-section {
   background-image: url('../../../../assets/images/fondba.png');
-  padding-top: 150px;
+  padding-top: 50px;
     background-color: #051D30;
   }
   
+  .event-section img {
+    padding-top: 80px;
+  }
   .event-section h4 {
     padding-top: 100px;
     font-size: 36px;
-font-family: 'Oswald', sans-serif;
-font-weight: 'bold';
-color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 'bold';
+    color: #fff;
   }
   .event-section h3 {
     font-size: 48px;
@@ -30,11 +33,23 @@ color: #fff;
     background-color: #725111;
     color: #fff;
     border: 10px;
+    width: 120px;
+    font-family: 'oswald', sans-serif;
+  }
+  .caroussel h6 {
+    padding-bottom: 30px;
+    padding-top: 10px;
+    font-size: 36px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 'bold';
+    color: #000000;
+    text-align: center;
   }
   
-  img {
+  .aboutsection img {
     border-radius: 15px;
     margin-top: 150px;
+    margin-right: -300px;
   }
   .aboutsection h6 {
     padding-bottom: 30px;
@@ -42,7 +57,7 @@ color: #fff;
     font-size: 36px;
     font-family: 'Oswald', sans-serif;
     font-weight: 'bold';
-    color: #050505;
+    color: #000000;
     text-align: center;
   }
   .circle {
@@ -89,159 +104,156 @@ color: #fff;
     font-family: 'playfair display', sans-serif;
     font-weight: 'regular';   
   }
-/* Espacement réduit à 5px entre les éléments */
-.aboutsection h5 {
-  margin-bottom: -120px;
-}
+  /* Espacement réduit à 5px entre les éléments */
+  .aboutsection h5 {
+    margin-bottom: -120px;
+  }
 
-.aboutsection img {
-  margin-bottom: 5px;
-}
+  .aboutsection img {
+    margin-bottom: 5px;
+  }
 
-.aboutsection p {
-  margin-top: 5px;
-}
-.card{
-  border: 0;
-}
-.card-img-top {
-  object-fit: cover;
-  height: 200px;
-}
+  .aboutsection p {
+    margin-top: 5px;
+  }
+  .card{
+    border: 0;
+  }
+  .card-img-top {
+    object-fit: cover;
+    height: 200px;
+  }
 
-.card-body {
-  text-align: center;
-}
+  .card-body {
+    text-align: center;
+  }
 
-h5.card-title {
-  font-size: 1.25rem;
-}
+  h5.card-title {
+    font-size: 1.25rem;
+  }
 
-p.card-text {
-  font-size: 0.95rem;
-}
+  p.card-text {
+    font-size: 0.95rem;
+  }
 
-.text-warning {
-  color: #FF9700 !important;
-}
-
-
-// section pourquoi budgétiser
-body {
-  font-family: 'Lato', sans-serif;
-}
-
-.budget-section {
-  display: flex;
+  .text-warning {
+    color: #725111 !important;
+  }
+.presta .btnpresta {
+  justify-content: right !important;
   align-items: center;
-  justify-content: space-between;
-  padding: 50px;
 }
 
-.budget-section .text-side {
-  width: 50%;
-}
+ 
 
-.budget-section h1 {
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 30px;
-}
+  .budget-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+  }
 
-.budget-section p {
-  text-align: left;
-  font-size: 18px;
-  line-height: 1.6;
-}
+  .budget-section .text-side {
+    width: 50%;
+  }
 
-.budget-section .image-side {
-  width: 40%;
-  text-align: right;
-}
+  .budget-section h1 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
 
-.budget-section .image-side img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-body {
-  font-family: 'Lato', sans-serif;
-}
+  .budget-section p {
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.6;
+  }
 
-.contact-section {
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+  .budget-section .image-side {
+    width: 40%;
+    text-align: right;
+  }
 
-/* Style pour la section image */
-.contact-section .image-side {
-  width: 45%;
-  margin-right: 5%; /* Marge entre l'image et le formulaire */
-}
+  .budget-section .image-side img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+ 
 
-.contact-section .image-side img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
+  .contact-section {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
 
-/* Style pour la section formulaire */
-.contact-section .form-side {
-  width: 45%;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+  /* Style pour la section image */
+  .contact-section .image-side {
+    width: 45%;
+    margin-right: 5%; /* Marge entre l'image et le formulaire */
+  }
 
-.form-side h2 {
-  font-weight: 700;
-  color: #2c2c2c;
-  margin-bottom: 30px;
-}
+  .contact-section .image-side img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
 
-.form-side form input,
-.form-side form textarea {
-  border: none;
-  border-bottom: 2px solid #2c2c2c;
-  border-radius: 0;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: transparent;
-}
+  /* Style pour la section formulaire */
+  .contact-section .form-side {
+    width: 45%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
-.form-side .contact-info {
-  margin-top: 30px;
-}
+  .form-side h2 {
+    font-weight: 700;
+    color: #2c2c2c;
+    margin-bottom: 30px;
+  }
 
-.form-side .contact-info p {
-  margin-bottom: 5px;
-  color: #2c2c2c;
-  font-weight: 400;
-}
+  .form-side form input,
+  .form-side form textarea {
+    border: none;
+    border-bottom: 2px solid #2c2c2c;
+    border-radius: 0;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: transparent;
+  }
 
-.form-side .social-icons a {
-  font-size: 24px;
-  margin-right: 15px;
-  color: #2c2c2c;
-  text-decoration: none;
-}
+  .form-side .contact-info {
+    margin-top: 30px;
+  }
 
-.btn-submit {
-  background-color: #CBA04D;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  font-weight: bold;
-  border-radius: 0;
-}
+  .form-side .contact-info p {
+    margin-bottom: 5px;
+    color: #2c2c2c;
+    font-weight: 400;
+  }
 
-.btn-submit:hover {
-  background-color: #725111;
-}
+  .form-side .social-icons a {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #2c2c2c;
+    text-decoration: none;
+  }
+
+  .btn-submit {
+    background-color: #725111;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 9;
+  }
+
+  .btn-submit:hover {
+    background-color: #725111;
+  }

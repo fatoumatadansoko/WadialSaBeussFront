@@ -6,6 +6,9 @@ import { FooterComponent } from './Composants/Commun/footer/footer.component';
 import { AcceuilComponent } from './Composants/Visiteur/acceuil/acceuil.component';
 import { SidebarComponent } from './Composants/Commun/sidebar/sidebar.component';
 import { CategorieEvenementComponent } from './Composants/Visiteur/categorie-evenement/categorie-evenement.component';
+import { PlanEventComponent } from './Composants/Visiteur/plan-event/plan-event.component';
+import { PrestatairesComponent } from './Composants/Visiteur/prestataires/prestataires.component';
+import { DetailPrestataireComponent } from './Composants/Visiteur/detail-prestataire/detail-prestataire.component';
 
 
 export const routes: Routes = [
@@ -22,5 +25,8 @@ export const routes: Routes = [
    { path: 'footer', component: FooterComponent},
    { path: 'acceuil', component: AcceuilComponent},
    { path: 'sidebar', component: SidebarComponent},
-   { path: 'categorie-evenement', component: CategorieEvenementComponent}
+   { path: 'categorie-evenement', component: CategorieEvenementComponent},
+   { path: 'planevent', component:  PlanEventComponent},
+   { path: 'prestataire', component: PrestatairesComponent},
+   { path: 'detailprestataire', component: DetailPrestataireComponent},
 ]

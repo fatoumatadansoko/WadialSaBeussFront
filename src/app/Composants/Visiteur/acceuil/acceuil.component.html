@@ -10,7 +10,9 @@
         <p class="lead mt-4">
           Avec Flowvence, organisez vos événements personnels de manière simple, élégante et sur mesure. Que ce soit pour un anniversaire, un mariage ou un baptême, notre plateforme vous guide à chaque étape, du budget à la décoration, pour créer des moments inoubliables qui vous ressemblent.
         </p>
-        <a href="#" class="btn btn-warning mt-4">Planifier</a>
+        <li><a class="nav-link" routerLink="/Acceuil" routerLinkActive="active">Accueil</a></li>
+
+        <a class="btn btn-warning mt-4 nav-link" [routerLink]="['/planevent']" routerLinkActive="active" >Planifier</a>
       </div>
       <div class="col-lg-6 text-center">
         <img src="../../../../assets/images/banneri.png" alt="Évènement" class="img-fluid rounded"/>

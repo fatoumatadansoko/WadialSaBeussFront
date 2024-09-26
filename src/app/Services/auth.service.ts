@@ -42,6 +42,20 @@ export class AuthService {
         }
       })
     );
+    // Methode pour avoir le profil utilisateur 
+  //   getProfile(){
+  //     return this.http.get(`${apiurl}/profile`);
+  // }
+
+  // // Methode pour rafraichir le token
+  // refreshToken(){
+  //     return this.http.get(`${apiurl}/refresh`);
+  // }
+
+  // // Methode pour se deconnecter 
+  // logout(){
+  //     return this.http.get(`${apiurl}/logout`);
+  // }
   }
 
 

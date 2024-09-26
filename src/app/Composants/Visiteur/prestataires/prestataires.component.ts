@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, Injectable } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
 import { NgFor } from '@angular/common';
@@ -7,31 +7,36 @@ import { response } from 'express';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-prestataires',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgFor],
+  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule],
   templateUrl: './prestataires.component.html',
   styleUrl: './prestataires.component.scss'
 })
 
   export class PrestatairesComponent implements OnInit {
-    categoriesprestataires: any[] = [];
-  
+    //Injection des dépendances
+    private CategorieprestataireService = inject(CategorieprestataireService);    
     constructor(private http: HttpClient) { }
-  
+    
+    // Déclaration des variables
+    categoriesprestataires: CategoriePrestataireModel[] = [];
+//Déclaration des methodes
     ngOnInit(): void {
-      this.getCategoriesPrestataires().subscribe(
-        (response: any) => {
-          this.categoriesprestataires = response;
-          console.log(this.categoriesprestataires);
-        },
-        (error) => {
-          console.error('Erreur lors du chargement des catégories:', error);
-        }
-      );
+      this.fetchCategorieprestataires();
     }
+     //récupération de tous les categories des prestataires
+          fetchCategorieprestataires(): void {
+            this.CategorieprestataireService.getAllCategorieprestataire().subscribe(
+              (response: any) => {
+                console.log(response.data);
+                this.categoriesprestataires = response.data.reverse();
+              }
+            )
+          }
   
     // Cette méthode retourne un Observable, pas une Subscription
     getCategoriesPrestataires(): Observable<any> {

@@ -5,12 +5,19 @@ import { HeaderComponent } from './Composants/Commun/header/header.component';
 import { FooterComponent } from './Composants/Commun/footer/footer.component';
 import { AcceuilComponent } from './Composants/Visiteur/acceuil/acceuil.component';
 import { SidebarComponent } from './Composants/Commun/sidebar/sidebar.component';
+import { CategorieEvenementComponent } from './Composants/Visiteur/categorie-evenement/categorie-evenement.component';
+import { PlanEventComponent } from './Composants/Visiteur/plan-event/plan-event.component';
+import { PrestatairesComponent } from './Composants/Visiteur/prestataires/prestataires.component';
+import { DetailPrestataireComponent } from './Composants/Visiteur/detail-prestataire/detail-prestataire.component';
+import { DashbordAdminComponent } from './Composants/Admin/dashbord-admin/dashbord-admin.component';
+import { DashboardPrestataireComponent } from './Composants/Prestataire/dashboard-prestataire/dashboard-prestataire.component';
+
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'Acceuil', pathMatch: 'full' },
+    { path: '', redirectTo: 'acceuil', pathMatch: 'full' },
     
-
-    // Routes pour l'authentification
+     
+  // Routes pour l'authentification
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
@@ -19,5 +26,15 @@ export const routes: Routes = [
    { path: 'header', component: HeaderComponent },
    { path: 'footer', component: FooterComponent},
    { path: 'acceuil', component: AcceuilComponent},
-   { path: 'sidebar', component: SidebarComponent}
+   { path: 'sidebar', component: SidebarComponent},
+   { path: 'categorie-evenement', component: CategorieEvenementComponent},
+   { path: 'planevent', component:  PlanEventComponent},
+   { path: 'prestataire', component: PrestatairesComponent},
+   { path: 'detailprestataire', component: DetailPrestataireComponent},
+   { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
+
+
+
+    // Routes pour l'admin
+    { path: 'dashboard-admin', component: DashbordAdminComponent}
 ]

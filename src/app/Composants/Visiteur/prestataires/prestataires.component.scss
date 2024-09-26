@@ -1,0 +1,62 @@
+#categorieCarousel {
+  padding-top: 50px;
+  position: relative;
+
+}
+.categorie-item {
+  text-align: center;
+}
+
+.categorie-item img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.categorie-item h5 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.carousel {
+  position: relative;
+}
+
+/* Position du formulaire de filtrage */
+
+.filter-form {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fond translucide */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form h5 {
+  margin-bottom: 15px;
+}
+
+.filter-form input {
+  margin-bottom: 10px;
+}
+.card {
+  height: 100%;
+  max-width: 300px; /* Taille fixe pour les cartes */
+  margin: auto;
+}
+
+.card img {
+  height: 200px; /* Taille fixe pour les images */
+  object-fit: cover; /* Assurer que l'image s'adapte à l'espace */
+}
+.categorie-item img {
+  width: 80px; /* Fixer la taille des icônes */
+  height: 80px;
+  object-fit: contain; /* Adapter l'image tout en gardant le ratio */
+  margin-bottom: 10px;
+}

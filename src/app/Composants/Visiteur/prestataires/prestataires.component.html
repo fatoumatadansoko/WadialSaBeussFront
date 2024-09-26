@@ -10,35 +10,35 @@
   <div id="categorieCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <div class="row text-center">
+        <div class="row text-center" *ngFor="let categorieprestataire of categoriesprestataires">
           <div class="col-md-2 categorie-item">
             <a href="/cuisinier">
-              <img src="../../../../assets/images/categorie1.png" alt="Cuisinier">
-              <h5>Cuisinier</h5>
+              <img src="../../../../assets/images/categorie1.png" alt="">
+              <h5>{{categorieprestataire.titre}}</h5>
             </a>
           </div>
-          <div class="col-md-2 categorie-item">
-            <a href="/decorateur">
-              <img src="../../../../assets/images/cate2.png" alt="Décorateur">
-              <h5>Décorateur</h5>
-            </a>
-          </div>
+              <div class="col-md-2 categorie-item">
+                <a href="/cuisinier">
+                  <img src="../../../../assets/images/categorie1.png" alt="">
+                  <h5>{{categorieprestataire.titre}}</h5>
+                </a>
+              </div>
           <div class="col-md-2 categorie-item">
             <a href="/animateur">
               <img src="../../../../assets/images/cate3.png" alt="Animateur">
-              <h5>Animateur</h5>
+              <h5>{{categorieprestataire.titre}}</h5>
             </a>
           </div>
           <div class="col-md-2 categorie-item">
             <a href="/couture">
               <img src="../../../../assets/images/cate4.png" alt="Couture">
-              <h5>Couture</h5>
+              <h5>{{categorieprestataire.titre}}</h5>
             </a>
           </div>
           <div class="col-md-2 categorie-item">
             <a href="/photographe">
               <img src="../../../../assets/images/cate4.png" alt="Photographe">
-              <h5>Photographe</h5>
+              <h5>{{categorieprestataire.titre}}</h5>
             </a>
           </div>
         </div>

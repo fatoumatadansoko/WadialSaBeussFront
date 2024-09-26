@@ -9,6 +9,8 @@ import { CategorieEvenementComponent } from './Composants/Visiteur/categorie-eve
 import { PlanEventComponent } from './Composants/Visiteur/plan-event/plan-event.component';
 import { PrestatairesComponent } from './Composants/Visiteur/prestataires/prestataires.component';
 import { DetailPrestataireComponent } from './Composants/Visiteur/detail-prestataire/detail-prestataire.component';
+import { DashbordAdminComponent } from './Composants/Admin/dashbord-admin/dashbord-admin.component';
+import { DashboardPrestataireComponent } from './Composants/Prestataire/dashboard-prestataire/dashboard-prestataire.component';
 
 
 export const routes: Routes = [
@@ -29,4 +31,10 @@ export const routes: Routes = [
    { path: 'planevent', component:  PlanEventComponent},
    { path: 'prestataire', component: PrestatairesComponent},
    { path: 'detailprestataire', component: DetailPrestataireComponent},
+   { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
+
+
+
+    // Routes pour l'admin
+    { path: 'dashboard-admin', component: DashbordAdminComponent}
 ]

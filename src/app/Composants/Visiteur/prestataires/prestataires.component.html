@@ -11,9 +11,9 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="row text-center">
-          <div class="col-md-2 categorie-item">
+          <div class="col-md-2 categorie-item" *ngForm=" categorieprestataire of categorieprestataires">
             <a href="/cuisinier">
-              <img src="../../../../assets/images/categorie1.png" alt="Cuisinier">
+              <img [src]="getImagePath(categorieprestataire.titre ?? '')" alt="categirie.titre ?? 'Default Alt Text'">
               <h5>Cuisinier</h5>
             </a>
           </div>

@@ -5,6 +5,8 @@ import { NgFor } from '@angular/common';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
 import { response } from 'express';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-prestataires',
@@ -13,32 +15,29 @@ import { CategorieprestataireService } from '../../../Services/categorieprestata
   templateUrl: './prestataires.component.html',
   styleUrl: './prestataires.component.scss'
 })
-export class PrestatairesComponent  implements OnInit {
 
-  private categorieprestaireService = inject (CategorieprestataireService);
-
-  categorieprestataires:CategoriePrestataireModel[] =[];
-  categorieprestataire: any;
+  export class PrestatairesComponent implements OnInit {
+    categoriesprestataires: any[] = [];
   
-
-  ngOnInit(): void {
-    this.categorieprestaireService.getCategoriesPrestataires()
-      .subscribe((response: { data: CategoriePrestataireModel[] }) => {
-        this.getCategoriesPrestataires(response.data);
-      });
+    constructor(private http: HttpClient) { }
   
-}
-
-  getCategoriesPrestataires(data: CategoriePrestataireModel[]) {
-    this.categorieprestataires = data;
+    ngOnInit(): void {
+      this.getCategoriesPrestataires().subscribe(
+        (response: any) => {
+          this.categoriesprestataires = response;
+          console.log(this.categoriesprestataires);
+        },
+        (error) => {
+          console.error('Erreur lors du chargement des catégories:', error);
+        }
+      );
+    }
+  
+    // Cette méthode retourne un Observable, pas une Subscription
+    getCategoriesPrestataires(): Observable<any> {
+      const token = localStorage.getItem('auth_token');
+      const headers = { 'Authorization': `Bearer ${token}` };
+  
+      return this.http.get('http://127.0.0.1:8000/api/categoriesprestataires', { headers });
+    }
   }
-
-  getImagePath(titre: string): string {
-     const imagePaths: { [key:string]: string } = {
-      'categorieprestataire': '../../../assets/images/cat1.png',
-      'categorieprestataire2': '../../../../../assets/images/cat2.png',
-      'categorieprestataire3': '../../../../../assets/images/cat3.png',
-     };
-     return '../../../../../assets/images/default.png'
-}
-}

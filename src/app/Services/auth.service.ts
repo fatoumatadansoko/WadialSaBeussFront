@@ -31,23 +31,19 @@ export class AuthService {
   }
   
   // Méthodes pour l'authentification
-//   login(identifiant: any): Observable<any> {
-//     console.log("login");
-//     return this.http.post(`${apiurl}/login`, identifiant).pipe(
-//       tap((response: any) => {
-//         if (response.access_token) {
-//           localStorage.setItem('access_token', response.access_token);
-//           localStorage.setItem('user', JSON.stringify(response.user));
-//           this.setLoggedIn(true);
-//         }
-//       })
-//     );
-//   }
-//Login
-login(identifienrts:any){
-    return this.http.post(`${apiurl}/login`,identifienrts)
+  login(identifiant: any): Observable<any> {
+    console.log("login");
+    return this.http.post(`${apiurl}/login`, identifiant).pipe(
+      tap((response: any) => {
+        if (response.access_token) {
+          localStorage.setItem('access_token', response.access_token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          this.setLoggedIn(true);
+        }
+      })
+    );
   }
-  
+
 
   
   

@@ -105,7 +105,7 @@ constructor(
     this.authService.register(formData).subscribe(
       response => {
         console.log('Registration successful', response);
-        this.router.navigate(['/acceuil']);
+        this.router.navigate(['/login']);
       },
       error => {
         console.error('Registration failed', error);

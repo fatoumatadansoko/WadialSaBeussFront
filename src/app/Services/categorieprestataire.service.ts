@@ -9,19 +9,28 @@ import { apiurl } from './ApiUrl';
     providedIn: 'root'
 })
 export class CategorieprestataireService {
-    constructor(private http: HttpClient) {}
-    getCategoriesPrestataires():Observable<{data:CategoriePrestataireModel[]}> {
-        return this.http.get<{ data: CategoriePrestataireModel[] }>(`${apiurl}categoriesprestataires`);
-        }
+    cateoriesprestataires: any[]=[];
+    categoriesprestataires: any;
 
+    constructor(private http: HttpClient) {}
+ngOnit(): void {
+    this.getCategoriesprestataires();
+}
 
     // Méthodes pour lister les categories
-    getCategoriesEvenements(): Observable<{ message: string, data: CategoriePrestataireModel[] }> {
-        return this.http.get<{ message: string, data: CategoriePrestataireModel[] }>(`${apiurl}categories`);
-    }
+    getCategoriesprestataires(){
+        const token = localStorage.getItem('auth_token'); // Récupérer le token
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    // Methode pour afficher les details d'une categorie
-    getCategorie(id: number): Observable<any> {
-        return this.http.get(`${apiurl}categories/${id}`);
-    }
-}
+    this.http.get('http://127.0.0.1:8000/api/categoriesprestataires', { headers })
+      .subscribe(
+        (response: any) => {
+          this.categoriesprestataires = response;
+          console.log(this.categoriesprestataires);
+        },
+        (error) => {
+          console.error('Erreur lors du chargement des catégories:', error);
+        }
+      );
+
+    }}

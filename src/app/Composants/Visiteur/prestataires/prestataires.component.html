@@ -1,7 +1,4 @@
-
-
 <app-header></app-header>
-
 <div class="container mt-5">
   <!-- Titre Catégorie -->
   <h2 class="text-center mb-4">Catégorie</h2>
@@ -10,35 +7,12 @@
   <div id="categorieCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <div class="row text-center" *ngFor="let categorieprestataire of categoriesprestataires">
-          <div class="col-md-2 categorie-item">
+        <div class="row text-center">
+          <!-- Correction de la boucle pour itérer correctement -->
+          <div class="col-md-2 categorie-item" *ngFor="let categorieprestataire of categoriesprestataires">
             <a href="/cuisinier">
               <img src="../../../../assets/images/categorie1.png" alt="">
-              <h5>{{categorieprestataire.titre}}</h5>
-            </a>
-          </div>
-              <div class="col-md-2 categorie-item">
-                <a href="/cuisinier">
-                  <img src="../../../../assets/images/categorie1.png" alt="">
-                  <h5>{{categorieprestataire.titre}}</h5>
-                </a>
-              </div>
-          <div class="col-md-2 categorie-item">
-            <a href="/animateur">
-              <img src="../../../../assets/images/cate3.png" alt="Animateur">
-              <h5>{{categorieprestataire.titre}}</h5>
-            </a>
-          </div>
-          <div class="col-md-2 categorie-item">
-            <a href="/couture">
-              <img src="../../../../assets/images/cate4.png" alt="Couture">
-              <h5>{{categorieprestataire.titre}}</h5>
-            </a>
-          </div>
-          <div class="col-md-2 categorie-item">
-            <a href="/photographe">
-              <img src="../../../../assets/images/cate4.png" alt="Photographe">
-              <h5>{{categorieprestataire.titre}}</h5>
+              <h5>{{categorieprestataire.titre}}</h5> <!-- Accès correct à la propriété titre -->
             </a>
           </div>
         </div>
@@ -66,69 +40,21 @@
 
 <div class="container my-5 mt-6 mb-6">
   <div class="text-center">
-    <h2 class="fw-bold">Nos prestataires </h2>
+    <h2 class="fw-bold">Nos prestataires</h2>
   </div>
-
+  
   <div class="row">
-    <div class="col-md-4">
-      <a href="/detailprestataire/1" class="card border-0 text-decoration-none">
+    <div class="col-md-4" *ngFor="let categorieprestataire of categoriesprestataires">
+      <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
+      <a [routerLink]="['/detailprestataire', categorieprestataire.id]" class="card border-0 text-decoration-none">
         <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
         <div class="card-body">
           <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
+          <h5 class="card-title text-warning fw-bold text-left">{{categorieprestataire.titre}}</h5>
         </div>
       </a>
     </div>
-
-    <div class="col-md-4">
-      <a href="/detailprestataire/1" class="card border-0 text-decoration-none">
-        <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
-        <div class="card-body">
-          <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="/detailprestataire/1" class="card border-0 text-decoration-none">
-        <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
-        <div class="card-body">
-          <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="/detailprestataire/1" class="card border-0 text-decoration-none">
-        <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
-        <div class="card-body">
-          <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="/detailprestataire/1" class="card border-0 text-decoration-none">
-        <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
-        <div class="card-body">
-          <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="/detailprestataire/2" class="card border-0 text-decoration-none">
-        <img src="../../../../assets/images/image1.png" class="card-img-top rounded" alt="Couture">
-        <div class="card-body">
-          <p class="card-text text-left">Sublimez votre événement avec des tenues sur mesure.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Couture</h5>
-        </div>
-      </a>
-      <button class="btn btn-primary float-end">Voir Plus</button> <!-- Bouton ajouté en bas à droite -->
-    </div>
-
-    <!-- Autres cartes ici -->
   </div>
+  
 </div>
-
 <app-footer></app-footer>

@@ -11,6 +11,7 @@ import { PrestatairesComponent } from './Composants/Visiteur/prestataires/presta
 import { DetailPrestataireComponent } from './Composants/Visiteur/detail-prestataire/detail-prestataire.component';
 import { DashbordAdminComponent } from './Composants/Admin/dashbord-admin/dashbord-admin.component';
 import { DashboardPrestataireComponent } from './Composants/Prestataire/dashboard-prestataire/dashboard-prestataire.component';
+import { CarteInvitationComponent } from './Composants/Visiteur/carte-invitation/carte-invitation.component';
 
 
 export const routes: Routes = [
@@ -30,8 +31,9 @@ export const routes: Routes = [
    { path: 'categorie-evenement', component: CategorieEvenementComponent},
    { path: 'planevent', component:  PlanEventComponent},
    { path: 'prestataire', component: PrestatairesComponent},
-   { path: 'detailprestataire', component: DetailPrestataireComponent},
+   { path: 'detailprestataire/:id', component: DetailPrestataireComponent},
    { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
+   { path: 'carteinvitation', component: CarteInvitationComponent},
 
 
 

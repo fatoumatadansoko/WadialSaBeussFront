@@ -32,6 +32,7 @@ constructor(
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       nom: ['', [Validators.required, Validators.maxLength(255)]],
+      description: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', [Validators.required]],
@@ -40,20 +41,21 @@ constructor(
       telephone: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(9)]],
       role: ['', [Validators.required]],
       ninea: ['', [Validators.required, Validators.maxLength(50)]],
-      categorie_prestataire_id: ['', [Validators.required]]
+      categorie_prestataire_id: ['', [Validators.required]],
+      status: ['', [Validators.required]],
     }, { validators: this.checkPasswords });
 
-    // Récupération des catégories (exemple commenté)
-    // this.authService.getCategoriePrestataires().subscribe(
-    //   (response: any) => {
-    //     this.categoriePrestataires = response;
-    //   },
-    //   (error: any) => {
-    //     console.error('Error:', error);
-    //   }
-    // );
+    // Récupération des catégories
+  //    this.authService.getCategoriePrestataires().subscribe(
+  //     (response: any) => {
+  //        this.categoriePrestataires = response;
+  //      },
+  //      (error: any) => {
+  //       console.error('Error:', error);
+  //      }
+  //    );
+  // }
   }
-
   // Vérification si les mots de passe correspondent
   checkPasswords(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -91,12 +93,12 @@ constructor(
 
     const formData = new FormData();
     formData.append('nom', this.registerForm.get('nom')!.value);
-    // formData.append('disponibilite', this.registerForm.get('Disponibilite')!.value);
-    // formData.append('status', this.registerForm.get('status')!.value);
+     formData.append('status', this.registerForm.get('status')!.value);
     formData.append('email', this.registerForm.get('email')!.value);
     formData.append('password', this.registerForm.get('password')!.value);
     formData.append('logo', this.selectedFile!);
     formData.append('adresse', this.registerForm.get('adresse')!.value);
+    formData.append('description', this.registerForm.get('description')!.value);
     formData.append('telephone', this.registerForm.get('telephone')!.value);
     formData.append('ninea', this.registerForm.get('ninea')!.value);
     formData.append('categorie_prestataire_id', this.registerForm.get('categorie_prestataire_id')!.value);

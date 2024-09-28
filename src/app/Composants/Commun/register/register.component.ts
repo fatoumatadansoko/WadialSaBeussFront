@@ -41,21 +41,33 @@ constructor(
       telephone: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(9)]],
       role: ['', [Validators.required]],
       ninea: ['', [Validators.required, Validators.maxLength(50)]],
-      categorie_prestataire_id: ['', [Validators.required]],
+      // Ces champs ne sont requis que pour les prestataires
+      categorie_prestataire_id: [''],
       status: ['', [Validators.required]],
     }, { validators: this.checkPasswords });
 
-    // Récupération des catégories
-  //    this.authService.getCategoriePrestataires().subscribe(
-  //     (response: any) => {
-  //        this.categoriePrestataires = response;
-  //      },
-  //      (error: any) => {
-  //       console.error('Error:', error);
-  //      }
-  //    );
-  // }
+    // Appel pour gérer les changements de rôle
+    this.onRoleChange();
   }
+
+  // Gestion des validations en fonction du rôle sélectionné
+  onRoleChange() {
+    this.registerForm.get('role')?.valueChanges.subscribe((selectedRole) => {
+      const categorieControl = this.registerForm.get('categorie_prestataire_id');
+      
+      if (selectedRole === 'prestataire') {
+        // Ajouter les validateurs pour les prestataires
+        categorieControl?.setValidators([Validators.required]);
+      } else {
+        // Supprimer les validateurs si le rôle est client
+        categorieControl?.clearValidators();
+      }
+      
+      categorieControl?.updateValueAndValidity();
+    });
+  }
+  
+
   // Vérification si les mots de passe correspondent
   checkPasswords(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -93,7 +105,7 @@ constructor(
 
     const formData = new FormData();
     formData.append('nom', this.registerForm.get('nom')!.value);
-     formData.append('status', this.registerForm.get('status')!.value);
+    formData.append('status', this.registerForm.get('status')!.value);
     formData.append('email', this.registerForm.get('email')!.value);
     formData.append('password', this.registerForm.get('password')!.value);
     formData.append('logo', this.selectedFile!);

@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.sidebar-title {
+    color: #b46c20;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.nav-link {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.nav-link.active {
+    color: #b46c20;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.input-group .form-control {
+    border-radius: 0;
+    border: 2px solid #fff;
+}
+
+.btn-search {
+    background-color: #b46c20;
+    color: white;
+}
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.table thead {
+    background-color: #333;
+    color: white;
+}
+
+.role-badge {
+    background-color: #b46c20;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.btn-action {
+    background-color: #b46c20;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.btn-action:hover {
+    background-color: #9a561a;
+}
+.pagination .page-link {
+    color: #b46c20;
+}
+
+.pagination .page-link:hover {
+    background-color: #9a561a;
+    color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #b46c20;
+    border-color: #b46c20;
+}

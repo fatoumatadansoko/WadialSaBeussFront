@@ -9,13 +9,19 @@ import { UserModel } from '../Models/users.model';
     providedIn: 'root'
 })
 export class UserService {
+  private apiUrl = 'http://127.0.0.1:8000/api/users'; // Remplacez par l'URL de votre API
+
     private http = inject(HttpClient);
 
  // Methode pour recuperer toutes les users 
- getAllUser(){
-    return this.http.get(`${apiurl}/users`);
-}
 
+  constructor(private htttp: HttpClient) {}
+
+  getAllUsers(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(this.apiUrl, { headers });
+  }
     // Afficher les details d'un seul user
     getUser(id: number): Observable<any> {
          const token = localStorage.getItem('access_token');

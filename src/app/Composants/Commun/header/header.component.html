@@ -15,7 +15,25 @@
                         <a href="#" class="nav-item nav-link" [routerLink]="['/carte-invitation']" routerLinkActive="router-link-active" >Carte d'invitation</a>
                         <a href="#" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="#" class="btn btn-primary  py-2 px-4 my-3 my-lg-0 flex-shrink-0">Connexion</a>
+                    <a class="btn btn-primary  py-2 px-4 my-3 my-lg-0 flex-shrink-0 nav-link" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
+
+                    <!-- <button *ngIf="!isLoggedIn" class="connexion-btn" routerLink="/login">Connexion</button>
+                    <div *ngIf="isLoggedIn" class="user-menu">
+                      <div class="button profile">
+                          <a (click)="logout()">
+                            <span>Déconnexion</span> -->
+                            <!-- <img src="https alt="Logout Icon" width="24" height="24" style="color: #00214A;"/> -->
+                           
+                          <!-- </a>
+                        </div>
+                      <div class="button logout">
+                          <a routerLink="/profil-entrepreneur">
+                            <img src="https://assets.codepen.io/9277864/account.svg" alt="Profile Icon" width="24" height="24" style="color: #00214A;" />
+                            <span>Profil</span>
+                          </a>
+                        </div>
+                    </div> -->
+
                 </div>
             </nav>
 

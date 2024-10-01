@@ -8,14 +8,14 @@ import { apiurl } from './ApiUrl';
 @Injectable({
     providedIn: 'root'
 })
-export class CategorieprestataireService {
+export class CategorieService {
   private http = inject(HttpClient);
 
 
 
   //methodes pour récupérer toutes les categories
-  getAllCategorieprestataire() {
-    return this.http.get(`${apiurl}/categoriesprestataires`);
+  getAllCategorie() {
+    return this.http.get(`${apiurl}/categories`);
     
     // Méthodes pour lister les categories
   }}

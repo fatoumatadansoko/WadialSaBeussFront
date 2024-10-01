@@ -76,6 +76,23 @@
         </div>
 
         <div class="mb-3">
+          <label for="description" class="form-label">description</label>
+          <input
+            id="description"
+            formControlName="description"
+            type="text"
+            class="form-control"
+            placeholder="description"
+          />
+          <div
+            *ngIf="registerForm.get('description')?.invalid && registerForm.get('description')?.touched"
+            class="text-warning"
+          >
+            La'description est obligatoire et doit contenir moins de 255 caractères.
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label for="ninea" class="form-label">Ninea</label>
           <input
             id="ninea"
@@ -125,40 +142,24 @@
           </div>
         </div>
 
-        <div class="mb-3">
-          <label for="password" class="form-label">Mot de passe</label>
-          <input
-            id="password"
-            formControlName="password"
-            type="password"
-            class="form-control"
-            placeholder="Mot de passe"
-          />
-          <div
-            *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-            class="text-warning"
-          >
-            Le mot de passe est obligatoire et doit comporter au moins 8 caractères.
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" formControlName="password" class="form-control">
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            <small *ngIf="registerForm.get('password')?.errors?.['required']" class="text-danger">Le mot de passe est requis.</small>
+            <small *ngIf="registerForm.get('password')?.errors?.['minlength']" class="text-danger">Le mot de passe doit comporter au moins 8 caractères.</small>
           </div>
         </div>
-
-        <div class="mb-3">
-          <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
-          <input
-            id="password_confirmation"
-            formControlName="password_confirmation"
-            type="password"
-            class="form-control"
-            placeholder="Confirmez le mot de passe"
-          />
-          <div
-            *ngIf="registerForm.get('password_confirmation')?.invalid && registerForm.get('password_confirmation')?.touched"
-            class="text-warning"
-          >
-            La confirmation du mot de passe est obligatoire et doit correspondre.
+      
+        <div class="form-group">
+          <label for="password_confirmation">Confirmation du mot de passe</label>
+          <input type="password" id="password_confirmation" formControlName="password_confirmation" class="form-control">
+          <div *ngIf="registerForm.errors?.['notSame'] && registerForm.get('password_confirmation')?.touched">
+            <small class="text-danger">Les mots de passe ne correspondent pas.</small>
           </div>
         </div>
-        <!-- <div class="mb-3">
+      
+         <div class="mb-3">
           <label for="status" class="form-label">Statut</label>
           <select id="status" formControlName="status" class="form-control" required>
             <option value="" disabled selected>Choisir un statut</option>
@@ -171,13 +172,13 @@
           >
             Le statut est requis.
           </div>
-        </div> -->
-        <div class="mb-3" *ngIf="role === 'prestataire'">
+        </div> 
+       <div class="mb-3" *ngIf="role === 'prestataire'">
           <label for="disponibilite" class="form-label">Disponibilité</label>
           <select type="text" id="disponibilite" formControlName="disponibilite" class="form-control" required>
             <option value="" disabled selected>Choisir une disponibilité</option>
             <option value="Disponible">Disponible</option>
-            <!-- <option value="après-midi">Après-midi</option> -->
+             <option value="après-midi">Après-midi</option> -->
           </select>
           <div
             *ngIf="registerForm.get('disponibilite')?.invalid && registerForm.get('disponibilite')?.touched"

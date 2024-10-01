@@ -20,6 +20,10 @@ import { UserService } from '../../../Services/users.service';
 })
 export class DetailPrestataireComponent implements OnInit {
   prestataire: UserModel | null = null; // Pour stocker le prestataire sélectionné
+  baseUrl: string = environment.apiurl;
+  photoUrl: string = '';
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -36,11 +40,16 @@ export class DetailPrestataireComponent implements OnInit {
       this.userService.getUser(+id).subscribe(
         (response: UserModel) => {
           this.prestataire = response; // Assigner la réponse au prestataire
+          this.photoUrl = `${this.baseUrl}${this.prestataire.logo}`;
+
         },
         (error) => {
           console.error('Erreur lors de la récupération des détails du prestataire:', error);
         }
       );
     }
+  }
+  getPhotoUrl(photoPath: string): string {
+    return `${this.baseUrl}${photoPath}`;
   }
 }

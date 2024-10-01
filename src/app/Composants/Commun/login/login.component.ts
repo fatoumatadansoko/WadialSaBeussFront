@@ -39,12 +39,12 @@ export class LoginComponent {
             console.log('Token enregistré:', localStorage.getItem('token'));
   
             // Gestion des rôles et redirection
-            if (response.user.roles) {
-              if (response.user.roles.some((role: Role) => role.name === 'admin')) {
+            if (response.user.role) {
+              if (response.user.role === 'admin') {
                 this.router.navigateByUrl('dashboard-admin');
-              } else if (response.user.roles.some((role: Role) => role.name === 'prestataire')) {
+              } else if (response.user.role === 'prestataire') {
                 this.router.navigateByUrl('dashboard-prestataire');
-              } else if (response.user.roles.some((role: Role) => role.name === 'client')) {
+              } else if (response.user.role === 'client') {
                 this.router.navigate(['acceuil']);
               } else {
                 this.router.navigateByUrl('');

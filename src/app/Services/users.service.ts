@@ -18,26 +18,32 @@ export class UserService {
 
   constructor(private htttp: HttpClient) {}
 
-  getAllUsers(): Observable<any> {
-    const token = localStorage.getItem('auth_token');
+  getAllUser(): Observable<any> {
+    const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.get(this.apiUrl, { headers });
   }
     // Afficher les details d'un seul user
     getUser(id: number): Observable<any> {
-         const token = localStorage.getItem('access_token');
-        
-         if (!token) {
-             console.error('No authentication token found');
-            return throwError('No authentication token found');
-         }
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        return throwError('No authentication token found');
+      }
     
-        const headers = new HttpHeaders({
-             'Authorization': `Bearer ${token}`
-        });
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
     
-         return this.http.get<any>(`${apiurl}users/${id}`, { headers });
-     }
+      return this.http.get<any>(`${apiurl}users/${id}`, { headers }).pipe(
+        catchError((error) => {
+          console.error('Failed to fetch user details:', error);
+          return throwError(error);
+        })
+      );
+    }
+    
 
    // Méthode pour inscrire un utilisateur (prestataire ou client)
   register(user: any): Observable<any> {

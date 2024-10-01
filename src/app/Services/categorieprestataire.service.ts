@@ -15,7 +15,9 @@ export class CategorieprestataireService {
 
   //methodes pour récupérer toutes les categories
   getAllCategorieprestataire() {
-    return this.http.get(`${apiurl}/categoriesprestataires`);
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${apiurl}/categoriesprestataires`, { headers });
     
     // Méthodes pour lister les categories
   }}

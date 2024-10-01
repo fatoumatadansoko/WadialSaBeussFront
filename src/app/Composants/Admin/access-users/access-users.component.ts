@@ -31,7 +31,7 @@ export class AccessUsersComponent {
 
    //récupération de tous les users
    fetchUsers(): void {
-    this.UserService.getAllUsers().subscribe(
+    this.UserService.getAllUser().subscribe(
       (response: any) => {
         console.log('Réponse complète:', response); // Vérifiez ici la structure
         if (response && Array.isArray(response)) {

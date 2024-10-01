@@ -13,8 +13,7 @@ export class CommentaireService {
 
 
   //methodes pour récupérer toutes les commentaires
-  getAllCommentaieres() {
-    return this.http.get(`${apiurl}/commentaites`);
-    
-    // Méthodes pour lister les cartes
-  }}
+  getAllCommentaires(): Observable<any> {
+    return this.http.get(`${apiurl}/commentaires`);
+  }
+}  

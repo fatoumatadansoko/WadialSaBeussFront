@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     NgFor,RouterModule,NgIf, FormsModule
      ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']  // Correction ici
 })
 export class LoginComponent {
   private authService = inject(AuthService);
@@ -31,13 +31,13 @@ export class LoginComponent {
       this.authService.login(this.userObject).subscribe(
         (response: any) => {
           console.log(response);
-          console.log(response.access_token);
-          console.log(response.user);
-
-          if (response.user) {
-            localStorage.setItem('access_token', response.access_token);
+          if (response.user && response.token) {
+            localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response.user));
-
+  
+            // Vérification du stockage du token
+            console.log('Token enregistré:', localStorage.getItem('token'));
+  
             // Gestion des rôles et redirection
             if (response.user.roles) {
               if (response.user.roles.some((role: Role) => role.name === 'admin')) {
@@ -50,13 +50,18 @@ export class LoginComponent {
                 this.router.navigateByUrl('');
               }
             }
+          }else
+          {
+            console.error(' token non enregistré');
+
           }
+          
         },
-        (error: any) => {  // Ajout du type explicite pour 'error'
+        (error: any) => {
           console.error('Erreur lors de la connexion :', error);
           this.loginError = true;
         }
       );
     }
   }
-}
+}  

@@ -1,74 +1,92 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="nom">Nom</label>
-    <input id="nom" formControlName="nom" type="text">
-  </div>
-
-  <div>
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" type="email">
-  </div>
-
-  <div>
-    <label for="password">Mot de passe</label>
-    <input id="password" formControlName="password" type="password">
-  </div>
-
-  <div>
-    <label for="password_confirmation">Confirmation du mot de passe</label>
-    <input id="password_confirmation" formControlName="password_confirmation" type="password">
-  </div>
-
-  <div *ngIf="isClient">
-    <!-- Champs spécifiques aux clients -->
-    <div>
-      <label for="description">Description</label>
-      <textarea id="description" formControlName="description"></textarea>
+<div class="container mt-5">
+  <h1 class="text-primary">Inscription</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="nom">Nom</label>
+          <input id="nom" formControlName="nom" type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" type="email" class="form-control">
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div *ngIf="isPrestataire">
-    <!-- Champs spécifiques aux prestataires -->
-    <div>
-      <label for="description">Description</label>
-      <textarea id="description" formControlName="description"></textarea>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="adresse">Adresse</label>
+          <input id="adresse" formControlName="adresse" type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="telephone">Téléphone</label>
+          <input id="telephone" formControlName="telephone" type="text" class="form-control">
+        </div>
+      </div>
     </div>
-    <div>
-      <label for="logo">logo</label>
-      <input id="logo" formControlName="logo" type="file">
-    </div>
-    <div>
-      <label for="ninea">NINEA</label>
-      <input id="ninea" formControlName="ninea" type="text">
-    </div>
-    <div>
-      <label for="categorie_prestataire_id">categorie_prestataire_id</label>
-      <input id="categorie_prestataire_id" formControlName="categorie_prestataire_id" type="text">
-    </div>
-  </div>
 
-  <div>
-    <label for="adresse">Adresse</label>
-    <input id="adresse" formControlName="adresse" type="text">
-  </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="statut">Statut</label>
+          <input id="statut" formControlName="statut" type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="role">Rôle</label>
+          <select id="role" formControlName="role" class="form-control" (change)="onRoleChange()">
+            <option value="client">Client</option>
+            <option value="prestataire">Prestataire</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-  <div>
-    <label for="telephone">Téléphone</label>
-    <input id="telephone" formControlName="telephone" type="text">
-  </div>
-  <div>
-    <label for="statut">statut</label>
-    <input id="statut" formControlName="statut" type="text">
-  </div>
- 
-  
-  <div>
-    <label for="role">Rôle</label>
-    <select id="role" formControlName="role" (change)="onRoleChange()">
-      <option value="client">Client</option>
-      <option value="prestataire">Prestataire</option>
-    </select>
-  </div>
+    <div *ngIf="isClient">
+      <!-- Champs spécifiques aux clients -->
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+    </div>
 
-  <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
-</form>
+    <div *ngIf="isPrestataire">
+      <!-- Champs spécifiques aux prestataires -->
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="logo">Logo</label>
+        <input id="logo" formControlName="logo" type="file" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="ninea">NINEA</label>
+        <input id="ninea" formControlName="ninea" type="text" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="categorie_prestataire_id">Catégorie Prestataire</label>
+        <input id="categorie_prestataire_id" formControlName="categorie_prestataire_id" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label for="password_confirmation">Confirmation du mot de passe</label>
+      <input id="password_confirmation" formControlName="password_confirmation" type="password" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-custom" [disabled]="registerForm.invalid">S'inscrire</button>
+  </form>
+</div>

@@ -44,13 +44,13 @@
   </div>
   
   <div class="row">
-    <div class="col-md-4" *ngFor="let categorieprestataire of categoriesprestataires">
+    <div class="col-md-4" *ngFor="let user of users">
       <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
-      <a [routerLink]="['/detailprestataire', categorieprestataire.id]" class="card border-0 text-decoration-none">
+      <a [routerLink]="['/detailprestataire', user.id]" class="card border-0 text-decoration-none">
         <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
         <div class="card-body">
           <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">{{categorieprestataire.titre}}</h5>
+          <h5 class="card-title text-warning fw-bold text-left">{{user.nom}}</h5>
         </div>
       </a>
     </div>

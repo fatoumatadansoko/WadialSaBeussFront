@@ -10,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CategorieModel } from '../../../Models/categorie.model';
 import { RouterLink } from '@angular/router';
+import { UserModel } from '../../../Models/users.model';
+import { UserService } from '../../../Services/users.service';
 
 @Component({
   selector: 'app-prestataires',
@@ -20,21 +22,23 @@ import { RouterLink } from '@angular/router';
 })
 export class PrestatairesComponent implements OnInit {
   // Injection des dépendances
+  private UserService = inject(UserService);    
   private categorieprestataireService = inject(CategorieprestataireService);
   private http = inject(HttpClient);
 
   // Déclaration des variables
   categoriesprestataires: CategoriePrestataireModel[] = [];
-  categories: CategorieModel[] = [];
+  users: UserModel[] = [];
 
   // Méthode appelée lors de l'initialisation du composant
   ngOnInit(): void {
     this.fetchCategorieprestataires();
-    this.fetchCategories();
+    this.fetchPrestataires();
   }
 
   // Récupération de toutes les catégories des prestataires
   fetchCategorieprestataires(): void {
+    const authToken = localStorage.getItem('token');  // Ou tout autre mécanisme de stockage du token
     this.categorieprestataireService.getAllCategorieprestataire().subscribe(
       (response: any) => {
         console.log(response.data);
@@ -54,34 +58,25 @@ export class PrestatairesComponent implements OnInit {
   }
 
   // Récupération de toutes les catégories
-  fetchCategories(): void {
-    const token = localStorage.getItem('auth_token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-
-    this.http.get('http://127.0.0.1:8000/api/categoriesprestataires', { headers }).subscribe(
+  fetchPrestataires(): void {
+    this.UserService.getAllUser().subscribe(
       (response: any) => {
-        console.log(response.data);
-        this.categories = response.data.reverse();
+        console.log('Réponse complète:', response); // Vérifiez ici la structure
+        if (response && Array.isArray(response)) {
+          // Filtrer les utilisateurs par rôle
+          this.users = response
+            .filter((user: UserModel) => user.role === 'prestataire') // Filtrer par rôle
+            .reverse(); // Inverser l'ordre si nécessaire
+            
+          console.log('Prestataires:', this.users); // Vérifiez si les prestataires sont bien affectés
+        } else {
+          console.error('Erreur: la réponse ne contient pas de données utilisateur');
+        }
       },
-      (error) => {
-        console.error('Erreur lors de la récupération des catégories', error);
+      (error: any) => {
+        console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
     );
   }
-
-  // Cette méthode retourne un Observable pour les catégories des prestataires
-  getCategoriesPrestataires(): Observable<any> {
-    const token = localStorage.getItem('auth_token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-
-    return this.http.get('http://127.0.0.1:8000/api/categoriesprestataires', { headers });
-  }
-
-  // Cette méthode retourne un Observable pour les catégories
-  getCategories(): Observable<any> {
-    const token = localStorage.getItem('auth_token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-
-    return this.http.get('http://127.0.0.1:8000/api/categories', { headers });
-  }
+  
 }

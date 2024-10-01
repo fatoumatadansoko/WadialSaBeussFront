@@ -12,65 +12,56 @@ export class AuthService {
   }
 
   private http = inject(HttpClient);
-
-  // Declaration des méthodes
   
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
 
-  constructor() { }
+  constructor() {}
 
- public hasToken(): boolean {
-    return !!localStorage.getItem('access_token');
+  // Vérifier si le token est présent dans le localStorage
+  public hasToken(): boolean {
+    return !!localStorage.getItem('token');
   }
 
+  // Observable pour le statut de connexion
   isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
+
+  // Méthode pour définir l'état de connexion
   setLoggedIn(status: boolean): void {
     this.loggedIn.next(status);
   }
-  
-  // Méthodes pour l'authentification
+
+  // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
-    console.log("login");
     return this.http.post(`${apiurl}/login`, identifiant).pipe(
       tap((response: any) => {
-        if (response.access_token) {
-          localStorage.setItem('access_token', response.access_token);
+        if (response.token) {
+          localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
           this.setLoggedIn(true);
         }
+      }),
+      catchError((error) => {
+        console.error('Login failed:', error);
+        return throwError(error);
       })
     );
-    // Methode pour avoir le profil utilisateur 
-  //   getProfile(){
-  //     return this.http.get(`${apiurl}/profile`);
-  // }
-
-  // // Methode pour rafraichir le token
-  // refreshToken(){
-  //     return this.http.get(`${apiurl}/refresh`);
-  // }
-
-  // // Methode pour se deconnecter 
-  // logout(){
-  //     return this.http.get(`${apiurl}/logout`);
-  // }
   }
-
-
-  
-  
 
   // Méthode pour l'inscription
-  register(identifiant: any){
-    return this.http.post(`${apiurl}/register`, identifiant);
-    
+  register(identifiant: any): Observable<any> {
+    return this.http.post(`${apiurl}/register`, identifiant).pipe(
+      catchError((error) => {
+        console.error('Registration failed:', error);
+        return throwError(error);
+      })
+    );
   }
 
-  // Méthodes pour se déconnecter
-  logout() {
-    const token = localStorage.getItem('access_token');
+  // Méthode pour se déconnecter
+  logout(): Observable<any> {
+    const token = localStorage.getItem('token');
   
     if (!token) {
       console.error('No authentication token found');
@@ -83,34 +74,26 @@ export class AuthService {
     });
   
     return this.http.post(`${apiurl}logout`, {}, { headers }).pipe(
-      // Remove the token and user data from localStorage after a successful response or in case of an error
       tap(() => {
-        localStorage.removeItem('access_token');
+        // Supprimer les informations de l'utilisateur et du token
+        localStorage.removeItem('token');
         localStorage.removeItem('user');
-        this.loggedIn.next(false);
+        this.setLoggedIn(false);
       }),
       catchError((error) => {
-        // If the error is 401 Unauthorized, the token is probably invalid or expired
         if (error.status === 401) {
           console.error('Invalid or expired token, forced logout.');
-          localStorage.removeItem('access_token');
+          localStorage.removeItem('token');
           localStorage.removeItem('user');
-          this.loggedIn.next(false);
+          this.setLoggedIn(false);
         }
-        // Propagate the error after handling forced logout
         return throwError(error);
       })
     );
   }
 
-   
-  
-  
-  // Méthode pour vérifier si l'utilisateur est connecté
+  // Vérifier si l'utilisateur est authentifié
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('access_token');
+    return this.hasToken();
   }
-
-  
-  
 }

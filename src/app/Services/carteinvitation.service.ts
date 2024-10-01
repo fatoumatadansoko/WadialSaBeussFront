@@ -18,14 +18,14 @@ export class CarteinvitationService {
   //methodes pour récupérer toutes les cartes
 
   getAllCarteinvitations(): Observable<any> {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.get(this.apiUrl, { headers });
   }
     
     // Méthodes pour lister les cartes
   getCarteinvitationById(id: number): Observable<any> {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.get(`${this.apiUrl}/${id}`, { headers });
   }}

@@ -1,11 +1,12 @@
+<app-header></app-header>
 <div class="container">
     <h1 class="text-center">Détails prestataire</h1>
   
     <!-- Assurez-vous que prestataire existe avant d'essayer d'y accéder -->
     <div *ngIf="prestataire" class="prestataire-details">
-      <div class="images col-md-6">
-        <img *ngFor="let user of users" [src]="user.logo || '../../../../assets/images/default.png'" alt="{{ user.nom }} Logo">
-      </div>
+      <!-- <div class="images col-md-6">
+        <img *ngIf="prestataire" [src]="user.logo || '../../../../assets/images/default.png'" alt="{{ user.nom }} Logo">
+      </div> -->
   
       <div class="prestataire-info col-md-6">
         <h3>{{ prestataire.nom }}</h3>
@@ -38,7 +39,7 @@
     </div>
   
     <!-- Section des commentaires -->
-    <div class="testimonials mt-5">
+    <!-- <div class="testimonials mt-5">
       <h4>Nos témoignages</h4>
       <div class="row" *ngFor="let commentaire of commentaires">
         <div class="col-md-6">
@@ -48,4 +49,4 @@
       </div>
     </div>
   </div>
-    
+     -->

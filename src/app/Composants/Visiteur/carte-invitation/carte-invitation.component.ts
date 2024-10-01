@@ -13,7 +13,7 @@ import { NgFor } from '@angular/common';
   standalone: true,
   imports: [HeaderComponent,FooterComponent,FormsModule,NgFor],
   templateUrl: './carte-invitation.component.html',
-  styleUrl: './carte-invitation.component.scss'
+  styleUrls: ['./carte-invitation.component.scss'] // Correction de styleUrl -> styleUrls
 })
 export class CarteInvitationComponent {
 
@@ -29,17 +29,27 @@ ngOnInit(): void {
   this.fetchCarteinvitations();
 }
  //récupération de tous les categories des prestataires
-      fetchCarteinvitations(): void {
-        this.CarteinvitationService.getAllCarteinvitations().subscribe(
-          (response: any) => {
-            console.log(response.data);
-            this.carteinvitations = response.data.reverse();
-          }
-        )
+ fetchCarteinvitations(): void {
+  this.CarteinvitationService.getAllCarteinvitations().subscribe(
+    (response: any) => {
+      console.log('Réponse complète:', response); // Vérification de la structure de la réponse
+      
+      // Vérification si la structure contient les cartes dans "data"
+      if (response && response.data && Array.isArray(response.data)) {
+        this.carteinvitations = response.data; // Inversement des cartes si nécessaire
+        console.log('Cartes:', this.carteinvitations);
+      } else {
+        console.error('Erreur: la réponse ne contient pas de données utilisateur');
       }
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des utilisateurs:', error);
+    }
+  );
+}
 
-// Cette méthode retourne un Observable, pas une Subscription
-getCarteinvitations(): Observable<any> {
+ // Cette méthode retourne un Observable
+ getCarteinvitations(): Observable<any> {
   const token = localStorage.getItem('auth_token');
   const headers = { 'Authorization': `Bearer ${token}` };
 

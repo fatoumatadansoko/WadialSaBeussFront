@@ -12,6 +12,9 @@ import { DetailPrestataireComponent } from './Composants/Visiteur/detail-prestat
 import { DashbordAdminComponent } from './Composants/Admin/dashbord-admin/dashbord-admin.component';
 import { DashboardPrestataireComponent } from './Composants/Prestataire/dashboard-prestataire/dashboard-prestataire.component';
 import { CarteInvitationComponent } from './Composants/Visiteur/carte-invitation/carte-invitation.component';
+import { AccessUsersComponent } from './Composants/Admin/access-users/access-users.component';
+import { CarteAdminComponent } from './Composants/Admin/carte-admin/carte-admin.component';
+import { ProfilAdminComponent } from './Composants/Admin/profil-admin/profil-admin.component';
 
 
 export const routes: Routes = [
@@ -38,5 +41,8 @@ export const routes: Routes = [
 
 
     // Routes pour l'admin
-    { path: 'dashboard-admin', component: DashbordAdminComponent}
+    { path: 'dashboard-admin', component: DashbordAdminComponent},
+    { path: 'users', component: AccessUsersComponent},
+    { path: 'carteadmin', component: CarteAdminComponent},
+    { path: 'profiladmin', component: ProfilAdminComponent}
 ]

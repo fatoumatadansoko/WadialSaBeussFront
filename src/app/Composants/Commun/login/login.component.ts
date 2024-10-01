@@ -45,7 +45,7 @@ export class LoginComponent {
               } else if (response.user.roles.some((role: Role) => role.name === 'prestataire')) {
                 this.router.navigateByUrl('dashboard-prestataire');
               } else if (response.user.roles.some((role: Role) => role.name === 'client')) {
-                this.router.navigateByUrl('acceuil');
+                this.router.navigate(['acceuil']);
               } else {
                 this.router.navigateByUrl('');
               }

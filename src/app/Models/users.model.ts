@@ -24,6 +24,6 @@ export interface UserModel {
     categorie_prestataire?:CategoriePrestataireModel,
     createdAt?: Date
     updatedAt?: Date
-    roles?: Role[]
+    role?: string
 }
 

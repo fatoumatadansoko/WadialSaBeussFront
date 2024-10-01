@@ -102,18 +102,6 @@ export class AuthService {
       })
     );
   }
-  
-  
-
-  // Méthode pour récuperer le nombre de users avec le role entrepreneur
-  getEntrepreneurCount(): Observable<any> {
-    return this.http.get<any>(`${apiurl}nombre_entrepreneur`);
-  }
-
-  // Méthode pour récuperer le nombre de users avec le role coach
-  getCoachCount(): Observable<any> {
-    return this.http.get<any>(`${apiurl}nombre_coach`);
-  }
 
    
   

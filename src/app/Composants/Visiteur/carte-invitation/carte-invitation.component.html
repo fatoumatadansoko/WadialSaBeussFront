@@ -1,1 +1,32 @@
-<p>carte-invitation works!</p>
+<app-header></app-header>
+<div class="background-section">
+    <div class="overlay">
+        <h1>Nos cartes</h1>
+        <p>
+            Chez Flowvence, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur.
+            C'est pourquoi nous offrons une multitude d'options de personnalisation pour que chaque détail, du design des invitations aux choix des prestataires, soit exactement comme tu l'as imaginé. 
+            La plateforme te permet de créer des événements sur mesure avec une simplicité qui n'enlève rien à l'élégance, ajoutant ainsi une touche distinctive à chacune de tes célébrations.
+        </p>
+        <div class="filter-form">
+            <input type="text" placeholder="Rechercher...">
+            <button type="submit">Filtrer</button>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let carte of carteinvitations">
+    <h3>{{ carte.nom }}</h3>
+    <img [src]="carte.image" alt="{{ carte.nom }}">
+    <p>{{ carte.contenu }}</p>
+  </div>
+     
+
+
+
+
+
+
+
+
+
+<app-footer></app-footer>

@@ -25,9 +25,9 @@ export interface UserModel {
     createdAt?: Date,
     updatedAt?: Date,
     role?: string,
+    prestataire?: PrestataireModel;
 }
 export interface CommentaireModel {
-    user: any;
         id?: number,
         contenu?: string,
         note?: string,
@@ -36,4 +36,8 @@ export interface CommentaireModel {
         prestataire_id?: number,
         createdAt?: Date,
         updatedAt?: Date,
+        user?: UserModel; // Assurez-vous que le modèle utilisateur est inclus
+
     }
+   
+      

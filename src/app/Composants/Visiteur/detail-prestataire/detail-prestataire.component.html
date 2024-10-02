@@ -40,53 +40,30 @@
     </div>
 </div>
 
-    <!-- Assurez-vous que prestataire existe avant d'essayer d'y accéder -->
-    <div *ngIf="prestataire" class="prestataire-details">
-      <div class="images col-md-6">
-        <img [src]="photoUrl" alt="Logo du prestataire">
+<img [src]="photoUrl" alt="Logo du prestataire">
 
-        <img *ngIf="prestataire" [src]="prestataire.logo || '../../../../assets/images/default.png'" alt="Logo">
-      </div>
-  
-      <div class="prestataire-info col-md-6">
-        <!-- <h3>{{ prestataire.user.nom }}</h3>
-        <div class="rating">★★★★★</div>
-  
-        <div class="contact-container">
-          <div class="contact-info">
-            <i class="bi bi-geo-alt-fill"></i>
-            <span>{{ prestataire.user.adresse }}</span>
-          </div>
-          <div class="contact-info">
-            <i class="bi bi-telephone-fill"></i>
-            <span>{{ prestataire.user.telephone }}</span>
-          </div>
-          <div class="contact-info">
-            <i class="bi bi-envelope-fill"></i>
-            <span>{{ prestataire.user.email }}</span>
-          </div>
-        </div>
-  
-        <p>{{ prestataire.description }}</p> -->
-      </div>
-    </div>
+<img *ngIf="prestataire" [src]="prestataire.logo || '../../../../assets/images/default.png'" alt="Logo">
   
     <!-- Section des commentaires -->
-    <!-- <div class="testimonials mt-5">
+    <div class="testimonials mt-5"  *ngIf="commentaires.length > 0">
       <h4>Nos témoignages</h4>
-      <div class="row" *ngIf="let commentaire">
-        <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6" *ngFor="let commentaire of commentaires">
           <p>{{ commentaire.contenu }}</p>
-          <p class="client">{{ commentaire.prestataire.user.nom }}</p>
+          <p class="client">{{ commentaire.user?.nom }}</p>
+
         </div>
       </div>
     </div>
-  </div> -->
-  <div *ngIf="commentaires.length > 0">
-    <h3>Commentaires</h3>
-    <ul>
-      <li *ngFor="let commentaire of commentaires">
-        <strong>{{ commentaire.user?.nom }}</strong>: {{ commentaire.contenu }}
-      </li>
-    </ul>
-  </div>
+    <!-- <div *ngIf="prestataire">
+      <h2>Détails du prestataire</h2>
+      
+      <p><strong>Nom:</strong> {{ prestataire.user?.nom || 'Nom non disponible' }}</p>
+      <p><strong>Email:</strong> {{ prestataire.user?.email || 'Email non disponible' }}</p>
+      <p><strong>NINEA:</strong> {{ prestataire.ninea || 'NINEA non disponible' }}</p>
+      <p><strong>Téléphone:</strong> {{ prestataire.user?.telephone || 'Téléphone non disponible' }}</p>
+      <p><strong>Adresse:</strong> {{ prestataire.user?.adresse || 'Adresse non disponible' }}</p>
+      <p><strong>Description:</strong> {{ prestataire.user?.description || 'Description non disponible' }}</p>       
+      <img *ngIf="prestataire?.logo" [src]="photoUrl" alt="Logo du prestataire">
+    </div> -->
+    

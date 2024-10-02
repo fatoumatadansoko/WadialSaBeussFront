@@ -1,4 +1,5 @@
 import { CategoriePrestataireModel } from "./categorieprestataire.model"
+import { PrestataireModel } from "./prestataire.model";
 
 
 export interface Role {
@@ -20,5 +21,6 @@ export interface UserModel {
     createdAt?: Date,
     updatedAt?: Date,
     role?: string,
+    prestataire?: PrestataireModel;
 }
 

@@ -48,6 +48,7 @@ export class DetailPrestataireComponent implements OnInit {
       (response: any) => {
         console.log('Response from API:', response); // Vérifier la réponse complète
         this.prestataire = response.data; // Assigner la réponse à `prestataire`
+        this.commentaires = response.data.commentaires || [];
         this.user = this.prestataire?.user; // Si prestataire existe, assigner l'utilisateur
         this.photoUrl = `${this.baseUrl}/${this.prestataire?.logo}`; // Générer l'URL de l'image
         console.log('Prestataire:', this.prestataire); // Vérifier la valeur de `prestataire`

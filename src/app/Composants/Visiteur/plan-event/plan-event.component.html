@@ -8,14 +8,15 @@
     <div class="form-side">
         <h1>Planification</h1>
 
-        <form>
+        <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-                <label for="title" class="form-label">Titre</label>
-                <input type="text" class="form-control" id="title" placeholder="Entrer le titre">
+                <label for="titre" class="form-label">Titre</label>
+                <input type="text" class="form-control" id="titre" formControlName="titre" placeholder="Entrer le titre">
             </div>
             <div class="mb-3">
-                <label for="location" class="form-label">Lieu</label>
-                <select class="form-select" id="location">
+                <label for="lieu" class="form-label">Lieu</label>
+                <select class="form-select" id="lieu" formControlName="lieu">
+                    <option value="">Sélectionnez un lieu</option>
                     <option>Dakar</option>
                     <option>Thiès</option>
                     <option>Saint-Louis</option>
@@ -26,11 +27,12 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" rows="3" placeholder="Entrez la description"></textarea>
+                <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Entrez la description"></textarea>
             </div>
             <div class="mb-3">
                 <label for="budget" class="form-label">Budget</label>
-                <select class="form-select" id="budget">
+                <select class="form-select" id="budget" formControlName="budget">
+                    <option value="">Sélectionnez un budget</option>
                     <option>Moins de 500 000 FCFA</option>
                     <option>500 000 - 1 000 000 FCFA</option>
                     <option>1 000 000 - 5 000 000 FCFA</option>
@@ -38,8 +40,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" class="form-control" id="date">
+                <label for="event_date" class="form-label">date</label>
+                <input type="date" class="form-control" id="event_date" formControlName="event_date">
             </div>
             <button type="submit" class="btn btn-primary">Sauvegarder</button>
         </form>

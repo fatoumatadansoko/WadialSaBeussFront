@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError } from 'rxjs';
 import { apiurl } from './ApiUrl';
-import { UserModel } from '../Models/users.model';
 import { error } from 'console';
 
 
@@ -36,7 +35,7 @@ export class PretataireService {
         'Authorization': `Bearer ${token}`
       });
     
-      return this.http.get<any>(`${apiurl}prestataires/${id}`, { headers }).pipe(
+      return this.http.get<any>(`${apiurl}/prestataires/${id}`, { headers }).pipe(
         catchError((error) => {
           console.error('Failed to fetch user details:', error);
           return throwError(error);

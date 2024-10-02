@@ -37,6 +37,7 @@ export class CategorieEvenementComponent {
               }
             )
           }
+          
   
     // Cette méthode retourne un Observable, pas une Subscription
     getCategories(): Observable<any> {

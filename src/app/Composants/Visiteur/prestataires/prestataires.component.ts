@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Injectable } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
 import { response } from 'express';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
@@ -10,25 +10,27 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CategorieModel } from '../../../Models/categorie.model';
 import { RouterLink } from '@angular/router';
-import { UserModel } from '../../../Models/users.model';
-import { UserService } from '../../../Services/users.service';
+import { environment } from '../../../../environnements/environments';
+import { PretataireService } from '../../../Services/prestataire.service';
+import { PrestataireModel } from '../../../Models/prestataire.model';
 
 @Component({
   selector: 'app-prestataires',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink],
+  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf],
   templateUrl: './prestataires.component.html',
   styleUrl: './prestataires.component.scss'
 })
 export class PrestatairesComponent implements OnInit {
   // Injection des dépendances
-  private UserService = inject(UserService);    
+  private PrestataireService = inject(PretataireService);    
   private categorieprestataireService = inject(CategorieprestataireService);
   private http = inject(HttpClient);
 
   // Déclaration des variables
+  baseUrl: string = environment.apiurl
   categoriesprestataires: CategoriePrestataireModel[] = [];
-  users: UserModel[] = [];
+  prestataires: PrestataireModel[] = [];
 
   // Méthode appelée lors de l'initialisation du composant
   ngOnInit(): void {
@@ -59,16 +61,15 @@ export class PrestatairesComponent implements OnInit {
 
   // Récupération de toutes les catégories
   fetchPrestataires(): void {
-    this.UserService.getAllUser().subscribe(
+    this.PrestataireService.getAllPrestataire().subscribe(
       (response: any) => {
         console.log('Réponse complète:', response); // Vérifiez ici la structure
         if (response && Array.isArray(response)) {
           // Filtrer les utilisateurs par rôle
-          this.users = response
-            .filter((user: UserModel) => user.role === 'prestataire') // Filtrer par rôle
+          this.prestataires = response
             .reverse(); // Inverser l'ordre si nécessaire
             
-          console.log('Prestataires:', this.users); // Vérifiez si les prestataires sont bien affectés
+          console.log('Prestataires:', this.prestataires); // Vérifiez si les prestataires sont bien affectés
         } else {
           console.error('Erreur: la réponse ne contient pas de données utilisateur');
         }
@@ -77,6 +78,9 @@ export class PrestatairesComponent implements OnInit {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
     );
+  }
+  getPhotoUrl(photoPath: string): string {
+    return `${this.baseUrl}${photoPath}`;
   }
   
 }

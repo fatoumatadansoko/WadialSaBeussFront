@@ -4,6 +4,8 @@ import { AuthService } from '../../../Services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -39,12 +41,12 @@ export class LoginComponent {
             console.log('Token enregistré:', localStorage.getItem('token'));
   
             // Gestion des rôles et redirection
-            if (response.user.roles) {
-              if (response.user.roles.some((role: Role) => role.name === 'admin')) {
+            if (response.user.role) {
+              if (response.user.role === 'admin') {
                 this.router.navigateByUrl('dashboard-admin');
-              } else if (response.user.roles.some((role: Role) => role.name === 'prestataire')) {
+              } else if (response.user.role === 'prestataire') {
                 this.router.navigateByUrl('dashboard-prestataire');
-              } else if (response.user.roles.some((role: Role) => role.name === 'client')) {
+              } else if (response.user.role === 'client') {
                 this.router.navigate(['acceuil']);
               } else {
                 this.router.navigateByUrl('');
@@ -64,4 +66,33 @@ export class LoginComponent {
       );
     }
   }
+  logout() {
+    return this.authService.logout().subscribe(
+        (response: any) => {
+            console.log(response);
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+            this.router.navigateByUrl('/login');
+            
+            // Afficher une alerte de succès avec SweetAlert
+            Swal.fire({
+                title: 'Déconnexion réussie',
+                text: 'Vous avez été déconnecté avec succès.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        },
+        (error) => {
+            console.error(error);
+            // Afficher une alerte d'erreur avec SweetAlert
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Erreur lors de la déconnexion. Veuillez réessayer.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    );
+}
+
 }  

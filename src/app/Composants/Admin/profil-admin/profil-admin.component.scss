@@ -1,6 +1,5 @@
 * {
-    margin: 0;
-    padding: 0;
+   
     box-sizing: border-box;
 }
 
@@ -23,6 +22,8 @@ body {
 }
 
 .header {
+    padding-top: 1000px;
+
     background-color: #2e3b4e;
     color: white;
     padding: 20px;
@@ -46,7 +47,6 @@ body {
 .info-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 60px;
 }
 
 .info-table th, .info-table td {

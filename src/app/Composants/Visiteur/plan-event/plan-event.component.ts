@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventService } from '../../../Services/event.service';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-plan-event',
   standalone: true,
   imports: [
-    ReactiveFormsModule,HttpClientModule
+    ReactiveFormsModule,HttpClientModule,NgIf
   ],
   templateUrl: './plan-event.component.html',
   styleUrls: ['./plan-event.component.scss'], // correction ici pour "styleUrls"

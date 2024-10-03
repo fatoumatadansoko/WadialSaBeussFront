@@ -15,6 +15,7 @@ id: any|string,
 }
 
 export interface UserModel {
+    description?: string;
     id?: number, 
     nom?: string,
     email?: string,

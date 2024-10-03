@@ -11,16 +11,17 @@ export interface Role {
 
 
 export interface UserModel {
-    id?: number, 
-    nom?: string,
-    email?: string,
-    password?: string,
-    adresse?: string,
-    telephone?: string,
-    statut?: "active",
-    createdAt?: Date,
-    updatedAt?: Date,
-    role?: string,
+    id?: number;
+    description?:string;
+    nom?: string;
+    email?: string;
+    password?: string;
+    adresse?: string;
+    telephone?: string;
+    statut?: "active";
+    createdAt?: Date;
+    updatedAt?: Date;
+    role?: string;
     prestataire?: PrestataireModel;
 }
 

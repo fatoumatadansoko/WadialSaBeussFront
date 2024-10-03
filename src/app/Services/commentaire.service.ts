@@ -15,8 +15,12 @@ export class CommentaireService {
 
   //methodes pour récupérer toutes les commentaires
   getAllCommentaires(id?: number): Observable<any> {
-    return this.http.get(`${apiurl}/commentaires`);
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${apiurl}/commentaires`, { headers });
+
   }
+  
     // Methode ajouter un commentaire // Méthode pour ajouter un commentaire
   addCommentaire(commentaire: CommentaireModel): Observable<any> {
     const token = localStorage.getItem('token'); // Remplacez par la méthode d'obtention de votre token

@@ -111,4 +111,12 @@
   .bi-star:hover, .bi-star.filled:hover {
     color: #ffb400; /* Couleur des étoiles lors du hover */
   }
+  .rating {
+    color: lightgray; /* Couleur par défaut pour les étoiles vides */
+  }
+  
+  .rating .filled {
+    color: gold; /* Couleur pour les étoiles remplies */
+  }
+  
   

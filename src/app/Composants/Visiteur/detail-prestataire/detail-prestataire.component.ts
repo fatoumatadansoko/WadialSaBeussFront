@@ -29,7 +29,13 @@ export class DetailPrestataireComponent implements OnInit {
   private prestataireService = inject(PretataireService);
   private commentaireService = inject(CommentaireService);
   private route: ActivatedRoute = inject(ActivatedRoute);
-
+  convertToInt(note: any): number {
+    const parsedNote = parseInt(note, 10);
+    console.log(`Note convertie: ${parsedNote}`); // Ajout d'un log pour déboguer
+    return isNaN(parsedNote) ? 0 : parsedNote; // Retourne 0 si ce n'est pas un nombre
+  }
+  
+  
   commentaireText: string = ''; // Variable pour stocker le texte du commentaire
   clientId: number = 1; // Remplacer par l'ID du client connecté (récupérer dynamiquement si nécessaire)
   prestataireId: number | undefined; // ID du prestataire, à assigner lors de l'initialisation
@@ -38,6 +44,8 @@ export class DetailPrestataireComponent implements OnInit {
   baseUrl: string = environment.apiurl;
   photoUrl: string = '';
   dateAjout: string = new Date().toISOString(); // Date d'ajout au format ISO
+  rating: number = 1; // Stocker la note actuelle
+
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -62,18 +70,25 @@ export class DetailPrestataireComponent implements OnInit {
       }
     );
   }
+  // Méthode appelée lorsqu'une étoile est cliquée
+  rate(stars: number): void {
+    this.rating = stars; // Met à jour la note
+  }
 
   // Récupérer les commentaires du prestataire
-  getCommentaires(id: number): void {
-    this.commentaireService.getAllCommentaires(id).subscribe(
-      (response: CommentaireModel[]) => {
-        this.commentaires = response;
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des commentaires:', error);
-      }
-    );
-  }
+ // Récupérer les commentaires du prestataire
+getCommentaires(id: number): void {
+  this.commentaireService.getAllCommentaires(id).subscribe(
+    (response: any) => {
+      this.commentaires = response.data;
+      console.log('Commentaires récupérés:', this.commentaires); // Vérifiez ici
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des commentaires:', error);
+    }
+  );
+}
+
 
   // Publier un commentaire
   publierCommentaire(): void {
@@ -90,7 +105,10 @@ export class DetailPrestataireComponent implements OnInit {
       contenu: this.commentaireText,
       client_id: this.clientId,
       prestataire_id: this.prestataireId,
+      note: this.rating, // Ajouter la note ici
+
     };
+    console.log('Note envoyée:', this.rating); // Log pour vérifier la note avant l'envoi
 
     this.commentaireService.addCommentaire(nouveauCommentaire).subscribe(
       (response) => {
@@ -103,6 +121,8 @@ export class DetailPrestataireComponent implements OnInit {
         this.commentaires.push(nouveauCommentaire);
         // Réinitialiser le contenu du commentaire
         this.commentaireText = '';
+        this.rating = 1; // Réinitialiser la note
+
       },
       (error) => {
         console.error('Erreur lors de la publication du commentaire:', error);

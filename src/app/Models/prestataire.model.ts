@@ -30,7 +30,7 @@ export interface UserModel {
 export interface CommentaireModel {
         id?: number,
         contenu?: string,
-        note?: string,
+        note?: number,
         client_id?: number,
         date_ajout?: Date,
         prestataire_id?: number,

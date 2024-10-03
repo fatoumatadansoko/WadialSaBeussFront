@@ -1,95 +1,114 @@
 
-// .prestataire-details {
-//     margin-top: 100px;
-//     display: flex;
-//     justify-content: space-between;
-// }
+.prestataire-details {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+}
 
-// .prestataire-details .images {
-//     display: block;
-//     flex-direction: column;
-//     gap: 20px;
-//     align-items: center;
-// }
+.prestataire-details .images {
+    display: block;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
 
-// .prestataire-details .images img {
-//     border-radius: 50%;
-//     width: 200px;
-//     height: 200px;
-//     object-fit: cover;
-//     border: 3px solid #AE8F67; /* Adjust border color if needed */
-// }
+.prestataire-details .images img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 3px solid #AE8F67; /* Adjust border color if needed */
+}
 
-// .prestataire-info {
-//     flex: 1;
-//     margin-left: 20px;
-// }
+.prestataire-info {
+    flex: 1;
+    margin-left: 20px;
+}
 
-// .prestataire-info h3 {
-//     font-size: 28px;
-//     font-weight: bold;
-// }
+.prestataire-info h3 {
+    font-size: 28px;
+    font-weight: bold;
+}
 
-// .prestataire-info .rating {
-//     color: #FF9700;
-// }
+.prestataire-info .rating {
+    color: #FF9700;
+}
 
-// /* Flex container for contact info */
-// .prestataire-info .contact-container {
-//     display: flex;
-//     align-items: center;
-//     gap: 20px; /* Add space between the contact items */
-//     margin-bottom: 10px;
-// }
+/* Flex container for contact info */
+.prestataire-info .contact-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Add space between the contact items */
+    margin-bottom: 10px;
+}
 
-// .prestataire-info .contact-info {
-//     display: flex;
-//     align-items: center;
-// }
+.prestataire-info .contact-info {
+    display: flex;
+    align-items: center;
+}
 
-// .prestataire-info .contact-info span {
-//     margin-left: 10px;
-//     font-size: 16px;
-// }
+.prestataire-info .contact-info span {
+    margin-left: 10px;
+    font-size: 16px;
+}
 
-// .prestataire-info .contact-info i {
-//     color: #AE8F67;
-//     font-size: 20px;
-// }
+.prestataire-info .contact-info i {
+    color: #AE8F67;
+    font-size: 20px;
+}
 
-// .review-section {
-//     margin-top: 20px;
-// }
+.review-section {
+    margin-top: 20px;
+}
 
-// .review-section h4 {
-//     font-size: 18px;
-//     font-weight: bold;
-//     margin-bottom: 10px;
-// }
+.review-section h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-// .review-section .stars {
-//     color: #FF9700;
-// }
+.review-section .stars {
+    color: #FF9700;
+}
 
-// .review-section textarea {
-//     margin-top: 10px;
-// }
+.review-section textarea {
+    margin-top: 10px;
+}
 
-// .review-section button {
-//     background-color: #AE8F67;
-//     color: white;
-//     border: none;
-//     margin-top: 10px;
-// }
+.review-section button {
+    background-color: #AE8F67;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
 
-// .testimonials {
-//     margin-top: 30px;
-// }
+.testimonials {
+    margin-top: 30px;
+}
 
-// .testimonials p {
-//     font-size: 14px;
-// }
+.testimonials p {
+    font-size: 14px;
+}
 
-// .testimonials .client {
-//     font-weight: bold;
-// }
+.testimonials .client {
+    font-weight: bold;
+}
+.rating {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .bi-star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #d3d3d3; /* Couleur des étoiles non remplies */
+  }
+  
+  .filled {
+    color: #ff9700; /* Couleur des étoiles remplies */
+  }
+  
+  .bi-star:hover, .bi-star.filled:hover {
+    color: #ffb400; /* Couleur des étoiles lors du hover */
+  }
+  

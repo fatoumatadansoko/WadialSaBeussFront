@@ -29,16 +29,40 @@
         <!-- Description du prestataire -->
         <p>{{ prestataire.description }}</p>
 
-        <!-- Section d'évaluation -->
-        <div class="review-section">
-          <h4>Noter le prestataire</h4>
-          <div class="stars">★★★★★</div>
-          <textarea class="form-control mt-2" rows="3" placeholder="contenu"></textarea>
-          <button class="btn mt-2">Publier</button>
-        </div>
-      </div>
-    </div>
+   <!-- Section d'évaluation -->
+<!-- Section d'évaluation -->
+<div class="review-section">
+  <h4>Noter le prestataire</h4>
+  <div class="stars">★★★★★</div>
+  <div class="rating">
+    <i 
+      class="bi bi-star" 
+      *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+      (click)="rate(i + 1)" 
+      [class.filled]="i < rating">
+    </i>
+  </div>
+  <p>Note actuelle : {{ rating }}/5</p>
+    
+  <!-- Champ pour le contenu du commentaire -->
+  <textarea
+      class="form-control mt-2"
+      rows="3"
+      placeholder="Contenu du commentaire"
+      [(ngModel)]="commentaireText"
+      required
+  ></textarea>
+
+
+  <button
+      class="btn mt-2"
+      (click)="publierCommentaire()"
+      [disabled]="!commentaireText.trim()"
+  >
+      Publier
+  </button>
 </div>
+
 
 <img [src]="photoUrl" alt="Logo du prestataire">
 
@@ -50,7 +74,6 @@
       <div class="row">
         <div class="col-md-6" *ngFor="let commentaire of commentaires">
           <p>{{ commentaire.contenu }}</p>
-          <p class="client">{{ commentaire.user?.nom }}</p>
 
         </div>
       </div>

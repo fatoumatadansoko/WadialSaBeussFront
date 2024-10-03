@@ -1,5 +1,4 @@
 export interface CommentaireModel {
-user: any;
     id?: number,
     contenu?: string,
     note?: string,

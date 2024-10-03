@@ -7,22 +7,19 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav ms-auto py-0">
-          <a href="/pr" class="nav-item nav-link active" [routerLink]="['/acceuil']" routerLinkActive="router-link-active">Acceuil</a>
-          <a href="#" class="nav-item nav-link" [routerLink]="['/prestataire']" routerLinkActive="router-link-active">Prestataire</a>
-          <a href="#" class="nav-item nav-link" [routerLink]="['/carteinvitation']" routerLinkActive="router-link-active">Carte d'invitation</a>
-          <a href="#" class="nav-item nav-link">Contact</a>
+          <a href="#" class="nav-item nav-link" [routerLink]="['/acceuil']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+          <a href="#" class="nav-item nav-link" [routerLink]="['/prestataire']" routerLinkActive="active">Prestataire</a>
+          <a href="#" class="nav-item nav-link" [routerLink]="['/carteinvitation']" routerLinkActive="active">Carte d'invitation</a>
+          <a href="#" class="nav-item nav-link" [routerLink]="['/contact']" routerLinkActive="active">Contact</a>
       </div>
       
       <ng-container *ngIf="isLoggedIn; else loggedOut">
         <div class="user-menu d-flex align-items-center">
-            <!-- Icône de profil -->
-            <div class="button profile me-3"> <!-- 'me-3' ajoute une marge à droite -->
+            <div class="button profile me-3">
                 <a routerLink="/profil-client">
                     <img src="../../../../assets/images/profil.jpg" alt="Profile Icon" width="24" height="24" style="color: #00214A;" />
                 </a>
             </div>
-    
-            <!-- Icône de déconnexion -->
             <div class="button logout">
                 <a (click)="logout()">
                     <img src="../../../../assets/images/logouticon.png" alt="Logout Icon" width="24" height="24" style="color: #00214A;" />
@@ -34,4 +31,3 @@
     <ng-template #loggedOut>
         <a class="btn btn-primary py-2 px-4 my-3 my-lg-0 flex-shrink-0 nav-link" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
     </ng-template>
-    

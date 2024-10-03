@@ -16,6 +16,10 @@
 
 <div *ngFor="let carte of carteinvitations">
     <h3>{{ carte.nom }}</h3>
+    <img [src]="photoUrl" alt="Logo du prestataire">
+
+<img *ngIf="carte" [src]="carte.image || '../../../../assets/images/default.png'" alt="Logo">
+
     <img [src]="carte.image" alt="{{ carte.nom }}">
     <p>{{ carte.contenu }}</p>
   </div>

@@ -36,7 +36,7 @@
     width: 120px;
     font-family: 'oswald', sans-serif;
   }
-  .caroussel h6 {
+  .nosrealisations h6 {
     padding-bottom: 30px;
     padding-top: 10px;
     font-size: 36px;
@@ -45,61 +45,20 @@
     color: #000000;
     text-align: center;
   }
-  
-  .aboutsection h6 {
+  .caroussel p {
     padding-bottom: 30px;
     padding-top: 10px;
-    font-size: 36px;
+    font-size: 12pxpx;
     font-family: 'Oswald', sans-serif;
-    font-weight: 'bold';
-    color: #050505;
+    font-weight: 'regular';
+    color: #000000;
     text-align: center;
+    border-bottom:solid 2px #000000;
+    border-radius: 8px;
   }
-  .aboutsection p {
-    font-size: 16px;
-    font-family: 'playfair display', sans-serif;
-    font-weight: 'regular';   
-  }
+  
+  
 /* Espacement réduit à 5px entre les éléments */
-.aboutsection h5 {
-  margin-bottom: -120px;
-}
-.aboutsection img {
-  margin-bottom: 5px;
-}
-.aboutsection p {
-  margin-top: 5px;
-}
-
-  .card{
-    border: 0;
-  }
-  .card-img-top {
-    object-fit: cover;
-    height: 200px;
-  }
-
-  .card-body {
-    text-align: center;
-  }
-
-  h5.card-title {
-    font-size: 1.25rem;
-  }
-
-  p.card-text {
-    font-size: 0.95rem;
-  }
-
-  .text-warning {
-    color: #725111 !important;
-  }
-.presta .btnpresta {
-  justify-content: right !important;
-  align-items: center;
-}
-
- 
 
   .budget-section {
     display: flex;
@@ -301,4 +260,44 @@
 .timeline .right-bottom {
   left: 50%;
   top: calc(50% - 3px);
+}
+.card {
+  margin-top: 50px;
+  border: 13px solid #a0753d; /* Bordure subtile autour de la carte */
+  border-radius: 10px; /* Coins légèrement arrondis */
+  transition: transform 0.3s ease-in-out; /* Animation au survol */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Zoom léger au survol */
+}
+
+.card-img-top {
+  border-radius: 10px;
+  object-fit: cover; /* Ajuste l'image dans son conteneur sans déformation */
+  height: 220px; /* Hauteur fixe pour toutes les images */
+  width: 500px;
+}
+
+.card-body {
+  margin-bottom: 50px;
+  background-color: #ffffff; /* Fond blanc pour le corps de la carte */
+}
+
+.card-text {
+  text-align: left;
+  font-size: 1rem; /* Taille de police ajustée pour les paragraphes */
+  color: #343a40; /* Texte en gris foncé pour un meilleur contraste */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Taille de police pour les titres */
+}
+
+.text-warning {
+  color: #a0753d !important; /* Utilisation d'un brun/or pour le texte des titres */
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Légère ombre pour donner du relief */
 }

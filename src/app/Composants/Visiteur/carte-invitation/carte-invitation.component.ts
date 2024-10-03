@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { environment } from '../../../../environnements/environments';
 
 @Component({
   selector: 'app-carte-invitation',
   standalone: true,
-  imports: [HeaderComponent,FooterComponent,FormsModule,NgFor],
+  imports: [HeaderComponent,FooterComponent,FormsModule,NgFor,NgIf],
   templateUrl: './carte-invitation.component.html',
   styleUrls: ['./carte-invitation.component.scss'] // Correction de styleUrl -> styleUrls
 })
@@ -22,7 +23,8 @@ private CarteinvitationService = inject(CarteinvitationService);
 constructor(private http: HttpClient) { }
 
 // Déclaration des variables
-
+photoUrl: string = '';
+baseUrl: string = environment.apiurl;
 carteinvitations: carteinvitationModel[] = [];
 //Déclaration des methodes
 ngOnInit(): void {
@@ -54,5 +56,8 @@ ngOnInit(): void {
   const headers = { 'Authorization': `Bearer ${token}` };
 
   return this.http.get('http://127.0.0.1:8000/api/cartes', { headers });
+}
+getPhotoUrl(photoPath: string): string {
+  return `${this.baseUrl}${photoPath}`;
 }
 }

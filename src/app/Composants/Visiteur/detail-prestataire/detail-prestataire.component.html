@@ -1,58 +1,69 @@
-<div class="container">
-  <h1 class="text-center">Détails prestataire</h1>
+  <div class="container">
+    <h1 class="text-center">Détails prestataire</h1>
 
-  <div *ngIf="prestataire && prestataire.user" class="prestataire-details">
-    <div class="prestataire-info col-md-6">
-      <h3>{{ prestataire.user.nom }}</h3>
-      <div class="contact-container">
-        <div class="contact-info">
-          <i class="bi bi-geo-alt-fill"></i>
-          <span>{{ prestataire.user.adresse }}</span>
+    <!-- Assurez-vous que prestataire et user existent avant d'y accéder -->
+    <div *ngIf="prestataire && prestataire.user" class="prestataire-details">
+      <div class="prestataire-info col-md-6">
+        <!-- Affichez le nom du prestataire -->
+        <h3>{{ prestataire.user.nom }}</h3>
+        <!-- Informations de contact du prestataire -->
+        <div class="contact-container">
+          <div class="contact-info">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>{{ prestataire.user.adresse }}</span>
+          </div>
+          <div class="contact-info">
+            <i class="bi bi-telephone-fill"></i>
+            <span>{{ prestataire.user.telephone }}</span>
+          </div>
+          <div class="contact-info">
+            <i class="bi bi-envelope-fill"></i>
+            <span>{{ prestataire.user.email }}</span>
+          </div>
         </div>
-        <div class="contact-info">
-          <i class="bi bi-telephone-fill"></i>
-          <span>{{ prestataire.user.telephone }}</span>
-        </div>
-        <div class="contact-info">
-          <i class="bi bi-envelope-fill"></i>
-          <span>{{ prestataire.user.email }}</span>
-        </div>
-      </div>
 
-      <p>{{ prestataire.description }}</p>
+        <!-- Description du prestataire -->
+        <p>{{ prestataire.description }}</p>
 
-      <!-- Section d'évaluation -->
-      <div class="review-section">
-        <h4>Noter le prestataire</h4>
-        <div class="rating">
-          <i 
-            class="bi bi-star" 
-            *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
-            (click)="rate(i + 1)" 
-            [class.filled]="i < rating">
-          </i>
-        </div>
-        <p>Note actuelle : {{ rating }}/5</p>
-        
-        <textarea
-            class="form-control mt-2"
-            rows="3"
-            placeholder="Contenu du commentaire"
-            [(ngModel)]="commentaireText"
-            required
-        ></textarea>
+   <!-- Section d'évaluation -->
+<!-- Section d'évaluation -->
+<div class="review-section">
+  <h4>Noter le prestataire</h4>
+  <div class="stars">★★★★★</div>
+  <div class="rating">
+    <i 
+      class="bi bi-star" 
+      *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+      (click)="rate(i + 1)" 
+      [class.filled]="i < rating">
+    </i>
+  </div>
+  <p>Note actuelle : {{ rating }}/5</p>
+    
+  <!-- Champ pour le contenu du commentaire -->
+  <textarea
+      class="form-control mt-2"
+      rows="3"
+      placeholder="Contenu du commentaire"
+      [(ngModel)]="commentaireText"
+      required
+  ></textarea>
 
-        <button
-            class="btn mt-2"
-            (click)="publierCommentaire()"
-            [disabled]="!commentaireText.trim()"
-        >
-            Publier
-        </button>
-      </div>
 
-      <img *ngIf="prestataire" [src]="prestataire.logo || '../../../../assets/images/default.png'" alt="Logo">
-<!-- Section des commentaires -->
+  <button
+      class="btn mt-2"
+      (click)="publierCommentaire()"
+      [disabled]="!commentaireText.trim()"
+  >
+      Publier
+  </button>
+</div>
+
+
+<img [src]="photoUrl" alt="Logo du prestataire">
+
+<img *ngIf="prestataire" [src]="prestataire.logo || '../../../../assets/images/default.png'" alt="Logo">
+  
 <div class="testimonials mt-5" *ngIf="commentaires.length > 0">
   <h4>Nos témoignages</h4>
   <div class="row">

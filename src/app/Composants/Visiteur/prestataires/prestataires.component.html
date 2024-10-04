@@ -98,8 +98,8 @@
     <div class="col-md-4" *ngFor="let prestataire of prestataires">
       <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
       <a [routerLink]="['/detailprestataire', prestataire.id]" class="card border-0 text-decoration-none shadow-sm">
-        <img src="../../../../assets/images/image.png" alt="" class="card-img-top rounded-top img-fluid">
-        <!-- <img *ngIf="prestataire.logo" [src]="getPhotoUrl(prestataire.logo)" [alt]="" class="card-img-top rounded-top img-fluid"> -->
+        <!-- <img src="../../../../assets/images/image.png" alt="" class="card-img-top rounded-top img-fluid"> -->
+        <img *ngIf="prestataire.logo" [src]="getPhotoUrl(prestataire.logo)" [alt]="" class="card-img-top rounded-top img-fluid">
         <div class="card-body p-4 text-center">
           <p class="card-text text-muted">
             {{ prestataire.description }}

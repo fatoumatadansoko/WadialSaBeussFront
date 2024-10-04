@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy{
   isLoggedIn: boolean = false;
   private subscription: Subscription = new Subscription();
-
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {

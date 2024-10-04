@@ -118,4 +118,8 @@ p {
       height: auto; /* Adapter la hauteur pour les petits écrans */
     }
   }
-  
+  /* Exemple de style pour rendre l'icône cliquable */
+.bi-pencil-square {
+  z-index: 1;
+  cursor: pointer;
+}

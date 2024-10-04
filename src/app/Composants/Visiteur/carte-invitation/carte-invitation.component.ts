@@ -23,6 +23,8 @@ private CarteinvitationService = inject(CarteinvitationService);
 constructor(private http: HttpClient,) { }
 
 // Déclaration des variables
+selectedCarte: carteinvitationModel = { nom: '', contenu: '' }; // Remplace CarteInvitation par le type approprié
+  showEditModal: boolean = false; // Contrôle de l'affichage de la modale
 photoUrl: string = '';
 baseUrl: string = environment.apiurl;
 carteinvitations: carteinvitationModel[] = [];
@@ -30,6 +32,7 @@ carteinvitations: carteinvitationModel[] = [];
 ngOnInit(): void {
   this.fetchCarteinvitations();
 }
+
  //récupération de tous les categories des prestataires
  fetchCarteinvitations(): void {
   this.CarteinvitationService.getAllCarteinvitations().subscribe(
@@ -57,6 +60,32 @@ ngOnInit(): void {
 
   return this.http.get('http://127.0.0.1:8000/api/cartes', { headers });
 }
+editCarte(carte: carteinvitationModel): void {
+  this.selectedCarte = { ...carte }; // Cloner la carte pour éviter les modifications directes
+  this.showEditModal = true; // Afficher la modale
+}
+
+updateCarte(): void {
+  
+  if (this.selectedCarte) {
+    this.CarteinvitationService.updateCarte(this.selectedCarte.id!, this.selectedCarte).subscribe(
+      (response: any) => {
+        console.log('Carte mise à jour avec succès', response);
+        this.fetchCarteinvitations(); // Rafraîchir la liste des cartes
+        this.closeEditModal();
+      },
+      (error: any) => {
+        console.error('Erreur lors de la mise à jour de la carte:', error);
+      }
+    );
+  }
+}
+
+closeEditModal(): void {
+  this.selectedCarte = { nom: '', contenu: '' }; // Reset selectedCarte to an empty object
+  this.showEditModal = false; // Masquer la modale
+}
+
 getPhotoUrl(photoPath: string): string {
   return `${this.baseUrl}${photoPath}`;
 }

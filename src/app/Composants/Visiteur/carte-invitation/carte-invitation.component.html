@@ -1,4 +1,5 @@
 <app-header></app-header>
+
 <div class="background-section">
     <div class="overlay">
         <h1>Nos cartes</h1>
@@ -13,32 +14,45 @@
         </div>
     </div>
 </div>
+
+<!-- Affichage des cartes d'invitations -->
 <div class="container d-flex flex-wrap justify-content-center">
     <div class="cartein card-container" *ngFor="let carte of carteinvitations">
-      <!-- Conteneur de la carte -->
       <div class="card position-relative">
-        <!-- Image de la carte -->
         <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
-        
-        <!-- Contenu de la carte, positionné sur l'image -->
         <div class="card-content position-absolute top-50 start-50 translate-middle text-center text-white">
-          <h3 class="d-inline-block">{{ carte.nom }}</h3>
-          <!-- Icône de modification à droite -->
-          <i class="bi bi-pencil-square position-absolute end-0 bottom-0 me-3 mb-3 text-white" style="cursor:pointer"></i>
+          <h3>{{ carte.nom }}</h3>
+          <!-- Icône de modification -->
+          <i class="bi bi-pencil-square position-absolute end-0 bottom-0 me-3 mb-3 text-white" 
+             style="cursor:pointer" 
+             (click)="editCarte(carte)">
+          </i>
           <p>{{ carte.contenu }}</p>
         </div>
       </div>
     </div>
+</div>
+
+<!-- Modal pour éditer la carte sélectionnée -->
+<div *ngIf="showEditModal" class="modal" tabindex="-1" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifier la carte</h5>
+        <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+    <!-- Assurez-vous que ces propriétés sont correctement définies dans le .ts -->
+<input [(ngModel)]="selectedCarte.nom" placeholder="Nom de la carte" class="form-control" />
+<textarea [(ngModel)]="selectedCarte.contenu" placeholder="Contenu de la carte" class="form-control"></textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateCarte()">Sauvegarder</button>
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Annuler</button>
+      </div>
+    </div>
   </div>
-  
-  
-
-
-
-
-
-
-
-
+</div>
 
 <app-footer></app-footer>

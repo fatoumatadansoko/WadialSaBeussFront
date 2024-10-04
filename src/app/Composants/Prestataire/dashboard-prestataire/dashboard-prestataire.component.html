@@ -1,1 +1,66 @@
-<p>dashboard-prestataire works!</p>
+<app-header></app-header>
+<div class="container">
+  <h1 class="text-center">Détails prestataire</h1>
+
+  <div *ngIf="prestataire && prestataire.user" class="row prestataire-details">
+    <!-- Image et détails du prestataire -->
+    <div class="col-md-6">
+      <img [src]="photoUrl" alt="Image du prestataire" class="img-fluid rounded mb-4" />
+    </div>
+
+    <div class="col-md-6">
+      <h3>{{ prestataire.user.nom }}</h3>
+
+      <!-- Informations de contact -->
+      <div class="contact-container">
+        <div class="contact-info">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>{{ prestataire.user.adresse }}</span>
+        </div>
+        <div class="contact-info">
+          <i class="bi bi-telephone-fill"></i>
+          <span>{{ prestataire.user.telephone }}</span>
+        </div>
+        <div class="contact-info">
+          <i class="bi bi-envelope-fill"></i>
+          <span>{{ prestataire.user.email }}</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p>{{ prestataire.user.description }}</p>
+    </div>
+  </div>
+<!-- Noter le prestataire -->
+<div class="review-section mt-5">
+  <h4>Noter le prestataire</h4>
+  <div class="rating">
+    <i class="bi bi-star" *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" (click)="rate(i + 1)" [class.filled]="i < rating"></i>
+  </div>
+  <p>Note actuelle : {{ rating }}/5</p>
+
+  <!-- Champ pour le contenu du commentaire -->
+  <textarea class="form-control mt-2" rows="3" placeholder="Contenu du commentaire" [(ngModel)]="commentaireText" required></textarea>
+
+  <button class="btn btn-primary mt-2" (click)="publierCommentaire()" [disabled]="!commentaireText.trim()">Publier</button>
+</div>
+</div>
+  <!-- Témoignages -->
+  <div class="testimonials mt-5" *ngIf="commentaires.length > 0">
+    <h4>Nos témoignages</h4>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let commentaire of commentaires">
+        <div class="commentaire p-3 border rounded">
+          <div class="rating mb-2">
+            <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+              <i class="bi bi-star" [class.filled]="i < convertToInt(commentaire.note)"></i>
+            </span>
+          </div>
+          <p>{{ commentaire.contenu ?? "Contenu non disponible" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<app-footer></app-footer>

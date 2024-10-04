@@ -8,6 +8,7 @@ import { FooterComponent } from '../../Commun/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { environment } from '../../../../environnements/environments';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carte-invitation',
@@ -20,7 +21,10 @@ export class CarteInvitationComponent {
 
 
 private CarteinvitationService = inject(CarteinvitationService);    
-constructor(private http: HttpClient,) { }
+constructor(private http: HttpClient,    private router: Router,
+) {
+  
+ }
 
 // Déclaration des variables
 selectedCarte: carteinvitationModel = { nom: '', contenu: '' }; // Remplace CarteInvitation par le type approprié
@@ -73,6 +77,9 @@ updateCarte(): void {
         console.log('Carte mise à jour avec succès', response);
         this.fetchCarteinvitations(); // Rafraîchir la liste des cartes
         this.closeEditModal();
+        this.router.navigate(['/profil-client']); // Redirection vers la liste des événements
+
+
       },
       (error: any) => {
         console.error('Erreur lors de la mise à jour de la carte:', error);

@@ -10,7 +10,6 @@ import { error } from 'console';
     providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://127.0.0.1:8000/api/users'; // Remplacez par l'URL de votre API
 
  // Methode pour recuperer toutes les users 
 
@@ -19,62 +18,72 @@ export class UserService {
   getAllUser(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(this.apiUrl, { headers });
+    return this.http.get<any>(`${apiurl}/users`, { headers });
   }
+
     // Afficher les details d'un seul user
-//    getUser(id: number): Observable<any> {
-//   const token = localStorage.getItem('token');
+     // Méthode pour afficher les informations de l'utilisateur connecté
+//      getMe(): Observable<any> {
+//       const token = localStorage.getItem('token');
+
+      
+//       if (!token) {
+//           console.error('No authentication token found');
+//           return throwError('No authentication token found');
+//       }
   
-//   if (!token) {
-//     console.error('No authentication token found');
-//     return throwError(() => new Error('No authentication token found'));
+//       const headers = new HttpHeaders({
+//           'Authorization': `Bearer ${token}`
+//       });
+  
+//       return this.http.get<any>(`${apiurl}/users/7`, { headers });
 //   }
 
-//   const headers = new HttpHeaders({
-//     'Authorization': `Bearer ${token}`
-//   });
-
-//   console.log(`Fetching user from URL: ${this.apiUrl}/${id}`); // Ajoutez cette ligne pour déboguer
-
-//   return this.http.get<any>(`${this.apiUrl}/${id}`, { headers }).pipe(
-//     catchError((error) => {
-//       console.error('Failed to fetch user details:', error);
-//       return throwError(() => new Error('Failed to fetch user details'));
-//     })
-//   );
-// }
-
-    // Afficher les details d'un seul user
-    getUser(id: number): Observable<any> {
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        console.error('No authentication token found');
-        return throwError('No authentication token found');
-      }
+//   getMe(id: number): Observable<any> {
+//     const token = localStorage.getItem('token');
     
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-    
-      return this.http.get<any>(`${apiurl}/users/${id}`, { headers }).pipe(
-        catchError((error) => {
-          console.error('Failed to fetch user details:', error);
-          return throwError(() =>new Error('Failed to fetch user details'));
-        })
-      );
-    }
+//     if (!token) {
+//       console.error('No authentication token found');
+//       return throwError('No authentication token found');
+//     }
+  
+//     const headers = new HttpHeaders({
+//       'Authorization': `Bearer ${token}`
+//     });
+  
+//     return this.http.get<any>(`${apiurl}/users/${id}`, { headers }).pipe(
+//       catchError((error) => {
+//         console.error('Failed to fetch user details:', error);
+//         return throwError(error);
+//       })
+//     );
+//   }
 
+
+  // Récupérer les informations du profil utilisateur
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur connecté
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any>(`${apiurl}/profile`, { headers });
+  }
    // Méthode pour inscrire un utilisateur (prestataire ou client)
-  register(user: any): Observable<any> {
-        return this.http.post(`${apiurl}/register`, user);
-    
-  }
+   register(user: any): Observable<any> {
+    return this.http.post(`${apiurl}/register`, user);
+
+}
+
+
+private handleError(error: any) {
+console.error('An error occurred', error);
+return throwError('Something went wrong; please try again later.');
+}
+  
+    }
+  
+
+  
+
  
-
-  private handleError(error: any) {
-    console.error('An error occurred', error);
-    return throwError('Something went wrong; please try again later.');
-  }
-
- }

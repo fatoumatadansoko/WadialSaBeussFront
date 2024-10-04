@@ -17,7 +17,7 @@ export class CommentaireService {
   getAllCommentaires(id?: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${apiurl}/commentaires`, { headers });
+    return this.http.get(`${apiurl}/commentaires/${id}`, { headers });
 
   }
   

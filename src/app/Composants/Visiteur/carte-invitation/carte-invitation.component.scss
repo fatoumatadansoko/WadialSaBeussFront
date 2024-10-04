@@ -61,3 +61,61 @@ p {
 .filter-form button:hover {
     background-color: #555;
 }
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .card-container {
+    flex: 1 1 300px; /* Toutes les cartes auront la même largeur (300px ici) */
+    max-width: 300px;
+    position: relative;
+    padding-bottom: 50px;
+  }
+  
+  .card {
+    width: 100%; /* Prendre toute la largeur disponible */
+    height: 400px; /* Hauteur fixe pour toutes les cartes */
+    overflow: hidden;
+    position: relative;
+    
+  }
+  
+  .card-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 80%;
+  }
+  
+  .card img {
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 100%;
+    height: 90%; /* Limiter la taille des images à 200px de hauteur */
+    object-fit: cover; /* Adapter l'image au conteneur tout en gardant le ratio */
+  }
+  
+  .bi-pencil-square {
+    font-size: 1.5rem;
+    color: rgb(84, 41, 41);
+  }
+  
+  @media (max-width: 768px) {
+    .card-container {
+      flex: 1 1 100%; /* Sur les petits écrans, les cartes prennent toute la largeur */
+    }
+  
+    .card {
+      height: auto; /* Adapter la hauteur pour les petits écrans */
+    }
+  }
+  

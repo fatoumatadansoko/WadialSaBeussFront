@@ -16,6 +16,7 @@ import { AccessUsersComponent } from './Composants/Admin/access-users/access-use
 import { CarteAdminComponent } from './Composants/Admin/carte-admin/carte-admin.component';
 import { ProfilAdminComponent } from './Composants/Admin/profil-admin/profil-admin.component';
 import { UserProfilComponent } from './Composants/Visiteur/user-profil/user-profil.component';
+import { PersonnalisationCarteInvitationComponent } from './Composants/Visiteur/personnalisation-carte-invitation/personnalisation-carte-invitation.component';
 
 
 export const routes: Routes = [
@@ -39,6 +40,7 @@ export const routes: Routes = [
    { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
    { path: 'carteinvitation', component: CarteInvitationComponent},
    { path: 'profil-client', component: UserProfilComponent},
+   { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
 
 
 

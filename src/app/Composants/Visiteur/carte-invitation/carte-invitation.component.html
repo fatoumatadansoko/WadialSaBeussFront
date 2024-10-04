@@ -13,17 +13,25 @@
         </div>
     </div>
 </div>
-
-<div *ngFor="let carte of carteinvitations">
-    <h3>{{ carte.nom }}</h3>
-    <img [src]="photoUrl" alt="Logo du prestataire">
-
-<img *ngIf="carte" [src]="carte.image || '../../../../assets/images/default.png'" alt="Logo">
-
-    <img [src]="carte.image" alt="{{ carte.nom }}">
-    <p>{{ carte.contenu }}</p>
+<div class="container d-flex flex-wrap justify-content-center">
+    <div class="cartein card-container" *ngFor="let carte of carteinvitations">
+      <!-- Conteneur de la carte -->
+      <div class="card position-relative">
+        <!-- Image de la carte -->
+        <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
+        
+        <!-- Contenu de la carte, positionné sur l'image -->
+        <div class="card-content position-absolute top-50 start-50 translate-middle text-center text-white">
+          <h3 class="d-inline-block">{{ carte.nom }}</h3>
+          <!-- Icône de modification à droite -->
+          <i class="bi bi-pencil-square position-absolute end-0 bottom-0 me-3 mb-3 text-white" style="cursor:pointer"></i>
+          <p>{{ carte.contenu }}</p>
+        </div>
+      </div>
+    </div>
   </div>
-     
+  
+  
 
 
 

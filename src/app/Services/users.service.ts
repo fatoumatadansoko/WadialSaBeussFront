@@ -22,29 +22,48 @@ export class UserService {
     return this.http.get(this.apiUrl, { headers });
   }
     // Afficher les details d'un seul user
-   getUser(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
+//    getUser(id: number): Observable<any> {
+//   const token = localStorage.getItem('token');
   
-  if (!token) {
-    console.error('No authentication token found');
-    return throwError(() => new Error('No authentication token found'));
-  }
+//   if (!token) {
+//     console.error('No authentication token found');
+//     return throwError(() => new Error('No authentication token found'));
+//   }
 
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+//   const headers = new HttpHeaders({
+//     'Authorization': `Bearer ${token}`
+//   });
 
-  console.log(`Fetching user from URL: ${this.apiUrl}/${id}`); // Ajoutez cette ligne pour déboguer
+//   console.log(`Fetching user from URL: ${this.apiUrl}/${id}`); // Ajoutez cette ligne pour déboguer
 
-  return this.http.get<any>(`${this.apiUrl}/${id}`, { headers }).pipe(
-    catchError((error) => {
-      console.error('Failed to fetch user details:', error);
-      return throwError(() => new Error('Failed to fetch user details'));
-    })
-  );
-}
+//   return this.http.get<any>(`${this.apiUrl}/${id}`, { headers }).pipe(
+//     catchError((error) => {
+//       console.error('Failed to fetch user details:', error);
+//       return throwError(() => new Error('Failed to fetch user details'));
+//     })
+//   );
+// }
 
+    // Afficher les details d'un seul user
+    getUser(id: number): Observable<any> {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        return throwError('No authentication token found');
+      }
     
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    
+      return this.http.get<any>(`${apiurl}/users/${id}`, { headers }).pipe(
+        catchError((error) => {
+          console.error('Failed to fetch user details:', error);
+          return throwError(() =>new Error('Failed to fetch user details'));
+        })
+      );
+    }
 
    // Méthode pour inscrire un utilisateur (prestataire ou client)
   register(user: any): Observable<any> {

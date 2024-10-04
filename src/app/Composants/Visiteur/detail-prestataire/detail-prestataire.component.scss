@@ -1,99 +1,53 @@
-
-.prestataire-details {
-    margin-top: 100px;
+.container {
+    padding: 2rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .prestataire-details {
     display: flex;
-    justify-content: space-between;
-}
-
-.prestataire-details .images {
-    display: block;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-}
-
-.prestataire-details .images img {
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border: 3px solid #AE8F67; /* Adjust border color if needed */
-}
-
-.prestataire-info {
-    flex: 1;
-    margin-left: 20px;
-}
-
-.prestataire-info h3 {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.prestataire-info .rating {
-    color: #FF9700;
-}
-
-/* Flex container for contact info */
-.prestataire-info .contact-container {
-    display: flex;
-    align-items: center;
-    gap: 20px; /* Add space between the contact items */
-    margin-bottom: 10px;
-}
-
-.prestataire-info .contact-info {
-    display: flex;
-    align-items: center;
-}
-
-.prestataire-info .contact-info span {
-    margin-left: 10px;
-    font-size: 16px;
-}
-
-.prestataire-info .contact-info i {
-    color: #AE8F67;
-    font-size: 20px;
-}
-
-.review-section {
-    margin-top: 20px;
-}
-
-.review-section h4 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.review-section .stars {
-    color: #FF9700;
-}
-
-.review-section textarea {
-    margin-top: 10px;
-}
-
-.review-section button {
-    background-color: #AE8F67;
-    color: white;
-    border: none;
-    margin-top: 10px;
-}
-
-.testimonials {
-    margin-top: 30px;
-}
-
-.testimonials p {
-    font-size: 14px;
-}
-
-.testimonials .client {
-    font-weight: bold;
-}
-.rating {
+    flex-wrap: wrap;
+  
+    .contact-container {
+      margin-top: 1rem;
+  
+      .contact-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+  
+        i {
+          margin-right: 0.5rem;
+          color: #ff9700; /* Couleur orange */
+        }
+  
+        span {
+          margin-right: 2rem; /* Ajout d'espacement entre les informations */
+        }
+      }
+  
+      /* Pour aligner toutes les informations en ligne */
+      display: flex;
+      justify-content: flex-start;
+      gap: 1rem; /* Espace entre les différents éléments (adresse, téléphone, email) */
+    }
+  }
+  
+  .testimonials {
+    h4 {
+      margin-bottom: 1rem;
+    }
+    .commentaire {
+      margin-bottom: 1.5rem;
+      background-color: #f9f9f9;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  .rating {
     display: flex;
     gap: 5px;
   }
@@ -119,4 +73,13 @@
     color: gold; /* Couleur pour les étoiles remplies */
   }
   
+  
+  
+  .review-section {
+    margin-top: 3rem;
+    .btn {
+      background-color: #9e9f8d;
+      border-color: #9e9f8d;
+    }
+  }
   

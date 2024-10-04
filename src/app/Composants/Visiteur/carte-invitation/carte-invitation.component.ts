@@ -20,7 +20,7 @@ export class CarteInvitationComponent {
 
 
 private CarteinvitationService = inject(CarteinvitationService);    
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient,) { }
 
 // Déclaration des variables
 photoUrl: string = '';

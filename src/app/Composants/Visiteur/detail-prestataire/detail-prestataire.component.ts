@@ -108,7 +108,7 @@ getCommentaires(id: number): void {
       note: this.rating, // Ajouter la note ici
 
     };
-    console.log('Note envoyée:', this.rating); // Log pour vérifier la note avant l'envoi
+    // console.log('Note envoyée:', this.rating); // Log pour vérifier la note avant l'envoi
 
     this.commentaireService.addCommentaire(nouveauCommentaire).subscribe(
       (response) => {

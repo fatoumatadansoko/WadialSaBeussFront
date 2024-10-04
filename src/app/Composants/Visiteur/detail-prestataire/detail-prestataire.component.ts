@@ -12,6 +12,8 @@ import { CategorieprestataireService } from '../../../Services/categorieprestata
 import { UserService } from '../../../Services/users.service';
 import { PretataireService } from '../../../Services/prestataire.service';
 import { PrestataireModel } from '../../../Models/prestataire.model';
+import { CommentaireService } from '../../../Services/commentaire.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail-prestataire',
@@ -24,38 +26,112 @@ import { PrestataireModel } from '../../../Models/prestataire.model';
 
 export class DetailPrestataireComponent implements OnInit {
 
-  private prestataireService = inject(PretataireService); 
+  private prestataireService = inject(PretataireService);
+  private commentaireService = inject(CommentaireService);
   private route: ActivatedRoute = inject(ActivatedRoute);
-
-  prestataire: PrestataireModel | undefined; // Doit être un objet, pas un tableau
-  commentaires: CommentaireModel[] = []; // Doit être un tableau, pas un objet
-   user: UserModel | undefined;
+  convertToInt(note: any): number {
+    const parsedNote = parseInt(note, 10);
+    console.log(`Note convertie: ${parsedNote}`); // Ajout d'un log pour déboguer
+    return isNaN(parsedNote) ? 0 : parsedNote; // Retourne 0 si ce n'est pas un nombre
+  }
+  
+  
+  commentaireText: string = ''; // Variable pour stocker le texte du commentaire
+  clientId: number = 1; // Remplacer par l'ID du client connecté (récupérer dynamiquement si nécessaire)
+  prestataireId: number | undefined; // ID du prestataire, à assigner lors de l'initialisation
+  prestataire: PrestataireModel | undefined; // Objet pour le prestataire
+  commentaires: CommentaireModel[] = []; // Tableau pour les commentaires
   baseUrl: string = environment.apiurl;
   photoUrl: string = '';
-  
+  dateAjout: string = new Date().toISOString(); // Date d'ajout au format ISO
+  rating: number = 1; // Stocker la note actuelle
+
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (isNaN(id)) {
-      console.error('Invalid ID parameter');
-      return;
+    if (!isNaN(id)) {
+      this.prestataireId = id;
+      this.getPrestataireDetails(id); // Récupérer les détails du prestataire
+      this.getCommentaires(id); // Récupérer les commentaires associés au prestataire
+    } else {
+      console.error('Invalid prestataire ID');
     }
-    this.getPrestataireDetails(id); // Récupérer les détails du prestataire
   }
 
+  // Récupérer les détails du prestataire
   getPrestataireDetails(id: number): void {
     this.prestataireService.getPrestataire(id).subscribe(
       (response: any) => {
-        console.log('Response from API:', response); // Vérifier la réponse complète
-        this.prestataire = response.data; // Assigner la réponse à `prestataire`
-        this.user = this.prestataire?.user; // Si prestataire existe, assigner l'utilisateur
-        this.photoUrl = `${this.baseUrl}/${this.prestataire?.logo}`; // Générer l'URL de l'image
-        console.log('Prestataire:', this.prestataire); // Vérifier la valeur de `prestataire`
+        this.prestataire = response.data;
+        this.photoUrl = `${this.baseUrl}/${this.prestataire?.logo}`;
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des détails du prestataire:', error);
       }
     );
   }
-  
+  // Méthode appelée lorsqu'une étoile est cliquée
+  rate(stars: number): void {
+    this.rating = stars; // Met à jour la note
+  }
+
+  // Récupérer les commentaires du prestataire
+ // Récupérer les commentaires du prestataire
+getCommentaires(id: number): void {
+  this.commentaireService.getAllCommentaires(id).subscribe(
+    (response: any) => {
+      this.commentaires = response.data;
+      console.log('Commentaires récupérés:', this.commentaires); // Vérifiez ici
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des commentaires:', error);
+    }
+  );
+}
+
+
+  // Publier un commentaire
+  publierCommentaire(): void {
+    if (!this.prestataireId) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'ID du prestataire introuvable.',
+      });
+      return;
+    }
+
+    const nouveauCommentaire: CommentaireModel = {
+      contenu: this.commentaireText,
+      client_id: this.clientId,
+      prestataire_id: this.prestataireId,
+      note: this.rating, // Ajouter la note ici
+
+    };
+    // console.log('Note envoyée:', this.rating); // Log pour vérifier la note avant l'envoi
+
+    this.commentaireService.addCommentaire(nouveauCommentaire).subscribe(
+      (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Commentaire publié!',
+          text: 'Votre commentaire a été publié avec succès.',
+        });
+        // Ajouter le nouveau commentaire au tableau local
+        this.commentaires.push(nouveauCommentaire);
+        // Réinitialiser le contenu du commentaire
+        this.commentaireText = '';
+        this.rating = 1; // Réinitialiser la note
+
+      },
+      (error) => {
+        console.error('Erreur lors de la publication du commentaire:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de la publication du commentaire.',
+        });
+      }
+    );
+  }
 }

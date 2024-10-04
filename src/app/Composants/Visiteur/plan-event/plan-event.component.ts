@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventService } from '../../../Services/event.service';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-plan-event',
   standalone: true,
   imports: [
-    ReactiveFormsModule,HttpClientModule
+    ReactiveFormsModule,HttpClientModule,NgIf
   ],
   templateUrl: './plan-event.component.html',
   styleUrls: ['./plan-event.component.scss'], // correction ici pour "styleUrls"
@@ -44,6 +45,7 @@ export class PlanEventComponent {
           console.log('Événement créé avec succès:', response);
           // Réinitialiser le formulaire ou effectuer d'autres actions
           this.eventForm.reset();
+          this.router.navigate(['/profil-client']); // Redirection vers la liste des événements
         },
         (error) => {
           console.error('Erreur lors de la création de l\'événement:', error);

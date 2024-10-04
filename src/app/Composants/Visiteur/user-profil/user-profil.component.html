@@ -1,27 +1,24 @@
- 
- <div class="profile-container">
+<div class="profile-container">
     <div class="header">
-        <h2>Fatima DANSOKO</h2>
+        <h2>{{ user?.nom }}</h2>
         <img src="https://via.placeholder.com/100" alt="Photo de profil">
     </div>
     <table class="info-table">
         <tr>
             <th>PRENOM ET NOM</th>
-            <td>ANNA MARONE</td>
+            <td>{{ user?.nom }}</td>
         </tr>
         <tr>
             <th>EMAIL</th>
-            <td>annamarone72gmail.com</td>
+            <td>{{ user?.email }}</td>
         </tr>
         <tr>
             <th>TELEPHONE</th>
-            <td>784615847</td>
+            <td>{{ user?.telephone }}</td>
         </tr>
         <tr>
             <th>ADRESSE</th>
-            <td>Dakar</td>
+            <td>{{ user?.adresse }}</td>
         </tr>
     </table>
-   
 </div>
-

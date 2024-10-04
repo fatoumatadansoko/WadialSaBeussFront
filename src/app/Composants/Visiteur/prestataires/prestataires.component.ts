@@ -59,7 +59,7 @@ export class PrestatairesComponent implements OnInit {
     );
   }
 
-  // Récupération de toutes les catégories
+  // Récupération de toutes les prestataires
   fetchPrestataires(): void {
     this.PrestataireService.getAllPrestataire().subscribe(
       (response: any) => {

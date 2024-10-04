@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,28 +14,37 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy{
   isLoggedIn: boolean = false;
-  constructor(public authService: AuthService, private router: Router) { 
-    this.isLoggedIn = !!localStorage.getItem('token'); // Supposons que le token est stocké dans le localStorage
+  private subscription: Subscription = new Subscription();
 
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // Abonnement à l'état de connexion pour être informé des changements en temps réel
+    this.subscription = this.authService.isLoggedIn().subscribe(
+      (loggedIn: boolean) => {
+        this.isLoggedIn = loggedIn;
+      }
+    );
   }
-  
+
   logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        // Rediriger l'utilisateur après une déconnexion réussie ou forcée
+        // Redirection après déconnexion
         this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Erreur lors de la déconnexion:', error);
-        // Redirection après l'échec de la déconnexion si nécessaire
+        // Redirection même en cas d'erreur
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    // Se désabonner de l'observable pour éviter les fuites de mémoire
+    this.subscription.unsubscribe();
   }
 }

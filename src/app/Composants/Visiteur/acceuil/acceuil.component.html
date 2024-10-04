@@ -24,8 +24,8 @@
 <!-- Carousel Partenaires -->
 <section class="caroussel">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <h6 class="">Nos réalisations</h6>
+    <div class="carousel-inner nosrealisations">
+      <h6 class=>Nos réalisations</h6>
 
       <!-- Carousel Item 1 -->
       <div class="carousel-item active">
@@ -33,15 +33,19 @@
           <div class="row">
             <div class="col-3">
               <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 1" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eos excepturi numquam obcaecati nesciunt hic impedit doloremque similique dolore illum, molestias tenetur architecto adipisci neque! Esse nisi nihil suscipit rem!</p>
             </div>
             <div class="col-3">
               <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 2" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, aperiam nam, odio debitis quos totam enim, molestias labore qui a itaque ratione cum. Placeat est itaque aperiam harum minima doloremque?</p>
             </div>
             <div class="col-3">
               <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 3" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat modi ratione, at dolor autem mollitia sed labore! Laudantium, numquam ut porro quam iusto repudiandae sequi, alias enim tempora, accusamus veritatis?</p>
             </div>
             <div class="col-3">
               <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 4" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam at optio voluptate recusandae placeat sed soluta quos aspernatur labore excepturi! Fuga dolorem natus nulla voluptatibus ipsa sed laudantium provident voluptate.</p>
             </div>
           </div>
         </div>
@@ -53,15 +57,19 @@
           <div class="row">
             <div class="col-3">
               <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 5" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, nesciunt eum corporis dolores ipsam veritatis rem! Hic quae incidunt ipsum, nihil totam consectetur repellendus, eius, provident quo aut dolore amet.</p>
             </div>
             <div class="col-3">
               <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 6" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores aliquid iusto corporis in, voluptatibus enim repellendus totam quia doloremque porro neque nostrum dicta at ullam, nobis ipsa quae corrupti libero.</p>
             </div>
             <div class="col-3">
               <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 7" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, voluptas, alias asperiores autem itaque veniam, quos cumque ex minus. Quidem vel, excepturi, voluptatum quo perspiciatis quia aperiam voluptatibus.</p>
             </div>
             <div class="col-3">
               <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 8" class="img-fluid partenaire"/>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure deleniti rerum dolore consequuntur vel alias cumque tempora optio placeat quaerat! Maxime labore deleniti itaque, ex numquam ab! Numquam, voluptates delectus.</p>
             </div>
           </div>
         </div>
@@ -160,44 +168,21 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <div class="card border-0">
-        <img src="../../../../assets/images/image.png" class="card-img-top rounded" alt="Traiteur">
-        <div class="card-body">
-          <p class="card-text text-left">Offrez à vos invités une expérience culinaire inoubliable avec nos prestations de traiteur personnalisées, adaptées à chaque occasion.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Traiteur</h5>
-
+    <div class="col-md-4" *ngFor="let prestataire of prestataires">
+      <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
+      <a [routerLink]="['/detailprestataire', prestataire.id]" class="card border-0 text-decoration-none shadow-sm">
+        <img src="../../../../assets/images/image.png" alt="" class="card-img-top rounded-top img-fluid">
+        <!-- <img *ngIf="prestataire.logo" [src]="getPhotoUrl(prestataire.logo)" [alt]="" class="card-img-top rounded-top img-fluid"> -->
+        <div class="card-body p-4 text-center">
+          <p class="card-text text-muted">
+            {{ prestataire.description }}
+          </p>
+          <h5 class="card-title text-warning fw-bold">Décoration</h5>
         </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card border-0">
-        <img src="../../../../assets/images/image1.png" class="card-img-top rounded" alt="Couture">
-        <div class="card-body">
-          <p class="card-text text-left">Sublimez votre événement avec des tenues et accessoires sur mesure grâce à nos services de couture, pour une touche d'élégance incomparable.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Couture</h5>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card border-0">
-        <img src="../../../../assets/images/image2.png" class="card-img-top rounded" alt="Décoration">
-        <div class="card-body">
-          <p class="card-text text-left">Créez des ambiances uniques avec nos services de décoration sur mesure, pour des événements qui reflètent votre style et vos envies.</p>
-          <h5 class="card-title text-warning fw-bold text-left">Décoration</h5>
-
-        </div>
-      </div>
+      </a>
     </div>
   </div>
-  <div class="presta">
-    <button class="btnpresta">voir plus</button>
-
-  </div>
-</div>
+  
 
 
 <!-- Section Budget -->
@@ -240,4 +225,3 @@
   </div>
 </section>
 
-<app-footer></app-footer>

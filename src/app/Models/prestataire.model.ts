@@ -26,6 +26,7 @@ export interface UserModel {
     createdAt?: Date,
     updatedAt?: Date,
     role?: string,
+    logo?: string,
     prestataire?: PrestataireModel;
 }
 export interface CommentaireModel {

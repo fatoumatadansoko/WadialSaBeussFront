@@ -39,8 +39,11 @@ getUserProfile(): void {
         console.error('Erreur lors de la récupération des informations utilisateur:', error);
       }
     );
+    
   }
-
+  getPhotoUrl(photoPath: string): string {
+    return `${this.baseUrl}${photoPath}`;
+  }
 
   // Récupérer les détails du prestataire
 //   getPrestataireDetails(id: number): void {

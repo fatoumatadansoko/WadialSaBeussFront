@@ -33,6 +33,8 @@
     <p><strong>Téléphone :</strong> {{ user.telephone }}</p>
     <p><strong>Adresse :</strong> {{ user.adresse }}</p>
     <p><strong>Description:</strong> {{user.description}}</p>
+    <img *ngIf="user.logo" [src]="getPhotoUrl(user.logo)" [alt]="" class="card-img-top rounded-top img-fluid">
+
     <p><strong></strong></p>
   </div>
   

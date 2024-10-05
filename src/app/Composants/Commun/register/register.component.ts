@@ -35,8 +35,8 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', [Validators.required]],
-      statut: ['', [Validators.required]],
-      logo: [''], // Facultatif selon le rôle
+      statut: ['active'],  // Valeur par défaut pour le statut
+      logo: ['', [Validators.required]],
       adresse: ['', [Validators.required, Validators.maxLength(255)]],
       telephone: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(9)]],
       role: ['', [Validators.required]],
@@ -46,6 +46,17 @@ export class RegisterComponent implements OnInit {
     }, { 
       validators: this.passwordMatchValidator // Validation pour les mots de passe
     });
+    // Récupérer les catégories à partir de l'API
+   this.userService.getCategorieprestataires().subscribe(categories => {
+    this.categoriePrestataires = categories;
+  });
+  // Récupérer les catégories à partir de l'API
+  this.userService.getCategorieprestataires().subscribe({
+    next: (categories) => {
+      this.categoriePrestataires = categories;
+    },
+    error: (err) => console.error('Erreur lors de la récupération des catégories', err)
+  });
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -74,7 +85,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      this.userService.register(this.registerForm.value).subscribe({
+      const formData = new FormData();
+      for (const key in this.registerForm.value) {
+        formData.append(key, this.registerForm.value[key]);
+      }
+      
+      this.userService.register(formData).subscribe({
         next: (response) => {
           console.log('Inscription réussie', response);
           this.router.navigate(['/login']); // Redirection vers la page de connexion
@@ -83,12 +99,17 @@ export class RegisterComponent implements OnInit {
       });
     }
   }
+  
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       console.log('Fichier sélectionné:', this.selectedFile);
+      // Mettre à jour le contrôle du formulaire
+      this.registerForm.patchValue({ logo: this.selectedFile });
     }
   }
   
+   
+
 }

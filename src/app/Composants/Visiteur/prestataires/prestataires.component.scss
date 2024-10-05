@@ -31,7 +31,7 @@
 }
 .card {
   margin-top: 50px;
-  border: 13px solid #a0753d; /* Bordure subtile autour de la carte */
+  border: 13px solid #725111; /* Bordure subtile autour de la carte */
   border-radius: 10px; /* Coins légèrement arrondis */
   transition: transform 0.3s ease-in-out; /* Animation au survol */
 }
@@ -63,10 +63,35 @@
 }
 
 .text-warning {
-  color: #a0753d !important; /* Utilisation d'un brun/or pour le texte des titres */
+  color: #725111 !important; /* Utilisation d'un brun/or pour le texte des titres */
+  justify-content: left;
+  text-align: left;
 }
 
 .shadow-sm {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Légère ombre pour donner du relief */
 }
 
+.dropdown-item {
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  height: 20px;
+  width: 15px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.dropdown-item.active {
+  background-color: transparent;
+  font-weight: bold;
+  color: purple; /* Couleur de sélection */
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Couleur au survol */
+}

@@ -29,13 +29,20 @@
     font-weight: 'regular';
   }
   
-  .event-section .btn-warning {
-    background-color: #725111;
-    color: #fff;
-    border: 10px;
-    width: 120px;
-    font-family: 'oswald', sans-serif;
+  .event-section .btn-primary {
+    width: 150px;
+    padding-top: -1px;
+      border-radius: 10px;
+      color: white;
+      background-color: #725111; /* Couleur de fond du bouton */
+      border-color: #725111; /* Couleur de la bordure du bouton */
   }
+  
+  .btn-primary:hover {
+      background-color: #051D30; /* Couleur de fond du bouton au survol */
+      border-color: #051D30; /* Couleur de la bordure du bouton au survol */
+  }
+  
   .nosrealisations h6 {
     padding-bottom: 30px;
     padding-top: 10px;
@@ -52,7 +59,8 @@
     font-family: 'Oswald', sans-serif;
     font-weight: 'regular';
     color: #000000;
-    text-align: center;
+    text-align: left;
+    justify-content: left;
     border-bottom:solid 2px #000000;
     border-radius: 8px;
   }

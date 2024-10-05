@@ -87,28 +87,51 @@
   </div>
 </section>
 
+
+
  <!-- Section Prestations -->
 <div class="container my-5 mt-6 mb-6">
+  <div class="container mt-5">
+
+  <!-- Dropdown pour les catégories -->
+  <!-- <div class="dropdown">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      {{ selectedCategorie?.titre || 'Sélectionner une catégorie' }}
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
+      <!-- Boucle sur les catégories des prestataires pour afficher dans le dropdown -->
+      <!-- <li *ngFor="let categorie of categoriesprestataires" (click)="onCategorieSelect(categorie)">
+        <a class="dropdown-item" [class.active]="selectedCategorie?.id === categorie.id" href="#">
+          <span class="dot"></span> {{ categorie.titre }}
+        </a>
+      </li>
+    </ul>
+  </div> -->
+  <!-- Message si aucune catégorie n'est sélectionnée -->
+  <!-- <div *ngIf="!prestataires.length && selectedCategorie">
+    <p class="text-center">Aucun prestataire trouvé pour cette catégorie.</p>
+  </div> -->
+</div>
   <div class="text-center">
     <h2 class="fw-bold mt-6 presta">Nos prestataires </h2>
-    <!-- <p class="mt-6">Découvrez nos prestataires de services, les meilleurs sur le marché</p> -->
   </div>
 
   <div class="row">
-    <div class="col-md-4" *ngFor="let prestataire of prestataires">
+    <div class="col-md-4" *ngFor="let prestataire of prestataires"> 
       <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
       <a [routerLink]="['/detailprestataire', prestataire.id]" class="card border-0 text-decoration-none shadow-sm">
-        <!-- <img src="../../../../assets/images/image.png" alt="" class="card-img-top rounded-top img-fluid"> -->
-        <img *ngIf="prestataire.logo" [src]="getPhotoUrl(prestataire.logo)" [alt]="" class="card-img-top rounded-top img-fluid">
+        <img *ngIf="prestataire.user?.logo" [src]="getPhotoUrl(prestataire.user?.logo!)" alt="logo" class="card-img-top rounded-top img-fluid">
         <div class="card-body p-4 text-center">
           <p class="card-text text-muted">
-            {{ prestataire.description }}
+            {{ prestataire.user?.description }}
           </p>
-          <h5 class="card-title text-warning fw-bold">Décoration</h5>
+          <h5 class="card-title text-warning fw-bold">{{prestataire.user?.nom}}</h5>
         </div>
       </a>
     </div>
   </div>
   
 </div>
+
+
 <app-footer></app-footer>

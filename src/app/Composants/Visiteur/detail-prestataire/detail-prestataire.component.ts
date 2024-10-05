@@ -52,7 +52,7 @@ export class DetailPrestataireComponent implements OnInit {
     if (!isNaN(id)) {
       this.prestataireId = id;
       this.getPrestataireDetails(id); // Récupérer les détails du prestataire
-      this.getCommentaires(id); // Récupérer les commentaires associés au prestataire
+      // this.getCommentaires(id); 
     } else {
       console.error('Invalid prestataire ID');
     }
@@ -77,17 +77,17 @@ export class DetailPrestataireComponent implements OnInit {
 
   // Récupérer les commentaires du prestataire
  // Récupérer les commentaires du prestataire
-getCommentaires(id: number): void {
-  this.commentaireService.getAllCommentaires(id).subscribe(
-    (response: any) => {
-      this.commentaires = response.data;
-      console.log('Commentaires récupérés:', this.commentaires); // Vérifiez ici
-    },
-    (error: any) => {
-      console.error('Erreur lors de la récupération des commentaires:', error);
-    }
-  );
-}
+// getCommentaires(id: number): void {
+//   this.commentaireService.getAllCommentaires(id).subscribe(
+//     (response: any) => {
+//       this.commentaires = response.data;
+//       console.log('Commentaires récupérés:', this.commentaires);
+//     },
+//     (error: any) => {
+//       console.error('Erreur lors de la récupération des commentaires:', error);
+//     }
+//   );
+// }
 
 
   // Publier un commentaire
@@ -133,5 +133,8 @@ getCommentaires(id: number): void {
         });
       }
     );
+  }
+  getPhotoUrl(photoPath: string): string {
+    return `${this.baseUrl}${photoPath}`;
   }
 }

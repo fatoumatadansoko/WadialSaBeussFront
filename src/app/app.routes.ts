@@ -39,7 +39,7 @@ export const routes: Routes = [
    { path: 'detailprestataire/:id', component: DetailPrestataireComponent},
    { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
    { path: 'carteinvitation', component: CarteInvitationComponent},
-   { path: 'profil-client', component: UserProfilComponent},
+   { path: 'profile', component: UserProfilComponent},
    { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
 
 

@@ -31,7 +31,7 @@ export class DetailPrestataireComponent implements OnInit {
   private route: ActivatedRoute = inject(ActivatedRoute);
   convertToInt(note: any): number {
     const parsedNote = parseInt(note, 10);
-    console.log(`Note convertie: ${parsedNote}`); // Ajout d'un log pour déboguer
+    // console.log(`Note convertie: ${parsedNote}`); 
     return isNaN(parsedNote) ? 0 : parsedNote; // Retourne 0 si ce n'est pas un nombre
   }
   
@@ -40,7 +40,8 @@ export class DetailPrestataireComponent implements OnInit {
   clientId: number = 1; // Remplacer par l'ID du client connecté (récupérer dynamiquement si nécessaire)
   prestataireId: number | undefined; // ID du prestataire, à assigner lors de l'initialisation
   prestataire: PrestataireModel | undefined; // Objet pour le prestataire
-  commentaires: CommentaireModel[] = []; // Tableau pour les commentaires
+  commentaires: CommentaireModel[] = []; // Initialisation comme tableau
+
   baseUrl: string = environment.apiurl;
   photoUrl: string = '';
   dateAjout: string = new Date().toISOString(); // Date d'ajout au format ISO
@@ -52,7 +53,7 @@ export class DetailPrestataireComponent implements OnInit {
     if (!isNaN(id)) {
       this.prestataireId = id;
       this.getPrestataireDetails(id); // Récupérer les détails du prestataire
-      // this.getCommentaires(id); 
+      this.getCommentaires(id); // Appel de la méthode pour récupérer les commentaires
     } else {
       console.error('Invalid prestataire ID');
     }
@@ -64,6 +65,7 @@ export class DetailPrestataireComponent implements OnInit {
       (response: any) => {
         this.prestataire = response.data;
         this.photoUrl = `${this.baseUrl}/${this.prestataire?.logo}`;
+        
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des détails du prestataire:', error);
@@ -75,19 +77,20 @@ export class DetailPrestataireComponent implements OnInit {
     this.rating = stars; // Met à jour la note
   }
 
-  // Récupérer les commentaires du prestataire
  // Récupérer les commentaires du prestataire
-// getCommentaires(id: number): void {
-//   this.commentaireService.getAllCommentaires(id).subscribe(
-//     (response: any) => {
-//       this.commentaires = response.data;
-//       console.log('Commentaires récupérés:', this.commentaires);
-//     },
-//     (error: any) => {
-//       console.error('Erreur lors de la récupération des commentaires:', error);
-//     }
-//   );
-// }
+ getCommentaires(id: number): void {
+  this.commentaireService.getAllCommentaires(id).subscribe(
+    (response: any) => {
+      console.log('Réponse complète:', response);
+      this.commentaires = Array.isArray(response) ? response : [response];
+      console.log('Commentaires récupérés:', this.commentaires);
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des commentaires:', error);
+    }
+  );
+}
+
 
 
   // Publier un commentaire
@@ -105,7 +108,8 @@ export class DetailPrestataireComponent implements OnInit {
       contenu: this.commentaireText,
       client_id: this.clientId,
       prestataire_id: this.prestataireId,
-      note: this.rating, // Ajouter la note ici
+      note: this.rating, 
+
 
     };
     // console.log('Note envoyée:', this.rating); // Log pour vérifier la note avant l'envoi
@@ -118,11 +122,9 @@ export class DetailPrestataireComponent implements OnInit {
           text: 'Votre commentaire a été publié avec succès.',
         });
         // Ajouter le nouveau commentaire au tableau local
-        this.commentaires.push(nouveauCommentaire);
-        // Réinitialiser le contenu du commentaire
+        this.commentaires.push(response.data); // Modifié ici
         this.commentaireText = '';
         this.rating = 1; // Réinitialiser la note
-
       },
       (error) => {
         console.error('Erreur lors de la publication du commentaire:', error);
@@ -133,7 +135,7 @@ export class DetailPrestataireComponent implements OnInit {
         });
       }
     );
-  }
+  }    
   getPhotoUrl(photoPath: string): string {
     return `${this.baseUrl}${photoPath}`;
   }

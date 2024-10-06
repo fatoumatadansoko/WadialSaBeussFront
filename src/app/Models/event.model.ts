@@ -1,4 +1,4 @@
-export interface EnventModel {
+export interface EventModel {
     id?: number,
     descrption?: string,
     lieu?: string,

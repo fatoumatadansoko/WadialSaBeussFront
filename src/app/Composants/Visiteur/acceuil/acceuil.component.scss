@@ -1,185 +1,221 @@
 .event-section {
   background-image: url('../../../../assets/images/fondba.png');
   padding-top: 50px;
-    background-color: #051D30;
-  }
-  
-  .event-section img {
-    padding-top: 80px;
-  }
-  .event-section h4 {
-    padding-top: 100px;
-    font-size: 36px;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 'bold';
-    color: #fff;
-  }
-  .event-section h3 {
-    font-size: 48px;
-    font-family: 'oswald', sans-serif;
-    font-weight: 'bold';
-    color: #725111;
-  }
-  
-  
-  .event-section p {
-    color: #fff;
-    font-size: 16px;
-    font-family: 'playfair display', sans-serif;
-    font-weight: 'regular';
-  }
-  
-  .event-section .btn-warning {
-    background-color: #725111;
-    color: #fff;
-    border: 10px;
-    width: 120px;
-    font-family: 'oswald', sans-serif;
-  }
-  .nosrealisations h6 {
-    padding-bottom: 30px;
-    padding-top: 10px;
-    font-size: 36px;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 'bold';
-    color: #000000;
-    text-align: center;
-  }
-  .caroussel p {
-    padding-bottom: 30px;
-    padding-top: 10px;
-    font-size: 12pxpx;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 'regular';
-    color: #000000;
-    text-align: center;
-    border-bottom:solid 2px #000000;
-    border-radius: 8px;
-  }
-  
-  
-/* Espacement réduit à 5px entre les éléments */
+  background-color: #051D30;
+  background-position: left center; /* Aligne l'image à gauche */
+  background-size: 120% auto; /* Agrandit l'image pour qu'elle dépasse à droite */
+  background-repeat: no-repeat; /* Empêche la répétition de l'image */
+}
 
-  .budget-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 50px;
-  }
+.event-section img {
+  padding-top: 100px;
+  padding-left: 150px;
+}
 
-  .budget-section .text-side {
-    width: 50%;
-  }
+.event-section h4 {
+  padding-top: 100px;
+  font-size: 36px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  color: #fff;
+}
 
-  .budget-section h1 {
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 30px;
-  }
+.event-section h3 {
+  font-size: 48px;
+  font-family: 'oswald', sans-serif;
+  font-weight: bold;
+  color: #725111;
+}
 
-  .budget-section p {
-    text-align: left;
-    font-size: 18px;
-    line-height: 1.6;
-  }
+.event-section p {
+  color: #fff;
+  font-size: 16px;
+  font-family: 'playfair display', sans-serif;
+  font-weight: 'regular';
+}
 
-  .budget-section .image-side {
-    width: 40%;
-    text-align: right;
-  }
+.event-section .btn-primary {
+  width: 150px;
+  padding-top: -1px;
+  border-radius: 10px;
+  color: white;
+  background-color: #725111; /* Couleur de fond du bouton */
+  border-color: #725111; /* Couleur de la bordure du bouton */
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #725111; /* Couleur de fond */
+  border: none;
+  border-radius: 5px; /* Coins arrondis */
+  text-align: center;
+  text-decoration: none; /* Pas de soulignement */
+  transition: background-color 0.3s ease; /* Effet de transition */
+}
 
-  .budget-section .image-side img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
- 
+.btn:hover {
+  background-color: #593f08; /* Couleur au survol */
+  cursor: pointer; /* Curseur en forme de main */
+}
 
-  .contact-section {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
+.btn-primary:hover {
+  background-color: #051D30; /* Couleur de fond du bouton au survol */
+  border-color: #051D30; /* Couleur de la bordure du bouton au survol */
+}
 
-  /* Style pour la section image */
-  .contact-section .image-side {
-    width: 45%;
-    margin-right: 5%; /* Marge entre l'image et le formulaire */
-  }
+.nosrealisations h6 {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 36px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+}
 
-  .contact-section .image-side img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
+.caroussel p {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 12px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 'regular';
+  color: #000000;
+  text-align: left;
+  justify-content: left;
+  border-bottom: solid 2px #000000;
+  border-radius: 8px;
+}
 
-  /* Style pour la section formulaire */
-  .contact-section .form-side {
-    width: 45%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+/* Section budget - sans marge */
+.budget-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
 
-  .form-side h2 {
-    font-weight: 700;
-    color: #2c2c2c;
-    margin-bottom: 30px;
-  }
+.budget-section .text-side {
+  width: 70%;
+}
 
-  .form-side form input,
-  .form-side form textarea {
-    border: none;
-    border-bottom: 2px solid #2c2c2c;
-    border-radius: 0;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: transparent;
-  }
+.budget-section h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  color: #000000;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
 
-  .form-side .contact-info {
-    margin-top: 30px;
-  }
+.budget-section p {
+  text-align: left;
+  font-size: 18px;
+  line-height: 1.6;
+}
 
-  .form-side .contact-info p {
-    margin-bottom: 5px;
-    color: #2c2c2c;
-    font-weight: 400;
-  }
+.budget-section .image-side {
+  width: 40%;
+  text-align: right;
+}
 
-  .form-side .social-icons a {
-    font-size: 24px;
-    margin-right: 15px;
-    color: #2c2c2c;
-    text-decoration: none;
-  }
+.budget-section .image-side img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
 
-  .btn-submit {
-    background-color: #725111;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    font-weight: bold;
-    border-radius: 9;
-  }
+.contact-section {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  margin: 0 15px; /* Ajout de marges à gauche et à droite */
+}
 
-  .btn-submit:hover {
-    background-color: #725111;
-  }
-  .pourquoinous h6 {
-    padding-bottom: 30px;
-    padding-top: 10px;
-    font-size: 36px;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 'bold';
-    color: #000000;
-    text-align: center;
-  }
+/* Style pour la section image */
+.contact-section .image-side {
+  width: 36%;
+  margin-right: 5%; /* Marge entre l'image et le formulaire */
+}
+
+.contact-section .image-side img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Style pour la section formulaire */
+.contact-section .form-side {
+  width: 45%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-side h2 {
+  font-weight: 700;
+  color: #2c2c2c;
+  margin-bottom: 30px;
+}
+
+.form-side form input,
+.form-side form textarea {
+  border: none;
+  border-bottom: 2px solid #2c2c2c;
+  border-radius: 0;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.form-side .contact-info {
+  margin-top: 30px;
+}
+
+.form-side .contact-info p {
+  margin-bottom: 5px;
+  color: #2c2c2c;
+  font-weight: 400;
+}
+
+.form-side .social-icons a {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #2c2c2c;
+  text-decoration: none;
+}
+
+.btn-submit {
+  background-color: #725111;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 9;
+}
+
+.btn-submit:hover {
+  background-color: #725111;
+}
+
+.pourquoinous h6 {
+  padding-bottom: 30px;
+  padding-top: 10px;
+  font-size: 36px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+}
+
 .circle {
   padding: 13px 20px;
   border-radius: 50%;
@@ -261,6 +297,7 @@
   left: 50%;
   top: calc(50% - 3px);
 }
+
 .card {
   margin-top: 50px;
   border: 13px solid #a0753d; /* Bordure subtile autour de la carte */
@@ -300,4 +337,37 @@
 
 .shadow-sm {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Légère ombre pour donner du relief */
+}
+
+.categorie-item {
+  text-align: center;
+}
+
+.categorie-item img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.categorie-item h5 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.carousel {
+  margin-top: 150px;
+  position: relative;
+}
+
+.text-center h2 {
+  margin-top: 50px;
+}
+
+footer {
+  background-color: #051D30;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 0; /* Ajout de padding pour un espace interne */
 }

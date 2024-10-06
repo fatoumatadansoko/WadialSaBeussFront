@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { environment } from '../../../../environnements/environments';
 import { Router } from '@angular/router';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-carte-invitation',
@@ -96,4 +98,39 @@ closeEditModal(): void {
 getPhotoUrl(photoPath: string): string {
   return `${this.baseUrl}${photoPath}`;
 }
-}
+
+downloadCarteImage(carte: any) {
+  const cardElement = document.getElementById(`carte-${carte.id}`) as HTMLElement; // Caster à HTMLElement
+  const icons = document.querySelectorAll(`.icons`) as NodeListOf<HTMLElement>; // Caster à NodeListOf<HTMLElement>
+
+  if (cardElement) {
+    // Masquer les icônes
+    icons.forEach(icon => {
+      icon.style.display = 'none'; // Cacher les icônes
+    });
+
+    // Utiliser html2canvas pour capturer la carte
+    html2canvas(cardElement).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png'); // Convertir le canvas en image PNG
+      const a = document.createElement('a');
+      a.href = imgData;
+      a.download = `${carte.nom}.png`; // Nom du fichier à télécharger
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      // Afficher à nouveau les icônes après le téléchargement
+      icons.forEach(icon => {
+        icon.style.display = ''; // Réafficher les icônes
+      });
+    }).catch((error) => {
+      console.error('Erreur lors de la capture de la carte :', error);
+      // Réafficher les icônes en cas d'erreur
+      icons.forEach(icon => {
+        icon.style.display = ''; // Réafficher les icônes
+      });
+    });
+  }
+
+
+}}

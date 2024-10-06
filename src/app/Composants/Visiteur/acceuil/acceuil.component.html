@@ -12,7 +12,7 @@
         </p>
         <li><a class="nav-link" routerLink="/Acceuil" routerLinkActive="active">Accueil</a></li>
 
-        <a class="btn btn-warning mt-4 nav-link" [routerLink]="['/planevent']" routerLinkActive="active" >Planifier</a>
+        <a class="btn btn-primary py-2 px-4 my-3 my-lg-0 flex-shrink-0 nav-link" [routerLink]="['/planevent']" routerLinkActive="active" >Planifier</a>
       </div>
       <div class="col-lg-6 text-center">
         <img src="../../../../assets/images/banneri.png" alt="Évènement" class="img-fluid rounded"/>
@@ -20,74 +20,6 @@
     </div>
   </div>
 </section>
-
-<!-- Carousel Partenaires -->
-<section class="caroussel">
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner nosrealisations">
-      <h6 class=>Nos réalisations</h6>
-
-      <!-- Carousel Item 1 -->
-      <div class="carousel-item active">
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 1" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eos excepturi numquam obcaecati nesciunt hic impedit doloremque similique dolore illum, molestias tenetur architecto adipisci neque! Esse nisi nihil suscipit rem!</p>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 2" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, aperiam nam, odio debitis quos totam enim, molestias labore qui a itaque ratione cum. Placeat est itaque aperiam harum minima doloremque?</p>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 3" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat modi ratione, at dolor autem mollitia sed labore! Laudantium, numquam ut porro quam iusto repudiandae sequi, alias enim tempora, accusamus veritatis?</p>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 4" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam at optio voluptate recusandae placeat sed soluta quos aspernatur labore excepturi! Fuga dolorem natus nulla voluptatibus ipsa sed laudantium provident voluptate.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Carousel Item 2 -->
-      <div class="carousel-item">
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 5" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, nesciunt eum corporis dolores ipsam veritatis rem! Hic quae incidunt ipsum, nihil totam consectetur repellendus, eius, provident quo aut dolore amet.</p>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 6" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores aliquid iusto corporis in, voluptatibus enim repellendus totam quia doloremque porro neque nostrum dicta at ullam, nobis ipsa quae corrupti libero.</p>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 7" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, voluptas, alias asperiores autem itaque veniam, quos cumque ex minus. Quidem vel, excepturi, voluptatum quo perspiciatis quia aperiam voluptatibus.</p>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 8" class="img-fluid partenaire"/>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure deleniti rerum dolore consequuntur vel alias cumque tempora optio placeat quaerat! Maxime labore deleniti itaque, ex numquam ab! Numquam, voluptates delectus.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Ajoute d'autres éléments au besoin -->
-    </div>
-    
-    <!-- Carousel Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    </button>
-  </div>
-</section>
-
 
 <!--Section pourquoi nous choisir-->
 <div class="container pourquoinous">
@@ -159,31 +91,30 @@
 </div>
 
 
-
-<!-- Section Prestations -->
-<div class="container my-5 mt-6 mb-6">
+<div class="container">
   <div class="text-center">
-    <h2 class="fw-bold">Nos prestataires </h2>
-    <!-- <p class="mt-6">Découvrez nos prestataires de services, les meilleurs sur le marché</p> -->
+    <h2 class="fw-bold mt-6 presta">Nos prestataires</h2>
   </div>
-
-  <div class="row">
-    <div class="col-md-4" *ngFor="let prestataire of prestataires">
-      <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
+  
+  <div class="row mx-3"> <!-- Ajoutez mx-3 pour des marges à gauche et à droite -->
+    <div class="col-md-4" *ngFor="let prestataire of prestataires | slice:0:3"> 
       <a [routerLink]="['/detailprestataire', prestataire.id]" class="card border-0 text-decoration-none shadow-sm">
-        <img src="../../../../assets/images/image.png" alt="" class="card-img-top rounded-top img-fluid">
-        <!-- <img *ngIf="prestataire.logo" [src]="getPhotoUrl(prestataire.logo)" [alt]="" class="card-img-top rounded-top img-fluid"> -->
+        <img *ngIf="prestataire.user?.logo" [src]="getPhotoUrl(prestataire.user?.logo!)" alt="logo" class="card-img-top rounded-top img-fluid">
         <div class="card-body p-4 text-center">
           <p class="card-text text-muted">
-            {{ prestataire.description }}
+            {{ prestataire.user?.description }}
           </p>
-          <h5 class="card-title text-warning fw-bold">Décoration</h5>
+          <h5 class="card-title text-warning fw-bold">{{prestataire.user?.nom}}</h5>
         </div>
       </a>
     </div>
   </div>
   
-
+  <!-- Bouton Voir plus -->
+  <div class="text-end mt-4">
+    <a [routerLink]="['/prestataire']" class="btn btn">Voir plus</a>
+  </div>
+</div>
 
 <!-- Section Budget -->
 <section class="budget-section">
@@ -196,6 +127,68 @@
   </div>
   <div class="image-side">
     <img src="../../../../assets/images/budget.png" alt="Budgétisation"/>
+  </div>
+</section>
+<!-- Carousel Partenaires -->
+<section class="caroussel">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner nosrealisations">
+      <h6 class=>Ils nous ont fait confiance</h6>
+
+      <!-- Carousel Item 1 -->
+      <div class="carousel-item active">
+        <div class="container">
+          <div class="row">
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 1" class="img-fluid partenaire"/>
+                <p>"Je suis ravie d'avoir découvert cette plateforme ! Grâce à elle, j'ai pu trouver le prestataire idéal pour mon projet.</p>            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 2" class="img-fluid partenaire"/>
+                <p>"En tant que prestataire, rejoindre cette communauté a été une excellente décision. J'ai pu élargir mon réseau et obtenir des missions qui correspondent à mes compétences."</p>            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 3" class="img-fluid partenaire"/>
+              <p>"Je suis ravie d'avoir découvert cette plateforme ! Grâce à elle, j'ai pu trouver le prestataire idéal pour mon projet.</p>            </div>
+            
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 4" class="img-fluid partenaire"/>
+              <p>"En tant que prestataire, rejoindre cette communauté a été une excellente décision. J'ai pu élargir mon réseau et obtenir des missions qui correspondent à mes compétences."</p>            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <!-- Carousel Item 2 -->
+      <div class="carousel-item">
+        <div class="container">
+          <div class="row">
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle1.png" alt="Partenaire 5" class="img-fluid partenaire"/>
+                <p>"Je suis ravie d'avoir découvert cette plateforme ! Grâce à elle, j'ai pu trouver le prestataire idéal pour mon projet.</p>            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle2.png" alt="Partenaire 6" class="img-fluid partenaire"/>
+                <p>"En tant que prestataire, rejoindre cette communauté a été une excellente décision. J'ai pu élargir mon réseau et obtenir des missions qui correspondent à mes compétences."</p>            </div>
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle3.png" alt="Partenaire 7" class="img-fluid partenaire"/>
+              <p>"Je suis ravie d'avoir découvert cette plateforme ! Grâce à elle, j'ai pu trouver le prestataire idéal pour mon projet.</p>            </div>
+            
+            <div class="col-3">
+              <img src="../../../../assets/images/rectangle4.png" alt="Partenaire 8" class="img-fluid partenaire"/>
+              <p>"En tant que prestataire, rejoindre cette communauté a été une excellente décision. J'ai pu élargir mon réseau et obtenir des missions qui correspondent à mes compétences."</p>            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <!-- Ajoute d'autres éléments au besoin -->
+    </div>
+    
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
   </div>
 </section>
 
@@ -225,3 +218,5 @@
   </div>
 </section>
 
+<app-footer>
+</app-footer>

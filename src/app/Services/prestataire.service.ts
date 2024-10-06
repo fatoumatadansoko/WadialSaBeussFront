@@ -42,8 +42,15 @@ export class PretataireService {
         })
       );
     }
-    
-
+     // Méthode existante pour récupérer toutes les catégories
+  getAllCategorieprestataire(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/categoriesprestataires`);
+  }
+   
+    getPrestatairesByCategory(categoryId: number): Observable<any> {
+      return this.http.get(`${this.apiUrl}/category/${categoryId}`);
+  }
+  
    // Méthode pour inscrire un utilisateur (prestataire ou client)
   register(user: any): Observable<any> {
         return this.http.post(`${apiurl}/register`, user);

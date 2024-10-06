@@ -1,37 +1,38 @@
 <app-header></app-header>
 
-<div class="background-section">
     <div class="overlay">
-        <h1>Nos cartes</h1>
-        <p>
+        <div sectionover>
+          <p>
             Chez Flowvence, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur.
-            C'est pourquoi nous offrons une multitude d'options de personnalisation pour que chaque détail, du design des invitations aux choix des prestataires, soit exactement comme tu l'as imaginé. 
-            La plateforme te permet de créer des événements sur mesure avec une simplicité qui n'enlève rien à l'élégance, ajoutant ainsi une touche distinctive à chacune de tes célébrations.
         </p>
-        <div class="filter-form">
-            <input type="text" placeholder="Rechercher...">
-            <button type="submit">Filtrer</button>
         </div>
     </div>
+    
+<div class="filter-form">
+  <input type="text" placeholder="Rechercher...">
+  <button type="submit">Filtrer</button>
 </div>
 
 <!-- Affichage des cartes d'invitations -->
 <div class="container d-flex flex-wrap justify-content-center">
-    <div class="cartein card-container" *ngFor="let carte of carteinvitations">
-      <div class="card position-relative">
-        <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
-        <div class="card-content position-absolute top-50 start-50 translate-middle text-center text-white">
-          <h3>{{ carte.nom }}</h3>
-          <!-- Icône de modification -->
-          <i class="bi bi-pencil-square position-absolute end-0 bottom-0 me-3 mb-3 text-white" 
-             style="cursor:pointer" 
-             (click)="editCarte(carte)">
-          </i>
-          <p>{{ carte.contenu }}</p>
+  <div class="cartein card-container" *ngFor="let carte of carteinvitations">
+    <div class="card position-relative" id="carte-{{ carte.id }}">
+      <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
+      <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
+        <h3>{{ carte.nom }}</h3>        
+        <p>{{ carte.contenu }}</p>
+
+        <div class="icons d-flex justify-content-center align-items-center mt-3">
+          <i class="bi bi-pencil-square me-3" style="cursor:pointer" (click)="editCarte(carte)"></i>
+          <i class="bi bi-send-fill me-3" style="cursor:pointer"></i> <!-- icône send -->
+          <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte)"></i> <!-- icône download -->
         </div>
       </div>
     </div>
+  </div>
 </div>
+
+
 
 <!-- Modal pour éditer la carte sélectionnée -->
 <div *ngIf="showEditModal" class="modal" tabindex="-1" style="display: block;">

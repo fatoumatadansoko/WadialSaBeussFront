@@ -17,6 +17,7 @@ import { CarteAdminComponent } from './Composants/Admin/carte-admin/carte-admin.
 import { ProfilAdminComponent } from './Composants/Admin/profil-admin/profil-admin.component';
 import { UserProfilComponent } from './Composants/Visiteur/user-profil/user-profil.component';
 import { PersonnalisationCarteInvitationComponent } from './Composants/Visiteur/personnalisation-carte-invitation/personnalisation-carte-invitation.component';
+import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
 
 
 export const routes: Routes = [
@@ -39,8 +40,9 @@ export const routes: Routes = [
    { path: 'detailprestataire/:id', component: DetailPrestataireComponent},
    { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
    { path: 'carteinvitation', component: CarteInvitationComponent},
-   { path: 'profil-client', component: UserProfilComponent},
+   { path: 'profile', component: UserProfilComponent},
    { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
+   { path: 'events', component: EvenementsComponent},
 
 
 

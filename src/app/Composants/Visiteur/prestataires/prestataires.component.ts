@@ -3,16 +3,15 @@ import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
 import { NgFor, NgIf } from '@angular/common';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
-import { response } from 'express';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CategorieModel } from '../../../Models/categorie.model';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { PretataireService } from '../../../Services/prestataire.service';
-import { PrestataireModel } from '../../../Models/prestataire.model';
+import { PrestataireModel, UserModel } from '../../../Models/prestataire.model';
+import { UserService } from '../../../Services/users.service';
 
 @Component({
   selector: 'app-prestataires',
@@ -25,12 +24,17 @@ export class PrestatairesComponent implements OnInit {
   // Injection des dépendances
   private PrestataireService = inject(PretataireService);    
   private categorieprestataireService = inject(CategorieprestataireService);
+  private userService = inject(UserService);
   private http = inject(HttpClient);
 
   // Déclaration des variables
   baseUrl: string = environment.apiurl
   categoriesprestataires: CategoriePrestataireModel[] = [];
   prestataires: PrestataireModel[] = [];
+  users: UserModel[] = [];
+  selectedCategorie: any = null;  
+  message: string=''; 
+      // La catégorie actuellement sélectionnée
 
   // Méthode appelée lors de l'initialisation du composant
   ngOnInit(): void {
@@ -58,27 +62,61 @@ export class PrestatairesComponent implements OnInit {
       }
     );
   }
-
-  // Récupération de toutes les prestataires
-  fetchPrestataires(): void {
-    this.PrestataireService.getAllPrestataire().subscribe(
+  onCategorieSelect(categorie: any): void {
+    this.selectedCategorie = categorie;
+    this.filterPrestatairesByCategory(categorie.id); // Filtrage des prestataires par catégorie
+  }
+  
+  //Filtrer les prestataires par catégorie
+  filterPrestatairesByCategory(categoryId: number): void {
+    this.PrestataireService.getPrestatairesByCategory(categoryId).subscribe(
       (response: any) => {
-        console.log('Réponse complète:', response); // Vérifiez ici la structure
-        if (response && Array.isArray(response)) {
-          // Filtrer les utilisateurs par rôle
-          this.prestataires = response
-            .reverse(); // Inverser l'ordre si nécessaire
-            
-          console.log('Prestataires:', this.prestataires); // Vérifiez si les prestataires sont bien affectés
+        this.prestataires = response.data; // Mettez à jour la liste des prestataires
+  
+        if (this.prestataires.length === 0) {
+          // Aucune donnée trouvée
+          this.message = `Aucun prestataire trouvé pour cette catégorie.`;
         } else {
-          console.error('Erreur: la réponse ne contient pas de données utilisateur');
+          // Réinitialiser le message si des prestataires sont trouvés
+          this.message = '';
         }
+  
+        console.log('Prestataires filtrés:', this.prestataires); // Pour déboguer
       },
       (error: any) => {
-        console.error('Erreur lors de la récupération des utilisateurs:', error);
+        console.error('Erreur lors de la récupération des prestataires par catégorie', error);
+  
+        // Gestion des erreurs
+        if (error.status === 404) {
+          this.message = `Erreur 404 : Aucun prestataire trouvé pour cette catégorie.`;
+        } else {
+          this.message = `Erreur lors de la récupération des prestataires. Veuillez réessayer plus tard.`;
+        }
       }
     );
   }
+  
+  // Récupération de toutes les prestataires
+  fetchPrestataires(): void {
+    this.PrestataireService.getAllPrestataire().subscribe(
+      (prestataires: PrestataireModel[]) => {
+        this.userService.getAllUser().subscribe(
+          (users: UserModel[]) => {
+            // Pour chaque prestataire, associer l'utilisateur en fonction de l'user_id
+            prestataires.forEach(prestataire => {
+              prestataire.user = users.find(user => user.id === prestataire.user_id);
+            });
+            
+            this.prestataires = prestataires.reverse(); // Inverser l'ordre pour avoir les plus récents en premier
+          }
+        );
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des prestataires:', error);
+      }
+    );
+  }
+  
   getPhotoUrl(photoPath: string): string {
     return `${this.baseUrl}${photoPath}`;
   }

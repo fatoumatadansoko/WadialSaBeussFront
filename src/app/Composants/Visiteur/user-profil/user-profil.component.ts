@@ -5,13 +5,13 @@ import { UserService } from '../../../Services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { throwError, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-user-profil',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgIf],
+  imports: [HeaderComponent, FooterComponent,NgIf,CommonModule],
   templateUrl: './user-profil.component.html',
   styleUrl: './user-profil.component.scss'
 })
@@ -39,8 +39,11 @@ getUserProfile(): void {
         console.error('Erreur lors de la récupération des informations utilisateur:', error);
       }
     );
+    
   }
-
+  getPhotoUrl(photoPath: string): string {
+    return `${this.baseUrl}${photoPath}`;
+  }
 
   // Récupérer les détails du prestataire
 //   getPrestataireDetails(id: number): void {

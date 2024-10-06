@@ -1,1 +1,13 @@
 <p>evenements works!</p>
+<div class="events-container">
+    <h1>Liste des événements</h1>
+    <div *ngFor="let event of events" class="event-card">
+      <h2>{{ event.titre }}</h2>
+      <p><strong>Description:</strong> {{ event.description }}</p>
+      <p><strong>Type:</strong> {{ event.type }}</p>
+      <p><strong>Lieu:</strong> {{ event.lieu }}</p>
+      <p><strong>Date:</strong> {{ event.event_date }}</p>
+      <p><strong>Budget:</strong> {{ event.budget }}</p>
+    </div>
+  </div>
+  

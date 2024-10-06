@@ -74,7 +74,11 @@ export class AuthService {
         })
       );
     }
-  
+    getUserId(): number {
+      // Remplacez par votre méthode pour récupérer l'ID utilisateur
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      return user.id; // Assurez-vous que l'ID est stocké dans localStorage
+    }
 }
 
   

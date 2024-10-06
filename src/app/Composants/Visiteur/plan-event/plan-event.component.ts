@@ -29,7 +29,6 @@ export class PlanEventComponent {
     this.eventForm = this.fb.group({
       titre: ['', Validators.required],
       lieu: ['', Validators.required],
-      description: ['', Validators.required],
       budget: ['', Validators.required],
       event_date: ['', Validators.required],
       type: ['', Validators.required],

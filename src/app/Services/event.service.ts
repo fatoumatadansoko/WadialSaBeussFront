@@ -16,5 +16,10 @@ export class EventService {
     // Envoyez les données de l'événement ainsi que les en-têtes
     return this.http.post(this.apiurl, eventData, { headers });
   }
-  
+   // Méthode pour récupérer les événements
+   getUserEvents(userId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${this.apiurl}`, { headers});
+  }
 }

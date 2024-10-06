@@ -81,7 +81,12 @@ export class RegisterComponent implements OnInit {
       this.registerForm.get('categorie_prestataire_id')?.setValidators(Validators.required);
       this.registerForm.get('logo')?.clearValidators();
     }
-  }
+        // Ajoute cette ligne pour mettre à jour le statut de validité
+    this.registerForm.get('description')?.updateValueAndValidity();
+    this.registerForm.get('ninea')?.updateValueAndValidity();
+    this.registerForm.get('categorie_prestataire_id')?.updateValueAndValidity();
+    this.registerForm.get('logo')?.updateValueAndValidity();  
+      }
 
   onSubmit() {
     if (this.registerForm.valid) {

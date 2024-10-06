@@ -32,7 +32,9 @@ export class PrestatairesComponent implements OnInit {
   categoriesprestataires: CategoriePrestataireModel[] = [];
   prestataires: PrestataireModel[] = [];
   users: UserModel[] = [];
-  selectedCategorie: any = null;       // La catégorie actuellement sélectionnée
+  selectedCategorie: any = null;  
+  message: string=''; 
+      // La catégorie actuellement sélectionnée
 
   // Méthode appelée lors de l'initialisation du composant
   ngOnInit(): void {
@@ -60,23 +62,39 @@ export class PrestatairesComponent implements OnInit {
       }
     );
   }
-  // onCategorieSelect(categorie: any): void {
-  //   this.selectedCategorie = categorie;
-  //   this.filterPrestatairesByCategory(categorie.id); // Filtrage des prestataires par catégorie
-  // }
+  onCategorieSelect(categorie: any): void {
+    this.selectedCategorie = categorie;
+    this.filterPrestatairesByCategory(categorie.id); // Filtrage des prestataires par catégorie
+  }
   
-  // Filtrer les prestataires par catégorie
-  // filterPrestatairesByCategory(categoryId: number): void {
-  //   this.PrestataireService.getPrestatairesByCategory(categoryId).subscribe(
-  //     (response: any) => {
-  //       this.prestataires = response.data; // Mettez à jour la liste des prestataires
-  //       console.log('Prestataires filtrés:', this.prestataires); // Pour déboguer
-  //     },
-  //     (error: any) => {
-  //       console.error('Erreur lors de la récupération des prestataires par catégorie', error);
-  //     }
-  //   );
-  // }
+  //Filtrer les prestataires par catégorie
+  filterPrestatairesByCategory(categoryId: number): void {
+    this.PrestataireService.getPrestatairesByCategory(categoryId).subscribe(
+      (response: any) => {
+        this.prestataires = response.data; // Mettez à jour la liste des prestataires
+  
+        if (this.prestataires.length === 0) {
+          // Aucune donnée trouvée
+          this.message = `Aucun prestataire trouvé pour cette catégorie.`;
+        } else {
+          // Réinitialiser le message si des prestataires sont trouvés
+          this.message = '';
+        }
+  
+        console.log('Prestataires filtrés:', this.prestataires); // Pour déboguer
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des prestataires par catégorie', error);
+  
+        // Gestion des erreurs
+        if (error.status === 404) {
+          this.message = `Erreur 404 : Aucun prestataire trouvé pour cette catégorie.`;
+        } else {
+          this.message = `Erreur lors de la récupération des prestataires. Veuillez réessayer plus tard.`;
+        }
+      }
+    );
+  }
   
   // Récupération de toutes les prestataires
   fetchPrestataires(): void {

@@ -13,7 +13,15 @@
   h2, h3 {
     color: #333;
   }
-  
+ .overlay {
+    width: 100%; /* Prendre toute la largeur */
+    height: 20vh; /* Prendre toute la hauteur de l'écran */
+    background-image: url('../../../../assets/images/bacc.jpeg');
+    background-repeat: repeat; /* Répéter l'image horizontalement et verticalement */
+    background-size: auto; /* Garder la taille originale de l'image */
+    background-position: center bottom; /* Déplacer l'image vers le bas */
+}
+
   p {
     font-size: 1.1rem;
   }

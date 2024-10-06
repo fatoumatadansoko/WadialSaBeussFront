@@ -91,30 +91,31 @@
 </div>
 
 
-
-<section>
-<!-- Section Prestations -->
-<div class="container my-5 mt-6 mb-6">
+<div class="container">
   <div class="text-center">
-    <h2 class="fw-bold">Nos prestataires </h2>
-    <!-- <p class="mt-6">Découvrez nos prestataires de services, les meilleurs sur le marché</p> -->
+    <h2 class="fw-bold mt-6 presta">Nos prestataires</h2>
   </div>
-
-  <div class="row">
-    <div class="col-md-4" *ngFor="let prestataire of prestataires">
-      <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
+  
+  <div class="row mx-3"> <!-- Ajoutez mx-3 pour des marges à gauche et à droite -->
+    <div class="col-md-4" *ngFor="let prestataire of prestataires | slice:0:3"> 
       <a [routerLink]="['/detailprestataire', prestataire.id]" class="card border-0 text-decoration-none shadow-sm">
-        <img src="../../../../assets/images/image.png" alt="" class="card-img-top rounded-top img-fluid">
-        <!-- <img *ngIf="prestataire.logo" [src]="getPhotoUrl(prestataire.logo)" [alt]="" class="card-img-top rounded-top img-fluid"> -->
+        <img *ngIf="prestataire.user?.logo" [src]="getPhotoUrl(prestataire.user?.logo!)" alt="logo" class="card-img-top rounded-top img-fluid">
         <div class="card-body p-4 text-center">
           <p class="card-text text-muted">
-            {{ prestataire.description }}
+            {{ prestataire.user?.description }}
           </p>
-          <h5 class="card-title text-warning fw-bold">Décoration</h5>
+          <h5 class="card-title text-warning fw-bold">{{prestataire.user?.nom}}</h5>
         </div>
       </a>
     </div>
   </div>
+  
+  <!-- Bouton Voir plus -->
+  <div class="text-end mt-4">
+    <a [routerLink]="['/prestataire']" class="btn btn">Voir plus</a>
+  </div>
+</div>
+
 <!-- Section Budget -->
 <section class="budget-section">
   <div class="text-side">
@@ -217,7 +218,5 @@
   </div>
 </section>
 
-</div>
-</section>
 <app-footer>
 </app-footer>

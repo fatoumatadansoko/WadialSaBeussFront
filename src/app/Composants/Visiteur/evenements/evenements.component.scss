@@ -1,0 +1,68 @@
+
+.custom-margin-top {
+    padding-top: 100px; /* Ajuste cette valeur selon tes besoins */
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  
+.bg-brown {
+    background-color: #725111;
+    margin: 0;
+  }
+  
+  h2, h3 {
+    color: #333;
+  }
+  
+  p {
+    font-size: 1.1rem;
+  }
+  
+  .img-fluid {
+    object-fit: cover;
+  }
+  
+  .text-white {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  
+  .row img {
+    margin-bottom: 15px;
+  }
+  .events-container {
+    padding: 50px;
+    background-color: #f8f9fa; /* Couleur de fond pour la section */
+}
+
+.event-card {
+    transition: transform 0.2s; /* Transition pour l'effet de survol */
+}
+
+.event-card:hover {
+    transform: scale(1.05); /* Agrandissement au survol */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombre au survol */
+}
+
+.card {
+    border: 1px solid #dee2e6; /* Bordure de la carte */
+    border-radius: 10px; /* Coins arrondis */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Taille du titre */
+    color: #725111; /* Couleur du titre */
+}
+
+.card-text {
+    font-size: 1rem; /* Taille du texte */
+    color: #495057; /* Couleur du texte */
+}
+.event-card h1 {
+    font-size: 48px;
+    font-family: 'oswald', sans-serif;
+    text-align: center;
+    text-decoration: dashed;
+    font-weight: bold;
+    color: #725111;
+  }

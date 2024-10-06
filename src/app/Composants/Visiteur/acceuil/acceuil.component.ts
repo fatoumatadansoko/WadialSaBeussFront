@@ -7,7 +7,8 @@ import { PretataireService } from '../../../Services/prestataire.service';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { PrestataireModel } from '../../../Models/prestataire.model';
+import { PrestataireModel, UserModel } from '../../../Models/prestataire.model';
+import { UserService } from '../../../Services/users.service';
 
 @Component({
   selector: 'app-acceuil',
@@ -22,9 +23,14 @@ export class AcceuilComponent {
   private categorieprestataireService = inject(CategorieprestataireService);
   private http = inject(HttpClient);
 
+  private userService = inject(UserService);
+
+
   // Déclaration des variables
   baseUrl: string = environment.apiurl
   prestataires: PrestataireModel[] = [];
+  users: UserModel[] = [];
+
 
   // Méthode appelée lors de l'initialisation du composant
   ngOnInit(): void {
@@ -34,20 +40,20 @@ export class AcceuilComponent {
 
   fetchPrestataires(): void {
     this.PrestataireService.getAllPrestataire().subscribe(
-      (response: any) => {
-        console.log('Réponse complète:', response); // Vérifiez ici la structure
-        if (response && Array.isArray(response)) {
-          // Filtrer les utilisateurs par rôle
-          this.prestataires = response
-            .reverse(); // Inverser l'ordre si nécessaire
+      (prestataires: PrestataireModel[]) => {
+        this.userService.getAllUser().subscribe(
+          (users: UserModel[]) => {
+            // Pour chaque prestataire, associer l'utilisateur en fonction de l'user_id
+            prestataires.forEach(prestataire => {
+              prestataire.user = users.find(user => user.id === prestataire.user_id);
+            });
             
-          console.log('Prestataires:', this.prestataires); // Vérifiez si les prestataires sont bien affectés
-        } else {
-          console.error('Erreur: la réponse ne contient pas de données utilisateur');
-        }
+            this.prestataires = prestataires.reverse(); // Inverser l'ordre pour avoir les plus récents en premier
+          }
+        );
       },
       (error: any) => {
-        console.error('Erreur lors de la récupération des utilisateurs:', error);
+        console.error('Erreur lors de la récupération des prestataires:', error);
       }
     );
   }

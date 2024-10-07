@@ -18,6 +18,7 @@ import { ProfilAdminComponent } from './Composants/Admin/profil-admin/profil-adm
 import { UserProfilComponent } from './Composants/Visiteur/user-profil/user-profil.component';
 import { PersonnalisationCarteInvitationComponent } from './Composants/Visiteur/personnalisation-carte-invitation/personnalisation-carte-invitation.component';
 import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
+import { HtmlToImageComponent } from './html-to-image/html-to-image.component';
 
 
 export const routes: Routes = [
@@ -43,6 +44,7 @@ export const routes: Routes = [
    { path: 'profile', component: UserProfilComponent},
    { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
    { path: 'events', component: EvenementsComponent},
+   { path: 'html', component:HtmlToImageComponent},
 
 
 

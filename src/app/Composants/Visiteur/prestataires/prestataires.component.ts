@@ -69,6 +69,7 @@ export class PrestatairesComponent implements OnInit {
   
   //Filtrer les prestataires par catégorie
   filterPrestatairesByCategory(categoryId: number): void {
+    this.prestataires =[];
     this.PrestataireService.getPrestatairesByCategory(categoryId).subscribe(
       (response: any) => {
         this.prestataires = response.data; // Mettez à jour la liste des prestataires

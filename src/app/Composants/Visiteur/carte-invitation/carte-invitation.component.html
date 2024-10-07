@@ -8,29 +8,53 @@
         </div>
     </div>
     
-<div class="filter-form">
-  <input type="text" placeholder="Rechercher...">
-  <button type="submit">Filtrer</button>
-</div>
+
 
 <!-- Affichage des cartes d'invitations -->
+  
+  
+
 <div class="container d-flex flex-wrap justify-content-center">
+  <div class="container mt-5">
+    <div *ngIf="message" class="alert alert-light alert-dismissible fade show" role="alert" [@fadeIn]>
+      <i class="bi bi-sad" aria-hidden="true"></i> <!-- Utilisation de Bootstrap Icons pour l'icône triste -->
+      <strong>Oops ! Pas de prestataire disponible pour cette categorie</strong> {{ message }}
+      <button type="button" class="close" aria-label="Close" (click)="message = ''">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+   <!-- Dropdown de catégories -->
+   <div class="dropdown"> <!-- Ajout de la classe shadow-sm -->
+    <button class="btn btn-drop dropdown-toggle" type="button" id="dropdownCategories" data-bs-toggle="dropdown" aria-expanded="false">
+      Sélectionner une catégorie
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownCategories">
+      <li *ngFor="let categorie of categories">
+        <a class="dropdown-item" (click)="onCategorieSelect(categorie)">
+          {{ categorie.titre }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
   <div class="cartein card-container" *ngFor="let carte of carteinvitations">
     <div class="card position-relative" id="carte-{{ carte.id }}">
       <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
       <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
-        <h3>{{ carte.nom }}</h3>        
+        <h3>{{ carte.nom }}</h3>
         <p>{{ carte.contenu }}</p>
 
         <div class="icons d-flex justify-content-center align-items-center mt-3">
           <i class="bi bi-pencil-square me-3" style="cursor:pointer" (click)="editCarte(carte)"></i>
-          <i class="bi bi-send-fill me-3" style="cursor:pointer"></i> <!-- icône send -->
-          <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte)"></i> <!-- icône download -->
+          <i class="bi bi-send-fill me-3" style="cursor:pointer"></i>
+          <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte)"></i>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> 
+
+
 
 
 

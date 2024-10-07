@@ -10,6 +10,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { environment } from '../../../../environnements/environments';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
+import { CategorieModel } from '../../../Models/categorie.model';
+import { CategorieService } from '../../../Services/categorie.service';
 
 
 @Component({
@@ -23,20 +25,44 @@ export class CarteInvitationComponent {
 
 
 private CarteinvitationService = inject(CarteinvitationService);    
-constructor(private http: HttpClient,    private router: Router,
+private categorieService = inject(CategorieService);
+constructor(private http: HttpClient,  
+    private router: Router,
 ) {
   
  }
 
 // Déclaration des variables
 selectedCarte: carteinvitationModel = { nom: '', contenu: '' }; // Remplace CarteInvitation par le type approprié
-  showEditModal: boolean = false; // Contrôle de l'affichage de la modale
+showEditModal: boolean = false; // Contrôle de l'affichage de la modale
 photoUrl: string = '';
 baseUrl: string = environment.apiurl;
+categories: CategorieModel[] = [];
 carteinvitations: carteinvitationModel[] = [];
+selectedCategorie: any = null;  
+  message: string=''; 
 //Déclaration des methodes
 ngOnInit(): void {
   this.fetchCarteinvitations();
+  this.fetchCategoriecartes();
+}
+
+fetchCategoriecartes(): void {
+  const authToken = localStorage.getItem('token');
+  this.categorieService.getAllCategories().subscribe(
+    (response: any) => {
+      console.log(response.data);
+      this.categories = response.data; // Enregistrer les catégories reçues
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des catégories', error);
+    }
+  );
+}
+
+onCategorieSelect(categorie: any): void {
+  this.selectedCategorie = categorie;
+  this.filterCartesByCategory(categorie.id); // Filtrage des prestataires par catégorie
 }
 
  //récupération de tous les categories des prestataires
@@ -55,6 +81,34 @@ ngOnInit(): void {
     },
     (error: any) => {
       console.error('Erreur lors de la récupération des utilisateurs:', error);
+    }
+  );
+}
+
+
+//Filtrer les prestataires par catégorie
+filterCartesByCategory(categoryId: number): void {
+  this.carteinvitations =[];
+  this.CarteinvitationService.getCartesByCategory(categoryId).subscribe(
+    (response: any) => {
+      this.carteinvitations = response.data; // Mettez à jour la liste des cartes
+
+      if (this.carteinvitations.length === 0) {
+        this.message = `Aucune carte trouvée pour cette catégorie.`;
+      } else {
+        this.message = '';
+      }
+
+      console.log('Cartes filtrées par catégorie:', this.carteinvitations);
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des cartes par catégorie', error);
+
+      if (error.status === 404) {
+        this.message = `Erreur 404 : Aucune carte trouvée pour cette catégorie.`;
+      } else {
+        this.message = `Erreur lors de la récupération des cartes. Veuillez réessayer plus tard.`;
+      }
     }
   );
 }
@@ -100,37 +154,22 @@ getPhotoUrl(photoPath: string): string {
 }
 
 downloadCarteImage(carte: any) {
-  const cardElement = document.getElementById(`carte-${carte.id}`) as HTMLElement; // Caster à HTMLElement
-  const icons = document.querySelectorAll(`.icons`) as NodeListOf<HTMLElement>; // Caster à NodeListOf<HTMLElement>
-
+  const cardElement = document.getElementById(`carte-${carte.id}`) as HTMLElement;
+  
   if (cardElement) {
-    // Masquer les icônes
-    icons.forEach(icon => {
-      icon.style.display = 'none'; // Cacher les icônes
-    });
-
-    // Utiliser html2canvas pour capturer la carte
-    html2canvas(cardElement).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png'); // Convertir le canvas en image PNG
+    html2canvas(cardElement, { scale: 2, useCORS: true }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
       const a = document.createElement('a');
       a.href = imgData;
-      a.download = `${carte.nom}.png`; // Nom du fichier à télécharger
+      a.download = `${carte.nom}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-
-      // Afficher à nouveau les icônes après le téléchargement
-      icons.forEach(icon => {
-        icon.style.display = ''; // Réafficher les icônes
-      });
-    }).catch((error) => {
+    }).catch(error => {
       console.error('Erreur lors de la capture de la carte :', error);
-      // Réafficher les icônes en cas d'erreur
-      icons.forEach(icon => {
-        icon.style.display = ''; // Réafficher les icônes
-      });
     });
   }
+
 
 
 }}

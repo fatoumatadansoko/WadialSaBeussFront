@@ -40,5 +40,7 @@ export class CarteinvitationService {
     // Passez l'objet carte dans le corps de la requête
     return this.http.post(`${this.apiUrl}/${id}`, carte, { headers });
 }
-
+getCartesByCategory(categoryId: number): Observable<any> {
+  return this.http.get(`${this.apiUrl}/category/${categoryId}`);
+}
 }

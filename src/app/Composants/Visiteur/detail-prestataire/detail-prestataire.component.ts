@@ -14,6 +14,7 @@ import { PretataireService } from '../../../Services/prestataire.service';
 import { PrestataireModel } from '../../../Models/prestataire.model';
 import { CommentaireService } from '../../../Services/commentaire.service';
 import Swal from 'sweetalert2';
+import { EmailService } from '../../../email.service';
 
 @Component({
   selector: 'app-detail-prestataire',
@@ -29,6 +30,8 @@ export class DetailPrestataireComponent implements OnInit {
   private prestataireService = inject(PretataireService);
   private commentaireService = inject(CommentaireService);
   private route: ActivatedRoute = inject(ActivatedRoute);
+  constructor(private emailService: EmailService) { }
+
   convertToInt(note: any): number {
     const parsedNote = parseInt(note, 10);
     // console.log(`Note convertie: ${parsedNote}`); 
@@ -72,6 +75,7 @@ export class DetailPrestataireComponent implements OnInit {
       }
     );
   }
+  
   // Méthode appelée lorsqu'une étoile est cliquée
   rate(stars: number): void {
     this.rating = stars; // Met à jour la note
@@ -89,6 +93,7 @@ export class DetailPrestataireComponent implements OnInit {
       console.error('Erreur lors de la récupération des commentaires:', error);
     }
   );
+  
 }
 
 
@@ -139,4 +144,37 @@ export class DetailPrestataireComponent implements OnInit {
   getPhotoUrl(photoPath: string): string {
     return `${this.baseUrl}${photoPath}`;
   }
+
+  // ...
+  
+
+  
+  simulerEnvoiEmail(email: string): void {
+    // Simulation de l'envoi d'un email via un service (backend ou non)
+    // Ici, on simule simplement l'envoi sans redirection
+    setTimeout(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Demande envoyée',
+        text: 'Votre demande de prestation a bien été envoyée au prestataire.',
+        confirmButtonText: 'OK',
+      });
+    }, 1000);  // Simule un délai avant l'affichage de la confirmation
+  }
+  demanderPrestation(email: string) {
+    const subject = 'Demande de prestation';
+    const message = `Bonjour,\n\nJe souhaite demander une prestation auprès de ${this.prestataire?.user?.nom}.\n\nMerci!`;
+
+    this.emailService.sendEmail(email, subject, message).subscribe(
+      response => {
+        console.log('Email sent successfully:', response);
+        alert('Email envoyé avec succès !');
+      },
+      error => {
+        console.error('Error sending email:', error);
+        alert('Échec de l\'envoi de l\'email.');
+      }
+    );
+  }
+
 }

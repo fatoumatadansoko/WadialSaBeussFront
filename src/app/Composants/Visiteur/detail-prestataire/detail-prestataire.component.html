@@ -31,7 +31,19 @@
       <!-- Description -->
       <p>{{ prestataire.user.description }}</p>
     </div>
+    <div class="contact-container mt-3">
+      <!-- Vérifier que l'adresse e-mail est définie avant d'afficher le bouton -->
+      <button class="btn btn-success" *ngIf="prestataire?.user?.email" (click)="demanderPrestation(prestataire.user.email!)">
+        Demander une prestation
+      </button>
+    </div>
+    
   </div>
+  <div class="contact-container mt-3">
+    <!-- Autres informations de contact déjà présentes -->
+    
+  </div>
+  
 <!-- Noter le prestataire -->
 <div class="review-section mt-5">
   <h4>Noter le prestataire</h4>
@@ -62,8 +74,4 @@
   </div>
 </div>
 
-
-  
-
-  
 <app-footer></app-footer>

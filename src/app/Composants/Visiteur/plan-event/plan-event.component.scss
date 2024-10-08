@@ -75,3 +75,22 @@ body {
 .form-link a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .image-side {
+        display: none;
+    }
+
+    .form-side {
+        width: 100%;
+    }
+
+    .btn-primary {
+        width: 35%; /* Le bouton occupe toute la largeur sur les petits écrans */
+    }
+}

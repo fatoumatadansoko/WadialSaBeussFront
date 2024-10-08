@@ -1,16 +1,18 @@
 .navbar {
     padding-bottom: 20px !important;
 }
+
 .navbar-light {
-    background: rgb(255, 255, 255); /* Ajoute un fond légèrement opaque dès le départ */
+    border-bottom: #051D30;
+    background: rgb(255, 255, 255);
     transition: background 0.5s ease, box-shadow 0.5s ease;
 }
 
-
 .navbar-light.scrolled {
-    background: rgba(255, 255, 255, 0.9); /* Fond opaque lorsque défilé */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre portée pour donner de la profondeur */
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 /*** Navbar ***/
 .navbar-light .navbar-nav .nav-link {
     font-family: 'Oswald', sans-serif;
@@ -26,7 +28,7 @@
 
 /* Espacement du logo */
 .navbar-brand {
-    margin-right: 300px; /* Espacement du logo par rapport au menu */
+    margin-right: 300px;
     margin-left: 24px;
 }
 
@@ -43,8 +45,8 @@
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-item .nav-link:hover,
-.navbar-light .navbar-nav .nav-item .nav-link.active  {
-    color:#725111;
+.navbar-light .navbar-nav .nav-item .nav-link.active {
+    color: #725111;
 }
 
 .navbar-light .navbar-brand img {
@@ -78,42 +80,54 @@
     opacity: 1;
 }
 
+/*** Responsive (burger menu) ***/
 @media (max-width: 991.98px) {
     .sticky-top.navbar-light {
         position: relative;
         background: black;
+        
     }
 
-    .navbar.navbar-expand-lg .navbar-toggler {
+    .navbar-toggler {
+        margin-left: auto; /* Aligne le bouton burger tout à fait à droite */
         padding: 10px 20px;
         border: 1px solid #725111;
-        color:#725111;
+        color: #725111;
+    }
+
+    .navbar-toggler .fa-bars {
+        font-size: 24px;
+        color: #725111;
     }
 
     .navbar-light .navbar-collapse {
         margin-top: 15px;
         border-top: 1px solid #ffffff;
+        background-color: #f8f9fa;
     }
 
     .navbar-light .navbar-nav .nav-link,
     .sticky-top.navbar-light .navbar-nav .nav-link {
         padding: 10px 0;
         margin-left: 0;
-        color: var(--bs-dark);
-    }
-
-    .navbar-light .navbar-nav .nav-item .nav-link {
-        color: var(--bs-dark);
     }
 
     .navbar-light .navbar-brand img {
         max-height: 45px;
     }
+
+    .navbar-collapse {
+        transition: all 0.5s ease;
+    }
+
+    .navbar-nav {
+        text-align: left;
+    }
 }
 
 @media (min-width: 992px) {
     .navbar .nav-item .dropdown-menu {
-        display: block;
+        display: none;
         visibility: hidden;
         top: 100%;
         transform: rotateX(-75deg);
@@ -132,7 +146,7 @@
         border-bottom: 1px solid rgba(255, 255, 255, .1);
         z-index: 999;
     }
-    
+
     .sticky-top.navbar-light {
         position: fixed;
         background: var(--bs-light);
@@ -145,7 +159,7 @@
         height: 2px;
         bottom: -1px;
         left: 50%;
-        background:#725111;
+        background: #725111;
         transition: .5s;
     }
 
@@ -162,7 +176,7 @@
         height: 0;
         bottom: -1px;
         left: 50%;
-        background:#725111;
+        background: #725111;
         transition: .5s;
     }
 
@@ -177,11 +191,11 @@
 .btn-primary {
     border-radius: 10px;
     color: white;
-    background-color: #725111; /* Couleur de fond du bouton */
-    border-color: #725111; /* Couleur de la bordure du bouton */
+    background-color: #725111;
+    border-color: #725111;
 }
 
 .btn-primary:hover {
-    background-color: #051D30; /* Couleur de fond du bouton au survol */
-    border-color: #051D30; /* Couleur de la bordure du bouton au survol */
+    background-color: #051D30;
+    border-color: #051D30;
 }

@@ -43,7 +43,7 @@ export class LoginComponent {
             // Gestion des rôles et redirection
             if (response.user.role) {
               if (response.user.role === 'admin') {
-                this.router.navigateByUrl('profile');
+                this.router.navigateByUrl('dashbord-admin');
               } else if (response.user.role === 'prestataire') {
                 this.router.navigateByUrl('profile');
               } else if (response.user.role === 'client') {

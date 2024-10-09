@@ -149,30 +149,40 @@ export class DetailPrestataireComponent implements OnInit {
   
 
   
-  simulerEnvoiEmail(email: string): void {
-    // Simulation de l'envoi d'un email via un service (backend ou non)
-    // Ici, on simule simplement l'envoi sans redirection
-    setTimeout(() => {
+ 
+  demanderPrestation(): void {
+    if (!this.prestataireId) {
       Swal.fire({
-        icon: 'success',
-        title: 'Demande envoyée',
-        text: 'Votre demande de prestation a bien été envoyée au prestataire.',
-        confirmButtonText: 'OK',
+        icon: 'error',
+        title: 'Erreur',
+        text: 'ID du prestataire introuvable.',
       });
-    }, 1000);  // Simule un délai avant l'affichage de la confirmation
-  }
-  demanderPrestation(email: string) {
-    const subject = 'Demande de prestation';
-    const message = `Bonjour,\n\nJe souhaite demander une prestation auprès de ${this.prestataire?.user?.nom}.\n\nMerci!`;
+      return;
+    }
 
-    this.emailService.sendEmail(email, subject, message).subscribe(
+    const message = `Bonjour,\n\nJe souhaite demander une prestation auprès de ${this.prestataire?.user?.nom}.\n\nMerci!`;
+    
+    const demande = {
+      prestataire_id: this.prestataireId,
+      message: message,
+    };
+
+    this.prestataireService.demanderPrestation(demande).subscribe(
       response => {
-        console.log('Email sent successfully:', response);
-        alert('Email envoyé avec succès !');
+        console.log('Demande de prestation envoyée avec succès:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Demande envoyée!',
+          text: 'Votre demande de prestation a été envoyée avec succès.',
+        });
       },
       error => {
-        console.error('Error sending email:', error);
-        alert('Échec de l\'envoi de l\'email.');
+        console.error('Erreur lors de l\'envoi de la demande de prestation:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'envoi de votre demande.',
+        });
       }
     );
   }

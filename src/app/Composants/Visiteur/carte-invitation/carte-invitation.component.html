@@ -37,39 +37,49 @@
     </ul>
   </div>
 </div>
-  <div class="cartein card-container" *ngFor="let carte of carteinvitations">
-    <div class="card position-relative" id="carte-{{ carte.id }}">
-      <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
-      <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
-        <h3>{{ carte.nom }}</h3>
-        <p>{{ carte.contenu }}</p>
+<div class="cartein card-container" *ngFor="let carte of carteinvitations">
+  <a [routerLink]="['/carte-personnalisee']" class="card position-relative" id="carte-{{ carte.id }}">
+    <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
+    <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
+      <h3>{{ carte.nom }}</h3>
+      <p>{{ carte.contenu }}</p>
 
-        <div class="icons d-flex justify-content-center align-items-center mt-3">
-          <i class="bi bi-pencil-square me-3" style="cursor:pointer" (click)="editCarte(carte)"></i>
-          <i class="bi bi-send-fill me-3" style="cursor:pointer"></i>
-          <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte)"></i>
-        </div>
+      <div class="icons d-flex justify-content-center align-items-center mt-3">
+        <!-- <i class="bi bi-send-fill me-3" style="cursor:pointer" (click)="openEmailModal(carte); $event.stopPropagation();"></i> -->
+        <!-- <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte); $event.stopPropagation();"></i> -->
       </div>
     </div>
-  </div>
+  </a>
+  <i class="bi bi-pencil-square me-3" style="cursor:pointer" (click)="editCarte(carte); $event.stopPropagation();"></i>
+</div>
 </div> 
 
 
-
-
+<!-- Affichage du message de confirmation -->
+<div *ngIf="messageVisible" class="alert alert-success" role="alert">
+  {{ confirmationMessage }}
+</div>
 
 <!-- Modal pour éditer la carte sélectionnée -->
 <div *ngIf="showEditModal" class="modal" tabindex="-1" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modifier la carte</h5>
+        <h5 class="modal-title">Personnaliser la carte</h5>
         <button type="button" class="btn-close" (click)="closeEditModal()"></button>
       </div>
       <div class="modal-body">
-    <!-- Assurez-vous que ces propriétés sont correctement définies dans le .ts -->
-<input [(ngModel)]="selectedCarte.nom" placeholder="Nom de la carte" class="form-control" />
-<textarea [(ngModel)]="selectedCarte.contenu" placeholder="Contenu de la carte" class="form-control"></textarea>
+        <!-- Champ pour modifier le nom de la carte -->
+        <input [(ngModel)]="selectedCarte.nom" placeholder="Nom de la carte" class="form-control" />
+        
+        <!-- Champ pour modifier le contenu de la carte -->
+        <textarea [(ngModel)]="selectedCarte.contenu" placeholder="Contenu de la carte" class="form-control"></textarea>
+        
+        <!-- Champ pour uploader une nouvelle image -->
+        <input type="file" (change)="onImageSelected($event)" class="form-control" /> <!-- Champ image -->
+        
+        <!-- Afficher l'image actuelle si aucune nouvelle image n'est sélectionnée -->
+        <img *ngIf="selectedCarte.image && isString(selectedCarte.image)" [src]="selectedCarte.image" class="img-fluid mt-3" alt="Image de la carte">
 
       </div>
       <div class="modal-footer">
@@ -79,5 +89,7 @@
     </div>
   </div>
 </div>
+
+
 
 <app-footer></app-footer>

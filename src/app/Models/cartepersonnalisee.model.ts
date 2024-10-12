@@ -1,7 +1,7 @@
-export interface carteinvitationModel {
+export interface cartepersonnaliseeModel {
     id?: number,
-    user_id?: string,
-    categorie_id?: string,
+    client_id?: string,
+    carte_invitation_id?: string,
     nom?: string,
     image?:string |null,
     contenu?: string,

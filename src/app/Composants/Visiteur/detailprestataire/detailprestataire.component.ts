@@ -20,8 +20,8 @@ import { EmailService } from '../../../email.service';
   selector: 'app-detail-prestataire',
   standalone: true,
   imports: [NgFor, FormsModule, FooterComponent, HeaderComponent, NgIf],
-  templateUrl: './detail-prestataire.component.html',
-  styleUrls: ['./detail-prestataire.component.scss']
+  templateUrl: './detailprestataire.component.html',
+  styleUrls: ['./detailprestataire.component.scss']
 })
 
 

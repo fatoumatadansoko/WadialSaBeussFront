@@ -64,6 +64,8 @@ export class PretataireService {
     return this.http.post(`${apiurl}/demande-prestation`, demande,{ headers });
   
   }
+   // Méthode pour récupérer les demandes d'un prestataire
+  
   private handleError(error: any) {
     console.error('An error occurred', error);
     return throwError('Something went wrong; please try again later.');

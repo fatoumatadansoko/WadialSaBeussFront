@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailPrestataireComponent } from './detail-prestataire.component';
+import { DetailPrestataireComponent } from './detailprestataire.component';
 
 describe('DetailPrestataireComponent', () => {
   let component: DetailPrestataireComponent;

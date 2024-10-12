@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
 import { UserService } from '../../../Services/users.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
 import { CommonModule, NgIf } from '@angular/common';
@@ -11,7 +11,7 @@ import { throwError, catchError } from 'rxjs';
 @Component({
   selector: 'app-user-profil',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgIf,CommonModule],
+  imports: [HeaderComponent, FooterComponent,NgIf,CommonModule,RouterLink],
   templateUrl: './user-profil.component.html',
   styleUrl: './user-profil.component.scss'
 })

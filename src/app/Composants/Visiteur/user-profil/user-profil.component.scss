@@ -1,77 +1,118 @@
-/* Bannière de profil */
-
+/* .profile-banner Styles */
 .profile-banner {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    padding-top: 120px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .banner-content {
-    width: 100%;
-  }
-  .profile-banner {
-    width: 100%;
-    background-image: url(../../../../assets/images/headerprofileuser.png);
-    padding-left: 200px;
-    padding-right: 200px;
-    padding-bottom: 50px;
-  }
-  .profile-info {
-    padding-left: 200px;
-    padding-right: 200px;
-  }
-  .profile-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .profile-logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  /* Boutons */
-  .btn-outline-secondary {
-    background-color: #8b6f47;
-    border-color: transparent;
-    color: white;
-  }
-  
-  .btn-outline-secondary:hover {
-    background-color: #6a532e;
-    color: white;
-  }
-  
-  .btn-warning {
-    background-color: #8b6f47;
-    color: white;
-    border: none;
-  }
-  
-  .btn-warning:hover {
-    background-color: #6a532e;
-  }
-  
-  /* Table d'informations utilisateur */
-  .table {
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-  
-  th {
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  td {
-    text-align: right;
-  }
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  padding-top: 120px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-image: url(../../../../assets/images/headerprofileuser.png);
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-bottom: 50px;
+}
 
-  
+.banner-content {
+  width: 100%;
+}
+
+.profile-info {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Boutons */
+.btn-outline-secondary {
+  background-color: #8b6f47;
+  border-color: transparent;
+  color: white;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6a532e;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #8b6f47;
+  color: white;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #6a532e;
+}
+
+/* Table d'informations utilisateur */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+td {
+  text-align: right;
+}
+
+/* Styles du body et sidebar */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.sidebar {
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.sidebar-title {
+  color: #b46c20;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.nav-link.active {
+  color: #b46c20;
+}
+
+/* Styles pour le conteneur principal avec flexbox */
+.main-container {
+  display: flex; /* Aligne la sidebar et le contenu horizontalement */
+}
+
+.content {
+  flex: 1; /* Prend tout l'espace disponible à droite de la sidebar */
+  padding: 20px; /* Ajout d'un peu de marge autour du contenu */
+}
+
+/* Styles spécifiques à l'administrateur */
+.admin .table {
+  margin-top: 20px; /* Ajuste l'espacement du tableau pour l'admin */
+}

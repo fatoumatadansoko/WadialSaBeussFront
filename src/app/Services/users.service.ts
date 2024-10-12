@@ -42,7 +42,11 @@ export class UserService {
   register(formData: FormData) {
     return this.http.post(`${apiurl}/register`, formData);
 }
-
+getUserDetails(): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+  return this.http.get(`${apiurl}/user`, { headers});
+}
 
 
 private handleError(error: any) {
@@ -55,4 +59,4 @@ return throwError('Something went wrong; please try again later.');
 
   
 
- 
+  

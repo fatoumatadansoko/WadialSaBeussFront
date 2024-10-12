@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError } from 'rxjs';
 import { apiurl } from './ApiUrl';
 import { error } from 'console';
+import { environment } from '../../environnements/environments';
 
 
 @Injectable({
@@ -10,6 +11,7 @@ import { error } from 'console';
 })
 export class PretataireService {
   private apiUrl = 'http://127.0.0.1:8000/api/prestataires'; // Remplacez par l'URL de votre API
+  private baseUrl: string = environment.apiurl;
 
     private http = inject(HttpClient);
 
@@ -56,8 +58,14 @@ export class PretataireService {
         return this.http.post(`${apiurl}/register`, user);
     
   }
- 
-
+  demanderPrestation(demande: { prestataire_id: number; message: string }): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.post(`${apiurl}/demande-prestation`, demande,{ headers });
+  
+  }
+   // Méthode pour récupérer les demandes d'un prestataire
+  
   private handleError(error: any) {
     console.error('An error occurred', error);
     return throwError('Something went wrong; please try again later.');

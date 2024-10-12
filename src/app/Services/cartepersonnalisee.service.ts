@@ -8,7 +8,7 @@ import { carteinvitationModel } from '../Models/carteinvitation.model';
 @Injectable({
     providedIn: 'root'
 })
-export class CarteinvitationService {
+export class CartepersonnaliseeService {
   private apiUrl = 'http://127.0.0.1:8000/api/cartes'; // Remplacez par l'URL de votre API
 
   private http = inject(HttpClient);
@@ -16,14 +16,7 @@ export class CarteinvitationService {
   constructor(private htttp: HttpClient) {}
 
 
-  //methodes pour récupérer toutes les cartes
-
-  getAllCarteinvitations(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(this.apiUrl, { headers });
-  }
-    
+ 
     // Méthodes pour lister les cartes
   getCarteinvitationById(id: number): Observable<any> {
     const token = localStorage.getItem('token');
@@ -47,13 +40,21 @@ export class CarteinvitationService {
     });
   }
   
-getCartesByCategory(categoryId: number): Observable<any> {
-  return this.http.get(`${this.apiUrl}/category/${categoryId}`);
-}
+
 getCartesByClientId(clientId: number): Observable<any> {
   const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
   const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
   
-  return this.http.get(`${apiurl}cartes-personnalisees/client/${clientId}`, { headers });
+  return this.http.get(`${apiurl}/cartes-personnalisees/client/${clientId}`, { headers });
 }
+envoyerCarte(id: number, emails: string[]): Observable<any> {
+  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+  const headers = new HttpHeaders({ Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' });
+
+  const body = { emails_invites: emails }; // Changez ici
+  
+  return this.http.post(`${apiurl}/cartes-personnalisees/${id}/envoyer`, body,  { headers });
 }
+  }
+  
+

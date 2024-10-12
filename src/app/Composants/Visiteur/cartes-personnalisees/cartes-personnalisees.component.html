@@ -1,1 +1,54 @@
-<p>cartes-personnalisees works!</p>
+<app-header></app-header>
+<div class="cartein card-container" *ngFor="let carte of carte">
+
+    <div class="card position-relative" id="carte-{{ carte.id }}">
+      <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
+      <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
+        <h3>{{ carte.nom }}</h3>
+        <p>{{ carte.contenu }}</p>
+
+        <div class="icons d-flex justify-content-center align-items-center mt-3">
+            <i class="bi bi-send-fill me-3" style="cursor:pointer" (click)="openEmailModal(carte)"></i>
+        <!-- <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte)"></i> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- Modal pour entrer les emails des invités -->
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModal}" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Envoyer l'invitation</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="emailForm" (ngSubmit)="sendInvitation(selectedCarte)">
+            <div class="mb-3">
+              <label for="emails_invites" class="form-label">E-mails des invités (séparés par des virgules)</label>
+              <input type="text" id="emails_invites" formControlName="emails_invites" class="form-control" placeholder="exemple@mail.com, autre@mail.com">
+              <div *ngIf="emailForm.get('emails_invites')?.invalid && (emailForm.get('emails_invites')?.touched || emailForm.get('emails_invites')?.dirty)">
+                <small class="text-danger" *ngIf="emailForm.get('emails_invites')?.errors?.['required']">Ce champ est requis.</small>
+                <small class="text-danger" *ngIf="emailForm.get('emails_invites')?.errors?.['invalidEmails']">Un ou plusieurs e-mails ne sont pas valides.</small>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!emailForm.valid">Envoyer</button>
+          </form>
+          
+              
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="emailForm.get('emails_invites')?.invalid && (emailForm.get('emails_invites')?.touched || emailForm.get('emails_invites')?.dirty)">
+    <small class="text-danger" *ngIf="emailForm.get('emails_invites')?.errors?.['required']">Ce champ est requis.</small>
+    <small class="text-danger" *ngIf="emailForm.get('emails_invites')?.errors?.['invalidEmails']">
+      Les e-mails suivants ne sont pas valides : {{ emailForm.get('emails_invites')?.errors?.['invalidEmails'].join(', ') }}.
+    </small>
+  </div>
+  

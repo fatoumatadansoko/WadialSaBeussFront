@@ -14,13 +14,14 @@ import { PretataireService } from '../../../Services/prestataire.service';
 import { PrestataireModel } from '../../../Models/prestataire.model';
 import { CommentaireService } from '../../../Services/commentaire.service';
 import Swal from 'sweetalert2';
+import { EmailService } from '../../../email.service';
 
 @Component({
   selector: 'app-detail-prestataire',
   standalone: true,
   imports: [NgFor, FormsModule, FooterComponent, HeaderComponent, NgIf],
-  templateUrl: './detail-prestataire.component.html',
-  styleUrls: ['./detail-prestataire.component.scss']
+  templateUrl: './detailprestataire.component.html',
+  styleUrls: ['./detailprestataire.component.scss']
 })
 
 
@@ -29,6 +30,8 @@ export class DetailPrestataireComponent implements OnInit {
   private prestataireService = inject(PretataireService);
   private commentaireService = inject(CommentaireService);
   private route: ActivatedRoute = inject(ActivatedRoute);
+  constructor(private emailService: EmailService) { }
+
   convertToInt(note: any): number {
     const parsedNote = parseInt(note, 10);
     // console.log(`Note convertie: ${parsedNote}`); 
@@ -72,6 +75,7 @@ export class DetailPrestataireComponent implements OnInit {
       }
     );
   }
+  
   // Méthode appelée lorsqu'une étoile est cliquée
   rate(stars: number): void {
     this.rating = stars; // Met à jour la note
@@ -89,6 +93,7 @@ export class DetailPrestataireComponent implements OnInit {
       console.error('Erreur lors de la récupération des commentaires:', error);
     }
   );
+  
 }
 
 
@@ -139,4 +144,47 @@ export class DetailPrestataireComponent implements OnInit {
   getPhotoUrl(photoPath: string): string {
     return `${this.baseUrl}${photoPath}`;
   }
+
+  // ...
+  
+
+  
+ 
+  demanderPrestation(): void {
+    if (!this.prestataireId) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'ID du prestataire introuvable.',
+      });
+      return;
+    }
+
+    const message = `Bonjour,\n\nJe souhaite demander une prestation auprès de ${this.prestataire?.user?.nom}.\n\nMerci!`;
+    
+    const demande = {
+      prestataire_id: this.prestataireId,
+      message: message,
+    };
+
+    this.prestataireService.demanderPrestation(demande).subscribe(
+      response => {
+        console.log('Demande de prestation envoyée avec succès:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Demande envoyée!',
+          text: 'Votre demande de prestation a été envoyée avec succès.',
+        });
+      },
+      error => {
+        console.error('Erreur lors de l\'envoi de la demande de prestation:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'envoi de votre demande.',
+        });
+      }
+    );
+  }
+
 }

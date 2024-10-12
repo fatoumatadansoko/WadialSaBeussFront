@@ -1,7 +1,7 @@
 .event-section {
   background-image: url('../../../../assets/images/fondba.png');
   padding-top: 50px;
-  background-color: #051D30;
+  background-color: #f6f8fa;
   background-position: left center; /* Aligne l'image à gauche */
   background-size: 120% auto; /* Agrandit l'image pour qu'elle dépasse à droite */
   background-repeat: no-repeat; /* Empêche la répétition de l'image */
@@ -36,12 +36,58 @@
 
 .event-section .btn-primary {
   width: 150px;
-  padding-top: -1px;
+  padding-top: 10px;
   border-radius: 10px;
   color: white;
   background-color: #725111; /* Couleur de fond du bouton */
   border-color: #725111; /* Couleur de la bordure du bouton */
 }
+.event-section {
+  overflow: hidden; /* Pour cacher les éléments qui débordent */
+}
+
+.text-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: slide-in-left 1.5s forwards; /* Augmentez la durée */
+}
+
+.image-enter {
+  transform: translateX(100%);
+  opacity: 0;
+  animation: slide-in-right 1.5s forwards; /* Augmentez la durée */
+}
+
+@keyframes slide-in-left {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.button-animate {
+  position: relative; /* Nécessaire pour l'effet de lumière */
+  animation: glow 1.5s infinite alternate; /* Animation pour le bouton */
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #ff9700, 0 0 10px #ff9700, 0 0 15px #ff9700, 0 0 20px #ff9700; /* Couleur des lumières */
+    transform: scale(1); /* Taille originale */
+  }
+  100% {
+    box-shadow: 0 0 10px #ff9700, 0 0 20px #ff9700, 0 0 30px #ff9700, 0 0 40px #ff9700; /* Lumières plus intenses */
+    transform: scale(1.05); /* Légère augmentation de taille */
+  }
+}
+
 .btn {
   display: inline-block;
   padding: 10px 20px;
@@ -66,19 +112,20 @@
   border-color: #051D30; /* Couleur de la bordure du bouton au survol */
 }
 
-.nosrealisations h6 {
-  padding-bottom: 10px;
-  padding-top: 10px;
+.caroussel h6 {
+  padding-top: 55px;
   font-size: 36px;
   font-family: 'Oswald', sans-serif;
   font-weight: bold;
   color: #000000;
   text-align: center;
 }
-
+.caroussel img{
+  padding-bottom: -1px;
+  padding-top: -1px;
+}
 .caroussel p {
-  padding-bottom: 10px;
-  padding-top: 10px;
+ 
   font-size: 12px;
   font-family: 'Oswald', sans-serif;
   font-weight: 'regular';
@@ -94,11 +141,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding-left: 150px;
+  padding-right: 150px;
+  padding-top: 50px;
+  
 }
 
 .budget-section .text-side {
-  width: 70%;
+  width: 60%;
 }
 
 .budget-section h1 {
@@ -117,7 +167,7 @@
 }
 
 .budget-section .image-side {
-  width: 40%;
+  width: 50%;
   text-align: right;
 }
 
@@ -199,7 +249,7 @@
   color: white;
   padding: 10px 20px;
   font-weight: bold;
-  border-radius: 9;
+  border-radius: 9px;
 }
 
 .btn-submit:hover {
@@ -370,4 +420,100 @@ footer {
   color: #ffffff;
   text-align: center;
   padding: 20px 0; /* Ajout de padding pour un espace interne */
+}
+/* Ajustements pour mobile */
+@media (max-width: 768px) {
+  .event-section {
+    background-image: none; /* Cacher l'image de fond en mode mobile */
+    padding-top: 20px; /* Réduire l'espace supérieur */
+    background-color: #051D30;
+  }
+
+  .event-section img {
+    display: none; /* Cacher l'image à droite en mode mobile */
+  }
+
+  
+
+  .event-section h4, .event-section h3 {
+    padding-top: 20px; /* Réduire l'espacement en haut */
+    font-size: 24px; /* Réduire la taille des titres pour mobile */
+  }
+
+  .event-section .btn-primary {
+    width: 100px; /* Réduire la largeur du bouton en mode mobile */
+    padding: 5px; /* Réduire le padding du bouton */
+  }
+  .pourquoinous h6 {
+    font-size: 24px;
+  }
+  .budget-section {
+    flex-direction: column; /* Empile les éléments */
+    padding-left: 20px; /* Réduit les marges */
+    padding-right: 20px;
+    padding-top: 20px; /* Réduit l'espacement en haut */
+  }
+
+  .budget-section .text-side {
+    width: 100%; /* Prend toute la largeur en mobile */
+  }
+
+  .budget-section h1 {
+    font-size: 24px; /* Réduit la taille du titre */
+    margin-bottom: 15px; /* Réduit l'espacement inférieur */
+  }
+
+  .budget-section p {
+    font-size: 16px; /* Réduit la taille des paragraphes */
+    line-height: 1.4; /* Ajuste la hauteur de ligne */
+  }
+
+  .budget-section .image-side {
+    width: 100%; /* Prend toute la largeur en mobile */
+    text-align: center; /* Centre l'image */
+  }
+
+  
+  .caroussel h6 {
+    margin-top: 10px;
+    font-size: 24px;
+    padding-bottom: -1px;
+  }
+  .carousel-item {
+    display: none; /* Cacher tous les slides par défaut */
+  }
+
+  .carousel-item.active, .carousel-item-next, .carousel-item-prev {
+    display: block; /* Afficher seulement les éléments actifs */
+  }
+
+  /* Cacher les slides non actifs */
+  .carousel-item:nth-child(n+3) { /* Cacher tous les items à partir du troisième */
+    display: none; 
+  }
+
+  /* Si vous souhaitez afficher deux items, vous pouvez également modifier le CSS des colonnes */
+  .row > .col-3 {
+    flex: 0 0 50%; /* Deux colonnes */
+    max-width: 50%; /* Deux colonnes */
+  }
+  .contact-section {
+    flex-direction: column; /* Empiler les éléments sur petits écrans */
+    padding: 20px; /* Réduire le padding sur petits écrans */
+  }
+
+  .contact-section .image-side,
+  .contact-section .form-side {
+    width: 100%; /* Les deux côtés prennent toute la largeur */
+    margin-right: 0; /* Enlever la marge à droite */
+    margin-bottom: 20px; /* Ajouter une marge en bas */
+  }
+
+  .contact-section .image-side {
+    margin-bottom: 20px; /* Ajout d'un espace entre l'image et le formulaire */
+  }
+
+  .form-side {
+    padding: 30px; /* Réduire le padding pour le formulaire sur mobile */
+  }
 }

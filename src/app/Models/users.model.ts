@@ -1,4 +1,5 @@
 import { CategoriePrestataireModel } from "./categorieprestataire.model"
+import { PrestataireModel } from "./prestataire.model";
 
 
 export interface Role {
@@ -10,20 +11,18 @@ export interface Role {
 
 
 export interface UserModel {
-    id?: number 
-    nom?: string
-    email?: string
-    password?: string
-    logo?: string
-    adresse?: string
-    telephone?: string
-    statut?: "active",
-    description?: string,
-    ninea?: string,
-    disponibilite?:"Disponible",
-    categorie_prestataire?:CategoriePrestataireModel,
-    createdAt?: Date
-    updatedAt?: Date
-    roles?: Role[]
+    id?: number;
+    description?:string;
+    nom?: string;
+    email?: string;
+    password?: string;
+    adresse?: string;
+    telephone?: string;
+    statut?: "active";
+    createdAt?: Date;
+    updatedAt?: Date;
+    role?: string;
+    logo?:string;
+    prestataire?: PrestataireModel;
 }
 

@@ -1,1 +1,95 @@
-<p>carte-invitation works!</p>
+<app-header></app-header>
+
+    <div class="overlay">
+        <div sectionover>
+          <p>
+            Chez Flowvence, nous croyons que chaque événement doit être unique et refléter parfaitement la personnalité et les goûts de son organisateur.
+        </p>
+        </div>
+    </div>
+    
+
+
+<!-- Affichage des cartes d'invitations -->
+  
+  
+
+<div class="container d-flex flex-wrap justify-content-center">
+  <div class="container mt-5">
+    <div *ngIf="message" class="alert alert-light alert-dismissible fade show" role="alert" [@fadeIn]>
+      <i class="bi bi-sad" aria-hidden="true"></i> <!-- Utilisation de Bootstrap Icons pour l'icône triste -->
+      <strong>Oops ! Pas de prestataire disponible pour cette categorie</strong> {{ message }}
+      <button type="button" class="close" aria-label="Close" (click)="message = ''">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+   <!-- Dropdown de catégories -->
+   <div class="dropdown"> <!-- Ajout de la classe shadow-sm -->
+    <button class="btn btn-drop dropdown-toggle" type="button" id="dropdownCategories" data-bs-toggle="dropdown" aria-expanded="false">
+      Sélectionner une catégorie
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownCategories">
+      <li *ngFor="let categorie of categories">
+        <a class="dropdown-item" (click)="onCategorieSelect(categorie)">
+          {{ categorie.titre }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="cartein card-container" *ngFor="let carte of carteinvitations">
+  <a [routerLink]="['/carte-personnalisee']" class="card position-relative" id="carte-{{ carte.id }}">
+    <img *ngIf="carte.image" [src]="getPhotoUrl(carte.image)" class="card-img-top rounded-top img-fluid" alt="{{ carte.nom }}">
+    <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
+      <h3>{{ carte.nom }}</h3>
+      <p>{{ carte.contenu }}</p>
+
+      <div class="icons d-flex justify-content-center align-items-center mt-3">
+        <!-- <i class="bi bi-send-fill me-3" style="cursor:pointer" (click)="openEmailModal(carte); $event.stopPropagation();"></i> -->
+        <!-- <i class="bi bi-download" style="cursor:pointer" (click)="downloadCarteImage(carte); $event.stopPropagation();"></i> -->
+      </div>
+    </div>
+  </a>
+  <i class="bi bi-pencil-square me-3" style="cursor:pointer" (click)="editCarte(carte); $event.stopPropagation();"></i>
+</div>
+</div> 
+
+
+<!-- Affichage du message de confirmation -->
+<div *ngIf="messageVisible" class="alert alert-success" role="alert">
+  {{ confirmationMessage }}
+</div>
+
+<!-- Modal pour éditer la carte sélectionnée -->
+<div *ngIf="showEditModal" class="modal" tabindex="-1" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Personnaliser la carte</h5>
+        <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Champ pour modifier le nom de la carte -->
+        <input [(ngModel)]="selectedCarte.nom" placeholder="Nom de la carte" class="form-control" />
+        
+        <!-- Champ pour modifier le contenu de la carte -->
+        <textarea [(ngModel)]="selectedCarte.contenu" placeholder="Contenu de la carte" class="form-control"></textarea>
+        
+        <!-- Champ pour uploader une nouvelle image -->
+        <input type="file" (change)="onImageSelected($event)" class="form-control" /> <!-- Champ image -->
+        
+        <!-- Afficher l'image actuelle si aucune nouvelle image n'est sélectionnée -->
+        <img *ngIf="selectedCarte.image && isString(selectedCarte.image)" [src]="selectedCarte.image" class="img-fluid mt-3" alt="Image de la carte">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateCarte()">Sauvegarder</button>
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<app-footer></app-footer>

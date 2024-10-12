@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Composants/Commun/login/login.component';
 import { RegisterComponent } from './Composants/Commun/register/register.component';
 import { HeaderComponent } from './Composants/Commun/header/header.component';
@@ -8,10 +8,18 @@ import { SidebarComponent } from './Composants/Commun/sidebar/sidebar.component'
 import { CategorieEvenementComponent } from './Composants/Visiteur/categorie-evenement/categorie-evenement.component';
 import { PlanEventComponent } from './Composants/Visiteur/plan-event/plan-event.component';
 import { PrestatairesComponent } from './Composants/Visiteur/prestataires/prestataires.component';
-import { DetailPrestataireComponent } from './Composants/Visiteur/detail-prestataire/detail-prestataire.component';
+import { DetailPrestataireComponent } from './Composants/Visiteur/detailprestataire/detailprestataire.component';
 import { DashbordAdminComponent } from './Composants/Admin/dashbord-admin/dashbord-admin.component';
 import { DashboardPrestataireComponent } from './Composants/Prestataire/dashboard-prestataire/dashboard-prestataire.component';
 import { CarteInvitationComponent } from './Composants/Visiteur/carte-invitation/carte-invitation.component';
+import { AccessUsersComponent } from './Composants/Admin/access-users/access-users.component';
+import { CarteAdminComponent } from './Composants/Admin/carte-admin/carte-admin.component';
+import { UserProfilComponent } from './Composants/Visiteur/user-profil/user-profil.component';
+import { PersonnalisationCarteInvitationComponent } from './Composants/Visiteur/personnalisation-carte-invitation/personnalisation-carte-invitation.component';
+import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
+import { DemandeListComponent } from './Composants/Prestataire/demande-list/demande-list.component';
+import { Component, NgModule } from '@angular/core';
+import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
 
 
 export const routes: Routes = [
@@ -34,9 +42,26 @@ export const routes: Routes = [
    { path: 'detailprestataire/:id', component: DetailPrestataireComponent},
    { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
    { path: 'carteinvitation', component: CarteInvitationComponent},
+   { path: 'profile', component: UserProfilComponent},
+   { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
+   { path: 'events', component: EvenementsComponent},
+   { path: 'carte-personnalisee', component: CartesPersonnaliseesComponent},
 
 
 
     // Routes pour l'admin
-    { path: 'dashboard-admin', component: DashbordAdminComponent}
+    { path: 'dashboard-admin', component: DashbordAdminComponent},
+    { path: 'users', component: AccessUsersComponent},
+    { path: 'carteadmin', component: CarteAdminComponent},
+
+    { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
+
 ]
+
+
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}

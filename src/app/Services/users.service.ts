@@ -1,111 +1,62 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, catchError } from 'rxjs';
+import { Observable, throwError, catchError, map } from 'rxjs';
 import { apiurl } from './ApiUrl';
 import { UserModel } from '../Models/users.model';
+import { error } from 'console';
+import { CategoriePrestataireModel } from '../Models/categorieprestataire.model';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    private http = inject(HttpClient);
 
  // Methode pour recuperer toutes les users 
- getAllUser(){
-    return this.http.get(`${apiurl}/users`);
-}
 
-    // Afficher les details d'un seul user
-    getUser(id: number): Observable<any> {
-         const token = localStorage.getItem('access_token');
-        
-         if (!token) {
-             console.error('No authentication token found');
-            return throwError('No authentication token found');
-         }
-    
-        const headers = new HttpHeaders({
-             'Authorization': `Bearer ${token}`
-        });
-    
-         return this.http.get<any>(`${apiurl}users/${id}`, { headers });
-     }
+ constructor(private http: HttpClient) {}
 
-    // Méthode pour activer/désactiver l'utilisateur
-   activateUser(id: number): Observable<any> {
-      const token = localStorage.getItem('access_token');
-        
-     if (!token) {
-      console.error('No authentication token found');
-         return throwError('No authentication token found');
+  getAllUser(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get<any>(`${apiurl}/users`, { headers });
   }
-    
+
+  getCategorieprestataires(): Observable<CategoriePrestataireModel[]> {
+    return this.http.get<{ status: boolean; message: string; data: CategoriePrestataireModel[] }>(`${apiurl}/categoriesprestataires`).pipe(
+      map((response: { data: any; }) => response.data) // Maintenant, 'response' est typé correctement
+    );
+  }
+  
+
+  // Récupérer les informations du profil utilisateur
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur connecté
     const headers = new HttpHeaders({
-     'Authorization': `Bearer ${token}`
-  });
-    
-    return this.http.post<any>(`${apiurl}users/${id}/activate`, {}, { headers })
-       .pipe(
-         catchError(this.handleError)
-     );
-  }
+      'Authorization': `Bearer ${token}`
+    });
 
- deactivateUser(id: number): Observable<any> {
-    const token = localStorage.getItem('access_token');
-        
-    if (!token) {
-     console.error('No authentication token found');
-     return throwError('No authentication token found');
+    return this.http.get<any>(`${apiurl}/profile`, { headers });
   }
-    
-  const headers = new HttpHeaders({
-     'Authorization': `Bearer ${token}`
-  });
-    
-       return this.http.post<any>(`${apiurl}users/${id}/deactivate`, {}, { headers })
-             .pipe(
-          catchError(this.handleError)
-      );
-  }
- private handleError(error: any) {
-   console.error('An error occurred', error);
-   return throwError('Something went wrong; please try again later.');
+   // Méthode pour inscrire un utilisateur (prestataire ou client)
+  register(formData: FormData) {
+    return this.http.post(`${apiurl}/register`, formData);
+}
+getUserDetails(): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+  return this.http.get(`${apiurl}/user`, { headers});
 }
 
- // Méthode pour supprimer un user
-deleteUser(id: number): Observable<any> {
-   const token = localStorage.getItem('access_token');
-        
-   if (!token) {
-     console.error('No authentication token found');
-       return throwError('No authentication token found');
-   }
-    
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-});
-    
-return this.http.delete<any>(`${apiurl}users/${id}`, { headers })
-  .pipe(
-      catchError(this.handleError)
-   );
-  }
 
-  // Méthode pour afficher les informations de l'utilisateur connecté
-  getMe(): Observable<any> {
-      const token = localStorage.getItem('access_token');
-        
-  if (!token) {
-    console.error('No authentication token found');
-    return throwError('No authentication token found');
-  }
-    
-      const headers = new HttpHeaders({
-          'Authorization': `Bearer ${token}`
-      });
-    
-     return this.http.get<any>(`${apiurl}user_connecte`, { headers });
-   }
-    
- }
+private handleError(error: any) {
+console.error('An error occurred', error);
+return throwError('Something went wrong; please try again later.');
+}
+  
+    }
+  
+
+  
+
+  

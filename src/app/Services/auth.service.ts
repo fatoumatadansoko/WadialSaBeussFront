@@ -3,126 +3,84 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError, tap } from 'rxjs';
 import { BehaviorSubject} from 'rxjs';
 import { apiurl } from './ApiUrl';
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  getCategoriePrestataires() {
-    throw new Error('Method not implemented.');
-  }
-
+  private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   private http = inject(HttpClient);
-
-  // Declaration des méthodes
-  
-  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
-
-  constructor() { }
-
- public hasToken(): boolean {
-    return !!localStorage.getItem('access_token');
-  }
-
+  // Observable pour le statut de connexion
   isLoggedIn(): Observable<boolean> {
-    return this.loggedIn.asObservable();
+    return this.isLoggedInSubject.asObservable();
   }
-  setLoggedIn(status: boolean): void {
-    this.loggedIn.next(status);
-  }
-  
-  // Méthodes pour l'authentification
+
+  // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
-    console.log("login");
     return this.http.post(`${apiurl}/login`, identifiant).pipe(
       tap((response: any) => {
-        if (response.access_token) {
-          localStorage.setItem('access_token', response.access_token);
+        if (response.token) {
+          localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
-          this.setLoggedIn(true);
+          this.isLoggedInSubject.next(true); // Met à jour l'état de connexion
         }
+      }),
+      catchError((error) => {
+        console.error('Login failed:', error);
+        return throwError(error);
       })
     );
-    // Methode pour avoir le profil utilisateur 
-  //   getProfile(){
-  //     return this.http.get(`${apiurl}/profile`);
-  // }
-
-  // // Methode pour rafraichir le token
-  // refreshToken(){
-  //     return this.http.get(`${apiurl}/refresh`);
-  // }
-
-  // // Methode pour se deconnecter 
-  // logout(){
-  //     return this.http.get(`${apiurl}/logout`);
-  // }
   }
 
-
-  
-  
-
-  // Méthode pour l'inscription
-  register(identifiant: any){
-    return this.http.post(`${apiurl}/register`, identifiant);
-    
-  }
-
-  // Méthodes pour se déconnecter
-  logout() {
-    const token = localStorage.getItem('access_token');
+  // Méthode pour se déconnecter
+  logout(): Observable<any> {
+    const token = localStorage.getItem('token');
   
     if (!token) {
       console.error('No authentication token found');
       return throwError('No authentication token found');
     }
-  
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-  
-    return this.http.post(`${apiurl}logout`, {}, { headers }).pipe(
-      // Remove the token and user data from localStorage after a successful response or in case of an error
+
+    return this.http.post(`${apiurl}/logout`, {}, { headers }).pipe(
       tap(() => {
-        localStorage.removeItem('access_token');
+        // Supprimer le token et informer que l'utilisateur est déconnecté
+        localStorage.removeItem('token');
         localStorage.removeItem('user');
-        this.loggedIn.next(false);
+        this.isLoggedInSubject.next(false); // Mise à jour de l'état de connexion
       }),
       catchError((error) => {
-        // If the error is 401 Unauthorized, the token is probably invalid or expired
         if (error.status === 401) {
           console.error('Invalid or expired token, forced logout.');
-          localStorage.removeItem('access_token');
+          localStorage.removeItem('token');
           localStorage.removeItem('user');
-          this.loggedIn.next(false);
+          this.isLoggedInSubject.next(false); // Mise à jour de l'état de connexion
         }
-        // Propagate the error after handling forced logout
         return throwError(error);
       })
     );
   }
-  
-  
-
-  // Méthode pour récuperer le nombre de users avec le role entrepreneur
-  getEntrepreneurCount(): Observable<any> {
-    return this.http.get<any>(`${apiurl}nombre_entrepreneur`);
-  }
-
-  // Méthode pour récuperer le nombre de users avec le role coach
-  getCoachCount(): Observable<any> {
-    return this.http.get<any>(`${apiurl}nombre_coach`);
-  }
-
-   
-  
-  
-  // Méthode pour vérifier si l'utilisateur est connecté
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('access_token');
-  }
-
-  
-  
+    // Méthode pour l'inscription
+    register(identifiant: any): Observable<any> {
+      return this.http.post(`${apiurl}/register`, identifiant).pipe(
+        catchError((error) => {
+          console.error('Registration failed:', error);
+          return throwError(error);
+        })
+      );
+    }
+    getUserId(): number {
+      // Remplacez par votre méthode pour récupérer l'ID utilisateur
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      return user.id; // Assurez-vous que l'ID est stocké dans localStorage
+    }
 }
+
+  
+
+ 

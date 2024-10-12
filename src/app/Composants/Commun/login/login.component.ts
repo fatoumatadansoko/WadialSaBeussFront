@@ -4,6 +4,8 @@ import { AuthService } from '../../../Services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -13,7 +15,7 @@ import { FormsModule } from '@angular/forms';
     NgFor,RouterModule,NgIf, FormsModule
      ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']  // Correction ici
 })
 export class LoginComponent {
   private authService = inject(AuthService);
@@ -31,32 +33,66 @@ export class LoginComponent {
       this.authService.login(this.userObject).subscribe(
         (response: any) => {
           console.log(response);
-          console.log(response.access_token);
-          console.log(response.user);
-
-          if (response.user) {
-            localStorage.setItem('access_token', response.access_token);
+          if (response.user && response.token) {
+            localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response.user));
-
+  
+            // Vérification du stockage du token
+            console.log('Token enregistré:', localStorage.getItem('token'));
+  
             // Gestion des rôles et redirection
-            if (response.user.roles) {
-              if (response.user.roles.some((role: Role) => role.name === 'admin')) {
-                this.router.navigateByUrl('dashboard-admin');
-              } else if (response.user.roles.some((role: Role) => role.name === 'prestataire')) {
-                this.router.navigateByUrl('dashboard-prestataire');
-              } else if (response.user.roles.some((role: Role) => role.name === 'client')) {
+            if (response.user.role) {
+              if (response.user.role === 'admin') {
+                this.router.navigateByUrl('profile');
+              } else if (response.user.role === 'prestataire') {
                 this.router.navigateByUrl('acceuil');
+              } else if (response.user.role === 'client') {
+                this.router.navigate(['acceuil']);
               } else {
                 this.router.navigateByUrl('');
               }
             }
+          }else
+          {
+            console.error(' token non enregistré');
+
           }
+          
         },
-        (error: any) => {  // Ajout du type explicite pour 'error'
+        (error: any) => {
           console.error('Erreur lors de la connexion :', error);
           this.loginError = true;
         }
       );
     }
   }
+  logout() {
+    return this.authService.logout().subscribe(
+        (response: any) => {
+            console.log(response);
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+            this.router.navigateByUrl('/login');
+            
+            // Afficher une alerte de succès avec SweetAlert
+            Swal.fire({
+                title: 'Déconnexion réussie',
+                text: 'Vous avez été déconnecté avec succès.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        },
+        (error) => {
+            console.error(error);
+            // Afficher une alerte d'erreur avec SweetAlert
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Erreur lors de la déconnexion. Veuillez réessayer.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    );
 }
+
+}  

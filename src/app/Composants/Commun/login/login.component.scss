@@ -64,7 +64,7 @@ body {
 .form-link {
     display: block;
     margin-top: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .form-link a {
@@ -74,4 +74,38 @@ body {
 
 .form-link a:hover {
     text-decoration: underline;
+}
+
+/* Media Queries pour la Responsivité */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column; /* Empiler les éléments sur petits écrans */
+        padding: 10px; /* Réduire le padding sur petits écrans */
+    }
+
+    .image-side, 
+    .form-side {
+        width: 100%; /* Les deux côtés prennent toute la largeur */
+        margin: 0; /* Enlever les marges */
+    }
+
+    .form-side {
+        padding: 20px; /* Réduire le padding pour le formulaire sur mobile */
+    }
+
+    .image-side h1 {
+        font-size: 2rem; /* Réduire la taille de la police sur mobile */
+        top: 10px; /* Ajuster la position */
+        left: 10px; /* Ajuster la position */
+    }
+
+    .btn-primary {
+        width: 35%; /* Bouton prend toute la largeur sur mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .image-side h1 {
+        font-size: 1.5rem; /* Réduire encore la taille de la police sur très petits écrans */
+    }
 }

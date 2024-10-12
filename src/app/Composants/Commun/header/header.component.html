@@ -1,42 +1,36 @@
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <!-- <h1 class="text-primary"><i class="fas fa-search-dollar me-3"></i>Stocker</h1> -->
-                     <img src="../../../../assets/images/logo.png" alt="Logo"> 
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="/pr" class="nav-item nav-link active" [routerLink]="['/acceuil']" routerLinkActive="router-link-active" >Acceuil</a>
-                        <a href="#" class="nav-item nav-link" [routerLink]="['/prestataire']" routerLinkActive="router-link-active" >Prestataire</a>
-                        <a href="#" class="nav-item nav-link" [routerLink]="['/carte-invitation']" routerLinkActive="router-link-active" >Carte d'invitation</a>
-                        <a href="#" class="nav-item nav-link">Contact</a>
-                    </div>
-                    <a class="btn btn-primary  py-2 px-4 my-3 my-lg-0 flex-shrink-0 nav-link" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
-
-                    <!-- <button *ngIf="!isLoggedIn" class="connexion-btn" routerLink="/login">Connexion</button>
-                    <div *ngIf="isLoggedIn" class="user-menu">
-                      <div class="button profile">
-                          <a (click)="logout()">
-                            <span>Déconnexion</span> -->
-                            <!-- <img src="https alt="Logout Icon" width="24" height="24" style="color: #00214A;"/> -->
-                           
-                          <!-- </a>
-                        </div>
-                      <div class="button logout">
-                          <a routerLink="/profil-entrepreneur">
-                            <img src="https://assets.codepen.io/9277864/account.svg" alt="Profile Icon" width="24" height="24" style="color: #00214A;" />
-                            <span>Profil</span>
-                          </a>
-                        </div>
-                    </div> -->
-
-                </div>
-            </nav>
-
-<script>
+<nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+    <a href="" class="navbar-brand p-0">
+        <img src="../../../../assets/images/logo.png" alt="Logo"> 
+    </a>
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+            <a href="#" class="nav-item nav-link" [routerLink]="['/acceuil']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+            <a href="#" class="nav-item nav-link" [routerLink]="['/prestataire']" routerLinkActive="active">Prestataire</a>
+            <a href="#" class="nav-item nav-link" [routerLink]="['/carteinvitation']" routerLinkActive="active">Carte d'invitation</a>
+            <a href="#" class="nav-item nav-link" [routerLink]="['/events']" routerLinkActive="active">Mes Événements</a>
+        </div>
+        
+        <ng-container *ngIf="isLoggedIn; else loggedOut">
+          <div class="user-menu d-flex align-items-center">
+              <div class="button profile me-3">
+                  <a routerLink="/profile">
+                      <img src="../../../../assets/images/profil.jpg" alt="Profile Icon" width="24" height="24" style="color: #00214A;" />
+                  </a>
+              </div>
+              <div class="button logout">
+                  <a (click)="logout()">
+                      <img src="../../../../assets/images/logout.svg" alt="Logout Icon" width="24" height="24" style="color: #00214A;" />
+                  </a>
+              </div>
+          </div>
+        </ng-container>
+        
+        <ng-template #loggedOut>
+          <a class="btn btn-primary py-2 px-4 my-3 my-lg-0 flex-shrink-0 nav-link" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
+        </ng-template>
+    </div>
+  </nav>
   
-</script>

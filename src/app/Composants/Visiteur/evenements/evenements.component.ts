@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { CategorieModel } from '../../../Models/categorie.model';
 import { CategorieService } from '../../../Services/categorie.service';
 import { Observable } from 'rxjs';
+import { EventService } from '../../../Services/event.service';
+import { AuthService } from '../../../Services/auth.service';
 
 @Component({
   selector: 'app-evenements',
@@ -17,34 +19,28 @@ import { Observable } from 'rxjs';
   templateUrl: './evenements.component.html',
   styleUrl: './evenements.component.scss'
 })
-export class EvenementsComponent implements OnInit {
+export class EvenementsComponent{
+  events: any[] = []; // Déclaration du tableau d'événements
 
+  constructor(private eventService: EventService, private authService: AuthService) {}
 
-    //Injection des dépendances
-    private CategorieService = inject(CategorieService);    
-    constructor(private http: HttpClient) { }
-    
-    // Déclaration des variables
-    categories: CategorieModel[] = [];
-//Déclaration des methodes
-    ngOnInit(): void {
-      this.fetchCategories();
-    }
-     //récupération de tous les categories des prestataires
-          fetchCategories(): void {
-            this.CategorieService.getAllCategorie().subscribe(
-              (response: any) => {
-                console.log(response.data);
-                this.categories = response.data.reverse();
-              }
-            )
-          }
-  
-    // Cette méthode retourne un Observable, pas une Subscription
-    getCategories(): Observable<any> {
-      const token = localStorage.getItem('auth_token');
-      const headers = { 'Authorization': `Bearer ${token}` };
-  
-      return this.http.get('http://127.0.0.1:8000/api/categories', { headers });
-    }
+  ngOnInit(): void {
+    this.loadUserEvents();
   }
+
+  loadUserEvents(): void {
+    const userId = this.authService.getUserId(); // Méthode à créer pour récupérer l'ID de l'utilisateur connecté
+    this.eventService.getUserEvents(userId).subscribe(
+      (response) => {
+        if (response.status) {
+          this.events = response.data; // Assurez-vous que la structure de la réponse correspond à cela
+        } else {
+          console.error('Erreur lors de la récupération des événements:', response.message);
+        }
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des événements:', error);
+      }
+    );
+  }
+}

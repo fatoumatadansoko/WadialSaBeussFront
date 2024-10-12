@@ -1,1 +1,130 @@
-<p>user-profil works!</p>
+<ng-container *ngIf="user; else loading">
+    <ng-container *ngIf="user.role === 'admin'; else userContent">
+        <!-- Conteneur principal -->
+        <div class="main-container">
+            <!-- Sidebar pour l'admin -->
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <h3 class="sidebar-title">Wadial Sa Bëss</h3>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Utilisateurs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Événements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Carte Invitation</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Contenu principal -->
+            <div class="content">
+                <!-- Tableau d'informations utilisateur -->
+                <div class="profile-info mt-4">
+                    <table class="table table-bordered bg-white">
+                        <tbody>
+                            <tr>
+                                <th>PRENOM ET NOM</th>
+                                <td>{{ user.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>EMAIL</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>TELEPHONE</th>
+                                <td>{{ user.telephone }}</td>
+                            </tr>
+                            <tr>
+                                <th>ADRESSE</th>
+                                <td>{{ user.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th>DESCRIPTION</th>
+                                <td>{{ user.description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Bouton modifier -->
+                    <div class="d-flex justify-content-start mb-4">
+                        <button class="btn btn-warning">Modifier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #userContent>
+        <!-- Header pour les autres utilisateurs -->
+        <app-header></app-header>
+
+        <!-- Conteneur principal -->
+        <div class="main-container">
+            <div class="content">
+                <!-- Bannière avec image de fond -->
+                <div class="profile-banner">
+                    <div class="d-flex justify-content-between align-items-center banner-content">
+                        <h2 class="profile-name text-white">{{ user.nom }}</h2>
+                        <img *ngIf="user.logo" [src]="getPhotoUrl(user.logo)" [alt]="" class="profile-logo">
+                    </div>
+                </div>
+
+                <!-- Tableau d'informations utilisateur -->
+                <div class="profile-info mt-4">
+                    <div class="d-flex justify-content-end mb-3">
+                        <button *ngIf="user.role === 'client'" class="btn btn-outline-secondary me-2" [routerLink]="['/events']">Mes événements</button>
+                        <button *ngIf="user.role === 'prestataire'" class="btn btn-outline-secondary" [routerLink]="['/prestataires', user.id, 'demandes']">
+                  Mes Demandes
+                </button>
+                
+                        <button *ngIf="user.role === 'client'" class="btn btn-outline-secondary" [routerLink]="['/prestataires/:prestataireId/demandes']">Mes Demandes</button>
+                    </div>
+
+                    <table class="table table-bordered bg-white">
+                        <tbody>
+                            <tr>
+                                <th>PRENOM ET NOM</th>
+                                <td>{{ user.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>EMAIL</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>TELEPHONE</th>
+                                <td>{{ user.telephone }}</td>
+                            </tr>
+                            <tr>
+                                <th>ADRESSE</th>
+                                <td>{{ user.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th>DESCRIPTION</th>
+                                <td>{{ user.description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Bouton modifier -->
+                    <div class="d-flex justify-content-start mb-4">
+                        <button class="btn btn-warning">Modifier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </ng-template>
+</ng-container>
+
+<!-- Template de chargement -->
+<ng-template #loading>
+    <div class="loading">Chargement des informations utilisateur...</div>
+</ng-template>

@@ -1,0 +1,16 @@
+<!-- src/app/components/demande-list/demande-list.component.html -->
+
+<div class="container">
+    <h2>Demandes de Prestations</h2>
+    <div *ngIf="demandes.length === 0">
+      <p>Aucune demande trouvée pour ce prestataire.</p>
+    </div>
+    <ul *ngIf="demandes.length > 0">
+      <li *ngFor="let demande of demandes">
+        <strong>Message :</strong> {{ demande.message }}
+        <br />
+        <strong>Client ID :</strong> {{ demande.user_id }}
+      </li>
+    </ul>
+  </div>
+  

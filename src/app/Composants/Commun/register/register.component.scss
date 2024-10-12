@@ -1,42 +1,44 @@
 body {
-    font-family: 'oswald', sans-serif;
-    background-color: #f8f9fa;
-  }
-  
-  .text-primary h1{
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #000000;
-  }
-  
-  .form-label {
-    font-weight: bold;
-    color: #1E2A38;
-  }
-  
-  .form-control {
-    border: none;
-    border-bottom: 2px solid #1E2A38;
-    border-radius: 0;
-    outline: none;
-    box-shadow: none;
-  }
-  
-  .form-control:focus {
-    border-color: #1E2A38;
-    box-shadow: none;
-  }
-  .btn-custom {
-    background-color: #725111;
-    border-color: #725111;
-    font-weight: bold;
-    color: #f8f9fa;
+  font-family: 'Oswald', sans-serif;
+  background-color: #f8f9fa;
+}
+
+ h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000; /* Changement de couleur en noir */
+}
+
+.form-label {
+  font-weight: bold;
+  color: #1E2A38;
+}
+
+.form-control {
+  border: none;
+  border-bottom: 2px solid #1E2A38;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  border-color: #1E2A38;
+  box-shadow: none;
+}
+
+.btn-custom {
+  background-color: #725111;
+  border-color: #725111;
+  font-weight: bold;
+  color: #f8f9fa;
 }
 
 .btn-custom:hover {
-    background-color: #1E2A38;
-    border-color: #1E2A38;
+  background-color: #1E2A38;
+  border-color: #1E2A38;
 }
+
 .form-link a {
   color: #1E2A38;
   text-decoration: none;

@@ -1,213 +1,126 @@
 <div class="container mt-5">
   <h1 class="">Inscription</h1>
-  <form
-    [formGroup]="registerForm"
-    (ngSubmit)="onSubmit()"
-    enctype="multipart/form-data"
-    class="container-fluid p-5"
-  >
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="nom" class="form-label">Nom complet</label>
-          <input
-            id="nom"
-            formControlName="nom"
-            type="text"
-            class="form-control"
-            placeholder="nom"
-          />
-          <div
-            *ngIf="registerForm.get('nom')?.invalid && registerForm.get('nom')?.touched"
-            class="text-warning"
-          >
+          <label for="nom">Nom</label>
+          <input id="nom" formControlName="nom" type="text" class="form-control">
+          <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-warning">
             Le nom est obligatoire et doit comporter moins de 255 caractères.
           </div>
         </div>
-
+      </div>
+      <div class="col-md-6">
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            id="email"
-            formControlName="email"
-            type="email"
-            class="form-control"
-            placeholder="example@gmail.com"
-          />
-          <div
-            *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
-            class="text-warning"
-          >
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" type="email" class="form-control">
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-warning">
             Un email valide est requis et doit être unique.
           </div>
         </div>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-md-6">
         <div class="mb-3">
-          <label for="logo" class="form-label">Photo</label>
-          <input
-            id="logo"
-            formControlName="logo"
-            type="file"
-            class="form-control"
-          />
-          <div
-            *ngIf="registerForm.get('logo')?.invalid && registerForm.get('logo')?.touched"
-            class="text-warning"
-          >
-            Une photo est requise (jpeg, jpg, png, max 5Mo).
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="adresse" class="form-label">Adresse</label>
-          <input
-            id="adresse"
-            formControlName="adresse"
-            type="text"
-            class="form-control"
-            placeholder="adresse"
-          />
-          <div
-            *ngIf="registerForm.get('adresse')?.invalid && registerForm.get('adresse')?.touched"
-            class="text-warning"
-          >
+          <label for="adresse">Adresse</label>
+          <input id="adresse" formControlName="adresse" type="text" class="form-control">
+          <div *ngIf="registerForm.get('adresse')?.invalid && registerForm.get('adresse')?.touched" class="text-warning">
             L'adresse est obligatoire et doit contenir moins de 255 caractères.
           </div>
         </div>
-
+      </div>
+      <div class="col-md-6">
         <div class="mb-3">
-          <label for="description" class="form-label">description</label>
-          <input
-            id="description"
-            formControlName="description"
-            type="text"
-            class="form-control"
-            placeholder="description"
-          />
-          <div
-            *ngIf="registerForm.get('description')?.invalid && registerForm.get('description')?.touched"
-            class="text-warning"
-          >
-            La'description est obligatoire et doit contenir moins de 255 caractères.
+          <label for="telephone">Téléphone</label>
+          <input id="telephone" formControlName="telephone" type="text" class="form-control">
+          <div *ngIf="registerForm.get('telephone')?.invalid && registerForm.get('telephone')?.touched" class="text-warning">
+            Le téléphone est obligatoire et doit être unique.
           </div>
         </div>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-md-6" style="display: none;">
         <div class="mb-3">
-          <label for="ninea" class="form-label">Ninea</label>
-          <input
-            id="ninea"
-            formControlName="ninea"
-            type="text"
-            class="form-control"
-            placeholder="ninea"
-          />
-          <div
-            *ngIf="registerForm.get('ninea')?.invalid && registerForm.get('ninea')?.touched"
-            class="text-warning"
-          >
-            Le ninea est obligatoire et doit comporter moins de 50 caractères.
-          </div>
+          <label for="statut">Statut</label>
+          <input id="statut" formControlName="statut" type="text" class="form-control" value="active" readonly>
         </div>
-
+      </div>
+      <div class="col-md-6">
+        <label for="logo">Photo</label>
+        <input id="logo" formControlName="logo" type="file" class="form-control" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png">
+        <div *ngIf="registerForm.get('photo')?.invalid && registerForm.get('photo')?.touched" class="text-warning">
+          Une photo est requise (jpeg, jpg, png, max 2Mo).
+        </div>
+          
+      </div>
+      <div class="col-md-6">
         <div class="mb-3">
-          <label for="role" class="form-label">Role</label>
-          <select id="role" formControlName="role" class="form-control">
-            <option value="prestataire">Prestataire</option>
+          <label for="role">Rôle</label>
+          <select id="role" formControlName="role" class="form-control" (change)="onRoleChange()">
             <option value="client">Client</option>
+            <option value="prestataire">Prestataire</option>
           </select>
-          <div
-            *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched"
-            class="text-warning"
-          >
+          <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched" class="text-warning">
             Le rôle est requis.
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label for="telephone" class="form-label">Téléphone</label>
-          <input
-            id="telephone"
-            formControlName="telephone"
-            type="tel"
-            class="form-control"
-            placeholder="numéro de téléphone"
-          />
-          <div
-            *ngIf="registerForm.get('telephone')?.invalid && registerForm.get('telephone')?.touched"
-            class="text-warning"
-          >
-            Le téléphone est obligatoire (entre 9 et 20 caractères).
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" formControlName="password" class="form-control">
-          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-            <small *ngIf="registerForm.get('password')?.errors?.['required']" class="text-danger">Le mot de passe est requis.</small>
-            <small *ngIf="registerForm.get('password')?.errors?.['minlength']" class="text-danger">Le mot de passe doit comporter au moins 8 caractères.</small>
-          </div>
-        </div>
-      
-        <div class="form-group">
-          <label for="password_confirmation">Confirmation du mot de passe</label>
-          <input type="password" id="password_confirmation" formControlName="password_confirmation" class="form-control">
-          <div *ngIf="registerForm.errors?.['notSame'] && registerForm.get('password_confirmation')?.touched">
-            <small class="text-danger">Les mots de passe ne correspondent pas.</small>
-          </div>
-        </div>
-      
-         <div class="mb-3">
-          <label for="status" class="form-label">Statut</label>
-          <select id="status" formControlName="status" class="form-control" required>
-            <option value="" disabled selected>Choisir un statut</option>
-            <option value="actif">Active</option>
-            <option value="inactif">Inactiv</option>
-          </select>
-          <div
-            *ngIf="registerForm.get('status')?.invalid && registerForm.get('status')?.touched"
-            class="text-warning"
-          >
-            Le statut est requis.
-          </div>
-        </div> 
-       <div class="mb-3" *ngIf="role === 'prestataire'">
-          <label for="disponibilite" class="form-label">Disponibilité</label>
-          <select type="text" id="disponibilite" formControlName="disponibilite" class="form-control" required>
-            <option value="" disabled selected>Choisir une disponibilité</option>
-            <option value="Disponible">Disponible</option>
-             <option value="après-midi">Après-midi</option> -->
-          </select>
-          <div
-            *ngIf="registerForm.get('disponibilite')?.invalid && registerForm.get('disponibilite')?.touched"
-            class="text-warning"
-          >
-            La disponibilité est requise.
-          </div>
-        </div>
-                
-        <div class="mb-3">
-          <label for="categorie_prestataire_id" class="form-label">Catégorie Prestataire</label>
-          <select id="categorie_prestataire_id" formControlName="categorie_prestataire_id" class="form-control">
-            <option value="" disabled selected>Choisir une catégorie</option>
-            <option value="1">Traiteur</option>
-            <option value="2">Mariage</option>
-          </select>
-          <div
-            *ngIf="registerForm.get('categorie_prestataire_id')?.invalid && registerForm.get('categorie_prestataire_id')?.touched"
-            class="text-warning"
-          >
-            La catégorie est requise.
-          </div>
-        </div>
-        
-
-        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
-          S'inscrire
-        </button>
+    <div *ngIf="isClient">
+      <!-- Champs spécifiques aux clients -->
+    
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
       </div>
     </div>
+
+    <div *ngIf="isPrestataire">
+      <!-- Champs spécifiques aux prestataires -->
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="ninea">NINEA</label>
+        <input id="ninea" formControlName="ninea" type="text" class="form-control">
+        <div *ngIf="registerForm.get('adresse')?.invalid && registerForm.get('adresse')?.touched" class="text-warning">
+          Le ninea est obligatoire et doit contenir moins de 50 caractères.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="categorie_prestataire_id">Catégorie Prestataire</label>
+        <select id="categorie_prestataire_id" formControlName="categorie_prestataire_id" class="form-control">
+          <option value="">Sélectionnez une catégorie</option>
+          <option *ngFor="let categorie of categoriePrestataires" [value]="categorie.id">
+            {{ categorie.titre }} <!-- Remplacez 'nom' par le champ correspondant -->
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" class="form-control">
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+        Le mot de passe est requis et doit comporter au moins 8 caractères.
+      </div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="password_confirmation">Confirmation du mot de passe</label>
+      <input id="password_confirmation" formControlName="password_confirmation" type="password" class="form-control">
+      <div *ngIf="registerForm.hasError('notSame') && registerForm.get('password_confirmation')?.touched" class="text-warning">
+        Les mots de passe ne correspondent pas.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-custom" [disabled]="registerForm.invalid">S'inscrire</button>
   </form>
 </div>

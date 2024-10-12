@@ -8,7 +8,7 @@ export function authInterceptor (req:HttpRequest<unknown>, next: HttpHandlerFn) 
     if(localStorage.getItem('infos_Connexion')){
         const infos = JSON.parse(localStorage.getItem('infos_Connexion') || "");
         if(infos){
-            token = infos.access_token;
+            token = infos.token;
         }
     }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -24,6 +24,8 @@ import  Swal from 'sweetalert2'
 })
 export class CartesPersonnaliseesComponent {
  
+  @Input() carteId!: number; // Utilisez le point d'exclamation pour indiquer que ce champ sera défini
+
   carte: any[] = [];
   emailForm: FormGroup;
   showModal = false;

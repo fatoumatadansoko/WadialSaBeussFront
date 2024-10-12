@@ -20,6 +20,7 @@ import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements
 import { DemandeListComponent } from './Composants/Prestataire/demande-list/demande-list.component';
 import { Component, NgModule } from '@angular/core';
 import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
+import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
 
 
 export const routes: Routes = [
@@ -46,6 +47,7 @@ export const routes: Routes = [
    { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
    { path: 'events', component: EvenementsComponent},
    { path: 'carte-personnalisee', component: CartesPersonnaliseesComponent},
+   { path: 'invites/:carteId', component: InvitesComponent},
 
 
 

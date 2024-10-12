@@ -1,0 +1,16 @@
+<div>
+    <h2>Invités</h2>
+    <!-- Affichage automatique des invités dès qu'ils sont chargés -->
+    
+    <div *ngIf="emails.length > 0">
+      <h3>Liste des e-mails des invités :</h3>
+      <ul>
+        <li *ngFor="let email of emails">{{ email }}</li>
+      </ul>
+    </div>
+  
+    <div *ngIf="emails.length === 0">
+      <p>Aucun invité trouvé pour cette carte.</p>
+    </div>
+  </div>
+  

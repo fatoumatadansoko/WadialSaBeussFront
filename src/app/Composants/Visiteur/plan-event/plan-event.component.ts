@@ -44,7 +44,7 @@ export class PlanEventComponent {
           console.log('Événement créé avec succès:', response);
           // Réinitialiser le formulaire ou effectuer d'autres actions
           this.eventForm.reset();
-          this.router.navigate(['/profil-client']); // Redirection vers la liste des événements
+          this.router.navigate(['/events']); // Redirection vers la liste des événements
         },
         (error) => {
           console.error('Erreur lors de la création de l\'événement:', error);

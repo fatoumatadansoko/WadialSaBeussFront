@@ -1,61 +1,127 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CarteinvitationService } from '../../../Services/carteinvitation.service';
 import { HttpClient } from '@angular/common/http';
 import { carteinvitationModel } from '../../../Models/carteinvitation.model';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carte-admin',
   standalone: true,
   imports: [
-    NgFor,FormsModule,NgFor
+    NgFor,FormsModule,NgFor,NgIf,RouterModule
   ],
   templateUrl: './carte-admin.component.html',
-  styleUrl: './carte-admin.component.scss'
+  styleUrls: ['./carte-admin.component.scss']
 })
 export class CarteAdminComponent {
+  isFormVisible: boolean = false; // Variable pour contrôler la visibilité du formulaire
 
-  private CarteService = inject(CarteinvitationService);    
-  constructor(private http: HttpClient) { }
+  private CarteinvitationService = inject(CarteinvitationService);    
+  router: any;
+  constructor(private http: HttpClient,
+    private categorieService: CarteinvitationService 
+  ) { }
   
   // Déclaration des variables
-  
-  cartes: carteinvitationModel[] = [];
+  carteinvitations: carteinvitationModel[] = [];
+  newCarte: carteinvitationModel = {
+    id: 0,
+    nom: '',
+    contenu: '',
+    categorie_id: '', // Initialisation
+    image: '', // Initialisation
+  };
+  categories: any[] = []; // Déclarez cette propriété pour stocker les catégories
+
   //Déclaration des methodes
   ngOnInit(): void {
-    this.fetchCartes();
+    this.fetchCarteinvitations();
+    this.fetchCategoriecartes();
 }
 
-   //récupération de tous les users
-   fetchCartes(): void {
-    this.CarteService.getAllCarteinvitations().subscribe(
+
+fetchCategoriecartes(): void {
+  const authToken = localStorage.getItem('token');
+  this.categorieService.getAllCategories().subscribe(
+    (response: any) => {
+      console.log(response.data);
+      this.categories = response.data; // Enregistrer les catégories reçues
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des catégories', error);
+    }
+  );
+}
+   
+  fetchCarteinvitations(): void {
+    this.CarteinvitationService.getAllCarteinvitations().subscribe(
       (response: any) => {
-        console.log(response.data); // Cela devrait afficher le tableau des cartes
-        console.log('Réponse complète:', response); // Vérifiez ici la structure
+        console.log('Réponse complète:', response); // Vérification de la structure de la réponse
+        
+        // Vérification si la structure contient les cartes dans "data"
         if (response && response.data && Array.isArray(response.data)) {
-          this.cartes = response.data(); // Assurez-vous d'utiliser la structure correcte
-          console.log('Cartes:', this.cartes); // Vérifiez si les utilisateurs sont bien affectés
+          this.carteinvitations = response.data; // Inversement des cartes si nécessaire
+          console.log('Cartes:', this.carteinvitations);
         } else {
-          console.error('Erreur: la réponse ne contient pas de données cartes');
+          console.error('Erreur: la réponse ne contient pas de données utilisateur');
         }
       },
       (error: any) => {
-        console.error('Erreur lors de la récupération des cartes:', error);
+        console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
     );
   }
-  
-  
-  
-  // Cette méthode retourne un Observable, pas une Subscription
-  getCartes(): Observable<any> {
-    const token = localStorage.getItem('auth_token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-  
-    return this.http.get('http://127.0.0.1:8000/api/cartes', { headers });
-  }
+    // Ajoutez cette méthode dans votre composant CarteAdminComponent
+    onImageChange(event: any): void {
+      const file = event.target.files[0]; // Récupère le fichier image sélectionné
+      if (file) {
+        this.newCarte.image = file; // Assigner le fichier de type File
+        console.log('Image sélectionnée :', this.newCarte.image);
+      }
+    }
+    
+    addCarte(): void {
+      const formData = new FormData();
+      formData.append('nom', this.newCarte.nom || ''); // Ajouter le nom
+      formData.append('contenu', this.newCarte.contenu || ''); // Ajouter le contenu
+      formData.append('categorie_id', this.newCarte.categorie_id || ''); // Convertir en chaîne
+    
+       // Si une nouvelle image est sélectionnée, ajoutez-la au FormData
+    if (this.newCarte.image && typeof this.newCarte.image !== 'string') {
+      formData.append('image', this.newCarte.image); // Ajouter l'image si elle est présente
+    }
+    
+      const token = localStorage.getItem('token'); // Récupérer le token
+      const headers = {
+        'Authorization': `Bearer ${token}`, // Ajouter le token dans l'en-tête
+      };
+    
+      this.CarteinvitationService.addCarte(formData).subscribe(
+        (response: any) => {
+          console.log('Carte créée avec succès', response);
+          this.fetchCarteinvitations();
+           // Rafraîchir la liste des cartes
+    
+          Swal.fire({
+            icon: 'success',
+            title: 'Carte créée avec succès!',
+            showConfirmButton: false,
+            timer: 3000
+          }).then(() => {
+            this.router.navigate(['/carte-personnalisee']);
+          });
+        },
+        (error: any) => {
+          console.error('Erreur lors de la création de la carte:', error);
+        }
+      );
+    }
+    
+
   }
   
 

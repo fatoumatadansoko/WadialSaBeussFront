@@ -1,0 +1,65 @@
+
+  /* Sidebar fixe avec une hauteur pleine */
+  .sidebar {
+    width: 250px; /* Largeur de la sidebar */
+    background-color: #fff; /* Couleur de fond */
+    height: 100vh; /* Prend toute la hauteur de l'écran visible */
+    position: fixed; /* Reste fixe sur la gauche */
+    top: 0; /* Assure que la sidebar commence en haut de la page */
+    left: 0; /* Aligne la sidebar à gauche */
+    border-right: 1px solid #ddd; /* Bordure droite */
+    padding: 20px;
+  }
+  
+  .sidebar-logo {
+    width: 150px;
+    margin-bottom: 30px;
+  }
+  main h1{
+    color: #fff;
+  }
+  .sidebar img {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+  .banner {
+    height: 30%;
+    width: 100%;
+    background-color: #1E2A38;
+  }
+  .btn-search {
+    background-color: #725111;
+    color: white;
+  }
+  /* Style des liens de la sidebar */
+  .nav-link {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  .nav-link.active {
+    color: #b46c20;
+  }
+
+  .formadd {
+    margin-left: 500px;
+  }
+  .margin-left-200 {
+    margin-left: 300px;
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: #b46c20;
+  }
+  
+  .pagination .page-link:hover {
+    background-color: #9a561a;
+    color: white;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #b46c20;
+    border-color: #b46c20;
+  }

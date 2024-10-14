@@ -3,50 +3,101 @@
         <!-- Sidebar -->
         <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
-                <h3 class="sidebar-title">Wadial Sa Bëss</h3>
+                <img src="../../../../assets/images/logo.png" alt="Logo" class="img-fluid mb-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Dashboard</a>
+                        <a class="nav-link active" href="/dashbord-admin">
+                            <i class="bi bi-house-fill"></i> <!-- Icône Dashboard -->
+                            Dashboard
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Utilisateurs</a>
+                        <a class="nav-link" href="/users">
+                            <i class="bi bi-person-circle"></i> <!-- Icône Utilisateurs -->
+                            Utilisateurs
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Roles</a>
+                        <a class="nav-link" href="/adminevents">
+                            <i class="bi bi-calendar-event"></i> <!-- Icône Événements -->
+                            Événements
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Carte Invitation</a>
+                        <a class="nav-link" href="/carteadmin">
+                            <i class="bi bi-card-text"></i> <!-- Icône Carte Invitation -->
+                            Carte Invitation
+                        </a>
                     </li>
                 </ul>
             </div>
         </nav>
+        
 
         <!-- Main content -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <h1 class="mt-4">Gestion des cartes</h1>
+        <main role="main" class="col-md-9 offset-md-2 col-lg-10 offset-lg-2 px-4">
+            <div class="banner">
+                <h1 class="mt-4">Gestion des cartes</h1>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
+                    <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-success" (click)="isFormVisible = !isFormVisible">
+                        <i class="bi bi-plus"></i> Ajouter
+                    </button>
+                </div>
+            </div>
+          
 
-            <!-- Search Bar -->
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
-                <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
+            <!-- Form for creating a new card -->
+            <div *ngIf="isFormVisible" class="formadd">
+                <form (ngSubmit)="addCarte()" class="w-50">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" class="form-control" id="nom" [(ngModel)]="newCarte.nom" name="nom" required>
+                        <div *ngIf="newCarte.nom === ''" class="text-danger">Le nom est requis.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contenu">Description</label>
+                        <textarea class="form-control" id="contenu" [(ngModel)]="newCarte.contenu" name="contenu" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="categorie_id">Catégorie</label>
+                        <select class="form-control" [(ngModel)]="newCarte.categorie_id" name="categorie_id" required>
+                            <option value="" disabled selected>Choisir une catégorie</option>
+                            <option *ngFor="let categorie of categories" [value]="categorie.id">{{categorie.titre}}</option>
+                        </select>
+                        <div *ngIf="newCarte.categorie_id === ''" class="text-danger">La catégorie est requise.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image </label>
+                        <input type="file" class="form-control" id="image" (change)="onImageChange($event)">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Créer Carte</button>
+                </form>
             </div>
 
-            <!-- Table -->
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
+            <!-- Table displaying cards -->
+            <table class="table table-bordered table-hover mt-4 tablecarte">
+                <thead class="table-white">
                     <tr>
                         <th scope="col">Identifiant</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Categorie</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let carte of cartes">
+                    <tr *ngFor="let carte of carteinvitations">
                         <td>{{carte.id}}</td>
                         <td>{{carte.nom}}</td>
                         <td>{{carte.contenu}}</td>
                         <td>{{carte.categorie_id}}</td>
+                        <td>
+                            <!-- Actions (edit, delete) can be added here -->
+                        </td>
                     </tr>
                 </tbody>
             </table>

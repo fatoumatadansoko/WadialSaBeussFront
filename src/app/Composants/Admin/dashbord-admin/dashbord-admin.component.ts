@@ -1,16 +1,19 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { UserService } from '../../../Services/users.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
+import { SidebarComponent } from "../../Commun/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-dashbord-admin',
   standalone: true,
   imports: [
-    CommonModule,NgIf,
-  ],
+    CommonModule, NgIf,
+    SidebarComponent,
+    RouterModule,
+],
   templateUrl: './dashbord-admin.component.html',
   styleUrl: './dashbord-admin.component.scss'
 })

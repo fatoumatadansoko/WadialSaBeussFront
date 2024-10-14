@@ -74,9 +74,9 @@ export class RegisterComponent implements OnInit {
 
     // Gérer les champs obligatoires selon le rôle
     if (this.isClient) {
-      this.registerForm.get('description')?.setValidators(Validators.required);
+      this.registerForm.get('logo')?.clearValidators();
     } else if (this.isPrestataire) {
-      this.registerForm.get('description')?.setValidators(Validators.required);
+      this.registerForm.get('description')?.setValidators(Validators.required,);
       this.registerForm.get('ninea')?.setValidators([Validators.required, Validators.maxLength(50)]);
       this.registerForm.get('categorie_prestataire_id')?.setValidators(Validators.required);
       this.registerForm.get('logo')?.clearValidators();

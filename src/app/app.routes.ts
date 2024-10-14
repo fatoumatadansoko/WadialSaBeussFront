@@ -21,6 +21,7 @@ import { DemandeListComponent } from './Composants/Prestataire/demande-list/dema
 import { Component, NgModule } from '@angular/core';
 import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
 import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
+import { EventadminComponent } from './Composants/Admin/eventadmin/eventadmin.component';
 
 
 export const routes: Routes = [
@@ -52,11 +53,15 @@ export const routes: Routes = [
 
 
     // Routes pour l'admin
-    { path: 'dashboard-admin', component: DashbordAdminComponent},
+    { path: 'dashbord-admin', component: DashbordAdminComponent},
     { path: 'users', component: AccessUsersComponent},
     { path: 'carteadmin', component: CarteAdminComponent},
+    { path: 'adminevents', component: EventadminComponent},
 
     { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
+    { path: '', redirectTo: '/dashbord-admin', pathMatch: 'full' }, // Redirection par défaut
+    { path: '**', redirectTo: '/dashbord-admin' } // Redirection vers dashboard pour les routes inconnues
+
 
 ]
 

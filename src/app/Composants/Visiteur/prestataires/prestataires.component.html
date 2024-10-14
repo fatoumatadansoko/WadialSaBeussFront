@@ -97,7 +97,7 @@
         <img *ngIf="prestataire.user?.logo" [src]="getPhotoUrl(prestataire.user?.logo!)" alt="logo" class="card-img-top rounded-top img-fluid">
         <div class="card-body p-4 text-center">
           <p class="card-text text-muted">
-            {{ prestataire.user?.description }}
+            {{ prestataire.description }}
           </p>
           <h5 class="card-title text-warning fw-bold">{{prestataire.user?.nom}}</h5>
         </div>

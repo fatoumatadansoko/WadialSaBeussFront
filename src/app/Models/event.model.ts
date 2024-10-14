@@ -7,5 +7,6 @@ export interface EventModel {
     type?: string,
     createdAt?: Date,
     updatedAt?: Date,
+    user_id?: string,
 
 }

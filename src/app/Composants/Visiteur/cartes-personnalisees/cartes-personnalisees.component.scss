@@ -93,4 +93,15 @@
         height: auto;
     }
   }
+  .card {
+    /* Ajoutez ces propriétés pour s'assurer que le contenu s'affiche correctement */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Permet de répartir l'espace */
+    height: 100%; /* Assurez-vous que la carte occupe toute la hauteur */
+  }
+  
+  .text-center {
+    margin-top: auto; /* Fait en sorte que le bouton soit en bas de la carte */
+  }
   

@@ -56,4 +56,19 @@ getCartesByClientId(clientId: number): Observable<any> {
   
   return this.http.get(`${apiurl}cartes-personnalisees/client/${clientId}`, { headers });
 }
+addCarte(formData: FormData): Observable<any> {
+  const token = localStorage.getItem('token'); 
+  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+  // Effectuer la requête HTTP pour créer la carte
+  return this.http.post(`${apiurl}/cartes`,formData, { headers });
+}
+
+getAllCategories() {
+  const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };    
+  return this.http.get(`${apiurl}/categories`, { headers });
+  
+  // Méthodes pour lister les categories
+}
 }

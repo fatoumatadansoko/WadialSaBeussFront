@@ -55,6 +55,12 @@ envoyerCarte(id: number, emails: string[]): Observable<any> {
   
   return this.http.post(`${apiurl}/cartes-personnalisees/${id}/envoyer`, body,  { headers });
 }
+getInvites(id: number): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+  return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`, { headers });
+}
   }
   
 

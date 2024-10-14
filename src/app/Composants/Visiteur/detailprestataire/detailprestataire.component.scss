@@ -1,7 +1,9 @@
 .container {
     padding: 10rem;
   }
-  
+  .container .btn-success {
+    background-color:#a0753d  ;
+  }
   h1 {
     font-size: 2rem;
     margin-bottom: 2rem;
@@ -21,7 +23,7 @@
   
         i {
           margin-right: 0.5rem;
-          color: #ff9700; /* Couleur orange */
+          color: #a0753d ; /* Couleur orange */
         }
   
         span {
@@ -59,11 +61,11 @@
   }
   
   .filled {
-    color: #ff9700; /* Couleur des étoiles remplies */
+    color: #a0753d ; /* Couleur des étoiles remplies */
   }
   
   .bi-star:hover, .bi-star.filled:hover {
-    color: #ffb400; /* Couleur des étoiles lors du hover */
+    color: #a0753d ; /* Couleur des étoiles lors du hover */
   }
   .rating {
     color: lightgray; /* Couleur par défaut pour les étoiles vides */

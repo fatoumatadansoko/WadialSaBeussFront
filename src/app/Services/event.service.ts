@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { apiurl } from './ApiUrl';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,10 @@ export class EventService {
     const token = localStorage.getItem('token');
   const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.get(`${this.apiurl}`, { headers});
+  }
+  getEvents(): Observable<any> {
+    const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${apiurl}/admin/events/`, { headers});
   }
 }

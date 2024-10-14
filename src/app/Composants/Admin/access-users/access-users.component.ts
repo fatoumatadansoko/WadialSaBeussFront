@@ -5,12 +5,13 @@ import { UserModel } from '../../../Models/users.model';
 import { Observable } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 import { SidebarComponent } from '../../Commun/sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-access-users',
   standalone: true,
   imports: [
-    NgIf,SidebarComponent,NgFor
+    NgIf,SidebarComponent,NgFor,RouterModule
   ],
   templateUrl: './access-users.component.html',
   styleUrl: './access-users.component.scss'

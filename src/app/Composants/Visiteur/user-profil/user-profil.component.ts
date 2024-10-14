@@ -7,11 +7,12 @@ import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
 import { CommonModule, NgIf } from '@angular/common';
 import { throwError, catchError } from 'rxjs';
+import { SidebarComponent } from "../../Commun/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-user-profil',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgIf,CommonModule,RouterLink],
+  imports: [HeaderComponent, FooterComponent, NgIf, CommonModule, RouterLink, SidebarComponent],
   templateUrl: './user-profil.component.html',
   styleUrl: './user-profil.component.scss'
 })

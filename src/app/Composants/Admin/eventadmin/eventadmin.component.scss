@@ -37,6 +37,7 @@
     max-width: 100%;
     margin-bottom: 30px;
   }
+  
   .banner {
     height: 30%;
     width: 100%;
@@ -52,25 +53,22 @@
   }
   
   h1 {
+    color: #fff;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 30px;
-    color: #fff;
   }
   
   /* Barre de recherche */
-  .input-group {
-    display: flex;           /* Utiliser flexbox pour aligner les éléments */
-    align-items: center;    /* Centrer verticalement les éléments */
-}
-
-.form-control {
-    flex-grow: 1;           /* Permet à l'input de remplir l'espace disponible */
-    margin-right: 10px;     /* Ajouter un espace entre l'input et le bouton */
-}
-
-
-
+  .input-group .form-control {
+    border-radius: 0;
+    border: 2px solid #fff;
+  }
+  
+  .btn-search {
+    background-color: #b46c20;
+    color: white;
+  }
   
   /* Tableau */
   .table {
@@ -101,7 +99,19 @@
   .btn-action:hover {
     background-color: #9a561a;
   }
-  
+  .sidebar img {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+  .banner {
+    height: 30%;
+    width: 100%;
+    background-color: #1E2A38;
+  }
+  .btn-search {
+    background-color: #725111;
+    color: white;
+  }
   /* Pagination */
   .pagination .page-link {
     color: #b46c20;

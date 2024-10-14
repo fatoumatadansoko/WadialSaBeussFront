@@ -1,5 +1,6 @@
 /* .profile-banner Styles */
 .profile-banner {
+  background-color: #6a532e;
   height: 200px;
   background-size: cover;
   background-position: center;
@@ -73,33 +74,10 @@ td {
   text-align: right;
 }
 
-/* Styles du body et sidebar */
+/* Styles du body */
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
-}
-
-.sidebar {
-  background-color: #fff;
-  border-right: 1px solid #ddd;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-.sidebar-title {
-  color: #b46c20;
-  font-size: 24px;
-  margin-bottom: 30px;
-}
-
-.nav-link {
-  color: #333;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-.nav-link.active {
-  color: #b46c20;
 }
 
 /* Styles pour le conteneur principal avec flexbox */

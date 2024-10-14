@@ -36,35 +36,36 @@
       <!-- Main content -->
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="banner">
-            <h1 class="mt-4">Gestion des utilisateurs</h1>
-            <div class="input-group">
+            <h1 class="mt-4">Liste des événements</h1>
+            <!-- <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
                 <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
-            </div>
+            </div> -->
         </div>
-        
-       
   
         <!-- Table -->
         <table class="table table-bordered table-hover">
           <thead class="table-white">
             <tr>
               <th scope="col">Identifiant</th>
-              <th scope="col">Nom Complet</th>
-              <th scope="col">Adresse email</th>
-              <th scope="col">Rôles</th>
-              <th scope="col">Téléphone</th>
-              <th scope="col">Statut</th>
+              <th scope="col">Titre</th>
+              <th scope="col">Date </th>
+              <th scope="col">Lieu</th>
+              <th scope="col">Type</th>
+              <th scope="col">Budget</th>
+              <th scope="col">User id</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{ user.id }}</td>
-              <td>{{ user.nom }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.role }}</td>
-              <td>{{ user.telephone }}</td>
-              <td>{{ user.statut }}</td>
+            <tr *ngFor="let event of events">
+              <td>{{ event.id }}</td>
+              <td>{{ event.titre }}</td>
+              <td>{{ event.event_date }}</td>
+              <td>{{ event.lieu }}</td>
+              <td>{{ event.type }}</td>
+              <td>{{ event.budget }}</td>
+              <td>{{ event.user_id }}</td>
+
             </tr>
           </tbody>
         </table>

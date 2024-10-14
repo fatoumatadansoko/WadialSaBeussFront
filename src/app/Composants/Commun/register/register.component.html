@@ -50,15 +50,8 @@
           <input id="statut" formControlName="statut" type="text" class="form-control" value="active" readonly>
         </div>
       </div>
-      <div class="col-md-6">
-        <label for="logo">Photo</label>
-        <input id="logo" formControlName="logo" type="file" class="form-control" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png">
-        <div *ngIf="registerForm.get('photo')?.invalid && registerForm.get('photo')?.touched" class="text-warning">
-          Une photo est requise (jpeg, jpg, png, max 2Mo).
-        </div>
-          
-      </div>
-      <div class="col-md-6">
+     
+      <div class="">
         <div class="mb-3">
           <label for="role">Rôle</label>
           <select id="role" formControlName="role" class="form-control" (change)="onRoleChange()">
@@ -75,12 +68,19 @@
     <div *ngIf="isClient">
       <!-- Champs spécifiques aux clients -->
     
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="description">Description</label>
         <textarea id="description" formControlName="description" class="form-control"></textarea>
-      </div>
+      </div> -->
     </div>
-
+    <div class="mb-3">
+      <label for="logo">Photo</label>
+      <input id="logo" formControlName="logo" type="file" class="form-control" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png">
+      <div *ngIf="registerForm.get('photo')?.invalid && registerForm.get('photo')?.touched" class="text-warning">
+        Une photo est requise (jpeg, jpg, png, max 2Mo).
+      </div>
+        
+    </div>
     <div *ngIf="isPrestataire">
       <!-- Champs spécifiques aux prestataires -->
       <div class="mb-3">
@@ -94,6 +94,14 @@
           Le ninea est obligatoire et doit contenir moins de 50 caractères.
         </div>
       </div>
+      <!-- <div class="col-md-6">
+        <label for="logo">Photo</label>
+        <input id="logo" formControlName="logo" type="file" class="form-control" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png">
+        <div *ngIf="registerForm.get('photo')?.invalid && registerForm.get('photo')?.touched" class="text-warning">
+          Une photo est requise (jpeg, jpg, png, max 2Mo).
+        </div>
+          
+      </div> -->
       <div class="mb-3">
         <label for="categorie_prestataire_id">Catégorie Prestataire</label>
         <select id="categorie_prestataire_id" formControlName="categorie_prestataire_id" class="form-control">

@@ -21,7 +21,6 @@ export interface UserModel {
     statut?: "active";
     createdAt?: Date;
     updatedAt?: Date;
-    role?: string;
     logo?:string;
     prestataire?: PrestataireModel;
 }

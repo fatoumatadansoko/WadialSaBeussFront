@@ -32,7 +32,6 @@
                 </ul>
             </div>
         </nav>
-        
 
         <!-- Main content -->
         <main role="main" class="col-md-9 offset-md-2 col-lg-10 offset-lg-2 px-4">
@@ -42,41 +41,94 @@
                     <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
                     <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
                 </div>
-                <div class="d-flex justify-content-end mb-3">
-                    <button class="btn btn-success" (click)="isFormVisible = !isFormVisible">
-                        <i class="bi bi-plus"></i> Ajouter
-                    </button>
-                </div>
             </div>
-          
+<!-- Button to trigger the modal -->
+<button class="btn btn-success" style="background-color: #725111; border-color: #725111;"
+data-bs-toggle="modal" data-bs-target="#createCardModal">
+    <i class="bi bi-plus"></i> Ajouter
+</button>
 
-            <!-- Form for creating a new card -->
-            <div *ngIf="isFormVisible" class="formadd">
-                <form (ngSubmit)="addCarte()" class="w-50">
-                    <div class="form-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" class="form-control" id="nom" [(ngModel)]="newCarte.nom" name="nom" required>
-                        <div *ngIf="newCarte.nom === ''" class="text-danger">Le nom est requis.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contenu">Description</label>
-                        <textarea class="form-control" id="contenu" [(ngModel)]="newCarte.contenu" name="contenu" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="categorie_id">Catégorie</label>
-                        <select class="form-control" [(ngModel)]="newCarte.categorie_id" name="categorie_id" required>
-                            <option value="" disabled selected>Choisir une catégorie</option>
-                            <option *ngFor="let categorie of categories" [value]="categorie.id">{{categorie.titre}}</option>
-                        </select>
-                        <div *ngIf="newCarte.categorie_id === ''" class="text-danger">La catégorie est requise.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Image </label>
-                        <input type="file" class="form-control" id="image" (change)="onImageChange($event)">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Créer Carte</button>
-                </form>
+<!-- Modal -->
+<div class="modal fade" id="createCardModal" tabindex="-1" aria-labelledby="createCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCardModalLabel">Créer une carte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulaire de création de carte -->
+        <form (ngSubmit)="addCarte()" #carteForm="ngForm">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nom"
+              [(ngModel)]="newCarte.nom"
+              name="nom"
+              #nom="ngModel"
+              required
+            />
+            <div *ngIf="nom.invalid && nom.touched" class="text-danger">
+              Le nom est requis.
             </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contenu">Description</label>
+            <textarea
+              class="form-control"
+              id="contenu"
+              [(ngModel)]="newCarte.contenu"
+              name="contenu"
+              #contenu="ngModel"
+              required
+            ></textarea>
+            <div *ngIf="contenu.invalid && contenu.touched" class="text-danger">
+              La description est requise.
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="categorie_id">Catégorie</label>
+            <select
+              class="form-control"
+              [(ngModel)]="newCarte.categorie_id"
+              name="categorie_id"
+              #categorie_id="ngModel"
+              required
+            >
+              <option value="" disabled selected>Choisir une catégorie</option>
+              <option *ngFor="let categorie of categories" [value]="categorie.id">
+                {{categorie.titre}}
+              </option>
+            </select>
+            <div *ngIf="categorie_id.invalid && categorie_id.touched" class="text-danger">
+              La catégorie est requise.
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" id="image" (change)="onImageChange($event)" />
+          </div>
+          
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="background-color: #725111; border-color: #725111;"
+            [disabled]="carteForm.invalid"
+          >
+            Créer Carte
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
 
             <!-- Table displaying cards -->
             <table class="table table-bordered table-hover mt-4 tablecarte">

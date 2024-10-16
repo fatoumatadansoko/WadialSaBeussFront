@@ -1,32 +1,35 @@
 import { HttpEvent, HttpHandlerFn, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { isPlatformBrowser } from '@angular/common';
+import { inject, PLATFORM_ID } from '@angular/core';
 
-export function authInterceptor (req:HttpRequest<unknown>, next: HttpHandlerFn) : Observable<HttpEvent<unknown>>{
+export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     let token = "";
+    const platformId = inject(PLATFORM_ID);  // Injecter PLATFORM_ID
 
-    // Recuperation des infos de connexion de l'utilisateur au niveau du localstoge 
-    if(localStorage.getItem('infos_Connexion')){
-        const infos = JSON.parse(localStorage.getItem('infos_Connexion') || "");
-        if(infos){
-            token = infos.token;
+    // Vérifier que l'on est bien dans un environnement de navigateur avant d'accéder à localStorage
+    if (isPlatformBrowser(platformId)) {
+        if (localStorage.getItem('infos_Connexion')) {
+            const infos = JSON.parse(localStorage.getItem('infos_Connexion') || "");
+            if (infos) {
+                token = infos.token;
+            }
         }
     }
 
-    // S'il n'y a pas de token on retourne la requette en question 
-    if(!token){
+    // Si pas de token, passer la requête originale sans modification
+    if (!token) {
         return next(req);
     }
 
-    // Donnees a ajouter dans l'entete de la requete 
+    // Ajouter l'en-tête d'autorisation avec le token
     const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`
-    })
+    });
 
-    // Clonage de la requete en y ajoutant le header 
-    const newReq = req.clone({
-        headers
-    })
+    // Cloner et modifier la requête pour inclure les nouveaux en-têtes
+    const newReq = req.clone({ headers });
 
-    // On retourne maintenant la requete clonner 
+    // Retourner la requête modifiée
     return next(newReq);
 }

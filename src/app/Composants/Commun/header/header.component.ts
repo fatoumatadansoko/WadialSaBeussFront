@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -24,20 +25,35 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.subscription = this.authService.isLoggedIn().subscribe(
       (loggedIn: boolean) => {
         this.isLoggedIn = loggedIn;
+        this.checkTokenValidity();
       }
     );
   }
-
+  checkTokenValidity(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      if (this.authService.isTokenExpired(token)) {
+        // Si le token est expiré, déconnexion automatique
+        this.logout();
+      } else {
+        this.isLoggedIn = true;
+      }
+    } else {
+      this.isLoggedIn = false;
+    }
+  }
   logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        // Redirection après déconnexion
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         this.router.navigate(['/login']);
+        Swal.fire('Déconnexion réussie', 'Vous avez été déconnecté avec succès.', 'success');
       },
       error: (error) => {
         console.error('Erreur lors de la déconnexion:', error);
-        // Redirection même en cas d'erreur
         this.router.navigate(['/login']);
+        Swal.fire('Erreur', 'Erreur lors de la déconnexion. Veuillez réessayer.', 'error');
       }
     });
   }

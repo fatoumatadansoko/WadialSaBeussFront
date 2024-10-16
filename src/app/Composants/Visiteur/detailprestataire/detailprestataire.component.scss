@@ -84,4 +84,76 @@
       border-color: #9e9f8d;
     }
   }
-  
+  /* Media Query pour tablettes et plus petits écrans */
+@media (max-width: 768px) {
+  .container {
+    padding: 5rem 1rem; /* Réduire le padding sur mobile */
+  }
+
+  .prestataire-details {
+    flex-direction: column; /* Empiler les éléments en colonne sur mobile */
+    align-items: center; /* Centrer les éléments */
+
+    .col-md-6 {
+      width: 100%; /* Assurer que les colonnes prennent toute la largeur sur mobile */
+      margin-bottom: 2rem; /* Ajouter un espace entre les éléments */
+    }
+
+    img {
+      width: 80%; /* Réduire la taille de l'image sur mobile */
+      max-width: 300px; /* Limiter la taille de l'image */
+    }
+  }
+
+  .contact-container {
+    flex-direction: column; /* Mettre les éléments de contact en colonne */
+    gap: 0.5rem; /* Réduire l'espacement entre les éléments */
+    align-items: center;
+  }
+
+  .review-section {
+    padding: 0 1rem;
+  }
+
+  .testimonials .row {
+    flex-direction: column; /* Afficher les commentaires en colonne */
+  }
+
+  .commentaire {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
+
+/* Media Query pour les très petits écrans (moins de 576px) */
+@media (max-width: 576px) {
+  .container {
+    padding: 2rem 0.5rem; /* Réduire encore plus le padding */
+  }
+
+  h1 {
+    font-size: 1.5rem; /* Réduire la taille du titre sur mobile */
+    text-align: center;
+  }
+
+  .prestataire-details {
+    text-align: center; /* Centrer le texte sur les petits écrans */
+  }
+
+  .contact-container {
+    align-items: flex-start; /* Aligner les infos de contact à gauche */
+    text-align: left;
+  }
+
+  .review-section textarea {
+    width: 100%; /* S'assurer que le champ de commentaire prend toute la largeur */
+  }
+
+  .testimonials h4 {
+    text-align: center;
+  }
+
+  .commentaire {
+    text-align: center; /* Centrer le contenu du commentaire */
+  }
+}

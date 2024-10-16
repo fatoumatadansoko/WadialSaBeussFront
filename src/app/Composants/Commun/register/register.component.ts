@@ -21,10 +21,12 @@ export class RegisterComponent implements OnInit {
   selectedFile: File | null = null;
   isClient: boolean = false;
   isPrestataire: boolean = false;
+  validationErrors: any = {};
+  descriptionMaxLength = 255;
+remainingCharacters = this.descriptionMaxLength;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private router: Router,
     private userService: UserService // Injected UserService
   ) {}
@@ -88,22 +90,28 @@ export class RegisterComponent implements OnInit {
     this.registerForm.get('logo')?.updateValueAndValidity();  
       }
 
-  onSubmit() {
-    if (this.registerForm.valid) {
-      const formData = new FormData();
-      for (const key in this.registerForm.value) {
-        formData.append(key, this.registerForm.value[key]);
+      onSubmit() {
+        if (this.registerForm.valid) {
+          const formData = new FormData();
+          for (const key in this.registerForm.value) {
+            formData.append(key, this.registerForm.value[key]);
+          }
+    
+          this.userService.register(formData).subscribe({
+            next: (response) => {
+              console.log('Inscription réussie', response);
+              this.router.navigate(['/login']);
+            },
+            error: (err) => {
+              console.error('Erreur lors de l\'inscription', err);
+              if (err.status === 422) {
+                // Si l'erreur est une erreur de validation, stocker les erreurs
+                this.validationErrors = err.error.errors;
+              }
+            }
+          });
+        }
       }
-      
-      this.userService.register(formData).subscribe({
-        next: (response) => {
-          console.log('Inscription réussie', response);
-          this.router.navigate(['/login']); // Redirection vers la page de connexion
-        },
-        error: (err) => console.error('Erreur lors de l\'inscription', err),
-      });
-    }
-  }
   
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -114,7 +122,10 @@ export class RegisterComponent implements OnInit {
       this.registerForm.patchValue({ logo: this.selectedFile });
     }
   }
-  
+  onDescriptionChange(event: any) {
+    const value = event.target.value;
+    this.remainingCharacters = this.descriptionMaxLength - value.length;
+  }
    
 
 }

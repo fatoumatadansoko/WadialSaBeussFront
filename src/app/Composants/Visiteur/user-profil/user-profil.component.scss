@@ -5,30 +5,57 @@
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-  padding-top: 120px;
   display: flex;
   align-items: center;
   width: 100%;
   background-image: url(../../../../assets/images/headerprofileuser.png);
-  padding-left: 200px;
-  padding-right: 200px;
-  padding-bottom: 50px;
+  padding: 120px 200px 50px;
 }
 
+@media (max-width: 768px) {
+  .profile-banner {
+      padding: 80px 20px;
+  }
+
+  .profile-name {
+      font-size: 1.2rem;
+  }
+
+  .profile-logo {
+      width: 60px;
+      height: 60px;
+  }
+
+  .profile-info {
+      padding: 20px;
+  }
+}
+
+/* Bannière de contenu */
 .banner-content {
   width: 100%;
 }
 
+/* Informations profil */
 .profile-info {
   padding-left: 200px;
   padding-right: 200px;
+  margin-top: 20px; /* Réduit l'espace au-dessus des boutons */
 }
 
+@media (max-width: 768px) {
+  .profile-info {
+      padding: 20px;
+  }
+}
+
+/* Nom du profil */
 .profile-name {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
+/* Logo du profil */
 .profile-logo {
   width: 80px;
   height: 80px;
@@ -80,17 +107,22 @@ body {
   background-color: #f8f9fa;
 }
 
-/* Styles pour le conteneur principal avec flexbox */
+/* Conteneur principal avec flexbox */
 .main-container {
   display: flex; /* Aligne la sidebar et le contenu horizontalement */
 }
 
 .content {
   flex: 1; /* Prend tout l'espace disponible à droite de la sidebar */
-  padding: 20px; /* Ajout d'un peu de marge autour du contenu */
+  padding: 20px;
 }
 
-/* Styles spécifiques à l'administrateur */
-.admin .table {
-  margin-top: 20px; /* Ajuste l'espacement du tableau pour l'admin */
+@media (max-width: 768px) {
+  .content {
+      padding: 10px;
+  }
+
+  .table th, .table td {
+      font-size: 0.9rem;
+  }
 }

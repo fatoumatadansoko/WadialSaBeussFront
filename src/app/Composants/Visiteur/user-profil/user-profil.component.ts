@@ -8,6 +8,7 @@ import { UserModel } from '../../../Models/prestataire.model';
 import { CommonModule, NgIf } from '@angular/common';
 import { throwError, catchError } from 'rxjs';
 import { SidebarComponent } from "../../Commun/sidebar/sidebar.component";
+import { DemandeListComponent } from '../../Prestataire/demande-list/demande-list.component';
 
 @Component({
   selector: 'app-user-profil',
@@ -20,17 +21,29 @@ export class UserProfilComponent implements OnInit{
   private userService = inject(UserService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
+  // private demandeList = inject(DemandeListComponent)
+  public prestataireId?: number; // Ajoutez cette ligne pour déclarer la propriété
 
   userId: number | undefined; // ID du prestataire, à assigner lors de l'initialisation
   baseUrl: string = environment.apiurl;
   photoUrl: string = '';
   user: UserModel = {};
+  userRole: string | undefined; // Stockage du rôle de l'utilisateur
 
 
   ngOnInit(): void {
+    // this.prestataireId = 0; // Par exemple, initialiser à 0 ou toute autre valeur par défaut
    this.getUserProfile();
+   this.getUserRole(); // Récupérer le rôle de l'utilisateur
+
 }
 getUserProfile(): void {
+  const prestataire = localStorage.getItem('prestataire');
+
+  if (prestataire) {
+      const prestataireId = JSON.parse(prestataire).id; // Récupère l'ID du client
+    console.log(prestataireId);
+  }
     this.userService.getProfile().subscribe(
       response => {
         console.log('Données de profil utilisateur:', response);
@@ -41,6 +54,17 @@ getUserProfile(): void {
       }
     );
     
+  }
+
+  // getprestataire():void {
+   
+  // }
+  getUserRole(): void {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      this.userRole = parsedUser?.roles[0]?.name; // Récupération du rôle
+    }
   }
   getPhotoUrl(photoPath: string): string {
     return `${this.baseUrl}${photoPath}`;

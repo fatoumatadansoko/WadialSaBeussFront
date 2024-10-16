@@ -1,16 +1,26 @@
-<div>
-    <h2>Invités</h2>
-    <!-- Affichage automatique des invités dès qu'ils sont chargés -->
+<app-header></app-header>
+<div class="invites">
     
     <div *ngIf="emails.length > 0">
-      <h3>Liste des e-mails des invités :</h3>
-      <ul>
-        <li *ngFor="let email of emails">{{ email }}</li>
-      </ul>
+      <h3>Emails des invités :</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">E-mail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let email of emails; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ email }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   
     <div *ngIf="emails.length === 0">
       <p>Aucun invité trouvé pour cette carte.</p>
     </div>
-  </div>
-  
+</div>
+<app-footer></app-footer>

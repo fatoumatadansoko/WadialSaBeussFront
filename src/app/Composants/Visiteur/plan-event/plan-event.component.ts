@@ -16,6 +16,7 @@ import { NgIf } from '@angular/common';
 })
 export class PlanEventComponent {
   eventForm!: FormGroup;
+  backendErrors: any = {}; // Pour stocker les erreurs du backend
 
 
   constructor(
@@ -44,15 +45,29 @@ export class PlanEventComponent {
           console.log('Événement créé avec succès:', response);
           // Réinitialiser le formulaire ou effectuer d'autres actions
           this.eventForm.reset();
+          this.backendErrors = {}; // Réinitialiser les erreurs backend
           this.router.navigate(['/events']); // Redirection vers la liste des événements
         },
         (error) => {
           console.error('Erreur lors de la création de l\'événement:', error);
-          // Gérer l'erreur ici, par exemple afficher un message d'erreur
+          if (error.status === 422) {
+            this.handleBackendErrors(error.error.errors); // Gestion des erreurs du backend
+          }
         }
       );
     } else {
       console.log('Formulaire invalide');
     }
+  }
+
+  handleBackendErrors(errors: any) {
+    // Ajouter les erreurs du backend aux erreurs Angular
+    Object.keys(errors).forEach((field) => {
+      const control = this.eventForm.get(field);
+      if (control) {
+        // Associer l'erreur backend au champ de formulaire
+        control.setErrors({ backend: errors[field][0] });
+      }
+    });
   }
 }

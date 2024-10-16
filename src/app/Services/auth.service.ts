@@ -4,6 +4,9 @@ import { Observable, throwError, catchError, tap } from 'rxjs';
 import { BehaviorSubject} from 'rxjs';
 import { apiurl } from './ApiUrl';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +14,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   private http = inject(HttpClient);
+  
   // Observable pour le statut de connexion
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
@@ -79,6 +83,12 @@ export class AuthService {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       return user.id; // Assurez-vous que l'ID est stocké dans localStorage
     }
+    isTokenExpired(token: string): boolean {
+      const decodedToken: any = jwtDecode(token);
+      const expirationDate = decodedToken.exp * 1000; // La date d'expiration est en secondes
+      return expirationDate < Date.now();
+    }
+  
 }
 
   

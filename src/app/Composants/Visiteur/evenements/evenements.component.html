@@ -4,12 +4,12 @@
     <!-- Section texte à gauche et image à droite -->
     <div class="row align-items-center">
         <!-- Texte à gauche -->
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-12">
             <h2 class="fw-bold">L'importance de bien choisir ses prestataires</h2>
             <p class="mt-4">Bien choisir ses prestataires est essentiel pour assurer le succès de ton événement. Un bon prestataire garantit qualité et professionnalisme, contribuant à faire de l'événement une expérience mémorable. Il saura aussi respecter ton budget tout en réalisant ta vision, ce qui permet d'éviter les dépassements financiers. Enfin, travailler avec des prestataires de confiance réduit le stress de l'organisation, offrant ainsi une tranquillité d'esprit précieuse.</p>
         </div>
         <!-- Image à droite -->
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12">
             <div class="col-12 mb-3">
                 <img src="../../../../assets/images/galerie.png" class="img-fluid rounded" alt="Image 1">
             </div>
@@ -17,25 +17,23 @@
     </div>
 </div>
 <div class="overlay">
-        
 </div>
-    <div class="events-container">
-        <h1>Mes événements</h1>
-        <div class="row">
-            <div *ngFor="let event of events" class="col-md-4 mb-4">
-                <div class="card event-card">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ event.titre }}</h2>
-                        <p class="card-text"><strong>Type:</strong> {{ event.type }}</p>
-                        <p class="card-text"><strong>Lieu:</strong> {{ event.lieu }}</p>
-                        <p class="card-text"><strong>Date:</strong> {{ event.event_date }}</p>
-                        <p class="card-text"><strong>Budget:</strong> {{ event.budget }}</p>
-                    </div>
+
+<div class="events-container">
+    <h1>Mes événements</h1>
+    <div class="row">
+        <div *ngFor="let event of events" class="col-md-4 col-sm-12 mb-4">
+            <div class="card event-card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ event.titre }}</h2>
+                    <p class="card-text"><strong>Type:</strong> {{ event.type }}</p>
+                    <p class="card-text"><strong>Lieu:</strong> {{ event.lieu }}</p>
+                    <p class="card-text"><strong>Date:</strong> {{ event.event_date }}</p>
+                    <p class="card-text"><strong>Budget:</strong> {{ event.budget }}</p>
                 </div>
             </div>
         </div>
     </div>
-    
-
+</div>
 
 <app-footer></app-footer>

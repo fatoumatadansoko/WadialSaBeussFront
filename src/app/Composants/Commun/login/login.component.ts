@@ -32,32 +32,33 @@ export class LoginComponent {
     if (this.userObject.email && this.userObject.password) {
       this.authService.login(this.userObject).subscribe(
         (response: any) => {
-          console.log(response);
+          console.log(response.user.roles[0].name);
           if (response.user && response.token) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response.user));
-  
+            if (response.user.roles[0].name === 'prestataire') {
+              localStorage.setItem('prestataire', JSON.stringify(response.prestataire));
+            }
+            if (response.user.roles[0].name === 'client') {
+              localStorage.setItem('client', JSON.stringify(response.client));
+            }
             // Vérification du stockage du token
-            console.log('Token enregistré:', localStorage.getItem('token'));
+            console.log('role:', response.user.roles);
   
             // Gestion des rôles et redirection
-            if (response.user.role) {
-              if (response.user.role === 'admin') {
+              // Redirection en fonction des rôles récupérés
+              if (response.user.roles[0].name === 'admin') {
                 this.router.navigateByUrl('dashbord-admin');
-              } else if (response.user.role === 'prestataire') {
+              } else if (response.user.roles[0].name === 'prestataire') {
                 this.router.navigateByUrl('acceuil');
-              } else if (response.user.role === 'client') {
+              } else if (response.user.roles[0].name === 'client') {
                 this.router.navigate(['acceuil']);
               } else {
                 this.router.navigateByUrl('');
               }
-            }
-          }else
-          {
-            console.error(' token non enregistré');
-
+          } else {
+            console.error('Token non enregistré');
           }
-          
         },
         (error: any) => {
           console.error('Erreur lors de la connexion :', error);
@@ -66,7 +67,8 @@ export class LoginComponent {
       );
     }
   }
-  logout() {
+  
+    logout() {
     return this.authService.logout().subscribe(
         (response: any) => {
             console.log(response);

@@ -33,6 +33,9 @@
     <div *ngIf="eventForm.get('lieu')?.invalid && (eventForm.get('lieu')?.touched || eventForm.get('lieu')?.dirty)" class="text-danger">
         Lieu est requis.
     </div>
+    <div *ngIf="eventForm.get('lieu')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('lieu')?.errors?.['backend'] }}
+    </div>
 </div>
 
 <!-- Description -->
@@ -56,6 +59,9 @@
     <div *ngIf="eventForm.get('type')?.invalid && (eventForm.get('type')?.touched || eventForm.get('type')?.dirty)" class="text-danger">
         Type est requis.
     </div>
+    <div *ngIf="eventForm.get('type')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('type')?.errors?.['backend'] }}
+    </div>
 </div>
 
 <!-- Budget -->
@@ -70,6 +76,9 @@
     <div *ngIf="eventForm.get('budget')?.invalid && (eventForm.get('budget')?.touched || eventForm.get('budget')?.dirty)" class="text-danger">
         Budget est requis.
     </div>
+    <div *ngIf="eventForm.get('budget')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('budget')?.errors?.['backend'] }}
+    </div>
 </div>
 
 
@@ -79,6 +88,9 @@
     <input type="date" class="form-control" id="event_date" formControlName="event_date">
     <div *ngIf="eventForm.get('event_date')?.invalid && (eventForm.get('event_date')?.touched || eventForm.get('event_date')?.dirty)" class="text-danger">
         Date est requise.
+    </div>
+    <div *ngIf="eventForm.get('event_date')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('event_date')?.errors?.['backend'] }}
     </div>
 </div>
             <button type="submit" class="btn btn-primary">Sauvegarder</button>

@@ -1,0 +1,43 @@
+.invites {
+    margin-top: 120px;
+    margin-bottom: 100px;
+    margin-left: 90px;
+    margin-right: 90px;
+}
+.table th {
+    background-color: #f8f9fa; /* Couleur d'arrière-plan des en-têtes */
+  }
+  
+  .table td {
+    font-size: 1.1em; /* Taille de police pour le corps */
+  }
+  /* Responsivité pour tablettes et petits écrans */
+@media (max-width: 768px) {
+    .invites {
+        margin-left: 30px;  /* Réduction des marges sur tablettes */
+        margin-right: 30px;
+    }
+
+    .table td, .table th {
+        font-size: 1em;  /* Réduire légèrement la taille du texte sur les tablettes */
+    }
+}
+
+/* Responsivité pour les très petits écrans (moins de 576px) */
+@media (max-width: 576px) {
+    .invites {
+        margin-left: 10px;  /* Réduction encore plus importante des marges sur mobiles */
+        margin-right: 10px;
+        margin-top: 60px;  /* Réduction de la marge supérieure sur mobile */
+        margin-bottom: 50px;  /* Réduction de la marge inférieure sur mobile */
+    }
+
+    .table th, .table td {
+        font-size: 0.9em;  /* Réduction de la taille du texte sur mobile */
+        padding: 0.5rem;  /* Réduire le padding pour compacter le tableau */
+    }
+
+    .table thead {
+        font-size: 0.9em; /* Taille du texte pour les en-têtes sur mobile */
+    }
+}

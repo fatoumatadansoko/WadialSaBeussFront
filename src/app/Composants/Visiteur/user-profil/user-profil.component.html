@@ -1,62 +1,55 @@
+<app-header></app-header>
 
-        <!-- Header pour les autres utilisateurs -->
-        <app-header></app-header>
-
-        <!-- Conteneur principal -->
-        <div class="main-container">
-            <div class="content">
-                <!-- Bannière avec image de fond -->
-                <div class="profile-banner">
-                    <div class="d-flex justify-content-between align-items-center banner-content">
-                        <h2 class="profile-name text-white">{{ user.nom }}</h2>
-                        <img *ngIf="user.logo" [src]="getPhotoUrl(user.logo)" [alt]="" class="profile-logo">
-                    </div>
-                </div>
-
-                <!-- Tableau d'informations utilisateur -->
-                <div class="profile-info mt-4">
-                    <div class="d-flex justify-content-end mb-3">
-                        <button *ngIf="user.role === 'client'" class="btn btn-outline-secondary me-2" [routerLink]="['/events']">Mes événements</button>
-                        <button *ngIf="user.role === 'prestataire'" class="btn btn-outline-secondary" [routerLink]="['/prestataires', user.id, 'demandes']">
-                  Mes Demandes
-                </button>
-                
-                        <button *ngIf="user.role === 'client'" class="btn btn-outline-secondary" [routerLink]="['/prestataires/:prestataireId/demandes']">Mes Demandes</button>
-                    </div>
-
-                    <table class="table table-bordered bg-white">
-                        <tbody>
-                            <tr>
-                                <th>PRENOM ET NOM</th>
-                                <td>{{ user.nom }}</td>
-                            </tr>
-                            <tr>
-                                <th>EMAIL</th>
-                                <td>{{ user.email }}</td>
-                            </tr>
-                            <tr>
-                                <th>TELEPHONE</th>
-                                <td>{{ user.telephone }}</td>
-                            </tr>
-                            <tr>
-                                <th>ADRESSE</th>
-                                <td>{{ user.adresse }}</td>
-                            </tr>
-                            <!-- <tr>
-                                <th>DESCRIPTION</th>
-                                <td>{{ prestataire.description }}</td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-
-                    <!-- Bouton modifier -->
-                    <div class="d-flex justify-content-start mb-4">
-                        <button class="btn btn-warning">Modifier</button>
-                    </div>
-                </div>
+<!-- Conteneur principal -->
+<div class="main-container">
+    <div class="content">
+        <!-- Bannière avec image de fond -->
+        <div class="profile-banner">
+            <div class="d-flex justify-content-between align-items-center banner-content">
+                <h2 class="profile-name text-white">{{ user.nom }}</h2>
+                <img *ngIf="user.logo" [src]="getPhotoUrl(user.logo)" [alt]="" class="profile-logo">
             </div>
         </div>
 
+        <!-- Tableau d'informations utilisateur -->
+        <div class="profile-info mt-4">
+            <div class="d-flex justify-content-end mb-3">
+                <!-- <button *ngIf="userRole === 'client'" class="btn btn-outline-secondary me-2" [routerLink]="['/invites/:carteId']">Mes invités</button> -->
+                <button *ngIf="userRole === 'client'" class="btn btn-outline-secondary me-2" [routerLink]="['/carte-personnalisee']">Mes cartes</button>
+                
+                <button *ngIf="userRole === 'prestataire'" class="btn btn-outline-secondary" [routerLink]="['/prestataires', prestataireId, 'demandes']">
+                  Demandes
+                </button>
+                
+                <!-- <button *ngIf="userRole === 'client'" class="btn btn-outline-secondary" [routerLink]="['/prestataires/:prestataireId/demandes']">Mes Demandes</button> -->
+              </div>
+              
 
+            <table class="table table-bordered bg-white">
+                <tbody>
+                    <tr>
+                        <th>PRENOM ET NOM</th>
+                        <td>{{ user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>EMAIL</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>TELEPHONE</th>
+                        <td>{{ user.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <th>ADRESSE</th>
+                        <td>{{ user.adresse }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-
+            <!-- Bouton modifier -->
+            <div class="d-flex justify-content-start mb-4">
+                <button class="btn btn-warning">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>

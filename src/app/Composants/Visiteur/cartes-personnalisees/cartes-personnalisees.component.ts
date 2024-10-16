@@ -15,6 +15,7 @@ import { CartepersonnaliseeService } from '../../../Services/cartepersonnalisee.
 import { AuthService } from '../../../Services/auth.service';
 import { apiurl } from '../../../Services/ApiUrl';
 import  Swal from 'sweetalert2'
+import { log } from 'console';
 @Component({
   selector: 'app-cartes-personnalisees',
   standalone: true,
@@ -64,22 +65,33 @@ private isValidEmail(email: string): boolean {
   
   // Charger les cartes personnalisées de l'utilisateur
   loadUserCartes(): void {
-    const clientId = this.authService.getUserId();
-    this.cartepersonnaliseeService.getCartesByClientId(clientId).subscribe(
-      (response: any) => {
-        if (response.status) {
-          this.carte = response.data.sort((a: any, b: any) => {
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-          });
-        } else {
-          console.error(response.message);
+    const client = localStorage.getItem('client');
+
+    if (client) {
+        const clientId = JSON.parse(client).id; // Récupère l'ID du client
+      console.log(clientId);
+      
+      this.cartepersonnaliseeService.getCartesByClientId(clientId).subscribe(
+        (response: any) => {
+            if (response.status) {
+                this.carte = response.data.sort((a: any, b: any) => {
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                });
+                console.log('Cartes récupérées:', this.carte); // Ajoutez ceci
+            } else {
+                console.error(response.message);
+            }
+        },
+        (error) => {
+            console.error('Erreur lors de la récupération des cartes', error);
         }
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des cartes', error);
-      }
     );
-  }
+    
+    } else {
+        console.error('Client non trouvé dans le localStorage');
+    }
+}
+
 
   // Ouvrir le modal d'envoi d'emails
     // Ouvrir la modal pour envoyer l'invitation

@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
 import { AuthService } from '../../../Services/auth.service';
@@ -44,7 +44,9 @@ remainingCharacters = this.descriptionMaxLength;
       role: ['', [Validators.required]],
       ninea: [''], // Facultatif selon le rôle
       description: [''], // Facultatif selon le rôle
-      categorie_prestataire_id: [''] // Facultatif selon le rôle
+      // categorie_prestataire_id: [''] // Facultatif selon le rôle
+      categorie_prestataire_id: this.fb.array([], [Validators.required])  // Ensure it's initialized as an array
+
     }, { 
       validators: this.passwordMatchValidator // Validation pour les mots de passe
     });
@@ -90,13 +92,35 @@ remainingCharacters = this.descriptionMaxLength;
     this.registerForm.get('logo')?.updateValueAndValidity();  
       }
 
+      onCategorySelect(event: any) {
+        const selectedCategories = this.registerForm.get('categorie_prestataire_id') as FormArray;
+        
+        if (event.target.checked) {
+          selectedCategories.push(new FormControl(event.target.value));
+        } else {
+          const index = selectedCategories.controls
+            .findIndex(x => x.value === event.target.value);
+          selectedCategories.removeAt(index);
+        }
+      }
       onSubmit() {
         if (this.registerForm.valid) {
           const formData = new FormData();
+      
+          // Boucle pour ajouter les autres champs du formulaire
           for (const key in this.registerForm.value) {
-            formData.append(key, this.registerForm.value[key]);
+            if (this.registerForm.value[key] instanceof Array) {
+              this.registerForm.value[key].forEach((value: any) => formData.append(`${key}[]`, value));
+            } else {
+              formData.append(key, this.registerForm.value[key]);
+            }
           }
-    
+      
+          // Ajoute le fichier sélectionné au formData
+          if (this.selectedFile) {
+            formData.append('logo', this.selectedFile, this.selectedFile.name);
+          }
+      
           this.userService.register(formData).subscribe({
             next: (response) => {
               console.log('Inscription réussie', response);
@@ -105,23 +129,32 @@ remainingCharacters = this.descriptionMaxLength;
             error: (err) => {
               console.error('Erreur lors de l\'inscription', err);
               if (err.status === 422) {
-                // Si l'erreur est une erreur de validation, stocker les erreurs
                 this.validationErrors = err.error.errors;
               }
             }
           });
         }
       }
+      
   
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      console.log('Fichier sélectionné:', this.selectedFile);
-      // Mettre à jour le contrôle du formulaire
-      this.registerForm.patchValue({ logo: this.selectedFile });
-    }
-  }
+      onFileSelected(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+          const file = input.files[0];
+          const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      
+          if (allowedTypes.includes(file.type)) {
+            this.selectedFile = file;
+            console.log('Fichier sélectionné:', this.selectedFile);
+            this.registerForm.patchValue({ logo: this.selectedFile });
+          } else {
+            // Si le type de fichier n'est pas valide, afficher une erreur
+            this.validationErrors.logo = ['Le fichier doit être de type jpeg, png ou jpg.'];
+            console.error('Type de fichier invalide');
+          }
+        }
+      }
+      
   onDescriptionChange(event: any) {
     const value = event.target.value;
     this.remainingCharacters = this.descriptionMaxLength - value.length;

@@ -18,7 +18,7 @@
   <div class="container mt-5">
     <div *ngIf="message" class="alert alert-light alert-dismissible fade show" role="alert" [@fadeIn]>
       <i class="bi bi-sad" aria-hidden="true"></i> <!-- Utilisation de Bootstrap Icons pour l'icône triste -->
-      <strong>Oops ! Pas de prestataire disponible pour cette categorie</strong> {{ message }}
+      <strong>Oops ! Pas de carte disponible pour cette categorie</strong> {{ message }}
       <button type="button" class="close" aria-label="Close" (click)="message = ''">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -26,7 +26,7 @@
    <!-- Dropdown de catégories -->
    <div class="dropdown"> <!-- Ajout de la classe shadow-sm -->
     <button class="btn btn-drop dropdown-toggle" type="button" id="dropdownCategories" data-bs-toggle="dropdown" aria-expanded="false">
-      Sélectionner une catégorie
+      Sélectionner une carte
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownCategories">
       <li *ngFor="let categorie of categories">

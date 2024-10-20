@@ -9,27 +9,32 @@ import { FormsModule } from '@angular/forms';
 import { CategorieModel } from '../../../Models/categorie.model';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
-import { PretataireService } from '../../../Services/prestataire.service';
 import { PrestataireModel, UserModel } from '../../../Models/prestataire.model';
 import { UserService } from '../../../Services/users.service';
+import { CommentaireModel } from '../../../Models/commentaires.model';
+import { PrestataireService } from '../../../Services/prestataire.service';
+import { CommentaireService } from '../../../Services/commentaire.service';
 
 @Component({
   selector: 'app-prestataires',
   standalone: true,
   imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf],
   templateUrl: './prestataires.component.html',
-  styleUrl: './prestataires.component.scss'
+  styleUrls: ['./prestataires.component.scss']  // Correction : 'styleUrls' au lieu de 'styleUrl'
 })
 export class PrestatairesComponent implements OnInit {
   // Injection des dépendances
-  private PrestataireService = inject(PretataireService);    
+  private prestataireService = inject(PrestataireService);
   private categorieprestataireService = inject(CategorieprestataireService);
   private userService = inject(UserService);
   private http = inject(HttpClient);
+  private commentaireService = inject(CommentaireService); // Injection du service de commentaires
+
 
   // Déclaration des variables
   baseUrl: string = environment.apiurl
   categoriesprestataires: CategoriePrestataireModel[] = [];
+  commentaires: CommentaireModel[] = [];
   prestataires: PrestataireModel[] = [];
   users: UserModel[] = [];
   selectedCategorie: any = null;  
@@ -40,9 +45,53 @@ export class PrestatairesComponent implements OnInit {
   ngOnInit(): void {
     this.fetchCategorieprestataires();
     this.fetchPrestataires();
+    
+    // Si tu veux récupérer les commentaires d'un prestataire particulier, assure-toi que le prestataire est bien défini
+    if (this.prestataires.length > 0) {
+      const prestataire = this.prestataires[0]; // Ex. : récupérer le premier prestataire
+      this.getCommentaires(prestataire.id); // Passe l'id du prestataire ici
+    }
+  } 
+  sortByRating(): void {
+    this.prestataires.sort((a, b) => {
+      const noteA = this.getAverageNoteForPrestataire(a.id); // Calculer la note moyenne de chaque prestataire
+      const noteB = this.getAverageNoteForPrestataire(b.id);
+      return noteB - noteA;
+    });
+  
+    this.prestataires = [...this.prestataires]; // Actualiser la vue en déclenchant la détection de changements
+  }
+  
+  getAverageNoteForPrestataire(prestataireId: number): number {
+    const filteredCommentaires = this.commentaires.filter(comment => comment.prestataire_id === prestataireId);
+    const totalNotes = filteredCommentaires.reduce((sum, comment) => sum + (comment.note || 0), 0);
+    return filteredCommentaires.length > 0 ? totalNotes / filteredCommentaires.length : 0;
+  }
+  
+  
+
+  convertToInt(note: any): number {
+    const parsedNote = parseInt(note, 10);
+    return isNaN(parsedNote) ? 0 : parsedNote;
   }
 
-  // Récupération de toutes les catégories des prestataires
+  // Calcul de la note moyenne
+  getAverageNote(prestataireId: number): number {
+    const filteredCommentaires = this.commentaires.filter(comment => comment.prestataire_id === prestataireId);
+    const totalNotes = filteredCommentaires.reduce((sum, comment) => sum + this.convertToInt(comment.note), 0);
+    return filteredCommentaires.length > 0 ? totalNotes / filteredCommentaires.length : 0;
+  }
+
+  getCommentaires(id: number): void {
+    this.commentaireService.getAllCommentaires(id).subscribe(
+      (response: any) => {
+        this.commentaires = Array.isArray(response) ? response : [response];
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des commentaires:', error);
+      }
+    );
+  }//écupération de toutes les catégories des prestataires
   fetchCategorieprestataires(): void {
     const authToken = localStorage.getItem('token');  // Ou tout autre mécanisme de stockage du token
     this.categorieprestataireService.getAllCategorieprestataire().subscribe(
@@ -70,7 +119,7 @@ export class PrestatairesComponent implements OnInit {
   //Filtrer les prestataires par catégorie
   filterPrestatairesByCategory(categoryId: number): void {
     this.prestataires =[];
-    this.PrestataireService.getPrestatairesByCategory(categoryId).subscribe(
+    this.prestataireService.getPrestatairesByCategory(categoryId).subscribe(
       (response: any) => {
         this.prestataires = response.data; // Mettez à jour la liste des prestataires
   
@@ -99,7 +148,7 @@ export class PrestatairesComponent implements OnInit {
   
   // Récupération de toutes les prestataires
   fetchPrestataires(): void {
-    this.PrestataireService.getAllPrestataire().subscribe(
+    this.prestataireService.getAllPrestataire().subscribe(
       (prestataires: PrestataireModel[]) => {
         this.userService.getAllUser().subscribe(
           (users: UserModel[]) => {

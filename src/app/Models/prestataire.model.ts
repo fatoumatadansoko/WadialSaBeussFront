@@ -2,7 +2,7 @@ import { CategoriePrestataireModel } from "./categorieprestataire.model"
 
 
 export interface PrestataireModel {
-id: any|string,
+    id: any|string,
     description?: string,
     user_id?: number, 
     logo?: string,
@@ -11,7 +11,6 @@ id: any|string,
     createdAt?: Date,
     updatedAt?: Date,
     user?: UserModel; // Ajoute cette ligne pour inclure user
-
 }
 
 export interface UserModel {
@@ -39,7 +38,6 @@ export interface CommentaireModel {
         createdAt?: Date,
         updatedAt?: Date,
         user?: UserModel; // Assurez-vous que le modèle utilisateur est inclus
-
     }
    
       

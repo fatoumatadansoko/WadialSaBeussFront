@@ -3,12 +3,12 @@ import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
-import { PretataireService } from '../../../Services/prestataire.service';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { PrestataireModel, UserModel } from '../../../Models/prestataire.model';
 import { UserService } from '../../../Services/users.service';
+import { PrestataireService } from '../../../Services/prestataire.service';
 
 @Component({
   selector: 'app-acceuil',
@@ -19,8 +19,9 @@ import { UserService } from '../../../Services/users.service';
 })
 export class AcceuilComponent {
 
-  private PrestataireService = inject(PretataireService);    
+  private prestataireService = inject(PrestataireService)
   private categorieprestataireService = inject(CategorieprestataireService);
+
   private http = inject(HttpClient);
 
   private userService = inject(UserService);
@@ -39,7 +40,7 @@ export class AcceuilComponent {
 
 
   fetchPrestataires(): void {
-    this.PrestataireService.getAllPrestataire().subscribe(
+    this.prestataireService.getAllPrestataire().subscribe(
       (prestataires: PrestataireModel[]) => {
         this.userService.getAllUser().subscribe(
           (users: UserModel[]) => {

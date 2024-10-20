@@ -3,13 +3,13 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { HeaderComponent } from '../../Commun/header/header.component';
-import { PretataireService } from '../../../Services/prestataire.service';
 import { CommentaireService } from '../../../Services/commentaire.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import Swal from 'sweetalert2';
 import { PrestataireModel } from '../../../Models/prestataire.model';
 import { CommentaireModel } from '../../../Models/commentaires.model';
+import { PrestataireService } from '../../../Services/prestataire.service';
 
 @Component({
   selector: 'app-dashboard-prestataire',
@@ -19,7 +19,7 @@ import { CommentaireModel } from '../../../Models/commentaires.model';
   styleUrl: './dashboard-prestataire.component.scss'
 })
 export class DashboardPrestataireComponent {
-  private prestataireService = inject(PretataireService);
+  private prestataireService = inject(PrestataireService);
   private commentaireService = inject(CommentaireService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   convertToInt(note: any): number {

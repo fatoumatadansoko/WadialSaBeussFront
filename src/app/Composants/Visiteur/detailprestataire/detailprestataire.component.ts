@@ -10,11 +10,11 @@ import { ActivatedRoute,RouterLink,RouterModule } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { UserService } from '../../../Services/users.service';
-import { PretataireService } from '../../../Services/prestataire.service';
 import { PrestataireModel } from '../../../Models/prestataire.model';
 import { CommentaireService } from '../../../Services/commentaire.service';
 import Swal from 'sweetalert2';
 import { EmailService } from '../../../email.service';
+import { PrestataireService } from '../../../Services/prestataire.service';
 
 @Component({
   selector: 'app-detail-prestataire',
@@ -27,7 +27,7 @@ import { EmailService } from '../../../email.service';
 
 export class DetailPrestataireComponent implements OnInit {
 
-  private prestataireService = inject(PretataireService);
+  private prestataireService = inject(PrestataireService);
   private commentaireService = inject(CommentaireService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   constructor(private emailService: EmailService) { }
@@ -68,7 +68,6 @@ export class DetailPrestataireComponent implements OnInit {
       (response: any) => {
         this.prestataire = response.data;
         this.photoUrl = `${this.baseUrl}/${this.prestataire?.logo}`;
-        
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des détails du prestataire:', error);

@@ -75,7 +75,7 @@ fetchCategoriecartes(): void {
 
 onCategorieSelect(categorie: any): void {
   this.selectedCategorie = categorie;
-  this.filterCartesByCategory(categorie.id); // Filtrage des prestataires par catégorie
+  this.filterCartesByCategory(categorie.id); // Filtrage des cartes par catégorie
 }
 
  //récupération de tous les categories des prestataires

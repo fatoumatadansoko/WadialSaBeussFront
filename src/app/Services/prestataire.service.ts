@@ -9,7 +9,7 @@ import { environment } from '../../environnements/environments';
 @Injectable({
     providedIn: 'root'
 })
-export class PretataireService {
+export class PrestataireService {
   private apiUrl = 'http://127.0.0.1:8000/api/prestataires'; // Remplacez par l'URL de votre API
   private baseUrl: string = environment.apiurl;
 
@@ -63,6 +63,9 @@ export class PretataireService {
     const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.post(`${apiurl}/demande-prestation`, demande,{ headers });
   
+  }
+  getTopRatedPrestataires(): Observable<any> {
+    return this.http.get('/api/prestataires/top-rated');
   }
    // Méthode pour récupérer les demandes d'un prestataire
   

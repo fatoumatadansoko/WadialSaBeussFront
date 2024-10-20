@@ -22,7 +22,6 @@ import { Component, NgModule } from '@angular/core';
 import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
 import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
 import { EventadminComponent } from './Composants/Admin/eventadmin/eventadmin.component';
-import { DemandeListsComponent } from './Composants/demande-lists/demande-lists.component';
 
 
 export const routes: Routes = [
@@ -50,7 +49,7 @@ export const routes: Routes = [
    { path: 'events', component: EvenementsComponent},
    { path: 'carte-personnalisee', component: CartesPersonnaliseesComponent},
    { path: 'invites/:id', component: InvitesComponent},
-   { path: 'prestataires/:prestataireId/demandes', component: DemandeListsComponent },
+   { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
 
 
     // Routes pour l'admin

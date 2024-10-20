@@ -128,16 +128,17 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="categorie_prestataire_id">Catégorie Prestataire</label>
-        <select id="categorie_prestataire_id" formControlName="categorie_prestataire_id" class="form-control">
-          <option value="">Sélectionnez une catégorie</option>
-          <option *ngFor="let categorie of categoriePrestataires" [value]="categorie.id">
-            {{ categorie.titre }} <!-- Remplacez 'nom' par le champ correspondant -->
-          </option>
-        </select>
-      </div>
-      <div *ngIf="validationErrors.categorie_prestataire_id" class="text-danger">
-        {{ validationErrors.categorie_prestataire_id[0] }}
+        <label for="categorie_prestataire_id">Catégories Prestataires</label>
+        <div *ngFor="let categorie of categoriePrestataires">
+          <input 
+            type="checkbox" 
+            [value]="categorie.id" 
+            (change)="onCategorySelect($event)">
+          {{ categorie.titre }} <!-- Adjust to show the appropriate name -->
+        </div>
+        <div *ngIf="validationErrors.categorie_prestataire_id" class="text-danger">
+          {{ validationErrors.categorie_prestataire_id[0] }}
+        </div>
       </div>
     </div>
 

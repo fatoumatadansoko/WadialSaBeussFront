@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { UserService } from '../../../Services/users.service';
-import { Demande_PrestatairesService } from '../../../Services/demande_prestataires.service';
+import { DemandePrestationService } from '../../../Services/demandePrestation.service';
 
 @Component({
   selector: 'app-demande-list',
@@ -24,20 +24,18 @@ export class DemandeListComponent implements OnInit {
   // Utilisation de l'injection avec la méthode 'inject' (Angular >= 16)
   private demandeService = inject(DemandeService);
   private userService = inject(UserService);
-  private demandePrestatairesService = inject(Demande_PrestatairesService);
+  private demandePrestationService = inject(DemandePrestationService);
   private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    // Récupérer l'utilisateur connecté
+    // Récupérer les détails de l'utilisateur connecté
     this.userService.getUserDetails().subscribe(
       (user) => {
         this.user = user;
 
         if (this.user.role === 'prestataire') {
-          // Si l'utilisateur est un prestataire, récupérez son ID
-          this.prestataire_id = this.user.prestataireId; // Utilisation de l'ID du prestataire depuis l'utilisateur
-
-          // Appeler le service de demandes avec l'ID du prestataire
+          this.prestataire_id = this.user.prestataireId;
+          // Récupérer les demandes du prestataire
           this.getDemandes(this.prestataire_id);
         } else {
           console.error('L\'utilisateur n\'est pas un prestataire.');
@@ -50,7 +48,7 @@ export class DemandeListComponent implements OnInit {
   }
 
   getDemandes(prestataireId: number): void {
-    this.demandeService.getDemandesForPrestataire(prestataireId).subscribe(
+    this.demandePrestationService.getDemandesForPrestataire(prestataireId).subscribe(
       (response) => {
         if (response.success) {
           this.demandes = response.demandes;

@@ -9,7 +9,7 @@ import { environment } from '../../environnements/environments';
 @Injectable({
     providedIn: 'root'
 })
-export class Demande_PrestatairesService {
+export class DemandePrestationService {
   private apiUrl = 'http://127.0.0.1:8000/api/prestataires'; // Remplacez par l'URL de votre API
   private baseUrl: string = environment.apiurl;
 
@@ -17,7 +17,6 @@ export class Demande_PrestatairesService {
 
  // Methode pour recuperer toutes les prestataires 
 
-  constructor(private htttp: HttpClient) {}
 
   getDemandesForPrestataire(prestataireId: number): Observable<any> {
     const token = localStorage.getItem('token');

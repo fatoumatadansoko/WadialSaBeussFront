@@ -1,16 +1,32 @@
-<!-- src/app/components/demande-list/demande-list.component.html -->
+<app-header></app-header>
 
 <div class="container">
-    <h2>Demandes de Prestations</h2>
-    <div *ngIf="demandes.length === 0">
-      <p>Aucune demande trouvée pour ce prestataire.</p>
-    </div>
-    <ul *ngIf="demandes.length > 0">
-      <li *ngFor="let demande of demandes">
-        <strong>Message :</strong> {{ demande.message }}
-        <br />
-        <strong>Client ID :</strong> {{ demande.user_id }}
-      </li>
-    </ul>
+    <!-- Bannière avec image de fond -->
+   
+  <h2>Demandes de Prestations</h2>
+  
+  <div *ngIf="demandes.length === 0">
+    <p>Aucune demande trouvée pour ce prestataire.</p>
   </div>
   
+  <table *ngIf="demandes.length > 0" class="table table-bordered table-hover">
+    <thead class="table-white">
+      <tr>
+        <th scope="col">Numero</th>
+        <th scope="col">Client </th>
+        <th scope="col">Statut</th>
+        <th scope="col">Message</th>
+        <th scope="col">Créé le</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let demande of demandes">
+        <td>{{ demande.id }}</td>
+        <td>{{ demande.user_id }}</td> <!-- Utilisez clientNom ici -->
+        <td>{{ demande.etat }}</td>
+        <!-- <td>{{ demande.message ? demande.message : 'Aucun message' }}</td>
+        <td>{{ demande.created_at | date: 'dd/MM/yyyy' }}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,49 @@
+
+  
+  .container {
+    margin-top: 180px;
+
+  }
+ 
+  /* Table d'informations utilisateur */
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  th {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  td {
+    text-align: right;
+  }
+  
+  /* Styles du body */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* Conteneur principal avec flexbox */
+  .main-container {
+    display: flex; /* Aligne la sidebar et le contenu horizontalement */
+  }
+  
+  .content {
+    flex: 1; /* Prend tout l'espace disponible à droite de la sidebar */
+    padding: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .content {
+        padding: 10px;
+    }
+  
+    .table th, .table td {
+        font-size: 0.9rem;
+    }
+  }
+  

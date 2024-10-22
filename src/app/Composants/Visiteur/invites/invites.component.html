@@ -1,26 +1,49 @@
 <app-header></app-header>
 <div class="invites">
-    
-    <div *ngIf="emails.length > 0">
-      <h3>Emails des invités :</h3>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">E-mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let email of emails; let i = index">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ email }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="mb-3 text-end"> <!-- Ajoutez text-end pour aligner à droite -->
+    <div class="dropdown d-inline">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Filtrer par statut
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" (click)="filterInvites('all')">Tous</a></li>
+        <li><a class="dropdown-item" (click)="filterInvites('accepted')">Acceptés</a></li>
+        <li><a class="dropdown-item" (click)="filterInvites('refused')">Refusés</a></li>
+      </ul>
     </div>
-  
-    <div *ngIf="emails.length === 0">
-      <p>Aucun invité trouvé pour cette carte.</p>
-    </div>
+  </div>
+
+  <div *ngIf="filteredInvites.length > 0">
+    <h3>Liste des invités :</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Numéro</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invite of filteredInvites; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ invite.email }}</td>
+          <td>{{ invite.nom }}</td>
+          <td>
+            <span *ngIf="invite.statut" class="text-success">
+              <i class="fas fa-check-circle"></i> <!-- Icône pour 'Accepté' -->
+            </span>
+            <span *ngIf="!invite.statut" class="text-danger">
+              <i class="fas fa-times-circle"></i> <!-- Icône pour 'Refusé' -->
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filteredInvites.length === 0">
+    <p>Aucun invité trouvé pour cette carte.</p>
+  </div>
 </div>
 <app-footer></app-footer>

@@ -18,10 +18,16 @@ export class DemandePrestationService {
  // Methode pour recuperer toutes les prestataires 
 
 
-  getDemandesForPrestataire(prestataireId: number): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
+ getDemandesByPrestataireId(prestataireId: number): Observable<any> {
+  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-    return this.http.get<any>(`${this.apiUrl}/${prestataireId}/demandes`, { headers });
-  }
+  return this.http.get(`${apiurl}/prestataires/${prestataireId}/demandes`, { headers });
+}
+getUsers(): Observable<any> {
+  const token = localStorage.getItem('auth_token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+
+  return this.http.get('http://127.0.0.1:8000/api/users', { headers });
+}
 }

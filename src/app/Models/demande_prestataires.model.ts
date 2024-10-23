@@ -3,7 +3,7 @@ import { PrestataireModel } from "./prestataire.model";
 // Définir une énumération pour l'état
 export enum EtatDemande {
     EN_ATTENTE = 'en_attente',
-    APPROUVE = 'approuve',
+    APPROUVE = 'approuvée',
     REJETE = 'rejete'
 }
 

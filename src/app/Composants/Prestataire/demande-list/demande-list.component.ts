@@ -10,7 +10,8 @@ import { DemandePrestationService } from '../../../Services/demandePrestation.se
 import { PrestataireService } from '../../../Services/prestataire.service';
 import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
-import { DemandePrestation } from '../../../Models/demande_prestataires.model';
+import { DemandePrestation, EtatDemande } from '../../../Models/demande_prestataires.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-demande-list',
@@ -51,17 +52,12 @@ export class DemandeListComponent implements OnInit {
 
         this.demandePrestationService.getDemandesByPrestataireId(prestataireId).subscribe(
             (response: any) => {
-                if (response) {
+                if (response.success) {
                     this.demandes = response.prestataire.demandes;
 
-                    // Associating user names with the demandes
+                    // Assigner le nom du client directement depuis la réponse API
                     this.demandes.forEach(demande => {
-                        const client = this.users.find(user => user.id === demande.user_id);
-                        if (client) {
-                            demande.clientNom = client.nom; // Assign the client's name
-                        } else {
-                            demande.clientNom = 'Nom inconnu'; // Handle case where user isn't found
-                        }
+                        demande.clientNom = demande.client ? demande.client.nom : 'Nom inconnu';
                     });
 
                     console.log('Demandes avec noms de clients:', this.demandes);
@@ -116,4 +112,92 @@ export class DemandeListComponent implements OnInit {
       }
     );
   }
+ // Méthode pour approuver une demande
+ approuverDemande(demandeId: number): void {
+  this.demandeService.approuverDemande(demandeId).subscribe(
+    (response: { success: boolean; message?: string }): void => {
+      
+      if (response.success) {
+        const demande = this.demandes.find(d => d.id === demandeId);
+        if (demande) {
+          demande.etat = EtatDemande.APPROUVE; // Utilisation de l'énumération
+          console.log('Demande approuvée avec succès.');
+          // Afficher SweetAlert pour succès
+          Swal.fire({
+            title: 'Demande approuvée!',
+            text: 'La demande a été approuvée avec succès.',
+            icon: 'success',
+            timer: 3000, // Ferme après 3 secondes
+            showConfirmButton: false
+          });
+        }
+      } else {
+        console.error('Erreur lors de l\'approbation de la demande:', response.message);
+        // Afficher SweetAlert pour erreur
+        Swal.fire({
+          title: 'Erreur',
+          text: response.message || 'Une erreur est survenue.',
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      }
+    },
+    error => {
+      console.error('Erreur lors de l\'approbation de la demande:', error);
+      // Afficher SweetAlert pour erreur
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de l\'approbation de la demande.',
+        icon: 'error',
+        timer: 3000,
+        showConfirmButton: false
+      });
+    }
+  );
+}
+
+// Méthode pour refuser une demande
+refuserDemande(demandeId: number): void {
+  this.demandeService.refuserDemande(demandeId).subscribe(
+    (response: { success: boolean; message?: string }): void => {
+      if (response.success) {
+        const demande = this.demandes.find(d => d.id === demandeId);
+        if (demande) {
+          demande.etat = EtatDemande.REJETE; // Utilisation de l'énumération
+          console.log('Demande rejetée avec succès.');
+          // Afficher SweetAlert pour succès
+          Swal.fire({
+            title: 'Demande rejetée!',
+            text: 'La demande a été refusée avec succès.',
+            icon: 'success',
+            timer: 3000,
+            showConfirmButton: false
+          });
+        }
+      } else {
+        console.error('Erreur lors du rejet de la demande:', response.message);
+        // Afficher SweetAlert pour erreur
+        Swal.fire({
+          title: 'Erreur',
+          text: response.message || 'Une erreur est survenue.',
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      }
+    },
+    error => {
+      console.error('Erreur lors du rejet de la demande:', error);
+      // Afficher SweetAlert pour erreur
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors du rejet de la demande.',
+        icon: 'error',
+        timer: 3000,
+        showConfirmButton: false
+      });
+    }
+  );
+}
 }

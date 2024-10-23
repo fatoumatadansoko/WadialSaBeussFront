@@ -4,27 +4,42 @@ import { CarteinvitationService } from '../../../Services/carteinvitation.servic
 import { HttpClient } from '@angular/common/http';
 import { carteinvitationModel } from '../../../Models/carteinvitation.model';
 import { Observable } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CategorieService } from '../../../Services/categorie.service';
 
 @Component({
   selector: 'app-carte-admin',
   standalone: true,
   imports: [
-    NgFor,FormsModule,NgFor,NgIf,RouterModule
+    NgFor,FormsModule,NgFor,NgIf,RouterModule,ReactiveFormsModule,
   ],
   templateUrl: './carte-admin.component.html',
   styleUrls: ['./carte-admin.component.scss']
 })
 export class CarteAdminComponent {
   isFormVisible: boolean = false; // Variable pour contrôler la visibilité du formulaire
+  selectedCarte: any = null; // Initialize as null or empty object
+
 
   private CarteinvitationService = inject(CarteinvitationService);    
-  router: any;
-  constructor(private http: HttpClient,
-    private categorieService: CarteinvitationService 
-  ) { }
+
+  // Ajout de FormBuilder dans le constructeur
+  constructor(
+    private http: HttpClient,
+    private categorieService: CategorieService,
+    private router: Router,
+    private carteinvitationService: CarteinvitationService, 
+    private fb: FormBuilder
+  ) { 
+    // Initialisation du formulaire avec des validations
+    this.updateForm = this.fb.group({
+      nom: ['', Validators.required],
+      contenu: ['', Validators.required],
+      image: [''] // L'image est optionnelle
+    });
+  }
   
   // Déclaration des variables
   carteinvitations: carteinvitationModel[] = [];
@@ -35,14 +50,16 @@ export class CarteAdminComponent {
     categorie_id: '', // Initialisation
     image: '', // Initialisation
   };
+  
   categories: any[] = []; // Déclarez cette propriété pour stocker les catégories
+  updateForm: FormGroup;
+  selectedFile: File | null = null;
 
-  //Déclaration des methodes
+  // Méthode appelée lors de l'initialisation du composant
   ngOnInit(): void {
     this.fetchCarteinvitations();
     this.fetchCategoriecartes();
-}
-
+  }
 
 fetchCategoriecartes(): void {
   const authToken = localStorage.getItem('token');
@@ -120,7 +137,62 @@ fetchCategoriecartes(): void {
         }
       );
     }
-    
+    // Méthode pour ouvrir le modal avec les données de la carte à modifier
+  // Méthode pour ouvrir le modal avec les données de la carte à modifier
+  openModal(carte: carteinvitationModel): void {
+    this.updateForm.patchValue({
+      nom: carte.nom,
+      contenu: carte.contenu
+    });
+  }
+
+  // Méthode pour gérer la sélection d'image
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+ // Méthode pour modifier une carte
+ editCarte(carte: carteinvitationModel): void {
+  this.newCarte = { ...carte }; // Charger la carte dans le formulaire pour modification
+  this.isFormVisible = true; // Afficher le formulaire si nécessaire
+}
+onSubmit(carteId: number) {
+  // Your logic for handling the form submission
+  console.log('Submitted form for card with ID:', carteId);
+  // Add your update logic here
+}
+
+
+  // Méthode pour supprimer une carte
+  deleteCarte(carteId: number): void {
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+
+    Swal.fire({
+      title: 'Êtes-vous sûr de vouloir supprimer cette carte?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui, supprimer',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.CarteinvitationService.deleteCarte(carteId).subscribe(
+          (response: any) => {
+            Swal.fire('Supprimé!', 'La carte a été supprimée avec succès.', 'success');
+            this.fetchCarteinvitations(); // Rafraîchir la liste après suppression
+          },
+          (error: any) => {
+            console.error('Erreur lors de la suppression de la carte:', error);
+          }
+        );
+      }
+    });
+  }
+
 
   }
   

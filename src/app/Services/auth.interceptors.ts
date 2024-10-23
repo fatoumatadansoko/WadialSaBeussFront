@@ -8,12 +8,20 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
     const platformId = inject(PLATFORM_ID);  // Injecter PLATFORM_ID
 
     // Vérifier que l'on est bien dans un environnement de navigateur avant d'accéder à localStorage
-    if (isPlatformBrowser(platformId)) {
-        if (localStorage.getItem('infos_Connexion')) {
-            const infos = JSON.parse(localStorage.getItem('infos_Connexion') || "");
+    // if (isPlatformBrowser(platformId)) {
+    //     if (localStorage.getItem('infos_Connexion')) {
+    //         const infos = JSON.parse(localStorage.getItem('infos_Connexion') || "");
+    //         if (infos) {
+    //             token = infos.token;
+    //         }
+    //     }
+    // }
+    if (typeof window !== 'undefined' && localStorage.getItem('user')) {
+        // if (localStorage.getItem('infos_Connexion')) {
+            const infos = JSON.parse(localStorage.getItem('user') || "");
             if (infos) {
                 token = infos.token;
-            }
+            // }
         }
     }
 

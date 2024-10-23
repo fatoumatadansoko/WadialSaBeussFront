@@ -52,18 +52,13 @@
   background-image: url(../../../../assets/images/headerprofileuser.png);
 }
 
-/* Alignement des contenus dans la bannière */
-.banner-content {
-  width: 80%;
-  padding-left: 200px;
-  padding-right: 200px;
+.text-white{
+  margin-left: 50px;
+  margin-right: 10px;
+  margin-bottom: 100px;
 }
 
-/* Nom de profil */
-.profile-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+
 
 /* Logo de profil */
 .profile-logo {
@@ -71,6 +66,9 @@
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
+  margin-left: 800px;
+  margin-right: 50px;
+  margin-bottom: 100px;
 }
 
 /* Boutons */

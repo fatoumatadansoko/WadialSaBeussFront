@@ -61,7 +61,7 @@ ngOnInit(): void {
 
 
 fetchCategoriecartes(): void {
-  const authToken = localStorage.getItem('token');
+  // const authToken = localStorage.getItem('token');
   this.categorieService.getAllCategories().subscribe(
     (response: any) => {
       console.log(response.data);

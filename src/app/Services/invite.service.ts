@@ -16,10 +16,10 @@ export class InviteService {
   constructor(private htttp: HttpClient) {}
  
   getInvites(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    // const token = localStorage.getItem('token');
+    // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
   
-    return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`, { headers });
+    return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`);
   }
 }
   

@@ -17,9 +17,9 @@ export class UserService {
  constructor(private http: HttpClient) {}
 
   getAllUser(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get<any>(`${apiurl}/users`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get<any>(`${apiurl}/users`);
   }
 
   getCategorieprestataires(): Observable<CategoriePrestataireModel[]> {
@@ -31,21 +31,21 @@ export class UserService {
 
   // Récupérer les informations du profil utilisateur
   getProfile(): Observable<any> {
-    const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur connecté
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    // const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur connecté
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
 
-    return this.http.get<any>(`${apiurl}/profile`, { headers });
+    return this.http.get<any>(`${apiurl}/profile`);
   }
    // Méthode pour inscrire un utilisateur (prestataire ou client)
   register(formData: FormData) {
     return this.http.post(`${apiurl}/register`, formData);
 }
 getUserDetails(): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': `Bearer ${token}` };
-  return this.http.get(`${apiurl}/user`, { headers});
+  // const token = localStorage.getItem('token');
+  // const headers = { 'Authorization': `Bearer ${token}` };
+  return this.http.get(`${apiurl}/user`);
 }
 
 

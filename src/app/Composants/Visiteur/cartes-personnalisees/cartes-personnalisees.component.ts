@@ -113,7 +113,8 @@ export class CartesPersonnaliseesComponent {
   
     // Charger les cartes personnalisées de l'utilisateur
     loadUserCartes(): void {
-      const client = localStorage.getItem('client');
+      // const client = localStorage.getItem('client');
+      const client = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('user') || "{}");
   
       if (client) {
         const clientId = JSON.parse(client).id; // Récupère l'ID du client

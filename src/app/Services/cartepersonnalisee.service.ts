@@ -42,10 +42,10 @@ export class CartepersonnaliseeService {
   
 
 getCartesByClientId(clientId: number): Observable<any> {
-  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  // const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+  // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
   
-  return this.http.get(`${apiurl}/cartes-personnalisees/client/${clientId}`, { headers });
+  return this.http.get(`${apiurl}/cartes-personnalisees/client/${clientId}`);
 }
 // Dans CartepersonnaliseeService
 envoyerCarte(id: number, invites: { nom: string, email: string }[]): Observable<any> {
@@ -62,10 +62,10 @@ envoyerCarte(id: number, invites: { nom: string, email: string }[]): Observable<
 
 
 getInvites(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  // const token = localStorage.getItem('token');
+  // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-  return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`, { headers });
+  return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`);
 }
   }
   

@@ -15,16 +15,16 @@ export class CategorieService {
 
   //methodes pour récupérer toutes les categories
   getAllCategories() {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };    
-    return this.http.get(`${apiurl}/categories`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };    
+    return this.http.get(`${apiurl}/categories`);
     
     // Méthodes pour lister les categories
   }
   getAllCategorie() {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };    
-    return this.http.get(`${apiurl}/categories`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };    
+    return this.http.get(`${apiurl}/categories`);
     
     // Méthodes pour lister les categories
   }

@@ -20,24 +20,24 @@ export class PrestataireService {
   constructor(private htttp: HttpClient) {}
 
   getAllPrestataire(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(this.apiUrl, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(this.apiUrl);
   }
     // Afficher les details d'un seul user
     getPrestataire(id: number): Observable<any> {
-      const token = localStorage.getItem('token');
+      // const token = localStorage.getItem('token');
       
-      if (!token) {
-        console.error('No authentication token found');
-        return throwError('No authentication token found');
-      }
+      // if (!token) {
+      //   console.error('No authentication token found');
+      //   return throwError('No authentication token found');
+      // }
     
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
+      // const headers = new HttpHeaders({
+      //   'Authorization': `Bearer ${token}`
+      // });
     
-      return this.http.get<any>(`${apiurl}/prestataires/${id}`, { headers }).pipe(
+      return this.http.get<any>(`${apiurl}/prestataires/${id}`).pipe(
         catchError((error) => {
           console.error('Failed to fetch user details:', error);
           return throwError(error);
@@ -59,9 +59,9 @@ export class PrestataireService {
     
   }
   demanderPrestation(demande: { prestataire_id: number; message: string }): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.post(`${apiurl}/demande-prestation`, demande,{ headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.post(`${apiurl}/demande-prestation`, demande);
   
   }
   getTopRatedPrestataires(): Observable<any> {

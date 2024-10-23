@@ -21,6 +21,6 @@ export class InviteService {
   
     return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`, { headers });
   }
-  }
+}
   
 

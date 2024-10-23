@@ -19,9 +19,9 @@ export class CarteinvitationService {
   //methodes pour récupérer toutes les cartes
 
   getAllCarteinvitations(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(this.apiUrl, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(this.apiUrl);
   }
     
     // Méthodes pour lister les cartes
@@ -30,6 +30,7 @@ export class CarteinvitationService {
     const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.get(`${this.apiUrl}/${id}`, { headers });
   }
+  //personnalisation de carte
   updateCarte(id: number, formData: FormData): Observable<any> {
     const token = localStorage.getItem('token');
     
@@ -51,10 +52,10 @@ getCartesByCategory(categoryId: number): Observable<any> {
   return this.http.get(`${this.apiUrl}/category/${categoryId}`);
 }
 getCartesByClientId(clientId: number): Observable<any> {
-  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  // const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+  // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
   
-  return this.http.get(`${apiurl}cartes-personnalisees/client/${clientId}`, { headers });
+  return this.http.get(`${apiurl}cartes-personnalisees/client/${clientId}`);
 }
 addCarte(formData: FormData): Observable<any> {
   const token = localStorage.getItem('token'); 
@@ -71,4 +72,19 @@ getAllCategories() {
   
   // Méthodes pour lister les categories
 }
+ // Méthode pour mettre à jour une carte pour l'admin
+ modifierCarte(id: number, formData: FormData): Observable<any> {
+  const headers = new HttpHeaders();  // Headers personnalisés si besoin
+
+  return this.http.post(`${this.apiUrl}/${id}`, formData, { headers });
+}
+deleteCarte(id: number): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+  };
+
+  return this.http.delete(`${this.apiUrl}/cartes/${id}`, { headers });
+}
+
 }

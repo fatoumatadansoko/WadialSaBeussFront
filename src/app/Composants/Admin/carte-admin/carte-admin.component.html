@@ -147,26 +147,21 @@ data-bs-toggle="modal" data-bs-target="#createCardModal">
                         <td>{{carte.contenu}}</td>
                         <td>{{carte.categorie_id}}</td>
                         <td>
-                            <!-- Actions (edit, delete) can be added here -->
+                          <!-- Icône de modification -->
+                          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editCarteModal" (click)="openModal(carte)">
+                            <i class="bi bi-pencil-fill"></i>
+                          </button>
+                          
+                    
+                          <!-- Icône de suppression -->
+                          <!-- <button class="btn btn-sm btn-danger" (click)="deleteCarte(carte)">
+                            <i class="bi bi-trash-fill"></i>
+                          </button> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- Pagination -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Précédent</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Suivant</a>
-                    </li>
-                </ul>
-            </nav>
         </main>
     </div>
 </div>

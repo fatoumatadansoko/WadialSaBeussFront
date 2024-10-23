@@ -22,12 +22,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     // Abonnement à l'état de connexion pour être informé des changements en temps réel
-    this.subscription = this.authService.isLoggedIn().subscribe(
-      (loggedIn: boolean) => {
-        this.isLoggedIn = loggedIn;
-        this.checkTokenValidity();
-      }
-    );
+    // this.subscription = this.authService.isLoggedIn().subscribe(
+    //   (loggedIn: boolean) => {
+    //     this.isLoggedIn = loggedIn;
+    //     this.checkTokenValidity();
+    //   }
+    // );
+    this.checkTokenValidity();
   }
   checkTokenValidity(): void {
     const token = localStorage.getItem('token');
@@ -42,21 +43,29 @@ export class HeaderComponent implements OnInit, OnDestroy{
       this.isLoggedIn = false;
     }
   }
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        this.router.navigate(['/login']);
-        Swal.fire('Déconnexion réussie', 'Vous avez été déconnecté avec succès.', 'success');
-      },
-      error: (error) => {
-        console.error('Erreur lors de la déconnexion:', error);
-        this.router.navigate(['/login']);
-        Swal.fire('Erreur', 'Erreur lors de la déconnexion. Veuillez réessayer.', 'error');
-      }
-    });
-  }
+  // logout(): void {
+  //   this.authService.logout().subscribe({
+  //     next: () => {
+  //       localStorage.removeItem('token');
+  //       localStorage.removeItem('user');
+  //       this.router.navigate(['/login']);
+  //       Swal.fire('Déconnexion réussie', 'Vous avez été déconnecté avec succès.', 'success');
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur lors de la déconnexion:', error);
+  //       this.router.navigate(['/login']);
+  //       Swal.fire('Erreur', 'Erreur lors de la déconnexion. Veuillez réessayer.', 'error');
+  //     }
+  //   });
+  // }
+  //Fonction de la déconnexion
+logout() {
+  this.authService.logout();
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  this.router.navigateByUrl("/login");
+}
+
 
   ngOnDestroy(): void {
     // Se désabonner de l'observable pour éviter les fuites de mémoire

@@ -93,7 +93,7 @@ export class PrestatairesComponent implements OnInit {
     );
   }//écupération de toutes les catégories des prestataires
   fetchCategorieprestataires(): void {
-    const authToken = localStorage.getItem('token');  // Ou tout autre mécanisme de stockage du token
+    // const authToken = localStorage.getItem('token');  // Ou tout autre mécanisme de stockage du token
     this.categorieprestataireService.getAllCategorieprestataire().subscribe(
       (response: any) => {
         console.log(response.data);

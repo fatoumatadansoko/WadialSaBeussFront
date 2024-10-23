@@ -26,25 +26,25 @@ export class CarteinvitationService {
     
     // Méthodes pour lister les cartes
   getCarteinvitationById(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${this.apiUrl}/${id}`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
   //personnalisation de carte
   updateCarte(id: number, formData: FormData): Observable<any> {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
     
-    // Assure-toi que le token est présent
-    if (!token) {
-      throw new Error('Token manquant. Veuillez vous reconnecter.');
-    }
+    // // Assure-toi que le token est présent
+    // if (!token) {
+    //   throw new Error('Token manquant. Veuillez vous reconnecter.');
+    // }
   
-    // Ajouter l'en-tête Authorization avec le token
-    const headers = { 'Authorization': `Bearer ${token}` };
+    // // Ajouter l'en-tête Authorization avec le token
+    // const headers = { 'Authorization': `Bearer ${token}` };
   
     // Effectuer la requête HTTP
     return this.http.post(`${apiurl}/cartes-personnalisees/invitation/${id}/create`, formData, {
-      headers: new HttpHeaders(headers)
+      headers: new HttpHeaders()
     });
   }
   
@@ -58,17 +58,17 @@ getCartesByClientId(clientId: number): Observable<any> {
   return this.http.get(`${apiurl}cartes-personnalisees/client/${clientId}`);
 }
 addCarte(formData: FormData): Observable<any> {
-  const token = localStorage.getItem('token'); 
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  // const token = localStorage.getItem('token'); 
+  // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
   // Effectuer la requête HTTP pour créer la carte
-  return this.http.post(`${apiurl}/cartes`,formData, { headers });
+  return this.http.post(`${apiurl}/cartes`,formData);
 }
 
 getAllCategories() {
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': `Bearer ${token}` };    
-  return this.http.get(`${apiurl}/categories`, { headers });
+  // const token = localStorage.getItem('token');
+  // const headers = { 'Authorization': `Bearer ${token}` };    
+  return this.http.get(`${apiurl}/categories`);
   
   // Méthodes pour lister les categories
 }
@@ -76,15 +76,15 @@ getAllCategories() {
  modifierCarte(id: number, formData: FormData): Observable<any> {
   const headers = new HttpHeaders();  // Headers personnalisés si besoin
 
-  return this.http.post(`${this.apiUrl}/${id}`, formData, { headers });
+  return this.http.post(`${this.apiUrl}/${id}`, formData);
 }
 deleteCarte(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = {
-    'Authorization': `Bearer ${token}`,
-  };
+  // const token = localStorage.getItem('token');
+  // const headers = {
+  //   'Authorization': `Bearer ${token}`,
+  // };
 
-  return this.http.delete(`${this.apiUrl}/cartes/${id}`, { headers });
+  return this.http.delete(`${this.apiUrl}/cartes/${id}`);
 }
 
 }

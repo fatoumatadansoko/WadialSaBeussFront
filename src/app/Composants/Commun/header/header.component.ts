@@ -28,21 +28,21 @@ export class HeaderComponent implements OnInit, OnDestroy{
     //     this.checkTokenValidity();
     //   }
     // );
-    this.checkTokenValidity();
+    // this.checkTokenValidity();
   }
-  checkTokenValidity(): void {
-    const token = localStorage.getItem('token');
-    if (token) {
-      if (this.authService.isTokenExpired(token)) {
-        // Si le token est expiré, déconnexion automatique
-        this.logout();
-      } else {
-        this.isLoggedIn = true;
-      }
-    } else {
-      this.isLoggedIn = false;
-    }
-  }
+  // checkTokenValidity(): void {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     if (this.authService.isTokenExpired(token)) {
+  //       // Si le token est expiré, déconnexion automatique
+  //       this.logout();
+  //     } else {
+  //       this.isLoggedIn = true;
+  //     }
+  //   } else {
+  //     this.isLoggedIn = false;
+  //   }
+  // }
   // logout(): void {
   //   this.authService.logout().subscribe({
   //     next: () => {

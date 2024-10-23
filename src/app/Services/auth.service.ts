@@ -102,8 +102,9 @@ export class AuthService {
     return false; 
   }
     getUserId(): number {
+      
       // Remplacez par votre méthode pour récupérer l'ID utilisateur
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const user = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('user') || '{}');
       return user.id; // Assurez-vous que l'ID est stocké dans localStorage
     }
     isTokenExpired(token: string): boolean {

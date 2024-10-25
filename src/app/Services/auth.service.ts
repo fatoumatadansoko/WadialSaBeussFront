@@ -22,19 +22,7 @@ export class AuthService {
 
   // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
-    return this.http.post(`${apiurl}/login`, identifiant).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.isLoggedInSubject.next(true); // Met à jour l'état de connexion
-        }
-      }),
-      catchError((error) => {
-        console.error('Login failed:', error);
-        return throwError(error);
-      })
-    );
+    return this.http.post(`${apiurl}/login`, identifiant);
   }
 
   // Méthode pour se déconnecter

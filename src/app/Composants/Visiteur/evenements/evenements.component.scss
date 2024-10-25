@@ -1,0 +1,107 @@
+.custom-margin-top {
+  padding-top: 100px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+@media (max-width: 768px) {
+  .custom-margin-top {
+      padding-top: 50px;
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+
+  .events-container {
+      padding: 20px;
+  }
+
+  .card-title {
+      font-size: 1.2rem;
+  }
+
+  .card-text {
+      font-size: 0.9rem;
+  }
+
+  .event-card h1 {
+      font-size: 36px;
+  }
+
+  .img-fluid {
+      width: 100%;
+      height: auto;
+  }
+}
+
+.bg-brown {
+  background-color: #725111;
+  margin: 0;
+}
+
+h2, h3 {
+  color: #333;
+}
+
+.overlay {
+  width: 100%;
+  height: 20vh;
+  background-image: url('../../../../assets/images/bacc.jpeg');
+  background-repeat: repeat;
+  background-size: auto;
+  background-position: center bottom;
+}
+
+p {
+  font-size: 1.1rem;
+}
+
+.img-fluid {
+  object-fit: cover;
+}
+
+.text-white {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.row img {
+  margin-bottom: 15px;
+}
+
+.events-container {
+  padding: 50px;
+  background-color: #f8f9fa;
+}
+
+.event-card {
+  transition: transform 0.2s;
+}
+
+.event-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #725111;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #495057;
+}
+
+.event-card h1 {
+  font-size: 48px;
+  font-family: 'oswald', sans-serif;
+  text-align: center;
+  text-decoration: dashed;
+  font-weight: bold;
+  color: #725111;
+}

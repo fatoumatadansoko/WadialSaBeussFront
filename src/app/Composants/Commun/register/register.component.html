@@ -1,0 +1,167 @@
+<div class="container mt-5">
+  <h1 class="">Inscription</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="nom">Nom</label>
+          <input id="nom" formControlName="nom" type="text" class="form-control">
+          <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-warning">
+            Le nom est obligatoire et doit comporter moins de 255 caractères.
+          </div>
+          <div *ngIf="validationErrors.nom" class="text-danger">
+            {{ validationErrors.nom[0] }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" type="email" class="form-control">
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-warning">
+            Un email valide est requis et doit être unique.
+          </div>
+          <div *ngIf="validationErrors.email" class="text-danger">
+            {{ validationErrors.email[0] }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="adresse">Adresse</label>
+          <input id="adresse" formControlName="adresse" type="text" class="form-control">
+          <div *ngIf="registerForm.get('adresse')?.invalid && registerForm.get('adresse')?.touched" class="text-warning">
+            L'adresse est obligatoire .
+          </div>
+          <div *ngIf="validationErrors.adresse" class="text-danger">
+            {{ validationErrors.adresse[0] }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="telephone">Téléphone</label>
+          <input id="telephone" formControlName="telephone" type="text" class="form-control">
+          <div *ngIf="registerForm.get('telephone')?.invalid && registerForm.get('telephone')?.touched" class="text-warning">
+            Le téléphone est obligatoire et doit être unique.
+          </div>
+          <div *ngIf="validationErrors.telephone" class="text-danger">
+            {{ validationErrors.telephone[0] }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6" style="display: none;">
+        <div class="mb-3">
+          <label for="statut">Statut</label>
+          <input id="statut" formControlName="statut" type="text" class="form-control" value="active" readonly>
+        </div>
+      </div>
+     
+      <div class="">
+        <div class="mb-3">
+          <label for="role">Rôle</label>
+          <select id="role" formControlName="role" class="form-control" (change)="onRoleChange()">
+            <option value="client">Client</option>
+            <option value="prestataire">Prestataire</option>
+          </select>
+          <div *ngIf="registerForm.get('role')?.invalid && registerForm.get('role')?.touched" class="text-warning">
+            Le rôle est requis.
+          </div>
+          <div *ngIf="validationErrors.role" class="text-danger">
+            {{ validationErrors.role[0] }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isClient">
+      <!-- Champs spécifiques aux clients -->
+    
+      <!-- <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div> -->
+    </div>
+    <div class="mb-3">
+      <label for="logo">Photo</label>
+      <input id="logo" formControlName="logo" type="file" class="form-control" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png">
+      <div *ngIf="registerForm.get('photo')?.invalid && registerForm.get('photo')?.touched" class="text-warning">
+        Une photo est requise (jpeg, jpg, png, max 2Mo).
+      </div>
+      <div *ngIf="validationErrors.logo" class="text-danger">
+        {{ validationErrors.logo[0] }}
+      </div>
+    </div>
+    <div *ngIf="isPrestataire">
+      <!-- Champs spécifiques aux prestataires -->
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          class="form-control" 
+          (input)="onDescriptionChange($event)" 
+          maxlength="255">
+        </textarea>
+        <small class="text-muted">
+          {{ remainingCharacters }} caractères restants
+        </small>
+      </div>
+      <div *ngIf="validationErrors.description" class="text-danger">
+        {{ validationErrors.description[0] }}
+      </div>
+      
+      <div class="mb-3">
+        <label for="ninea">NINEA</label>
+        <input id="ninea" formControlName="ninea" type="text" class="form-control">
+        <div *ngIf="registerForm.get('adresse')?.invalid && registerForm.get('adresse')?.touched" class="text-warning">
+          Le ninea est obligatoire et doit contenir moins de 50 caractères.
+        </div>
+        <div *ngIf="validationErrors.ninea" class="text-danger">
+          {{ validationErrors.ninea[0] }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="categorie_prestataire_id">Catégories Prestataires</label>
+        <div *ngFor="let categorie of categoriePrestataires">
+          <input 
+            type="checkbox" 
+            [value]="categorie.id" 
+            (change)="onCategorySelect($event)">
+          {{ categorie.titre }} <!-- Adjust to show the appropriate name -->
+        </div>
+        <div *ngIf="validationErrors.categorie_prestataire_id" class="text-danger">
+          {{ validationErrors.categorie_prestataire_id[0] }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password">Mot de passe</label>
+      <input id="password" formControlName="password" type="password" class="form-control">
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+        Le mot de passe est requis et doit comporter au moins 8 caractères.
+      </div>
+        <!-- Erreur du backend pour le mot de passe -->
+        <div *ngIf="validationErrors.password" class="text-danger">
+          {{ validationErrors.password[0] }}
+        </div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="password_confirmation">Confirmation du mot de passe</label>
+      <input id="password_confirmation" formControlName="password_confirmation" type="password" class="form-control">
+      <div *ngIf="registerForm.hasError('notSame') && registerForm.get('password_confirmation')?.touched" class="text-warning">
+        Les mots de passe ne correspondent pas.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-custom" [disabled]="registerForm.invalid">S'inscrire</button>
+  </form>
+</div>

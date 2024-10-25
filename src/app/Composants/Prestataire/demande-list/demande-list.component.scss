@@ -1,0 +1,70 @@
+
+/* Style pour les icônes dans le tableau */
+table i {
+  font-size: 24px; /* Taille de l'icône */
+  cursor: pointer; /* Changer le curseur pour montrer que c'est cliquable */
+  margin-right: 15px; /* Espacement entre les icônes */
+  transition: color 0.3s ease; /* Transition pour un effet de survol */
+}
+
+/* Couleurs pour les icônes */
+.text-success {
+  color: #28a745; /* Couleur verte pour l'icône d'approbation */
+}
+
+.text-danger {
+  color: #dc3545; /* Couleur rouge pour l'icône de rejet */
+}
+
+/* Effets au survol des icônes */
+table i:hover {
+  opacity: 0.7; /* Légère transparence au survol pour indiquer que c'est cliquable */
+}
+
+/* Styles supplémentaires si nécessaire */
+.container {
+  margin-top: 180px;
+}
+
+/* Table d'informations utilisateur */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+td {
+  text-align: right;
+}
+
+/* Styles du body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Conteneur principal avec flexbox */
+.main-container {
+  display: flex; /* Aligne la sidebar et le contenu horizontalement */
+}
+
+.content {
+  flex: 1; /* Prend tout l'espace disponible à droite de la sidebar */
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 10px;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+  }
+}

@@ -28,7 +28,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
             "styles": [
@@ -46,13 +47,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "1MB"
                 }
               ],
               "outputHashing": "all"
@@ -92,16 +93,26 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+           "styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+    "src/styles.css"
+
+],
+
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "1a464cc6-1eeb-4096-a4ac-41ad29e36de8"
   }
 }

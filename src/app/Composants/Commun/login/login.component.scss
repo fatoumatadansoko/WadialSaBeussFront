@@ -1,0 +1,111 @@
+body {
+    font-family: 'oswald', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.login-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    height: 100vh;
+}
+
+.image-side {
+    width: 50%;
+    position: relative;
+}
+
+.image-side img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.image-side h1 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.form-side {
+    width: 40%;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #000000;
+    border-radius: 0;
+}
+
+.btn-primary {
+    background-color: #725111;
+    border-color: #725111;
+    width: 25%;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #1E2A38;
+    border-color: #1E2A38;
+}
+
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+.form-link {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.form-link a {
+    color: #1E2A38;
+    text-decoration: none;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries pour la Responsivité */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column; /* Empiler les éléments sur petits écrans */
+        padding: 10px; /* Réduire le padding sur petits écrans */
+    }
+
+    .image-side, 
+    .form-side {
+        width: 100%; /* Les deux côtés prennent toute la largeur */
+        margin: 0; /* Enlever les marges */
+    }
+
+    .form-side {
+        padding: 20px; /* Réduire le padding pour le formulaire sur mobile */
+    }
+
+    .image-side h1 {
+        font-size: 2rem; /* Réduire la taille de la police sur mobile */
+        top: 10px; /* Ajuster la position */
+        left: 10px; /* Ajuster la position */
+    }
+
+    .btn-primary {
+        width: 35%; /* Bouton prend toute la largeur sur mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .image-side h1 {
+        font-size: 1.5rem; /* Réduire encore la taille de la police sur très petits écrans */
+    }
+}

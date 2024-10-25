@@ -1,0 +1,77 @@
+.invites {
+    margin-top: 120px;
+    margin-bottom: 100px;
+    margin-left: 90px;
+    margin-right: 90px;
+}
+.table th {
+    background-color: #f8f9fa; /* Couleur d'arrière-plan des en-têtes */
+  }
+  
+  .table td {
+    font-size: 1.1em; /* Taille de police pour le corps */
+  }
+  /* Responsivité pour tablettes et petits écrans */
+@media (max-width: 768px) {
+    .invites {
+        margin-left: 30px;  /* Réduction des marges sur tablettes */
+        margin-right: 30px;
+    }
+
+    .table td, .table th {
+        font-size: 1em;  /* Réduire légèrement la taille du texte sur les tablettes */
+    }
+}
+
+/* Responsivité pour les très petits écrans (moins de 576px) */
+@media (max-width: 576px) {
+    .invites {
+        margin-left: 10px;  /* Réduction encore plus importante des marges sur mobiles */
+        margin-right: 10px;
+        margin-top: 60px;  /* Réduction de la marge supérieure sur mobile */
+        margin-bottom: 50px;  /* Réduction de la marge inférieure sur mobile */
+    }
+
+    .table th, .table td {
+        font-size: 0.9em;  /* Réduction de la taille du texte sur mobile */
+        padding: 0.5rem;  /* Réduire le padding pour compacter le tableau */
+    }
+
+    .table thead {
+        font-size: 0.9em; /* Taille du texte pour les en-têtes sur mobile */
+    }
+}
+/* Style pour le bouton */
+.dropdown-toggle {
+    margin-bottom: 5px; /* Ajout d'un petit espacement entre le bouton et le dropdown */
+  }
+  .dropdown-toggle {
+    background-color: #725111; /* Couleur orange pour le bouton */
+    color: white; /* Couleur du texte en blanc */
+    padding: 10px 20px; /* Espacement et taille du bouton */
+    border-radius: 5px; /* Couronne arrondi */
+    cursor: pointer; /* Change le curseur pour pointer sur le bouton */
+  
+  }
+  /* Styles pour le menu */
+  .dropdown-menu {
+    animation: slideIn 0.3s; /* Animation d'apparition */
+    background-color: #725111; /* Couleur de fond rouge */
+    color: white; /* Couleur du texte en blanc */
+    font-family: 'Playfair Display', serif; /* Police de caractères Playfair Display */
+    right: 0; /* Affiche le dropdown à droite */
+    left: auto; /* Évite le décalage */
+    padding: 10px; /* Espacement autour des éléments */
+  }
+  
+  /* Autres styles */
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    color: white; /* Couleur du texte en blanc pour les éléments */
+  }
+  
+  .dropdown-item:hover {
+    background-color: rgb(221, 128, 128); /* Couleur au survol (ajuster si nécessaire) */
+  }
+  

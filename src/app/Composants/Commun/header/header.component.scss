@@ -1,0 +1,201 @@
+.navbar {
+    padding-bottom: 20px !important;
+}
+
+.navbar-light {
+    border-bottom: #051D30;
+    background: rgb(255, 255, 255);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.navbar-light.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*** Navbar ***/
+.navbar-light .navbar-nav .nav-link {
+    font-family: 'Oswald', sans-serif;
+    position: relative;
+    margin-right: 25px;
+    padding: 35px 0;
+    color: rgb(3, 3, 3);
+    font-size: 17px;
+    font-weight: 400;
+    outline: none;
+    transition: .5s;
+}
+
+/* Espacement du logo */
+.navbar-brand {
+    margin-right: 300px;
+    margin-left: 24px;
+}
+
+.sticky-top.navbar-light .navbar-nav .nav-link,
+.sticky-top.navbar-light .navbar-nav .nav-item .nav-link {
+    padding: 20px 0;
+    color: var(--bs-dark);
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #ffffff;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-item .nav-link:hover,
+.navbar-light .navbar-nav .nav-item .nav-link.active {
+    color: #725111;
+}
+
+.navbar-light .navbar-brand img {
+    max-height: 60px;
+    transition: .5s;
+}
+
+.sticky-top.navbar-light .navbar-brand img {
+    max-height: 45px;
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.dropdown .dropdown-menu a:hover {
+    background: red;
+    color: red;
+}
+
+.navbar .nav-item:hover .dropdown-menu {
+    transform: rotateX(0deg);
+    visibility: visible;
+    background: var(--bs-light);
+    transition: .5s;
+    opacity: 1;
+}
+
+/*** Responsive (burger menu) ***/
+@media (max-width: 991.98px) {
+    .sticky-top.navbar-light {
+        position: relative;
+        background: black;
+        
+    }
+
+    .navbar-toggler {
+        margin-left: auto; /* Aligne le bouton burger tout à fait à droite */
+        padding: 10px 20px;
+        border: 1px solid #725111;
+        color: #725111;
+    }
+
+    .navbar-toggler .fa-bars {
+        font-size: 24px;
+        color: #725111;
+    }
+
+    .navbar-light .navbar-collapse {
+        margin-top: 15px;
+        border-top: 1px solid #ffffff;
+        background-color: #f8f9fa;
+    }
+
+    .navbar-light .navbar-nav .nav-link,
+    .sticky-top.navbar-light .navbar-nav .nav-link {
+        padding: 10px 0;
+        margin-left: 0;
+    }
+
+    .navbar-light .navbar-brand img {
+        max-height: 45px;
+    }
+
+    .navbar-collapse {
+        transition: all 0.5s ease;
+    }
+
+    .navbar-nav {
+        text-align: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: none;
+        visibility: hidden;
+        top: 100%;
+        transform: rotateX(-75deg);
+        transform-origin: 0% 0%;
+        border: 0;
+        border-radius: 10px;
+        transition: .5s;
+        opacity: 0;
+    }
+
+    .navbar-light {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .1);
+        z-index: 999;
+    }
+
+    .sticky-top.navbar-light {
+        position: fixed;
+        background: var(--bs-light);
+    }
+
+    .navbar-light .navbar-nav .nav-link::before {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 2px;
+        bottom: -1px;
+        left: 50%;
+        background: #725111;
+        transition: .5s;
+    }
+
+    .navbar-light .navbar-nav .nav-link:hover::before,
+    .navbar-light .navbar-nav .nav-link.active::before {
+        width: calc(100% - 2px);
+        left: 1px;
+    }
+
+    .navbar-light .navbar-nav .nav-link::after {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 0;
+        bottom: -1px;
+        left: 50%;
+        background: #725111;
+        transition: .5s;
+    }
+
+    .navbar-light .navbar-nav .nav-link:hover::after,
+    .navbar-light .navbar-nav .nav-link.active::after {
+        width: 2px;
+        height: 12px;
+    }
+}
+
+/* Couleur du bouton et effet de survol */
+.btn-primary {
+    border-radius: 10px;
+    color: white;
+    background-color: #725111;
+    border-color: #725111;
+}
+
+.btn-primary:hover {
+    background-color: #051D30;
+    border-color: #051D30;
+}

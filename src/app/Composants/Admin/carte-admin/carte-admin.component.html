@@ -1,0 +1,172 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <img src="../../../../assets/images/logo.png" alt="Logo" class="img-fluid mb-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dashbord-admin">
+                            <i class="bi bi-house-fill"></i> <!-- Icône Dashboard -->
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users">
+                            <i class="bi bi-person-circle"></i> <!-- Icône Utilisateurs -->
+                            Utilisateurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/adminevents">
+                            <i class="bi bi-calendar-event"></i> <!-- Icône Événements -->
+                            Événements
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/carteadmin">
+                            <i class="bi bi-card-text"></i> <!-- Icône Carte Invitation -->
+                            Carte Invitation
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main content -->
+        <main role="main" class="col-md-9 offset-md-2 col-lg-10 offset-lg-2 px-4">
+            <div class="banner">
+                <h1 class="mt-4">Gestion des cartes</h1>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
+                    <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
+                </div>
+            </div>
+<!-- Button to trigger the modal -->
+<button class="btn btn-success" style="background-color: #725111; border-color: #725111;"
+data-bs-toggle="modal" data-bs-target="#createCardModal">
+    <i class="bi bi-plus"></i> Ajouter
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createCardModal" tabindex="-1" aria-labelledby="createCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCardModalLabel">Créer une carte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulaire de création de carte -->
+        <form (ngSubmit)="addCarte()" #carteForm="ngForm">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nom"
+              [(ngModel)]="newCarte.nom"
+              name="nom"
+              #nom="ngModel"
+              required
+            />
+            <div *ngIf="nom.invalid && nom.touched" class="text-danger">
+              Le nom est requis.
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contenu">Description</label>
+            <textarea
+              class="form-control"
+              id="contenu"
+              [(ngModel)]="newCarte.contenu"
+              name="contenu"
+              #contenu="ngModel"
+              required
+            ></textarea>
+            <div *ngIf="contenu.invalid && contenu.touched" class="text-danger">
+              La description est requise.
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="categorie_id">Catégorie</label>
+            <select
+              class="form-control"
+              [(ngModel)]="newCarte.categorie_id"
+              name="categorie_id"
+              #categorie_id="ngModel"
+              required
+            >
+              <option value="" disabled selected>Choisir une catégorie</option>
+              <option *ngFor="let categorie of categories" [value]="categorie.id">
+                {{categorie.titre}}
+              </option>
+            </select>
+            <div *ngIf="categorie_id.invalid && categorie_id.touched" class="text-danger">
+              La catégorie est requise.
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" id="image" (change)="onImageChange($event)" />
+          </div>
+          
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="background-color: #725111; border-color: #725111;"
+            [disabled]="carteForm.invalid"
+          >
+            Créer Carte
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+              
+
+            <!-- Table displaying cards -->
+            <table class="table table-bordered table-hover mt-4 tablecarte">
+                <thead class="table-white">
+                    <tr>
+                        <th scope="col">Identifiant</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let carte of carteinvitations">
+                        <td>{{carte.id}}</td>
+                        <td>{{carte.nom}}</td>
+                        <td>{{carte.contenu}}</td>
+                        <td>{{carte.categorie_id}}</td>
+                        <td>
+                            <!-- Actions (edit, delete) can be added here -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Précédent</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Suivant</a>
+                    </li>
+                </ul>
+            </nav>
+        </main>
+    </div>
+</div>

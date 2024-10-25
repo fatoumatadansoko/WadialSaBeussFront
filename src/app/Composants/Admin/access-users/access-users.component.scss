@@ -1,0 +1,126 @@
+/* Conteneur général */
+.container-fluid {
+    padding: 0;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    z-index: 1000;
+  }
+  
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  
+  .nav-link {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  .nav-link.active {
+    color: #b46c20;
+  }
+  
+  /* Logo dans la sidebar */
+  .sidebar img {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+  .banner {
+    height: 30%;
+    width: 100%;
+    background-color: #1E2A38;
+  }
+  .btn-search {
+    background-color: #725111;
+    color: white;
+  }
+  /* Contenu principal */
+  .main-layout {
+    margin-left: 250px; /* Compense la largeur de la sidebar */
+  }
+  
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #fff;
+  }
+  
+  /* Barre de recherche */
+  .input-group {
+    display: flex;           /* Utiliser flexbox pour aligner les éléments */
+    align-items: center;    /* Centrer verticalement les éléments */
+}
+
+.form-control {
+    flex-grow: 1;           /* Permet à l'input de remplir l'espace disponible */
+    margin-right: 10px;     /* Ajouter un espace entre l'input et le bouton */
+}
+
+
+
+  
+  /* Tableau */
+  .table {
+    background-color: white;
+    border-radius: 10px;
+  }
+  
+  .table thead {
+    background-color: #333;
+    color: white;
+  }
+  
+  .role-badge {
+    background-color: #b46c20;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .btn-action {
+    background-color: #b46c20;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+  
+  .btn-action:hover {
+    background-color: #9a561a;
+  }
+  
+  /* Pagination */
+  .pagination .page-link {
+    color: #b46c20;
+  }
+  
+  .pagination .page-link:hover {
+    background-color: #9a561a;
+    color: white;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #b46c20;
+    border-color: #b46c20;
+  }
+  
+  /* Adaptation de la mise en page pour le contenu */
+  @media (min-width: 768px) {
+    main {
+      margin-left: 250px; /* Alignement avec la sidebar */
+    }
+  }
+  

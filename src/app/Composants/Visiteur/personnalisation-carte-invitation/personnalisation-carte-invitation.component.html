@@ -1,0 +1,47 @@
+<div class="login-container">
+    <!-- Partie image -->
+    <div class="image-side">
+        <img src="../../../../assets/images/plan.png" alt="Image de connexion">
+    </div>
+
+    <!-- Partie formulaire -->
+    <div class="form-side">
+        <h1>Personnaliser</h1>
+
+        <form>
+            <div class="mb-3">
+                <label for="title" class="form-label">Titre</label>
+                <input type="text" class="form-control" id="title" placeholder="Entrer le titre">
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Lieu</label>
+                <select class="form-select" id="location">
+                    <option>Dakar</option>
+                    <option>Thiès</option>
+                    <option>Saint-Louis</option>
+                    <option>Ziguinchor</option>
+                    <option>Kaolack</option>
+                    <option>Touba</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3" placeholder="Entrez la description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="budget" class="form-label">Budget</label>
+                <select class="form-select" id="budget">
+                    <option>Moins de 500 000 FCFA</option>
+                    <option>500 000 - 1 000 000 FCFA</option>
+                    <option>1 000 000 - 5 000 000 FCFA</option>
+                    <option>Plus de 5 000 000 FCFA</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date">
+            </div>
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        </form>
+    </div>
+</div>

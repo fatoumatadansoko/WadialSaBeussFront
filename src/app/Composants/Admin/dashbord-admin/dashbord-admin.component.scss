@@ -1,0 +1,112 @@
+/* Conteneur principal avec sidebar et contenu */
+.main-layout {
+  display: flex; /* Permet d'afficher la sidebar et le contenu à côté */
+  height: 100vh; /* Prend toute la hauteur de l'écran */
+}
+
+/* Sidebar fixe avec une hauteur pleine */
+.sidebar {
+  width: 250px; /* Largeur de la sidebar */
+  background-color: #fff; /* Couleur de fond */
+  height: 100vh; /* Prend toute la hauteur de l'écran visible */
+  position: fixed; /* Reste fixe sur la gauche */
+  top: 0; /* Assure que la sidebar commence en haut de la page */
+  left: 0; /* Aligne la sidebar à gauche */
+  border-right: 1px solid #ddd; /* Bordure droite */
+  padding: 20px;
+}
+
+.sidebar-logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+
+/* Style des liens de la sidebar */
+.nav-link {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.nav-link.active {
+  color: #b46c20;
+}
+
+/* Contenu principal à droite de la sidebar */
+.profile-container {
+  flex-grow: 1; /* Prend tout l'espace disponible */
+  margin-left: 250px; /* Compense la largeur de la sidebar */
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Bannière de profil */
+.profile-banner {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  padding-top: 120px;
+  display: flex;
+  align-items: center;
+  background-image: url(../../../../assets/images/headerprofileuser.png);
+}
+
+/* Alignement des contenus dans la bannière */
+.banner-content {
+  width: 80%;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+/* Nom de profil */
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Logo de profil */
+.profile-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Boutons */
+.btn-outline-secondary {
+  background-color: #8b6f47;
+  border-color: transparent;
+  color: white;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6a532e;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #8b6f47;
+  color: white;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #6a532e;
+}
+
+/* Table d'informations utilisateur */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+td {
+  text-align: right;
+}

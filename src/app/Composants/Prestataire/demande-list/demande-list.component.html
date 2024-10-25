@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="container">
+  <h2>Demandes de Prestations</h2>
+
+  <div *ngIf="demandes.length === 0">
+    <p>Aucune demande trouvée pour ce prestataire.</p>
+  </div>
+
+  <table *ngIf="demandes.length > 0" class="table table-bordered table-hover">
+    <thead class="table-white">
+      <tr>
+        <th scope="col">Numéro</th>
+        <th scope="col">Client</th> <!-- Affichage du nom du client -->
+        <th scope="col">Statut</th>
+        <th scope="col">Actions</th> <!-- Nouvelle colonne pour les actions -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let demande of demandes">
+        <td>{{ demande.id }}</td>
+        <td>{{ demande.clientNom }}</td>
+        <td>{{ demande.etat }}</td>
+       
+          <td>
+            <i class="fas fa-check-circle text-success" *ngIf="demande.id"  (click)="approuverDemande(demande.id)" title="Approuver" style="cursor: pointer;"></i>
+            <i class="fas fa-times-circle text-danger" *ngIf="demande.id" (click)="refuserDemande(demande.id)" title="Refuser" style="cursor: pointer; margin-left: 10px;"></i>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

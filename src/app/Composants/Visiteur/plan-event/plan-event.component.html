@@ -1,0 +1,99 @@
+<div class="login-container">
+    <!-- Partie image -->
+    <div class="image-side">
+        <img src="../../../../assets/images/plan.png" alt="Image de connexion">
+    </div>
+
+    <!-- Partie formulaire -->
+    <div class="form-side">
+        <h1>Planification</h1>
+
+        <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+          <!-- Titre -->
+<div class="mb-3">
+    <label for="titre" class="form-label">Titre</label>
+    <input type="text" class="form-control" id="titre" formControlName="titre" placeholder="Entrer le titre">
+    <div *ngIf="eventForm.get('titre')?.invalid && (eventForm.get('titre')?.touched || eventForm.get('titre')?.dirty)" class="text-danger">
+        Titre est requis.
+    </div>
+</div>
+
+<!-- Lieu -->
+<div class="mb-3">
+    <label for="lieu" class="form-label">Lieu</label>
+    <select class="form-select" id="lieu" formControlName="lieu">
+        <option value="">Sélectionnez un lieu</option>
+        <option>Dakar</option>
+        <option>Thiès</option>
+        <option>Saint-Louis</option>
+        <option>Ziguinchor</option>
+        <option>Kaolack</option>
+        <option>Touba</option>
+    </select>
+    <div *ngIf="eventForm.get('lieu')?.invalid && (eventForm.get('lieu')?.touched || eventForm.get('lieu')?.dirty)" class="text-danger">
+        Lieu est requis.
+    </div>
+    <div *ngIf="eventForm.get('lieu')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('lieu')?.errors?.['backend'] }}
+    </div>
+</div>
+
+<!-- Description -->
+<div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Entrez la description"></textarea>
+    <div *ngIf="eventForm.get('description')?.invalid && (eventForm.get('description')?.touched || eventForm.get('description')?.dirty)" class="text-danger">
+        Description est requise.
+    </div>
+</div>
+
+<!-- Type d'événement -->
+<div class="mb-3">
+    <label for="type" class="form-label">Type d'événement</label>
+    <select class="form-select" id="type" formControlName="type">
+        <option value="">Sélectionnez un type</option>
+        <option value="mariage">Mariage</option>
+        <option value="anniversaire">Anniversaire</option>
+        <option value="autre">Autre</option>
+    </select>
+    <div *ngIf="eventForm.get('type')?.invalid && (eventForm.get('type')?.touched || eventForm.get('type')?.dirty)" class="text-danger">
+        Type est requis.
+    </div>
+    <div *ngIf="eventForm.get('type')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('type')?.errors?.['backend'] }}
+    </div>
+</div>
+
+<!-- Budget -->
+<div class="mb-3">
+    <label for="budget" class="form-label">Budget</label>
+    <select class="form-select" id="budget" formControlName="budget">
+        <option value="">Sélectionnez un budget</option>
+        <option value="moins de 500000">Moins de 500 000 FCFA</option>
+        <option value="500000 à 1000000">500 000 - 1 000 000 FCFA</option>
+        <option value="plus de 1000000">Plus de 1 000 000 FCFA</option>
+    </select>
+    <div *ngIf="eventForm.get('budget')?.invalid && (eventForm.get('budget')?.touched || eventForm.get('budget')?.dirty)" class="text-danger">
+        Budget est requis.
+    </div>
+    <div *ngIf="eventForm.get('budget')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('budget')?.errors?.['backend'] }}
+    </div>
+</div>
+
+
+<!-- Date de l'événement -->
+<div class="mb-3">
+    <label for="event_date" class="form-label">Date</label>
+    <input type="date" class="form-control" id="event_date" formControlName="event_date">
+    <div *ngIf="eventForm.get('event_date')?.invalid && (eventForm.get('event_date')?.touched || eventForm.get('event_date')?.dirty)" class="text-danger">
+        Date est requise.
+    </div>
+    <div *ngIf="eventForm.get('event_date')?.errors?.['backend']" class="text-danger">
+        {{ eventForm.get('event_date')?.errors?.['backend'] }}
+    </div>
+</div>
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        </form>
+    </div>
+</div>

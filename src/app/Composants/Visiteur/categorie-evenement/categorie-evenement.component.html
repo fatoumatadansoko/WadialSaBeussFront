@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div class="container my-5 custom-margin-top">
+    <!-- Section texte à gauche et image à droite -->
+    <div class="row align-items-center">
+        <!-- Texte à gauche -->
+        <div class="col-md-8">
+            <h2 class="fw-bold">L'importance de bien choisir ses prestataires</h2>
+            <p class="mt-4">Bien choisir ses prestataires est essentiel pour assurer le succès de ton événement. Un bon prestataire garantit qualité et professionnalisme, contribuant à faire de l'événement une expérience mémorable. Il saura aussi respecter ton budget tout en réalisant ta vision, ce qui permet d'éviter les dépassements financiers. Enfin, travailler avec des prestataires de confiance réduit le stress de l'organisation, offrant ainsi une tranquillité d'esprit précieuse.</p>
+        </div>
+        <!-- Image à droite -->
+        <div class="col-md-4">
+            <div class="col-12 mb-3">
+                <img src="../../../../assets/images/galerie.png" class="img-fluid rounded" alt="Image 1">
+            </div>
+        </div>
+    </div>
+
+    <!-- Barre de planification -->
+    <div class="bg-brown text-center py-3 text-white mt-5">
+        <div class="row">
+            <div class="col-md-2">
+                <p class="mb-0">Planification</p>
+            </div>
+            <div class="col-md-2">
+                <p class="mb-0">Planification</p>
+            </div>
+            <div class="col-md-2">
+                <p class="mb-0">Planification</p>
+            </div>
+            <div class="col-md-2">
+                <p class="mb-0">Planification</p>
+            </div>
+            <div class="col-md-2">
+                <p class="mb-0">Planification</p>
+            </div>
+            <div class="col-md-2">
+                <p class="mb-0">Planification</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section des options de planification -->
+    <div class="text-center my-5">
+        <h3>Que planifiez-vous?</h3>
+        <div class="row mt-4">
+            <div class="col-md-3" *ngFor="let categorie of categories">
+                <img src="../../../../assets/images/icong.png" alt="Cérémonie familiale" class="img-fluid">
+                <p>{{ categorie.titre }}</p>
+            </div>
+            <div class="col-md-3" *ngFor="let categorie of categories">
+                <img src="../../../../assets/images/icon5.png" alt="Dinner" class="img-fluid">
+                <p>{{ categorie.titre }}</p>
+            </div>
+            <div class="col-md-3" *ngFor="let categorie of categories">
+                <img src="../../../../assets/images/icon7.png" alt="Cocktail" class="img-fluid">
+                <p>{{ categorie.titre }}</p>
+            </div>
+            <div class="col-md-3" *ngFor="let categorie of categories">
+                <img src="../../../../assets/images/icon8.png" alt="After work" class="img-fluid">
+                <p>{{ categorie.titre }}</p>
+            </div>
+            <div class="col-md-3" *ngFor="let categorie of categories">
+                <img src="../../../../assets/images/icon1.png" alt="Séminaire" class="img-fluid">
+                <p>{{ categorie.titre }}</p>
+            </div>
+           
+            
+           
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,51 @@
+<app-header></app-header>
+
+<div class="container d-flex flex-wrap justify-content-center">
+  <div class="cartein card-container" *ngFor="let carteItem of carte">
+    <a [routerLink]="['/invites', carteItem.id]" class="card position-relative" id="carte-{{ carteItem.id }}">
+      <img *ngIf="carteItem.image" [src]="getPhotoUrl(carteItem.image)" class="card-img-top rounded-top img-fluid" alt="{{ carteItem.nom }}">
+      <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
+        <h3>{{ carteItem.nom }}</h3>
+        <p>{{ carteItem.contenu }}</p>
+      </div>
+    </a>
+    <div class="icons d-flex justify-content-center align-items-center mt-3">
+      <i class="bi bi-send-fill me-3" style="cursor:pointer" (click)="openEmailModal(carteItem)"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour entrer les invités -->
+<div class="modal" tabindex="-1" [ngClass]="{'show': showModal}" [style.display]="showModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Envoyer l'invitation</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="emailForm" (ngSubmit)="sendInvitation(selectedCarte)">
+          <div formArrayName="invites">
+            <div *ngFor="let invite of invitesControls; let i = index" [formGroupName]="i" class="mb-3">
+              <label for="invite-nom-{{i}}" class="form-label">Nom de l'invité</label>
+              <input type="text" id="invite-nom-{{i}}" formControlName="nom" class="form-control" placeholder="Nom de l'invité" required>
+              <div *ngIf="invite.get('nom')?.invalid && invite.get('nom')?.touched" class="text-danger">
+                Ce champ est requis.
+              </div>
+
+              <label for="invite-email-{{i}}" class="form-label">Email de l'invité</label>
+              <input type="email" id="invite-email-{{i}}" formControlName="email" class="form-control" placeholder="exemple@mail.com" required>
+              <div *ngIf="invite.get('email')?.invalid && invite.get('email')?.touched" class="text-danger">
+                Veuillez entrer un email valide.
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" (click)="addInvite()">Ajouter un invité</button>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

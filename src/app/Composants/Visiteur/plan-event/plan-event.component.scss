@@ -1,0 +1,96 @@
+body {
+    font-family: 'oswald', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.login-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    height: 100vh;
+}
+
+.image-side {
+    width: 50%;
+    position: relative;
+}
+
+.image-side img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.image-side h1 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.form-side {
+    width: 40%;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #000000;
+    border-radius: 0;
+}
+
+.btn-primary {
+    background-color: #725111;
+    border-color: #725111;
+    width: 30%;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #1E2A38;
+    border-color: #1E2A38;
+}
+
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+.form-link {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.form-link a {
+    color: #1E2A38;
+    text-decoration: none;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .image-side {
+        display: none;
+    }
+
+    .form-side {
+        width: 100%;
+    }
+
+    .btn-primary {
+        width: 35%; /* Le bouton occupe toute la largeur sur les petits écrans */
+    }
+}

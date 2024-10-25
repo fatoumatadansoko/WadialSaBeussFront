@@ -1,0 +1,141 @@
+#categorieCarousel {
+  padding-top: 50px;
+  position: relative;
+
+}
+.categorie-item {
+  text-align: center;
+}
+
+.categorie-item img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.categorie-item h5 {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.carousel {
+  margin-top: 150px;
+  position: relative;
+}
+
+
+.text-center H2 {
+  margin-top: 50px;
+}
+.card {
+  margin-top: 50px;
+  border: 13px solid #725111; /* Bordure subtile autour de la carte */
+  border-radius: 10px; /* Coins légèrement arrondis */
+  transition: transform 0.3s ease-in-out; /* Animation au survol */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Zoom léger au survol */
+}
+
+.card-img-top {
+  border-radius: 10px;
+  object-fit: cover; /* Ajuste l'image dans son conteneur sans déformation */
+  height: 220px; /* Hauteur fixe pour toutes les images */
+  width: 500px;
+}
+
+.card-body {
+  margin-bottom: 50px;
+  background-color: #ffffff; /* Fond blanc pour le corps de la carte */
+}
+
+.card-text {
+  text-align: left;
+  font-size: 1rem; /* Taille de police ajustée pour les paragraphes */
+  color: #343a40; /* Texte en gris foncé pour un meilleur contraste */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Taille de police pour les titres */
+}
+
+.text-warning {
+  color: #725111 !important; /* Utilisation d'un brun/or pour le texte des titres */
+  justify-content: left;
+  text-align: left;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Légère ombre pour donner du relief */
+}
+
+.alert {
+  background-color: #e0816a; // Gris clair pour le fond
+  border-color: #dee2e6; // Bordure grise
+  color: #ffffff; // Texte noir
+  margin-bottom: 20px; // Espacement en bas
+
+  .bi-sad {
+    margin-right: 10px; // Espacement à droite de l'icône
+  }
+}
+
+.bi-sad:hover {
+  background-color: #e68a00; /* Couleur au survol */
+  transform: scale(1.05); /* Agrandir légèrement au survol */
+}/* Styles pour le dropdown */
+.dropdown {
+  display: flex; /* Utilisation de Flexbox pour aligner les éléments */
+  flex-direction: column; /* Les éléments sont empilés verticalement */
+  align-items: flex-end; /* Aligne tout à droite */
+  position: relative; /* Nécessaire pour le positionnement */
+}
+
+/* Style pour le bouton */
+.dropdown-toggle {
+  margin-bottom: 5px; /* Ajout d'un petit espacement entre le bouton et le dropdown */
+}
+.dropdown .btn-drop{
+  background-color: #725111; /* Couleur orange pour le bouton */
+  color: white; /* Couleur du texte en blanc */
+  padding: 10px 20px; /* Espacement et taille du bouton */
+  border-radius: 5px; /* Couronne arrondi */
+  cursor: pointer; /* Change le curseur pour pointer sur le bouton */
+
+}
+/* Styles pour le menu */
+.dropdown-menu {
+  animation: slideIn 0.3s; /* Animation d'apparition */
+  background-color: #725111; /* Couleur de fond rouge */
+  color: white; /* Couleur du texte en blanc */
+  font-family: 'Playfair Display', serif; /* Police de caractères Playfair Display */
+  right: 0; /* Affiche le dropdown à droite */
+  left: auto; /* Évite le décalage */
+  padding: 10px; /* Espacement autour des éléments */
+}
+
+/* Autres styles */
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  color: white; /* Couleur du texte en blanc pour les éléments */
+}
+
+.dropdown-item:hover {
+  background-color: rgb(221, 128, 128); /* Couleur au survol (ajuster si nécessaire) */
+}
+
+/* Animation d'apparition */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

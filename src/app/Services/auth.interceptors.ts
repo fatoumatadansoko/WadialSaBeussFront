@@ -4,32 +4,55 @@ import { isPlatformBrowser } from '@angular/common';
 import { inject, PLATFORM_ID } from '@angular/core';
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    let token = "";
-    const platformId = inject(PLATFORM_ID);  // Injecter PLATFORM_ID
+    const platformId = inject(PLATFORM_ID);
+    let token: string = '';
 
-    // Vérifier que l'on est bien dans un environnement de navigateur avant d'accéder à localStorage
+    // Vérifier si nous sommes dans un environnement navigateur
     if (isPlatformBrowser(platformId)) {
-        if (localStorage.getItem('infos_Connexion')) {
-            const infos = JSON.parse(localStorage.getItem('infos_Connexion') || "");
-            if (infos) {
-                token = infos.token;
+        // Récupérer le token
+        const tokenStr = localStorage.getItem('token');
+        if (tokenStr) {
+            try {
+                token = JSON.parse(tokenStr);
+            } catch (e) {
+                // Si le token n'est pas au format JSON, l'utiliser tel quel
+                token = tokenStr;
+            }
+        }
+
+        // Si pas de token dans le localStorage direct, essayer de le récupérer depuis les infos utilisateur
+        if (token) {
+            const userStr = localStorage.getItem('user');
+            if (userStr) {
+                try {
+                    const userInfo = JSON.parse(userStr);
+                    if (userInfo && userInfo.token) {
+                        token = userInfo.token;
+                    }
+                } catch (e) {
+                    console.error('Erreur lors de la lecture des informations utilisateur:', e);
+                }
             }
         }
     }
 
-    // Si pas de token, passer la requête originale sans modification
+    // Si aucun token n'est trouvé, retourner la requête sans modification
     if (!token) {
         return next(req);
     }
 
     // Ajouter l'en-tête d'autorisation avec le token
     const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        // Vous pouvez ajouter d'autres en-têtes si nécessaire
+        'Content-Type': 'application/json'
     });
 
     // Cloner et modifier la requête pour inclure les nouveaux en-têtes
-    const newReq = req.clone({ headers });
+    const modifiedReq = req.clone({
+        headers: headers
+    });
 
     // Retourner la requête modifiée
-    return next(newReq);
+    return next(modifiedReq);
 }

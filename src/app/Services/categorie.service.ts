@@ -2,7 +2,7 @@ import { Injectable, inject,  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { CategoriePrestataireModel } from '../Models/categorieprestataire.model';
-import { apiurl } from './ApiUrl';
+import { apiUrl } from './ApiUrl';
 
 
 @Injectable({
@@ -15,16 +15,16 @@ export class CategorieService {
 
   //methodes pour récupérer toutes les categories
   getAllCategories() {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };    
-    return this.http.get(`${apiurl}/categories`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };    
+    return this.http.get(`${apiUrl}/categories`);
     
     // Méthodes pour lister les categories
   }
   getAllCategorie() {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };    
-    return this.http.get(`${apiurl}/categories`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };    
+    return this.http.get(`${apiUrl}/categories`);
     
     // Méthodes pour lister les categories
   }

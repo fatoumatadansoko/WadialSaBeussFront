@@ -16,12 +16,12 @@ import { AccessUsersComponent } from './Composants/Admin/access-users/access-use
 import { CarteAdminComponent } from './Composants/Admin/carte-admin/carte-admin.component';
 import { UserProfilComponent } from './Composants/Visiteur/user-profil/user-profil.component';
 import { PersonnalisationCarteInvitationComponent } from './Composants/Visiteur/personnalisation-carte-invitation/personnalisation-carte-invitation.component';
-import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
 import { DemandeListComponent } from './Composants/Prestataire/demande-list/demande-list.component';
 import { Component, NgModule } from '@angular/core';
 import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
 import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
 import { EventadminComponent } from './Composants/Admin/eventadmin/eventadmin.component';
+import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
 
 
 export const routes: Routes = [

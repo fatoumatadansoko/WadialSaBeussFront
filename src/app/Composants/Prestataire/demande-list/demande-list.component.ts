@@ -77,8 +77,10 @@ export class DemandeListComponent implements OnInit {
 
 
   getUserProfile(): void {
+    // if (typeof window !== 'undefined' && localStorage.getItem('prestataire')) {
     const prestataire = localStorage.getItem('prestataire');
-  
+    // const prestataire = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('prestataire') || "{}");
+    
     if (prestataire) {
         const prestataireId = JSON.parse(prestataire).id; // Récupère l'ID du client
       console.log(prestataireId);
@@ -94,6 +96,7 @@ export class DemandeListComponent implements OnInit {
       );
       
     }
+  
     
 
    fetchUsers(): void {

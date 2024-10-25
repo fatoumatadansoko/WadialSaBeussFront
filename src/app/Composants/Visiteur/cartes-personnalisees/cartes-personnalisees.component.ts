@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CartepersonnaliseeService } from '../../../Services/cartepersonnalisee.service';
 import { AuthService } from '../../../Services/auth.service';
@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './cartes-personnalisees.component.html',
   styleUrls: ['./cartes-personnalisees.component.scss']
 })
-export class CartesPersonnaliseesComponent {
+export class CartesPersonnaliseesComponent implements OnInit{
     @Input() carteId!: number;
     carte: any[] = [];
     showModal = false;
@@ -113,7 +113,8 @@ export class CartesPersonnaliseesComponent {
   
     // Charger les cartes personnalisées de l'utilisateur
     loadUserCartes(): void {
-      const client = localStorage.getItem('client');
+      // const client = localStorage.getItem('client');
+      const client = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('user') || "{}");
   
       if (client) {
         const clientId = JSON.parse(client).id; // Récupère l'ID du client

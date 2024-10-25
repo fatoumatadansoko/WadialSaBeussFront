@@ -3,18 +3,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { apiUrl } from './ApiUrl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DemandeService {
-  private apiUrl = 'http://localhost:8000/api'; // Remplacez par votre URL API
-
   constructor(private http: HttpClient) {}
 
   // Méthode pour récupérer les demandes d'un prestataire
   getDemandesForPrestataire(prestataireId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/prestataires/${prestataireId}/demandes`);
+    return this.http.get<any>(`${apiUrl}/prestataires/${prestataireId}/demandes`);
   }
 
 //   approuverDemande(demandeId: number) {
@@ -26,10 +25,10 @@ export class DemandeService {
 //   }
 // }
 approuverDemande(demandeId: number): Observable<{ success: boolean; message?: string }> {
-  return this.http.put<{ success: boolean; message?: string }>(`${this.apiUrl}/prestataires/demandes/${demandeId}/accepter`, {});
+  return this.http.put<{ success: boolean; message?: string }>(`${apiUrl}/prestataires/demandes/${demandeId}/accepter`, {});
 }
 
 refuserDemande(demandeId: number): Observable<{ success: boolean; message?: string }> {
-  return this.http.put<{ success: boolean; message?: string }>(`${this.apiUrl}/prestataires/demandes/${demandeId}/refuser`, {});
+  return this.http.put<{ success: boolean; message?: string }>(`${apiUrl}/prestataires/demandes/${demandeId}/refuser`, {});
 }
 }

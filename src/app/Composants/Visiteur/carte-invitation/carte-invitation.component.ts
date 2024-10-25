@@ -61,7 +61,7 @@ ngOnInit(): void {
 
 
 fetchCategoriecartes(): void {
-  const authToken = localStorage.getItem('token');
+  // const authToken = localStorage.getItem('token');
   this.categorieService.getAllCategories().subscribe(
     (response: any) => {
       console.log(response.data);
@@ -127,12 +127,6 @@ filterCartesByCategory(categoryId: number): void {
 }
 
  // Cette méthode retourne un Observable
- getCarteinvitations(): Observable<any> {
-  const token = localStorage.getItem('auth_token');
-  const headers = { 'Authorization': `Bearer ${token}` };
-
-  return this.http.get('http://127.0.0.1:8000/api/cartes', { headers });
-}
 editCarte(carte: carteinvitationModel): void {
   this.selectedCarte = { ...carte }; // Cloner la carte pour la modification
   this.showEditModal = true; // Afficher la modale de personnalisation
@@ -155,8 +149,8 @@ updateCarte(): void {
     if (this.selectedCarte.image && typeof this.selectedCarte.image !== 'string') {
       formData.append('image', this.selectedCarte.image); // Ajouter l'image si elle est modifiée
     }
-
-    const token = localStorage.getItem('auth_token'); // Récupérer le token
+    
+    const token = localStorage.getItem('token'); // Récupérer le token
     const headers = {
       'Authorization': `Bearer ${token}`, // Ajouter le token dans l'en-tête
     };

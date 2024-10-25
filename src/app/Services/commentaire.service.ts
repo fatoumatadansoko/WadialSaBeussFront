@@ -1,8 +1,8 @@
 import { Injectable, inject,  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { apiurl } from './ApiUrl';
 import { CommentaireModel } from '../Models/prestataire.model';
+import { apiUrl } from './ApiUrl';
 
 
 @Injectable({
@@ -17,7 +17,7 @@ export class CommentaireService {
   getAllCommentaires(id?: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${apiurl}/commentaires/prestataire/${id}`, { headers });
+    return this.http.get(`${apiUrl}/commentaires/prestataire/${id}`, { headers });
 
   }
   
@@ -30,6 +30,6 @@ export class CommentaireService {
     });
 
     // Envoie le corps de la requête avec le commentaire
-    return this.http.post(`${apiurl}/commentaires`, commentaire, { headers });
+    return this.http.post(`${apiUrl}/commentaires`, commentaire, { headers });
   }
 }

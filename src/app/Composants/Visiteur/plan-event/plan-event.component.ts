@@ -33,6 +33,7 @@ export class PlanEventComponent {
       budget: ['', Validators.required],
       event_date: ['', Validators.required],
       type: ['', Validators.required],
+      description: ['', Validators.required],
     
     });
   }

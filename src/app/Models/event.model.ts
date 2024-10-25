@@ -1,6 +1,7 @@
 export interface EventModel {
+    titre?: string,
     id?: number,
-    descrption?: string,
+    description?: string,
     lieu?: string,
     event_date?: Date,
     budget?: number,

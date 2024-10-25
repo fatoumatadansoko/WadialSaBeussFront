@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { apiurl } from './ApiUrl';
+import { apiUrl } from './ApiUrl';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  private apiurl = 'http://127.0.0.1:8000/api/evenements'; // Remplacez par l'URL de votre API
 
   constructor(private http: HttpClient) {}
   createEvent(eventData: any): Observable<any> {
@@ -15,17 +14,17 @@ export class EventService {
     const headers = { 'Authorization': `Bearer ${token}` };
   
     // Envoyez les données de l'événement ainsi que les en-têtes
-    return this.http.post(this.apiurl, eventData, { headers });
+    return this.http.post(`${apiUrl}/evenements`, eventData, { headers });
   }
    // Méthode pour récupérer les événements
    getUserEvents(userId: number): Observable<any> {
     const token = localStorage.getItem('token');
   const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${this.apiurl}`, { headers});
+    return this.http.get(`${apiUrl}/evenements`, { headers});
   }
   getEvents(): Observable<any> {
     const token = localStorage.getItem('token');
   const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${apiurl}/admin/events/`, { headers});
+    return this.http.get(`${apiUrl}/evenements/admin/events/`, { headers});
   }
 }

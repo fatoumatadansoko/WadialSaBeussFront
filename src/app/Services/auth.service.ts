@@ -2,9 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError, tap } from 'rxjs';
 import { BehaviorSubject} from 'rxjs';
-import { apiurl } from './ApiUrl';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { apiUrl } from './ApiUrl';
 
 
 
@@ -22,7 +22,7 @@ export class AuthService {
 
   // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
-    return this.http.post(`${apiurl}/login`, identifiant);
+    return this.http.post(`${apiUrl}/login`, identifiant);
   }
 
   // Méthode pour se déconnecter
@@ -39,7 +39,7 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`${apiurl}/logout`, {}, { headers }).pipe(
+    return this.http.post(`${apiUrl}/logout`, {}, { headers }).pipe(
       tap(() => {
         // Supprimer le token et informer que l'utilisateur est déconnecté
         localStorage.removeItem('token');
@@ -59,7 +59,7 @@ export class AuthService {
   }
     // Méthode pour l'inscription
     register(identifiant: any): Observable<any> {
-      return this.http.post(`${apiurl}/register`, identifiant).pipe(
+      return this.http.post(`${apiUrl}/register`, identifiant).pipe(
         catchError((error) => {
           console.error('Registration failed:', error);
           return throwError(error);

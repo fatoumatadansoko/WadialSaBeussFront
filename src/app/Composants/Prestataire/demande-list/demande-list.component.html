@@ -21,10 +21,20 @@
         <td>{{ demande.clientNom }}</td>
         <td>{{ demande.etat }}</td>
        
-          <td>
+          <!-- <td>
             <i class="fas fa-check-circle text-success" *ngIf="demande.id"  (click)="approuverDemande(demande.id)" title="Approuver" style="cursor: pointer;"></i>
             <i class="fas fa-times-circle text-danger" *ngIf="demande.id" (click)="refuserDemande(demande.id)" title="Refuser" style="cursor: pointer; margin-left: 10px;"></i>
+          </td> -->
+          <td>
+            <!-- Bouton Approuver : affiché seulement si la demande n'est ni approuvée ni refusée -->
+            <i class="fas fa-check-circle text-success" *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'" 
+               (click)="approuverDemande(demande.id!)" title="Approuver" style="cursor: pointer;"></i>
+          
+            <!-- Bouton Refuser : affiché seulement si la demande n'est ni approuvée ni refusée -->
+            <i class="fas fa-times-circle text-danger" *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'" 
+               (click)="refuserDemande(demande.id!)" title="Refuser" style="cursor: pointer; margin-left: 10px;"></i>
           </td>
+          
       </tr>
     </tbody>
   </table>

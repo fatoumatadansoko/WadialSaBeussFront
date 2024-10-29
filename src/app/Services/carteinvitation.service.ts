@@ -1,6 +1,6 @@
 import { Injectable, inject,  } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { carteinvitationModel } from '../Models/carteinvitation.model';
 import { apiUrl } from './ApiUrl';
 
@@ -30,21 +30,20 @@ export class CarteinvitationService {
     return this.http.get(`${apiUrl}/cartes/${id}`, { headers });
   }
   updateCarte(id: number, formData: FormData): Observable<any> {
-    const token = localStorage.getItem('token');
-    
-    // Assure-toi que le token est présent
-    if (!token) {
-      throw new Error('Token manquant. Veuillez vous reconnecter.');
-    }
-  
-    // Ajouter l'en-tête Authorization avec le token
-    const headers = { 'Authorization': `Bearer ${token}` };
-  
-    // Effectuer la requête HTTP
-    return this.http.post(`${apiUrl}/cartes-personnalisees/invitation/${id}/create`, formData, {
-      headers: new HttpHeaders(headers)
-    });
+    return this.http.post(`${apiUrl}/cartes-personnalisees/invitation/${id}/create`, formData)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Une erreur est survenue';
+          if (error.error?.errors) {
+            errorMessage = Object.values(error.error.errors)
+              .flat()
+              .join('\n');
+          }
+          return throwError(() => new Error(errorMessage));
+        })
+      );
   }
+  
   
 getCartesByCategory(categoryId: number): Observable<any> {
   return this.http.get(`${apiUrl}/cartes/category/${categoryId}`);
@@ -70,4 +69,5 @@ getAllCategories() {
   
   // Méthodes pour lister les categories
 }
+
 }

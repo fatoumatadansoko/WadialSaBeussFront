@@ -15,6 +15,7 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   private http = inject(HttpClient);
   
+  
   // Observable pour le statut de connexion
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
@@ -22,7 +23,19 @@ export class AuthService {
 
   // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
-    return this.http.post(`${apiUrl}/login`, identifiant);
+    return this.http.post(`${apiUrl}/login`, identifiant).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          this.isLoggedInSubject.next(true); // Met à jour l'état de connexion
+        }
+      }),
+      catchError((error) => {
+        console.error('Login failed:', error);
+        return throwError(error);
+      })
+    );
   }
 
   // Méthode pour se déconnecter

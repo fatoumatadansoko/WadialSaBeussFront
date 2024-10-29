@@ -1,12 +1,12 @@
 /* Cartes */
 .card-container {
+  margin-top: 120px;
   flex: 1 1 300px;
   max-width: 300px;
 }
 
 .card {
-  margin-top: 120px;
-  margin-bottom: 50px;
+  margin-bottom: -20px;
   width: 100%;
   height: 350px;
   overflow: hidden;
@@ -50,9 +50,36 @@
 }
 
 .icons i {
+  margin-top: 10px;
   margin-right: 10px; /* Espacement entre les icônes */
 }
 
 .icons i:last-child {
   margin-right: 0; /* Supprimer la marge après la dernière icône */
+}
+//media only screen and (max-width:
+@media (max-width: 768px) {
+  .card-container {
+    
+    margin-top: 60px;
+  }
+
+  .card {
+    height: 250px;
+  }
+
+  .card img {
+    height: 100%;
+  }
+
+  .card-content {
+    font-size: 1rem;
+  }
+
+  
+
+  .icons i {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
 }

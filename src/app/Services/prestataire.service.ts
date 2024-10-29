@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError } from 'rxjs';
-import { error } from 'console';
 import { environment } from '../../environnements/environments';
 import { apiUrl } from './ApiUrl';
 
@@ -63,14 +62,14 @@ export class PrestataireService {
     return this.http.post(`${apiUrl}/demande-prestation`, demande,{ headers });
   
   }
-  getTopRatedPrestataires(): Observable<any> {
-    return this.http.get('/api/prestataires/top-rated');
-  }
+ 
    // Méthode pour récupérer les demandes d'un prestataire
   
   private handleError(error: any) {
     console.error('An error occurred', error);
     return throwError('Something went wrong; please try again later.');
   }
-
+  getPrestatairesByRating(): Observable<any> {
+    return this.http.get(`${apiUrl}/prestataires/byrating`);
+  }
  }

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Injectable } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import { CommentaireService } from '../../../Services/commentaire.service';
 @Component({
   selector: 'app-prestataires',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf],
+  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf,NgClass],
   templateUrl: './prestataires.component.html',
   styleUrls: ['./prestataires.component.scss']  // Correction : 'styleUrls' au lieu de 'styleUrl'
 })
@@ -39,6 +39,8 @@ export class PrestatairesComponent implements OnInit {
   users: UserModel[] = [];
   selectedCategorie: any = null;  
   message: string=''; 
+  isSortedByRating: boolean = false;
+
       // La catégorie actuellement sélectionnée
 
   // Méthode appelée lors de l'initialisation du composant
@@ -51,35 +53,31 @@ export class PrestatairesComponent implements OnInit {
       const prestataire = this.prestataires[0]; // Ex. : récupérer le premier prestataire
       this.getCommentaires(prestataire.id); // Passe l'id du prestataire ici
     }
-  } 
-  sortByRating(): void {
-    this.prestataires.sort((a, b) => {
-      const noteA = this.getAverageNoteForPrestataire(a.id); // Calculer la note moyenne de chaque prestataire
-      const noteB = this.getAverageNoteForPrestataire(b.id);
-      return noteB - noteA;
-    });
-  
-    this.prestataires = [...this.prestataires]; // Actualiser la vue en déclenchant la détection de changements
-  }
-  
-  getAverageNoteForPrestataire(prestataireId: number): number {
-    const filteredCommentaires = this.commentaires.filter(comment => comment.prestataire_id === prestataireId);
-    const totalNotes = filteredCommentaires.reduce((sum, comment) => sum + (comment.note || 0), 0);
-    return filteredCommentaires.length > 0 ? totalNotes / filteredCommentaires.length : 0;
-  }
-  
-  
-
-  convertToInt(note: any): number {
-    const parsedNote = parseInt(note, 10);
-    return isNaN(parsedNote) ? 0 : parsedNote;
-  }
-
-  // Calcul de la note moyenne
-  getAverageNote(prestataireId: number): number {
-    const filteredCommentaires = this.commentaires.filter(comment => comment.prestataire_id === prestataireId);
-    const totalNotes = filteredCommentaires.reduce((sum, comment) => sum + this.convertToInt(comment.note), 0);
-    return filteredCommentaires.length > 0 ? totalNotes / filteredCommentaires.length : 0;
+  } // Nouvelle méthode pour trier par note
+  toggleSortByRating(): void {
+    this.isSortedByRating = !this.isSortedByRating;
+    
+    if (this.isSortedByRating) {
+      // Si on active le tri par note
+      this.prestataireService.getPrestatairesByRating().subscribe(
+        (response: any) => {
+          if (response.status && response.data) {
+            this.prestataires = response.data;
+            this.message = '';
+          } else {
+            this.message = 'Aucun prestataire trouvé.';
+            this.prestataires = [];
+          }
+        },
+        (error) => {
+          console.error('Erreur lors du tri des prestataires par note:', error);
+          this.message = 'Erreur lors du tri des prestataires. Veuillez réessayer.';
+        }
+      );
+    } else {
+      // Si on désactive le tri par note, revenir à la liste normale
+      this.fetchPrestataires();
+    }
   }
 
   getCommentaires(id: number): void {

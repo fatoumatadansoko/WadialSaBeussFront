@@ -7,6 +7,7 @@ export interface PrestataireModel {
     user_id?: number, 
     logo?: string,
     ninea?: string,
+    moyenne_note: string | number;
     categorie_prestataire_id?:CategoriePrestataireModel,
     createdAt?: Date,
     updatedAt?: Date,

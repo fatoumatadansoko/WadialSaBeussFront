@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CarteinvitationService } from '../../../Services/carteinvitation.service';
 import { HttpClient } from '@angular/common/http';
 import { carteinvitationModel } from '../../../Models/carteinvitation.model';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -125,66 +125,81 @@ filterCartesByCategory(categoryId: number): void {
     }
   );
 }
-
- // Cette méthode retourne un Observable
- getCarteinvitations(): Observable<any> {
-  const token = localStorage.getItem('auth_token');
-  const headers = { 'Authorization': `Bearer ${token}` };
-
-  return this.http.get('http://127.0.0.1:8000/api/cartes', { headers });
-}
 editCarte(carte: carteinvitationModel): void {
-  this.selectedCarte = { ...carte }; // Cloner la carte pour la modification
-  this.showEditModal = true; // Afficher la modale de personnalisation
+  console.log('Carte reçue:', carte); // Pour debug
+  
+  this.selectedCarte = {
+    id: carte.id,
+    nom: carte.nom || '',
+    contenu: carte.contenu || '',
+    image: carte.image || null
+  };
+  
+  console.log('Selected carte après initialisation:', this.selectedCarte); // Pour debug
+  this.showEditModal = true;
 }
 
-onImageSelected(event: any): void {
-  const file = event.target.files[0];
-  if (file) {
-    this.selectedCarte.image = file; // Stocker l'image sélectionnée
-  }
-}
-
+ 
 updateCarte(): void {
-  if (this.selectedCarte) {
-    const formData = new FormData();
-    formData.append('nom', this.selectedCarte.nom || ''); // Ajouter le nom
-    formData.append('contenu', this.selectedCarte.contenu || ''); // Ajouter le contenu
+  // Vérification des données avant envoi
+  console.log('Selected Carte avant envoi:', this.selectedCarte); // Pour debug
 
-    // Si une nouvelle image est sélectionnée, ajoutez-la au FormData
-    if (this.selectedCarte.image && typeof this.selectedCarte.image !== 'string') {
-      formData.append('image', this.selectedCarte.image); // Ajouter l'image si elle est modifiée
-    }
+  if (!this.selectedCarte?.nom || !this.selectedCarte?.contenu) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur de validation',
+      text: 'Le nom et le contenu sont obligatoires',
+    });
+    return;
+  }
 
-    const token = localStorage.getItem('auth_token'); // Récupérer le token
-    const headers = {
-      'Authorization': `Bearer ${token}`, // Ajouter le token dans l'en-tête
-    };
+  // Création du FormData
+  const formData = new FormData();
+  
+  // Assurez-vous que les valeurs ne sont pas undefined
+ 
+  formData.append('nom', this.selectedCarte.nom.toString());
+  formData.append('contenu', this.selectedCarte.contenu.toString());
+  
+  // Log pour vérifier le contenu du FormData
+  console.log('FormData content:');
+  formData.forEach((value, key) => {
+    console.log(key, value);
+  });
 
-    // Appeler le service pour mettre à jour la carte
-    this.CarteinvitationService.updateCarte(this.selectedCarte.id!, formData).subscribe(
-      (response: any) => {
-        console.log('Carte mise à jour avec succès', response);
-        this.fetchCarteinvitations(); // Rafraîchir la liste
-        this.closeEditModal(); // Fermer la modale
+  if (this.selectedCarte.image && typeof this.selectedCarte.image !== 'string') {
+    formData.append('image', this.selectedCarte.image);
+  }
 
-        // Afficher SweetAlert2 pour le message de confirmation
+  // Appel au service
+  this.CarteinvitationService.updateCarte(this.selectedCarte.id!, formData)
+    .pipe(
+      catchError((error) => {
+        console.error('Erreur détaillée:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: error.message || 'Une erreur est survenue lors de la mise à jour',
+        });
+        return throwError(() => error);
+      })
+    )
+    .subscribe({
+      next: (response) => {
+        console.log('Réponse succès:', response);
         Swal.fire({
           icon: 'success',
-          title: 'Carte mise à jour avec succès!',
-          showConfirmButton: false,
-          timer: 3000 // Durée d'affichage de 5 secondes
-        }).then(() => {
-          this.router.navigate(['/carte-personnalisee']); // Redirection vers le profil client
+          title: 'Succès',
+          text: 'Carte mise à jour avec succès!',
         });
+        this.fetchCarteinvitations();
+        this.closeEditModal();
       },
-      (error: any) => {
-        console.error('Erreur lors de la mise à jour de la carte:', error);
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour:', error);
       }
-    );
-  }
+    });
 }
-
 
 closeEditModal(): void {
   this.selectedCarte = { nom: '', contenu: '', image: null }; // Réinitialiser
@@ -221,5 +236,11 @@ closeModal(): void {
 
 isString(value: any): boolean {
   return typeof value === 'string';
+}
+onImageSelected(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedCarte.image = file; // Stocker l'image sélectionnée
+  }
 }
 }

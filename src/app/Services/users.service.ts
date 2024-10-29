@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError, map } from 'rxjs';
-import { apiurl } from './ApiUrl';
 import { UserModel } from '../Models/users.model';
 import { error } from 'console';
 import { CategoriePrestataireModel } from '../Models/categorieprestataire.model';
+import { apiUrl } from './ApiUrl';
 
 
 @Injectable({
@@ -19,11 +19,11 @@ export class UserService {
   getAllUser(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get<any>(`${apiurl}/users`, { headers });
+    return this.http.get<any>(`${apiUrl}/users`, { headers });
   }
 
   getCategorieprestataires(): Observable<CategoriePrestataireModel[]> {
-    return this.http.get<{ status: boolean; message: string; data: CategoriePrestataireModel[] }>(`${apiurl}/categoriesprestataires`).pipe(
+    return this.http.get<{ status: boolean; message: string; data: CategoriePrestataireModel[] }>(`${apiUrl}/categoriesprestataires`).pipe(
       map((response: { data: any; }) => response.data) // Maintenant, 'response' est typé correctement
     );
   }
@@ -36,16 +36,16 @@ export class UserService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<any>(`${apiurl}/profile`, { headers });
+    return this.http.get<any>(`${apiUrl}/profile`, { headers });
   }
    // Méthode pour inscrire un utilisateur (prestataire ou client)
   register(formData: FormData) {
-    return this.http.post(`${apiurl}/register`, formData);
+    return this.http.post(`${apiUrl}/register`, formData);
 }
 getUserDetails(): Observable<any> {
   const token = localStorage.getItem('token');
   const headers = { 'Authorization': `Bearer ${token}` };
-  return this.http.get(`${apiurl}/user`, { headers});
+  return this.http.get(`${apiUrl}/user`, { headers});
 }
 
 

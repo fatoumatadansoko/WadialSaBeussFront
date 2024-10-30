@@ -69,7 +69,7 @@ export class PrestataireService {
     console.error('An error occurred', error);
     return throwError('Something went wrong; please try again later.');
   }
-  getPrestatairesByRating(): Observable<any> {
-    return this.http.get(`${apiUrl}/prestataires/byrating`);
-  }
+  // getPrestatairesByRating(): Observable<any> {
+  //   return this.http.get(`${apiUrl}/prestataires/byrating`);
+  // }
  }

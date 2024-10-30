@@ -28,6 +28,8 @@
       <li *ngFor="let categorieprestataire of categoriesprestataires">
         <a class="dropdown-item" (click)="onCategorieSelect(categorieprestataire)">
           {{ categorieprestataire.titre }}
+          <!-- <p>Note moyenne: {{ prestataires.rating | number:'1.1-1' }}</p> -->
+
         </a>
       </li>
     </ul>

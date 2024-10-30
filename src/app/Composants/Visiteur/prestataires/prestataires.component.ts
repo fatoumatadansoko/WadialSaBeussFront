@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Injectable } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import { CommentaireService } from '../../../Services/commentaire.service';
 @Component({
   selector: 'app-prestataires',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf,NgClass],
+  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf,NgClass,CommonModule],
   templateUrl: './prestataires.component.html',
   styleUrls: ['./prestataires.component.scss']  // Correction : 'styleUrls' au lieu de 'styleUrl'
 })
@@ -56,30 +56,28 @@ export class PrestatairesComponent implements OnInit {
   } // Nouvelle méthode pour trier par note
   toggleSortByRating(): void {
     this.isSortedByRating = !this.isSortedByRating;
-    
+  
     if (this.isSortedByRating) {
-      // Si on active le tri par note
-      this.prestataireService.getPrestatairesByRating().subscribe(
-        (response: any) => {
-          if (response.status && response.data) {
-            this.prestataires = response.data;
-            this.message = '';
-          } else {
-            this.message = 'Aucun prestataire trouvé.';
-            this.prestataires = [];
-          }
-        },
-        (error) => {
-          console.error('Erreur lors du tri des prestataires par note:', error);
-          this.message = 'Erreur lors du tri des prestataires. Veuillez réessayer.';
-        }
-      );
+      // Fetch comments for each prestataire
+      this.prestataires.forEach(prestataire => {
+        this.commentaireService.getAllCommentaires()
+          .subscribe(comments => {
+            prestataire.comments = comments;
+  
+            // Calculate average rating for the prestataire
+            const totalNotes = comments.reduce((sum: any, comment: { note: any; }) => sum + (comment.note || 0), 0);
+            prestataire.rating = comments.length > 0 ? totalNotes / comments.length : 0;
+  
+            // Sort prestataires by rating
+            this.prestataires.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          });
+      });
     } else {
-      // Si on désactive le tri par note, revenir à la liste normale
+      // Revenir à la liste normale si le tri est désactivé
       this.fetchPrestataires();
     }
   }
-
+  
   getCommentaires(id: number): void {
     this.commentaireService.getAllCommentaires(id).subscribe(
       (response: any) => {

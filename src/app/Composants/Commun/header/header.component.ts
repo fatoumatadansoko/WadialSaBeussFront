@@ -48,13 +48,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.router.navigate(['/login']);
-        Swal.fire('Déconnexion réussie', 'Vous avez été déconnecté avec succès.', 'success');
       },
-      error: (error) => {
-        console.error('Erreur lors de la déconnexion:', error);
-        this.router.navigate(['/login']);
-        Swal.fire('Erreur', 'Erreur lors de la déconnexion. Veuillez réessayer.', 'error');
-      }
+     
     });
   }
 

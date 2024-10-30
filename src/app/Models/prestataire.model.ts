@@ -7,8 +7,9 @@ export interface PrestataireModel {
     user_id?: number, 
     logo?: string,
     ninea?: string,
-    moyenne_note: string | number;
+    comments?: CommentaireModel[]; // Add comments property
     categorie_prestataire_id?:CategoriePrestataireModel,
+    rating?: number,
     createdAt?: Date,
     updatedAt?: Date,
     user?: UserModel; // Ajoute cette ligne pour inclure user

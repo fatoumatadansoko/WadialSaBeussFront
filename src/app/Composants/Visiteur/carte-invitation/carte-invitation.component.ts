@@ -144,7 +144,7 @@ updateCarte(): void {
   // Vérification des données avant envoi
   console.log('Selected Carte avant envoi:', this.selectedCarte); // Pour debug
 
-  if (!this.selectedCarte?.nom || !this.selectedCarte?.contenu) {
+  if (!this.selectedCarte.nom || !this.selectedCarte.contenu) {
     Swal.fire({
       icon: 'error',
       title: 'Erreur de validation',
@@ -161,16 +161,16 @@ updateCarte(): void {
   formData.append('nom', this.selectedCarte.nom.toString());
   formData.append('contenu', this.selectedCarte.contenu.toString());
   
+
+
+  if (this.selectedCarte.image && typeof this.selectedCarte.image !== 'string') {
+    formData.append('image', this.selectedCarte.image);
+  }
   // Log pour vérifier le contenu du FormData
   console.log('FormData content:');
   formData.forEach((value, key) => {
     console.log(key, value);
   });
-
-  if (this.selectedCarte.image && typeof this.selectedCarte.image !== 'string') {
-    formData.append('image', this.selectedCarte.image);
-  }
-
   // Appel au service
   this.CarteinvitationService.updateCarte(this.selectedCarte.id!, formData)
     .pipe(

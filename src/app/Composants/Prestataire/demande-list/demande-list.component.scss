@@ -57,7 +57,14 @@ body {
   flex: 1; /* Prend tout l'espace disponible à droite de la sidebar */
   padding: 20px;
 }
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 @media (max-width: 768px) {
   .content {
     padding: 10px;

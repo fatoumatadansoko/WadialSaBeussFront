@@ -24,8 +24,7 @@ export class CartesPersonnaliseesComponent {
     showModal = false;
     selectedCarte: cartepersonnaliseeModel = { nom: '', contenu: '' };
     baseUrl: string = environment.apiurl;
-    
-    // Formulaire pour l'envoi des invitations
+    isSendingInvitations: boolean = false;
     emailForm: FormGroup;
   
     constructor(
@@ -58,10 +57,11 @@ export class CartesPersonnaliseesComponent {
   
     // Ouvrir la modal pour envoyer l'invitation
     openEmailModal(carte: any): void {
+      console.log('Carte sélectionnée:', carte); // Pour déboguer
       this.selectedCarte = carte;
       this.showModal = true;
     }
-  
+   
     // Fermer la modal
     closeModal(): void {
       this.showModal = false;
@@ -71,9 +71,22 @@ export class CartesPersonnaliseesComponent {
     get invitesControls() {
       return (this.emailForm.get('invites') as FormArray).controls;
     }
-    
-    // Envoyer les invitations
-    sendInvitation(carte: any): void {
+     // Modifiez la méthode sendInvitation pour utiliser selectedCarte
+     sendInvitation(): void {
+      if (this.isSendingInvitations) {
+        return;
+      }
+  
+      if (!this.selectedCarte || !this.selectedCarte.id) {
+        Swal.fire({
+          title: 'Erreur!',
+          text: 'Impossible de trouver la carte sélectionnée.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+  
       const invitesFormArray = this.emailForm.get('invites') as FormArray;
       
       if (invitesFormArray.invalid) {
@@ -86,9 +99,10 @@ export class CartesPersonnaliseesComponent {
         return;
       }
   
-      const invites = invitesFormArray.value; // Récupère les valeurs du formulaire
+      this.isSendingInvitations = true;
+      const invites = invitesFormArray.value;
   
-      this.cartepersonnaliseeService.envoyerCarte(carte.id, invites).subscribe({
+      this.cartepersonnaliseeService.envoyerCarte(this.selectedCarte.id, invites).subscribe({
         next: (response) => {
           Swal.fire({
             title: 'Succès!',
@@ -101,16 +115,22 @@ export class CartesPersonnaliseesComponent {
         },
         error: (error) => {
           console.error('Erreur lors de l\'envoi des invitations', error);
+          let errorMessage = 'Une erreur est survenue lors de l\'envoi des invitations.';
+          if (error.error?.message) {
+            errorMessage = error.error.message;
+          }
           Swal.fire({
             title: 'Erreur!',
-            text: 'Erreur lors de l\'envoi des invitations: ' + (error.error?.message || 'Erreur inconnue.'),
+            text: errorMessage,
             icon: 'error',
             confirmButtonText: 'OK'
           });
+        },
+        complete: () => {
+          this.isSendingInvitations = false;
         }
       });
     }
-  
     // Charger les cartes personnalisées de l'utilisateur
     loadUserCartes(): void {
       const client = localStorage.getItem('client');

@@ -10,9 +10,9 @@
     <thead class="table-white">
       <tr>
         <th scope="col">Numéro</th>
-        <th scope="col">Client</th> <!-- Affichage du nom du client -->
+        <th scope="col">Client</th> 
         <th scope="col">Statut</th>
-        <th scope="col">Actions</th> <!-- Nouvelle colonne pour les actions -->
+        <th scope="col">Actions</th> 
       </tr>
     </thead>
     <tbody>
@@ -20,21 +20,50 @@
         <td>{{ demande.id }}</td>
         <td>{{ demande.clientNom }}</td>
         <td>{{ demande.etat }}</td>
-       
-          <!-- <td>
-            <i class="fas fa-check-circle text-success" *ngIf="demande.id"  (click)="approuverDemande(demande.id)" title="Approuver" style="cursor: pointer;"></i>
-            <i class="fas fa-times-circle text-danger" *ngIf="demande.id" (click)="refuserDemande(demande.id)" title="Refuser" style="cursor: pointer; margin-left: 10px;"></i>
-          </td> -->
-          <td>
-            <!-- Bouton Approuver : affiché seulement si la demande n'est ni approuvée ni refusée -->
-            <i class="fas fa-check-circle text-success" *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'" 
-               (click)="approuverDemande(demande.id!)" title="Approuver" style="cursor: pointer;"></i>
-          
-            <!-- Bouton Refuser : affiché seulement si la demande n'est ni approuvée ni refusée -->
-            <i class="fas fa-times-circle text-danger" *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'" 
-               (click)="refuserDemande(demande.id!)" title="Refuser" style="cursor: pointer; margin-left: 10px;"></i>
-          </td>
-          
+        <td>
+          <!-- Bouton Approuver -->
+          <ng-container *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'">
+            <i *ngIf="!isApprovingMap.get(demande.id!)"
+               class="fas fa-check-circle text-success"
+               (click)="approuverDemande(demande.id!)"
+               title="Approuver"
+               style="cursor: pointer;">
+            </i>
+            <!-- Loader pour l'approbation -->
+            <i *ngIf="isApprovingMap.get(demande.id!)"
+               class="fas fa-spinner fa-spin text-success"
+               title="En cours d'approbation...">
+            </i>
+          </ng-container>
+        
+          <!-- Bouton Refuser -->
+          <ng-container *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'">
+            <i *ngIf="!isRejectingMap.get(demande.id!)"
+               class="fas fa-times-circle text-danger"
+               (click)="refuserDemande(demande.id!)"
+               title="Refuser"
+               style="cursor: pointer; margin-left: 10px;">
+            </i>
+            <!-- Loader pour le refus -->
+            <i *ngIf="isRejectingMap.get(demande.id!)"
+               class="fas fa-spinner fa-spin text-danger"
+               title="En cours de refus..."
+               style="margin-left: 10px;">
+            </i>
+          </ng-container>
+        
+          <!-- Icônes désactivées si la demande est déjà traitée -->
+          <ng-container *ngIf="demande.etat === 'approuve' || demande.etat === 'rejete'">
+            <i class="fas fa-check-circle text-muted"
+               style="cursor: not-allowed;"
+               title="Action non disponible">
+            </i>
+            <i class="fas fa-times-circle text-muted"
+               style="cursor: not-allowed; margin-left: 10px;"
+               title="Action non disponible">
+            </i>
+          </ng-container>
+        </td>
       </tr>
     </tbody>
   </table>

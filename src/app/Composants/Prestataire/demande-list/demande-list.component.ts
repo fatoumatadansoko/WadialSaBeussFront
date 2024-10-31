@@ -27,6 +27,8 @@ export class DemandeListComponent implements OnInit {
   user: any; // Variable pour stocker les infos de l'utilisateur connecté
   baseUrl: string = environment.apiurl;
   users: any[] = []; // Initialisez comme tableau vide
+  isApprovingMap: Map<number, boolean> = new Map(); // Pour suivre l'état de chargement par demande
+  isRejectingMap: Map<number, boolean> = new Map();
   // Utilisation de l'injection avec la méthode 'inject' (Angular >= 16)
   private demandeService = inject(DemandeService);
   private userService = inject(UserService);
@@ -114,93 +116,87 @@ export class DemandeListComponent implements OnInit {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
     );
-  }
- // Méthode pour approuver une demande
- approuverDemande(demandeId: number): void {
-  this.demandeService.approuverDemande(demandeId).subscribe(
-    (response: { success: boolean; message?: string }): void => {
-      
-      if (response.success) {
-        const demande = this.demandes.find(d => d.id === demandeId);
-        if (demande) {
-          demande.etat = EtatDemande.APPROUVE; // Utilisation de l'énumération
-          console.log('Demande approuvée avec succès.');
-          // Afficher SweetAlert pour succès
+  }approuverDemande(demandeId: number): void {
+    this.isApprovingMap.set(demandeId, true); // Activer le loader
+    
+    this.demandeService.approuverDemande(demandeId).subscribe(
+      (response: { success: boolean; message?: string }): void => {
+        if (response.success) {
+          const demande = this.demandes.find(d => d.id === demandeId);
+          if (demande) {
+            demande.etat = EtatDemande.APPROUVE;
+            Swal.fire({
+              title: 'Demande approuvée!',
+              text: 'La demande a été approuvée avec succès.',
+              icon: 'success',
+              timer: 3000,
+              showConfirmButton: false
+            });
+          }
+        } else {
           Swal.fire({
-            title: 'Demande approuvée!',
-            text: 'La demande a été approuvée avec succès.',
-            icon: 'success',
-            timer: 3000, // Ferme après 3 secondes
-            showConfirmButton: false
-          });
-        }
-      } else {
-        console.error('Erreur lors de l\'approbation de la demande:', response.message);
-        // Afficher SweetAlert pour erreur
-        Swal.fire({
-          title: 'Erreur',
-          text: response.message || 'Une erreur est survenue.',
-          icon: 'error',
-          timer: 3000,
-          showConfirmButton: false
-        });
-      }
-    },
-    error => {
-      console.error('Erreur lors de l\'approbation de la demande:', error);
-      // Afficher SweetAlert pour erreur
-      Swal.fire({
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors de l\'approbation de la demande.',
-        icon: 'error',
-        timer: 3000,
-        showConfirmButton: false
-      });
-    }
-  );
-}
-
-// Méthode pour refuser une demande
-refuserDemande(demandeId: number): void {
-  this.demandeService.refuserDemande(demandeId).subscribe(
-    (response: { success: boolean; message?: string }): void => {
-      if (response.success) {
-        const demande = this.demandes.find(d => d.id === demandeId);
-        if (demande) {
-          demande.etat = EtatDemande.REJETE; // Utilisation de l'énumération
-          console.log('Demande rejetée avec succès.');
-          // Afficher SweetAlert pour succès
-          Swal.fire({
-            title: 'Demande rejetée!',
-            text: 'La demande a été refusée avec succès.',
-            icon: 'success',
+            title: 'Erreur',
+            text: response.message || 'Une erreur est survenue.',
+            icon: 'error',
             timer: 3000,
             showConfirmButton: false
           });
         }
-      } else {
-        console.error('Erreur lors du rejet de la demande:', response.message);
-        // Afficher SweetAlert pour erreur
+      },
+      error => {
+        console.error('Erreur lors de l\'approbation de la demande:', error);
         Swal.fire({
           title: 'Erreur',
-          text: response.message || 'Une erreur est survenue.',
+          text: 'Une erreur est survenue lors de l\'approbation de la demande.',
           icon: 'error',
           timer: 3000,
           showConfirmButton: false
         });
       }
-    },
-    error => {
-      console.error('Erreur lors du rejet de la demande:', error);
-      // Afficher SweetAlert pour erreur
-      Swal.fire({
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors du rejet de la demande.',
-        icon: 'error',
-        timer: 3000,
-        showConfirmButton: false
-      });
-    }
-  );
-}
+    ).add(() => {
+      this.isApprovingMap.set(demandeId, false); // Désactiver le loader dans tous les cas
+    });
+  }
+  
+  refuserDemande(demandeId: number): void {
+    this.isRejectingMap.set(demandeId, true); // Activer le loader
+    
+    this.demandeService.refuserDemande(demandeId).subscribe(
+      (response: { success: boolean; message?: string }): void => {
+        if (response.success) {
+          const demande = this.demandes.find(d => d.id === demandeId);
+          if (demande) {
+            demande.etat = EtatDemande.REJETE;
+            Swal.fire({
+              title: 'Demande rejetée!',
+              text: 'La demande a été refusée avec succès.',
+              icon: 'success',
+              timer: 3000,
+              showConfirmButton: false
+            });
+          }
+        } else {
+          Swal.fire({
+            title: 'Erreur',
+            text: response.message || 'Une erreur est survenue.',
+            icon: 'error',
+            timer: 3000,
+            showConfirmButton: false
+          });
+        }
+      },
+      error => {
+        console.error('Erreur lors du rejet de la demande:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors du rejet de la demande.',
+          icon: 'error',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      }
+    ).add(() => {
+      this.isRejectingMap.set(demandeId, false); // Désactiver le loader dans tous les cas
+    });
+  }
 }

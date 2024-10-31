@@ -84,6 +84,19 @@
       border-color: #9e9f8d;
     }
   }
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+  
+  .fa-spinner {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   /* Media Query pour tablettes et plus petits écrans */
 @media (max-width: 768px) {
   .container {

@@ -57,6 +57,31 @@
 .icons i:last-child {
   margin-right: 0; /* Supprimer la marge après la dernière icône */
 }
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.me-2 {
+  margin-right: 0.5rem !important;
+}
 //media only screen and (max-width:
 @media (max-width: 768px) {
   .card-container {

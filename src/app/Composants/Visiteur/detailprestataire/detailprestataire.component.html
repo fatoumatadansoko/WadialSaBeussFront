@@ -34,8 +34,17 @@
    <!-- detail-prestataire.component.html -->
 
    <div class="contact-container mt-3">
-    <button class="btn btn-success" *ngIf="prestataire?.user?.email" (click)="demanderPrestation()">
-      Demander une prestation
+    <button class="btn btn-success" 
+            *ngIf="prestataire?.user?.email" 
+            (click)="demanderPrestation()"
+            [disabled]="isRequestingPrestation">
+      <span *ngIf="!isRequestingPrestation">
+        Demander une prestation
+      </span>
+      <span *ngIf="isRequestingPrestation">
+        <i class="fas fa-spinner fa-spin me-2"></i>
+        Envoi en cours...
+      </span>
     </button>
   </div>
     

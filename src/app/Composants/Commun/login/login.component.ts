@@ -4,7 +4,6 @@ import { AuthService } from '../../../Services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';
 
 
 
@@ -50,7 +49,7 @@ export class LoginComponent {
               if (response.user.roles[0].name === 'admin') {
                 this.router.navigateByUrl('dashbord-admin');
               } else if (response.user.roles[0].name === 'prestataire') {
-                this.router.navigateByUrl('acceuil');
+                this.router.navigateByUrl('profile');
               } else if (response.user.roles[0].name === 'client') {
                 this.router.navigate(['acceuil']);
               } else {

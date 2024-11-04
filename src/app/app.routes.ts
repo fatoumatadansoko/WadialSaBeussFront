@@ -22,6 +22,8 @@ import { Component, NgModule } from '@angular/core';
 import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
 import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
 import { EventadminComponent } from './Composants/Admin/eventadmin/eventadmin.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { AdminGuard } from './Guards/admin.guard';
 
 
 export const routes: Routes = [
@@ -56,12 +58,10 @@ export const routes: Routes = [
     { path: 'dashbord-admin', component: DashbordAdminComponent},
     { path: 'users', component: AccessUsersComponent},
     { path: 'carteadmin', component: CarteAdminComponent},
-    { path: 'adminevents', component: EventadminComponent},
+    { path: 'adminevents', component: EventadminComponent, canActivate: [AdminGuard]},
 
     { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
-    { path: '', redirectTo: '/dashbord-admin', pathMatch: 'full' }, // Redirection par défaut
-    { path: '**', redirectTo: '/dashbord-admin' } // Redirection vers dashboard pour les routes inconnues
-
+    { path: 'unauthorized', component: UnauthorizedComponent },
 
 ]
 

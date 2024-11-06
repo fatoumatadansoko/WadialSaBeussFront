@@ -1,7 +1,6 @@
 import { Injectable, inject,  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { carteinvitationModel } from '../Models/carteinvitation.model';
+import { Observable} from 'rxjs';
 import { apiUrl } from './ApiUrl';
 
 
@@ -18,9 +17,9 @@ export class CartepersonnaliseeService {
  
     // Méthodes pour lister les cartes
   getCarteinvitationById(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${apiUrl}/cartes/${id}`, { headers });
+    // const token = localStorage.getItem('token');
+    // const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${apiUrl}/cartes/${id}`);
   }
   updateCarte(id: number, formData: FormData): Observable<any> {
     const token = localStorage.getItem('token');
@@ -41,10 +40,10 @@ export class CartepersonnaliseeService {
   
 
 getCartesByClientId(clientId: number): Observable<any> {
-  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  // const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+  // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
   
-  return this.http.get(`${apiUrl}/cartes-personnalisees/client/${clientId}`, { headers });
+  return this.http.get(`${apiUrl}/cartes-personnalisees/client/${clientId}`);
 }
 // Dans CartepersonnaliseeService
 envoyerCarte(id: number, invites: { nom: string, email: string }[]): Observable<any> {
@@ -61,10 +60,10 @@ envoyerCarte(id: number, invites: { nom: string, email: string }[]): Observable<
 
 
 getInvites(id: number): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  // const token = localStorage.getItem('token');
+  // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-  return this.http.get(`${apiUrl}/cartes-personnalisees/${id}/invites`, { headers });
+  return this.http.get(`${apiUrl}/cartes-personnalisees/${id}/invites`);
 }
   }
   

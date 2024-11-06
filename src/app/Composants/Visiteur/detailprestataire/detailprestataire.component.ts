@@ -188,5 +188,21 @@ export class DetailPrestataireComponent implements OnInit {
       this.isRequestingPrestation = false; // Désactiver le loader dans tous les cas
     });
   }
-
+  getWhatsAppLink(): string {
+    if (this.prestataire?.user?.telephone) {
+      let phoneNumber = '';
+      if (typeof this.prestataire.user.telephone === 'string') {
+        phoneNumber = this.prestataire.user.telephone.replace(/\D/g, '');
+      } else if (typeof this.prestataire.user.telephone === 'number') {
+        phoneNumber = this.prestataire.user.telephone.toString().replace(/\D/g, '');
+      } else {
+        console.error('Unexpected type for telephone number:', typeof this.prestataire.user.telephone);
+        return '#';
+      }
+      const message = `Bonjour ${this.prestataire.user.nom}, je vous contacte via votre profil.`;
+      const encodedMessage = encodeURIComponent(message);
+      return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    }
+    return '#';
+  }
 }

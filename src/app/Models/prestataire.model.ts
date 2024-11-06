@@ -22,7 +22,7 @@ export interface UserModel {
     email?: string,
     password?: string,
     adresse?: string,
-    telephone?: string,
+    telephone?: string | number; // Ajoutez ce type si ce n'est pas encore fait
     statut?: "active",
     createdAt?: Date,
     updatedAt?: Date,

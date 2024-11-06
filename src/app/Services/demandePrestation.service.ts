@@ -24,9 +24,7 @@ export class DemandePrestationService {
   return this.http.get(`${apiUrl}/prestataires/${prestataireId}/demandes`, { headers });
 }
 getUsers(): Observable<any> {
-  const token = localStorage.getItem('auth_token');
-  const headers = { 'Authorization': `Bearer ${token}` };
 
-  return this.http.get(`${apiUrl}/users`, { headers });
+  return this.http.get(`${apiUrl}/users`);
 }
 }

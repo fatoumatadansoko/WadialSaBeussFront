@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Role, UserModel } from '../../../Models/users.model';
+import { UserModel } from '../../../Models/users.model';
 import { AuthService } from '../../../Services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
@@ -73,11 +73,8 @@ export class LoginComponent {
             console.log(response);
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            this.router.navigateByUrl('/login');
-           
+            this.router.navigateByUrl('/login'); 
         },
-        
-        
     );
 }
 

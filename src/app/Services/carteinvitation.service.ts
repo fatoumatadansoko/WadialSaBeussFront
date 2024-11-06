@@ -18,16 +18,12 @@ export class CarteinvitationService {
   //methodes pour récupérer toutes les cartes
 
   getAllCarteinvitations(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${apiUrl}/cartes`, { headers });
+    return this.http.get(`${apiUrl}/cartes`,);
   }
     
     // Méthodes pour lister les cartes
   getCarteinvitationById(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${apiUrl}/cartes/${id}`, { headers });
+    return this.http.get(`${apiUrl}/cartes/${id}`,);
   }
   updateCarte(id: number, formData: FormData): Observable<any> {
         
@@ -49,11 +45,8 @@ export class CarteinvitationService {
 getCartesByCategory(categoryId: number): Observable<any> {
   return this.http.get(`${apiUrl}/cartes/category/${categoryId}`);
 }
-getCartesByClientId(clientId: number): Observable<any> {
-  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-  
-  return this.http.get(`${apiUrl}cartes-personnalisees/client/${clientId}`, { headers });
+getCartesByClientId(clientId: number): Observable<any> {  
+  return this.http.get(`${apiUrl}cartes-personnalisees/client/${clientId}`);
 }
 addCarte(formData: FormData): Observable<any> {
   const token = localStorage.getItem('token'); 
@@ -63,12 +56,9 @@ addCarte(formData: FormData): Observable<any> {
   return this.http.post(`${apiUrl}/cartes`,formData, { headers });
 }
 
-getAllCategories() {
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': `Bearer ${token}` };    
-  return this.http.get(`${apiUrl}/categories`, { headers });
+getAllCategories() {   
+  return this.http.get(`${apiUrl}/categories`);
   
-  // Méthodes pour lister les categories
 }
 
 }

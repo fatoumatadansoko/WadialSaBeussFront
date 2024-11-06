@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, catchError, tap } from 'rxjs';
 import { BehaviorSubject} from 'rxjs';
-import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { apiUrl } from './ApiUrl';
 
@@ -12,22 +11,35 @@ import { apiUrl } from './ApiUrl';
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   private http = inject(HttpClient);
+  private userRoleSubject = new BehaviorSubject<string | null>(null);
+
   
   // Observable pour le statut de connexion
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
 
+  getUserRole(): Observable<string | null> {
+    return this.userRoleSubject.asObservable();
+  }
   // Vérifie si l'utilisateur a un rôle donné
+  getCurrentRole(): string | null {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        return user.role;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
   hasRole(role: string): boolean {
-    const userRole = localStorage.getItem('userRole'); // Simuler le rôle de l’utilisateur
-    return userRole === role;
+    const currentRole = this.getCurrentRole();
+    return currentRole === role;
   }
 
-  // Nouvelle méthode pour obtenir le rôle de l'utilisateur
-  getUserRole(): string | null {
-    return localStorage.getItem('userRole'); // Retourne le rôle de l'utilisateur ou null
-  }
 
   // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
@@ -36,9 +48,11 @@ export class AuthService {
         if (response.token) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
-          // Supposons que le rôle est dans la réponse utilisateur
-          localStorage.setItem('userRole', response.user.role); // Stocker le rôle de l'utilisateur
-          this.isLoggedInSubject.next(true); // Met à jour l'état de connexion
+          localStorage.setItem('userRole', response.user.role); // Stocker le rôle
+
+          // Mettre à jour les BehaviorSubjects
+          this.isLoggedInSubject.next(true); 
+          this.userRoleSubject.next(response.user.role); // Mettre à jour le rôle dans le BehaviorSubject
         }
       }),
       catchError((error) => {
@@ -102,6 +116,9 @@ export class AuthService {
     const decodedToken: any = jwtDecode(token);
     const expirationDate = decodedToken.exp * 1000; // La date d'expiration est en secondes
     return expirationDate < Date.now();
+  }
+  getUser(): Observable<any> {
+    return this.http.get(`${apiUrl}/getUser`);
   }
 }
 

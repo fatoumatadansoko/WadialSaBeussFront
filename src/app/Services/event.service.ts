@@ -18,6 +18,6 @@ export class EventService {
     return this.http.get(`${apiUrl}/evenements`);
   }
   getEvents(): Observable<any> {
-    return this.http.get(`${apiUrl}/evenements/admin/events/`);
+    return this.http.get(`${apiUrl}/admin/events/`);
   }
 }

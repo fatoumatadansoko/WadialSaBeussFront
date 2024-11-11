@@ -42,6 +42,33 @@
   padding-right: 200px;
   margin-top: 20px; /* Réduit l'espace au-dessus des boutons */
 }
+.badge {
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  
+  &-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  &-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+}
+
+.profile-banner {
+  .badge {
+    font-size: 0.8rem;
+    margin-left: 1rem;
+  }
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
 
 @media (max-width: 768px) {
   .profile-info {

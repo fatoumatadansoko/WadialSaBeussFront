@@ -6,25 +6,25 @@
             <img src="../../../../assets/images/logo.png" alt="Logo" class="img-fluid mb-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/dashbord-admin">
+                    <a class="nav-link active" [routerLink]="['/dashbord-admin']" routerLinkActive="active">
                         <i class="bi bi-house-fill"></i> <!-- Icône Dashboard -->
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users">
+                    <a class="nav-link"  [routerLink]="['/users']" routerLinkActive="active">
                         <i class="bi bi-person-circle"></i> <!-- Icône Utilisateurs -->
                         Utilisateurs
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/adminevents">
+                    <a class="nav-link" [routerLink]="['/adminevents']" routerLinkActive="active">
                         <i class="bi bi-calendar-event"></i> <!-- Icône Événements -->
                         Événements
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/carteadmin">
+                    <a class="nav-link" [routerLink]="['/carteadmin']" routerLinkActive="active">
                         <i class="bi bi-card-text"></i> <!-- Icône Carte Invitation -->
                         Carte Invitation
                     </a>
@@ -36,51 +36,59 @@
       <!-- Main content -->
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="banner">
-            <h1 class="mt-4">Gestion des utilisateurs</h1>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
-                <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
-            </div>
+          <h1 class="mt-4">Liste des utilisateurs</h1>
         </div>
-        
-       
   
         <!-- Table -->
         <table class="table table-bordered table-hover">
           <thead class="table-white">
             <tr>
-              <th scope="col">Identifiant</th>
               <th scope="col">Nom Complet</th>
               <th scope="col">Adresse email</th>
               <th scope="col">Téléphone</th>
-              <th scope="col">Statut</th>
+              <th scope="col">Adresse</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{ user.id }}</td>
+            <tr *ngFor="let user of paginatedUsers">
               <td>{{ user.nom }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.telephone }}</td>
-              <td>{{ user.statut }}</td>
+              <td>{{ user.adresse }}</td>
             </tr>
           </tbody>
         </table>
   
-        <!-- Pagination -->
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Précédent</a>
+        <!-- Pagination controls -->
+        <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+          <ul class="pagination">
+            <!-- Bouton Previous -->
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 1">
+                <i class="bi bi-chevron-left"></i>
+              </button>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Suivant</a>
+  
+            <!-- Numéros de page -->
+            <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
+              <button class="page-link" (click)="goToPage(page)">{{ page }}</button>
+            </li>
+  
+            <!-- Bouton Next -->
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages">
+                <i class="bi bi-chevron-right"></i>
+              </button>
             </li>
           </ul>
         </nav>
+  
+        <!-- Affichage des informations de pagination -->
+        <div class="text-center mt-2">
+          <small class="text-muted">
+            Page {{ currentPage }} sur {{ totalPages }} | Total: {{ totalItems }} utilisateurs
+          </small>
+        </div>
       </main>
     </div>
   </div>

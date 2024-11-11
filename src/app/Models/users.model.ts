@@ -1,4 +1,3 @@
-import { CategoriePrestataireModel } from "./categorieprestataire.model"
 import { PrestataireModel } from "./prestataire.model";
 
 
@@ -17,6 +16,7 @@ export interface UserModel {
     createdAt?: Date;
     updatedAt?: Date;
     logo?:string;
+    role?: string;
     prestataire?: PrestataireModel;
 }
 

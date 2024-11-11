@@ -23,9 +23,11 @@ export class AccessUsersComponent {
   constructor(private http: HttpClient) { }
   
   // Déclaration des variables
-  
   users: UserModel[] = [];
-  //Déclaration des methodes
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+  totalPages: number = 0;
   ngOnInit() {
     this.fetchUsers();
 }
@@ -34,10 +36,10 @@ export class AccessUsersComponent {
    fetchUsers(): void {
     this.UserService.getAllUser().subscribe(
       (response: any) => {
-        console.log('Réponse complète:', response); // Vérifiez ici la structure
         if (response && Array.isArray(response)) {
-          this.users = response.reverse(); // Assurez-vous d'utiliser la structure correcte
-          console.log('Utilisateurs:', this.users); // Vérifiez si les utilisateurs sont bien affectés
+          this.users = response.reverse();
+          this.totalItems = this.users.length;
+          this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         } else {
           console.error('Erreur: la réponse ne contient pas de données utilisateur');
         }
@@ -47,15 +49,39 @@ export class AccessUsersComponent {
       }
     );
   }
-  
-  
-  
-  // Cette méthode retourne un Observable, pas une Subscription
-  getUsers(): Observable<any> {
-    const token = localStorage.getItem('auth_token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-  
-    return this.http.get('http://127.0.0.1:8000/api/users', { headers });
+
+  // Obtenir les utilisateurs de la page courante
+  get paginatedUsers(): UserModel[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.users.slice(startIndex, endIndex);
   }
+
+  // Navigation entre les pages
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Aller à une page spécifique
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // Générer un tableau de numéros de page pour l'affichage
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+
   }
   

@@ -2,16 +2,14 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../../Services/users.service';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../../../Models/users.model';
-import { Observable } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
-import { SidebarComponent } from '../../Commun/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-access-users',
   standalone: true,
   imports: [
-    NgIf,SidebarComponent,NgFor,RouterModule
+    NgIf,NgFor,RouterModule
   ],
   templateUrl: './access-users.component.html',
   styleUrl: './access-users.component.scss'

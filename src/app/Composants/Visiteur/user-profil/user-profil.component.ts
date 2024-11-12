@@ -1,18 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
-import { FooterComponent } from "../../Commun/footer/footer.component";
 import { UserService } from '../../../Services/users.service';
-import {  RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
 import { CommonModule, NgIf } from '@angular/common';
-import { SidebarComponent } from "../../Commun/sidebar/sidebar.component";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profil',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, NgIf, CommonModule, RouterLink, SidebarComponent, ReactiveFormsModule, FormsModule],
+  imports: [
+    NgIf,
+    CommonModule,
+    RouterLink,
+    ReactiveFormsModule,
+    FormsModule,
+    HeaderComponent
+  ],
   templateUrl: './user-profil.component.html',
   styleUrls: ['./user-profil.component.scss']
 })
@@ -20,7 +25,6 @@ export class UserProfilComponent implements OnInit{
   private userService = inject(UserService);
   private formBuilder = inject(FormBuilder); // Utilisation du nom complet formBuilder
 
-  // private demandeList = inject(DemandeListComponent)
   public prestataireId?: number; // Ajoutez cette ligne pour déclarer la propriété
 
   userId: number | undefined; // ID du prestataire, à assigner lors de l'initialisation
@@ -29,7 +33,7 @@ export class UserProfilComponent implements OnInit{
   user: UserModel = {};
   userRole: string | undefined; // Stockage du rôle de l'utilisateur
 // États d'édition
-editStates = {
+  editStates = {
   nom: false,
   email: false,
   telephone: false,

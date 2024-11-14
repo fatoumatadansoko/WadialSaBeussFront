@@ -56,7 +56,7 @@ export class AuthService {
         }
       }),
       catchError((error) => {
-        console.error('Login failed:', error);
+        console.error('Erreur lors de la connexion:', error);
         return throwError(error);
       })
     );

@@ -46,7 +46,7 @@ export const routes: Routes = [
    { path: 'planevent', component:  PlanEventComponent},
    { path: 'prestataire', component: PrestatairesComponent},
    { path: 'detailprestataire/:id', component: DetailPrestataireComponent},
-   { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
+   { path: 'dashboard-prestataire', component: DashboardPrestataireComponent, canActivate: [AuthGuard, PrestataireGuard]},
    { path: 'carteinvitation', component: CarteInvitationComponent},
    { path: 'profile', component: UserProfilComponent},
    { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent, canActivate: [AuthGuard, ClientGuard]},
@@ -57,9 +57,9 @@ export const routes: Routes = [
 
 
     // Routes pour l'admin
-    { path: 'dashbord-admin', component: DashbordAdminComponent},
-    { path: 'users', component: AccessUsersComponent},
-    { path: 'carteadmin', component: CarteAdminComponent},
+    { path: 'dashbord-admin', component: DashbordAdminComponent, canActivate: [AuthGuard, AdminGuard]},
+    { path: 'users', component: AccessUsersComponent, canActivate: [AuthGuard, AdminGuard]},
+    { path: 'carteadmin', component: CarteAdminComponent, canActivate: [AuthGuard, AdminGuard]},
     { path: 'adminevents', component: EventadminComponent, canActivate: [AuthGuard, AdminGuard]},
 
     { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent, canActivate: [AuthGuard,PrestataireGuard] },

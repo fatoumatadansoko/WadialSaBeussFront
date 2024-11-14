@@ -1,18 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CarteinvitationService } from '../../../Services/carteinvitation.service';
-import { HttpClient } from '@angular/common/http';
 import { carteinvitationModel } from '../../../Models/carteinvitation.model';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { environment } from '../../../../environnements/environments';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import html2canvas from 'html2canvas';
 import { CategorieModel } from '../../../Models/categorie.model';
 import { CategorieService } from '../../../Services/categorie.service';
-import Swal from 'sweetalert2'; // Importation de SweetAlert2
+import Swal from 'sweetalert2'; 
+import { AuthService } from '../../../Services/auth.service';
+
 
 
 
@@ -21,20 +22,19 @@ import Swal from 'sweetalert2'; // Importation de SweetAlert2
   standalone: true,
   imports: [HeaderComponent, FooterComponent, FormsModule, NgFor, NgIf, ReactiveFormsModule, NgClass, RouterModule],
   templateUrl: './carte-invitation.component.html',
-  styleUrls: ['./carte-invitation.component.scss'] // Correction de styleUrl -> styleUrls
+  styleUrls: ['./carte-invitation.component.scss'] 
 })
 export class CarteInvitationComponent {
 
   cartes: any[] = [];
-  confirmationMessage: string = ''; // Variable pour le message de confirmation
-  messageVisible: boolean = false; // Variable pour afficher ou cacher le message
+  confirmationMessage: string = ''; 
+  messageVisible: boolean = false; 
  // Déclaration des services via le constructeur
  constructor(
   private fb: FormBuilder,
-  private http: HttpClient,
+  private authService: AuthService,
   private CarteinvitationService: CarteinvitationService,
   private categorieService: CategorieService,
-  private router: Router // Injection du routeur pour la redirection
 ) {
   this.emailForm = this.fb.group({
     emails_invites: ['', [Validators.required, Validators.email]]
@@ -65,7 +65,7 @@ fetchCategoriecartes(): void {
   this.categorieService.getAllCategories().subscribe(
     (response: any) => {
       console.log(response.data);
-      this.categories = response.data; // Enregistrer les catégories reçues
+      this.categories = response.data; 
     },
     (error: any) => {
       console.error('Erreur lors de la récupération des catégories', error);
@@ -139,7 +139,6 @@ editCarte(carte: carteinvitationModel): void {
   this.showEditModal = true;
 }
 
- 
 updateCarte(): void {
   // Vérification des données avant envoi
   console.log('Selected Carte avant envoi:', this.selectedCarte); // Pour debug
@@ -153,33 +152,44 @@ updateCarte(): void {
     return;
   }
 
+  // Vérifier si l'utilisateur est connecté
+  if (!this.authService.isLoggedIn()) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'Vous devez être connecté pour mettre à jour la carte.',
+    });
+    return;
+  }
+
   // Création du FormData
   const formData = new FormData();
-  
-  // Assurez-vous que les valeurs ne sont pas undefined
- 
   formData.append('nom', this.selectedCarte.nom.toString());
   formData.append('contenu', this.selectedCarte.contenu.toString());
-  
-
 
   if (this.selectedCarte.image && typeof this.selectedCarte.image !== 'string') {
     formData.append('image', this.selectedCarte.image);
   }
+
   // Log pour vérifier le contenu du FormData
   console.log('FormData content:');
   formData.forEach((value, key) => {
     console.log(key, value);
   });
+
   // Appel au service
   this.CarteinvitationService.updateCarte(this.selectedCarte.id!, formData)
     .pipe(
       catchError((error) => {
         console.error('Erreur détaillée:', error);
+        let errorMessage = 'Une erreur est survenue lors de la mise à jour';
+        if (error.status === 401) {
+          errorMessage = 'Vous devez être connecté pour mettre à jour la carte.';
+        }
         Swal.fire({
           icon: 'error',
           title: 'Erreur',
-          text: error.message || 'Une erreur est survenue lors de la mise à jour',
+          text: errorMessage,
         });
         return throwError(() => error);
       })

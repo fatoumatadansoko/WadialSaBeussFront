@@ -46,17 +46,10 @@ getCartesByClientId(clientId: number): Observable<any> {
   return this.http.get(`${apiUrl}/cartes-personnalisees/client/${clientId}`);
 }
 // Dans CartepersonnaliseeService
-envoyerCarte(id: number, invites: { nom: string, email: string }[]): Observable<any> {
-  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  });
-
-  const body = { invites }; // Utilise le tableau d'invités avec nom et email
-  
-  return this.http.post(`${apiUrl}/cartes-personnalisees/${id}/envoyer`, body, { headers });
+envoyerCarte(carteId: number, formData: FormData): Observable<any> {
+  return this.http.post(`${apiUrl}/cartes-personnalisees/${carteId}/envoyer`, formData);
 }
+
 
 
 getInvites(id: number): Observable<any> {

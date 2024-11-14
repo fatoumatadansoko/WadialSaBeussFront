@@ -16,6 +16,8 @@ export interface DemandePrestation {
     updatedAt?: Date;
     clientNom?: string; // Ajout du nom du client
     client: UserModel; //
+    isApproved: boolean;
+    isRejected: boolean;
 }
 
 export interface UserModel {

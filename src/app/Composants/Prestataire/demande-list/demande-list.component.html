@@ -20,7 +20,7 @@
         <td>{{ demande.id }}</td>
         <td>{{ demande.clientNom }}</td>
         <td>{{ demande.etat }}</td>
-        <td>
+
           <!-- Bouton Approuver -->
           <ng-container *ngIf="demande.etat !== 'approuve' && demande.etat !== 'rejete'">
             <i *ngIf="!isApprovingMap.get(demande.id!)"

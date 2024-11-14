@@ -31,11 +31,29 @@
       <!-- Description -->
       <p>{{ prestataire.description }}</p>
     </div>
+    <div class="contact-info">
+      <a [href]="getWhatsAppLink()" 
+         target="_blank" 
+         class="btn btn-success" 
+         style="background-color: #25D366; border-color: #25D366;">
+        <i class="bi bi-whatsapp me-2"></i>
+        Contacter par WhatsApp
+      </a>
+    </div>
    <!-- detail-prestataire.component.html -->
 
    <div class="contact-container mt-3">
-    <button class="btn btn-success" *ngIf="prestataire?.user?.email" (click)="demanderPrestation()">
-      Demander une prestation
+    <button class="btn btn-success" 
+            *ngIf="prestataire?.user?.email" 
+            (click)="demanderPrestation()"
+            [disabled]="isRequestingPrestation">
+      <span *ngIf="!isRequestingPrestation">
+        Demander une prestation
+      </span>
+      <span *ngIf="isRequestingPrestation">
+        <i class="fas fa-spinner fa-spin me-2"></i>
+        Envoi en cours...
+      </span>
     </button>
   </div>
     

@@ -113,7 +113,8 @@
     }
 
     .navbar-light .navbar-brand img {
-        max-height: 45px;
+        
+        max-height: 50px;
     }
 
     .navbar-collapse {
@@ -129,7 +130,6 @@
     .navbar .nav-item .dropdown-menu {
         display: none;
         visibility: hidden;
-        top: 100%;
         transform: rotateX(-75deg);
         transform-origin: 0% 0%;
         border: 0;
@@ -149,7 +149,6 @@
 
     .sticky-top.navbar-light {
         position: fixed;
-        background: var(--bs-light);
     }
 
     .navbar-light .navbar-nav .nav-link::before {

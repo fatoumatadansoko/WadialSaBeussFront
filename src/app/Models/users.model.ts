@@ -1,13 +1,7 @@
-import { CategoriePrestataireModel } from "./categorieprestataire.model"
 import { PrestataireModel } from "./prestataire.model";
 
 
-export interface Role {
-    id: number;
-    name: string;
-    guard_name: string;
-    // other role properties
-  }
+
 
 
 export interface UserModel {
@@ -22,6 +16,7 @@ export interface UserModel {
     createdAt?: Date;
     updatedAt?: Date;
     logo?:string;
+    role?: string;
     prestataire?: PrestataireModel;
 }
 

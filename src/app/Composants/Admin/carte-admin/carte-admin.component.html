@@ -2,44 +2,41 @@
     <div class="row">
         <!-- Sidebar -->
         <nav class="col-md-2 d-none d-md-block sidebar">
-            <div class="sidebar-sticky">
-                <img src="../../../../assets/images/logo.png" alt="Logo" class="img-fluid mb-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/dashbord-admin">
-                            <i class="bi bi-house-fill"></i> <!-- Icône Dashboard -->
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users">
-                            <i class="bi bi-person-circle"></i> <!-- Icône Utilisateurs -->
-                            Utilisateurs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/adminevents">
-                            <i class="bi bi-calendar-event"></i> <!-- Icône Événements -->
-                            Événements
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/carteadmin">
-                            <i class="bi bi-card-text"></i> <!-- Icône Carte Invitation -->
-                            Carte Invitation
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+          <div class="sidebar-sticky">
+              <img src="../../../../assets/images/logo.png" alt="Logo" class="img-fluid mb-3">
+              <ul class="nav flex-column">
+                  <li class="nav-item">
+                      <a class="nav-link active" [routerLink]="['/dashbord-admin']" routerLinkActive="active">
+                          <i class="bi bi-house-fill"></i> <!-- Icône Dashboard -->
+                          Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link"  [routerLink]="['/users']" routerLinkActive="active">
+                          <i class="bi bi-person-circle"></i> <!-- Icône Utilisateurs -->
+                          Utilisateurs
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/adminevents']" routerLinkActive="active">
+                          <i class="bi bi-calendar-event"></i> <!-- Icône Événements -->
+                          Événements
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/carteadmin']" routerLinkActive="active">
+                          <i class="bi bi-card-text"></i> <!-- Icône Carte Invitation -->
+                          Carte Invitation
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
         <!-- Main content -->
         <main role="main" class="col-md-9 offset-md-2 col-lg-10 offset-lg-2 px-4">
             <div class="banner">
                 <h1 class="mt-4">Gestion des cartes</h1>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Rechercher par mail" aria-label="Rechercher par mail" aria-describedby="button-addon2">
-                    <button class="btn btn-search" type="button" id="button-addon2">Rechercher</button>
-                </div>
+               
             </div>
 <!-- Button to trigger the modal -->
 <button class="btn btn-success" style="background-color: #725111; border-color: #725111;"
@@ -129,44 +126,62 @@ data-bs-toggle="modal" data-bs-target="#createCardModal">
 
               
 
-            <!-- Table displaying cards -->
-            <table class="table table-bordered table-hover mt-4 tablecarte">
-                <thead class="table-white">
-                    <tr>
-                        <th scope="col">Identifiant</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Catégorie</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let carte of carteinvitations">
-                        <td>{{carte.id}}</td>
-                        <td>{{carte.nom}}</td>
-                        <td>{{carte.contenu}}</td>
-                        <td>{{carte.categorie_id}}</td>
-                        <td>
-                            <!-- Actions (edit, delete) can be added here -->
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<table class="table table-bordered table-hover mt-4 tablecarte">
+  <thead class="table-white">
+      <tr>
+          <th scope="col">Identifiant</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Description</th>
+          <th scope="col">Catégorie</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let carte of paginatedCards">
+          <td>{{carte.id}}</td>
+          <td>{{carte.nom}}</td>
+          <td>{{carte.contenu}}</td>
+          <td>{{carte.categorie_id}}</td>
+      </tr>
+  </tbody>
+</table>
 
-            <!-- Pagination -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Précédent</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Suivant</a>
-                    </li>
-                </ul>
-            </nav>
+<!-- Contrôles de pagination -->
+<nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+  <ul class="pagination">
+      <!-- Bouton Previous -->
+      <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" 
+                  (click)="previousPage()" 
+                  [disabled]="currentPage === 1">
+              <i class="bi bi-chevron-left"></i> Précédent
+          </button>
+      </li>
+
+      <!-- Numéros de page -->
+      <li class="page-item" 
+          *ngFor="let page of pageNumbers" 
+          [class.active]="page === currentPage">
+          <button class="page-link" 
+                  (click)="goToPage(page)">{{ page }}</button>
+      </li>
+
+      <!-- Bouton Next -->
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" 
+                  (click)="nextPage()" 
+                  [disabled]="currentPage === totalPages">
+              Suivant <i class="bi bi-chevron-right"></i>
+          </button>
+      </li>
+  </ul>
+</nav>
+
+<!-- Informations de pagination -->
+<div class="text-center mt-2">
+  <small class="text-muted">
+      Page {{ currentPage }} sur {{ totalPages }} | Total: {{ totalItems }} cartes
+  </small>
+</div>
         </main>
     </div>
 </div>

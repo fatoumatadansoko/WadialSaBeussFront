@@ -1,131 +1,126 @@
 #categorieCarousel {
   padding-top: 50px;
   position: relative;
-
 }
+
 .categorie-item {
   text-align: center;
+
+  img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+
+  h5 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+  }
 }
 
-.categorie-item img {
-  width: 100%;
-  height: auto;
-  cursor: pointer;
+.text-left H2 {
+  margin-top: 110px;
 }
 
-.categorie-item h5 {
-  font-family: 'Brush Script MT', cursive;
-  font-size: 20px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.carousel {
-  margin-top: 150px;
-  position: relative;
-}
-
-
-.text-center H2 {
-  margin-top: 50px;
-}
 .card {
   margin-top: 50px;
-  border: 13px solid #725111; /* Bordure subtile autour de la carte */
-  border-radius: 10px; /* Coins légèrement arrondis */
-  transition: transform 0.3s ease-in-out; /* Animation au survol */
-}
-
-.card:hover {
-  transform: scale(1.02); /* Zoom léger au survol */
-}
-
-.card-img-top {
+  border: 13px solid #725111;
   border-radius: 10px;
-  object-fit: cover; /* Ajuste l'image dans son conteneur sans déformation */
-  height: 220px; /* Hauteur fixe pour toutes les images */
-  width: 500px;
-}
+  transition: transform 0.3s ease-in-out;
 
-.card-body {
-  margin-bottom: 50px;
-  background-color: #ffffff; /* Fond blanc pour le corps de la carte */
-}
+  &:hover {
+    transform: scale(1.02);
+  }
 
-.card-text {
-  text-align: left;
-  font-size: 1rem; /* Taille de police ajustée pour les paragraphes */
-  color: #343a40; /* Texte en gris foncé pour un meilleur contraste */
-}
+  &-img-top {
+    border-radius: 10px;
+    object-fit: cover;
+    height: 220px;
+    width: 500px;
+  }
 
-.card-title {
-  font-size: 1.25rem; /* Taille de police pour les titres */
+  &-body {
+    margin-bottom: 50px;
+    background-color: #ffffff;
+  }
+
+  &-text {
+    text-align: left;
+    font-size: 1rem;
+    color: #343a40;
+  }
+
+  &-title {
+    font-size: 1.25rem;
+  }
 }
 
 .text-warning {
-  color: #725111 !important; /* Utilisation d'un brun/or pour le texte des titres */
+  color: #725111 !important;
   justify-content: left;
   text-align: left;
 }
 
 .shadow-sm {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Légère ombre pour donner du relief */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .alert {
-  background-color: #e0816a; // Gris clair pour le fond
-  border-color: #dee2e6; // Bordure grise
-  color: #ffffff; // Texte noir
-  margin-bottom: 20px; // Espacement en bas
+  background-color: #e0816a;
+  border-color: #dee2e6;
+  color: #ffffff;
+  margin-bottom: 20px;
 
   .bi-sad {
-    margin-right: 10px; // Espacement à droite de l'icône
+    margin-right: 10px;
   }
 }
 
 .bi-sad:hover {
-  background-color: #e68a00; /* Couleur au survol */
-  transform: scale(1.05); /* Agrandir légèrement au survol */
-}/* Styles pour le dropdown */
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+/* Styles pour le dropdown */
 .dropdown {
-  display: flex; /* Utilisation de Flexbox pour aligner les éléments */
-  flex-direction: column; /* Les éléments sont empilés verticalement */
-  align-items: flex-end; /* Aligne tout à droite */
-  position: relative; /* Nécessaire pour le positionnement */
-}
-
-/* Style pour le bouton */
-.dropdown-toggle {
-  margin-bottom: 5px; /* Ajout d'un petit espacement entre le bouton et le dropdown */
-}
-.dropdown .btn-drop{
-  background-color: #725111; /* Couleur orange pour le bouton */
-  color: white; /* Couleur du texte en blanc */
-  padding: 10px 20px; /* Espacement et taille du bouton */
-  border-radius: 5px; /* Couronne arrondi */
-  cursor: pointer; /* Change le curseur pour pointer sur le bouton */
-
-}
-/* Styles pour le menu */
-.dropdown-menu {
-  animation: slideIn 0.3s; /* Animation d'apparition */
-  background-color: #725111; /* Couleur de fond rouge */
-  color: white; /* Couleur du texte en blanc */
-  font-family: 'Playfair Display', serif; /* Police de caractères Playfair Display */
-  right: 0; /* Affiche le dropdown à droite */
-  left: auto; /* Évite le décalage */
-  padding: 10px; /* Espacement autour des éléments */
-}
-
-/* Autres styles */
-.dropdown-item {
   display: flex;
-  align-items: center;
-  color: white; /* Couleur du texte en blanc pour les éléments */
-}
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
 
-.dropdown-item:hover {
-  background-color: rgb(221, 128, 128); /* Couleur au survol (ajuster si nécessaire) */
+  &-toggle {
+    margin-bottom: 5px;
+  }
+
+  .btn-drop {
+    background-color: #725111;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  &-menu {
+    animation: slideIn 0.3s;
+    background-color: #725111;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    right: 0;
+    left: auto;
+    padding: 10px;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    &:hover {
+      background-color: rgb(221, 128, 128);
+    }
+  }
 }
 
 /* Animation d'apparition */
@@ -137,5 +132,85 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.btn-drop {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #333333;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  &:hover {
+    background-color: #f8f9fa;
+    border-color: #ddd;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  &:active {
+    background-color: #f0f0f0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  i {
+    font-size: 1.1rem;
+    vertical-align: middle;
+  }
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5em 0.7em;
+
+  i {
+    font-size: 0.9rem;
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1.2rem;
+  }
+
+  .dropdown-menu {
+    right: auto;
+    left: 0;
+  }
+
+  .dropdown-item {
+    color: black;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+
+  .btn-drop {
+    font-size: 1rem;
+  }
+
+  .badge {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-nav.nav-link {
+    font-size: 1rem;
+  }
+
+  .text-left H2 {
+    margin-top: 1px;
   }
 }

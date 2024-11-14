@@ -18,10 +18,14 @@ import { UserProfilComponent } from './Composants/Visiteur/user-profil/user-prof
 import { PersonnalisationCarteInvitationComponent } from './Composants/Visiteur/personnalisation-carte-invitation/personnalisation-carte-invitation.component';
 import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
 import { DemandeListComponent } from './Composants/Prestataire/demande-list/demande-list.component';
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-personnalisees/cartes-personnalisees.component';
 import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
 import { EventadminComponent } from './Composants/Admin/eventadmin/eventadmin.component';
+import { AuthGuard } from './auth.guard';
+import { PrestataireGuard } from './Guards/prestataire.guard';
+import { AdminGuard } from './Guards/admin.guard';
+import { ClientGuard } from './Guards/client.guard';
 
 
 export const routes: Routes = [
@@ -42,33 +46,29 @@ export const routes: Routes = [
    { path: 'planevent', component:  PlanEventComponent},
    { path: 'prestataire', component: PrestatairesComponent},
    { path: 'detailprestataire/:id', component: DetailPrestataireComponent},
-   { path: 'dashboard-prestataire', component: DashboardPrestataireComponent},
+   { path: 'dashboard-prestataire', component: DashboardPrestataireComponent, canActivate: [AuthGuard, PrestataireGuard]},
    { path: 'carteinvitation', component: CarteInvitationComponent},
    { path: 'profile', component: UserProfilComponent},
-   { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent},
-   { path: 'events', component: EvenementsComponent},
-   { path: 'carte-personnalisee', component: CartesPersonnaliseesComponent},
-   { path: 'invites/:id', component: InvitesComponent},
-   { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
+   { path: 'personnaliser', component: PersonnalisationCarteInvitationComponent, canActivate: [AuthGuard, ClientGuard]},
+   { path: 'events', component: EvenementsComponent, canActivate: [AuthGuard, ClientGuard]},
+   { path: 'carte-personnalisee', component: CartesPersonnaliseesComponent, canActivate: [AuthGuard, ClientGuard]},
+   { path: 'invites/:id', component: InvitesComponent, canActivate: [AuthGuard, ClientGuard]},
+   { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent, canActivate:[PrestataireGuard] },
 
 
     // Routes pour l'admin
-    { path: 'dashbord-admin', component: DashbordAdminComponent},
-    { path: 'users', component: AccessUsersComponent},
-    { path: 'carteadmin', component: CarteAdminComponent},
-    { path: 'adminevents', component: EventadminComponent},
+    { path: 'dashbord-admin', component: DashbordAdminComponent, canActivate: [AuthGuard, AdminGuard]},
+    { path: 'users', component: AccessUsersComponent, canActivate: [AuthGuard, AdminGuard]},
+    { path: 'carteadmin', component: CarteAdminComponent, canActivate: [AuthGuard, AdminGuard]},
+    { path: 'adminevents', component: EventadminComponent, canActivate: [AuthGuard, AdminGuard]},
 
-    { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
-    { path: '', redirectTo: '/dashbord-admin', pathMatch: 'full' }, // Redirection par défaut
-    { path: '**', redirectTo: '/dashbord-admin' } // Redirection vers dashboard pour les routes inconnues
-
+    { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent, canActivate: [AuthGuard,PrestataireGuard] },
+    
 
 ]
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

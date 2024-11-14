@@ -24,7 +24,7 @@
         <button type="button" class="btn-close" (click)="closeModal()"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="emailForm" (ngSubmit)="sendInvitation(selectedCarte)">
+        <form [formGroup]="emailForm" (ngSubmit)="sendInvitation()">
           <div formArrayName="invites">
             <div *ngFor="let invite of invitesControls; let i = index" [formGroupName]="i" class="mb-3">
               <label for="invite-nom-{{i}}" class="form-label">Nom de l'invité</label>
@@ -40,9 +40,21 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-secondary" (click)="addInvite()">Ajouter un invité</button>
-          <button type="submit" class="btn btn-primary">Envoyer</button>
-        </form>
+          <button type="button" class="btn btn-secondary" (click)="addInvite()">
+            Ajouter un invité
+          </button>
+          <button type="submit" 
+          class="btn btn-primary" 
+          [disabled]="isSendingInvitations || emailForm.invalid">  <!-- Enlevez (click)="sendInvitation()" -->
+    <span *ngIf="!isSendingInvitations">
+      Envoyer
+    </span>
+    <span *ngIf="isSendingInvitations" class="d-flex align-items-center">
+      <i class="fas fa-spinner fa-spin me-2"></i>
+      Envoi en cours...
+    </span>
+  </button>       
+</form>
       </div>
     </div>
   </div>

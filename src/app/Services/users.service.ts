@@ -17,9 +17,7 @@ export class UserService {
  constructor(private http: HttpClient) {}
 
   getAllUser(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get<any>(`${apiUrl}/users`, { headers });
+    return this.http.get<any>(`${apiUrl}/users`);
   }
 
   getCategorieprestataires(): Observable<CategoriePrestataireModel[]> {
@@ -31,23 +29,27 @@ export class UserService {
 
   // Récupérer les informations du profil utilisateur
   getProfile(): Observable<any> {
-    const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur connecté
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+  
 
-    return this.http.get<any>(`${apiUrl}/profile`, { headers });
+    return this.http.get<any>(`${apiUrl}/profile`);
   }
    // Méthode pour inscrire un utilisateur (prestataire ou client)
   register(formData: FormData) {
     return this.http.post(`${apiUrl}/register`, formData);
 }
-getUserDetails(): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': `Bearer ${token}` };
-  return this.http.get(`${apiUrl}/user`, { headers});
+// getUserDetails(): Observable<any> {
+//   return this.http.get(`${apiUrl}/user`);
+// }
+
+updateProfile(updateData: any): Observable<any> {
+  return this.http.post(`${apiUrl}/profile/update`, updateData);
 }
 
+updateProfileField(field: string, value: any): Observable<any> {
+  const formData = new FormData();
+  formData.append(field, value);
+  return this.http.post(`${apiUrl}/profile/update`, formData);
+}
 
 private handleError(error: any) {
 console.error('An error occurred', error);

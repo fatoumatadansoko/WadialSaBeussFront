@@ -117,17 +117,17 @@ export class DemandeListComponent implements OnInit {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
     );
-  }approuverDemande(demandeId: number): void {
+  }
+  approuverDemande(demandeId: number): void {
+    this.isApprovingMap.set(demandeId, true); 
+    
     this.demandeService.approuverDemande(demandeId).subscribe(
-      (response: { success: boolean; message?: string }): void => {
+      (response) => {
         if (response.success) {
           const demande = this.demandes.find(d => d.id === demandeId);
           if (demande) {
             demande.etat = EtatDemande.APPROUVE;
-            demande.isApproved = true;
-            demande.isRejected = false;
-            console.log('Demande approuvée avec succès.');
-            // Afficher SweetAlert pour succès
+            localStorage.setItem(`demande_${demandeId}_etat`, EtatDemande.APPROUVE); // Sauvegarder l'état
             Swal.fire({
               title: 'Demande approuvée!',
               text: 'La demande a été approuvée avec succès.',
@@ -136,43 +136,26 @@ export class DemandeListComponent implements OnInit {
               showConfirmButton: false
             });
           }
-        } else {
-          console.error('Erreur lors de l\'approbation de la demande:', response.message);
-          // Afficher SweetAlert pour erreur
-          Swal.fire({
-            title: 'Erreur',
-            text: response.message || 'Une erreur est survenue.',
-            icon: 'error',
-            timer: 3000,
-            showConfirmButton: false
-          });
         }
       },
       error => {
         console.error('Erreur lors de l\'approbation de la demande:', error);
-        // Afficher SweetAlert pour erreur
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Une erreur est survenue lors de l\'approbation de la demande.',
-          icon: 'error',
-          timer: 3000,
-          showConfirmButton: false
-        });
       }
-    );
+    ).add(() => {
+      this.isApprovingMap.set(demandeId, false); 
+    });
   }
   
   refuserDemande(demandeId: number): void {
+    this.isRejectingMap.set(demandeId, true); 
+    
     this.demandeService.refuserDemande(demandeId).subscribe(
-      (response: { success: boolean; message?: string }): void => {
+      (response) => {
         if (response.success) {
           const demande = this.demandes.find(d => d.id === demandeId);
           if (demande) {
             demande.etat = EtatDemande.REJETE;
-            demande.isApproved = false;
-            demande.isRejected = true;
-            console.log('Demande rejetée avec succès.');
-            // Afficher SweetAlert pour succès
+            localStorage.setItem(`demande_${demandeId}_etat`, EtatDemande.REJETE); // Sauvegarder l'état
             Swal.fire({
               title: 'Demande rejetée!',
               text: 'La demande a été refusée avec succès.',
@@ -181,30 +164,14 @@ export class DemandeListComponent implements OnInit {
               showConfirmButton: false
             });
           }
-        } else {
-          console.error('Erreur lors du rejet de la demande:', response.message);
-          // Afficher SweetAlert pour erreur
-          Swal.fire({
-            title: 'Erreur',
-            text: response.message || 'Une erreur est survenue.',
-            icon: 'error',
-            timer: 3000,
-            showConfirmButton: false
-          });
         }
       },
       error => {
         console.error('Erreur lors du rejet de la demande:', error);
-        // Afficher SweetAlert pour erreur
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Une erreur est survenue lors du rejet de la demande.',
-          icon: 'error',
-          timer: 3000,
-          showConfirmButton: false
-        });
       }
-    );
+    ).add(() => {
+      this.isRejectingMap.set(demandeId, false); 
+    });
   }
   
 }

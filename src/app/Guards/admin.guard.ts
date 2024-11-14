@@ -1,0 +1,34 @@
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { Role } from '../Models/role.modele';
+
+interface User {
+  roles: Role[];
+  // Ajoutez d'autres propriétés si nécessaire
+}
+
+export const AdminGuard: CanActivateFn = () => {
+  const router = inject(Router);
+  let user: User = { roles: [] };
+
+  try {
+    const userString = localStorage.getItem('user');
+    user = userString ? JSON.parse(userString) : { roles: [] };
+  } catch (error) {
+    console.error('Erreur lors du parsing du JSON:', error);
+    user = { roles: [] }; // En cas d'erreur, assumez que l'utilisateur n'est pas valide
+  }
+
+  console.log('Données Utilisateur:', user);
+  console.log('Rôles de l\'Utilisateur:', user.roles);
+
+  // Vérifiez si l'utilisateur a le rôle 'admin'
+  if (user && user.roles && user.roles.some((role: Role) => role.name === 'admin')) {
+    console.log('Utilisateur connecté avec le rôle admin.');
+    return true;
+  } else {
+    router.navigate(['/unauthorized']);
+    console.log('Utilisateur non autorisé ou pas de rôle admin.');
+    return false;
+  }
+};

@@ -65,7 +65,7 @@
      
       <div class="">
         <div class="mb-3">
-          <label for="role">Rôle</label>
+          <label for="role">Vous êtes?</label>
           <select id="role" formControlName="role" class="form-control" (change)="onRoleChange()">
             <option value="client">Client</option>
             <option value="prestataire">Prestataire</option>
@@ -94,8 +94,8 @@
       <div *ngIf="registerForm.get('photo')?.invalid && registerForm.get('photo')?.touched" class="text-warning">
         Une photo est requise (jpeg, jpg, png, max 2Mo).
       </div>
-      <div *ngIf="validationErrors.logo" class="text-danger">
-        {{ validationErrors.logo[0] }}
+      <div *ngIf="registerForm.get('logo')?.errors?.['invalidFormat']" class="text-danger">
+        Le fichier doit être au format jpeg, png ou jpg.
       </div>
     </div>
     <div *ngIf="isPrestataire">
@@ -157,7 +157,7 @@
     <div class="mb-3">
       <label for="password_confirmation">Confirmation du mot de passe</label>
       <input id="password_confirmation" formControlName="password_confirmation" type="password" class="form-control">
-      <div *ngIf="registerForm.hasError('notSame') && registerForm.get('password_confirmation')?.touched" class="text-warning">
+      <div *ngIf="registerForm.hasError('passwordMismatch')" class="text-danger">
         Les mots de passe ne correspondent pas.
       </div>
     </div>

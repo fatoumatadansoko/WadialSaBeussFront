@@ -44,7 +44,7 @@ export class DetailPrestataireComponent implements OnInit {
   prestataireId: number | undefined; // ID du prestataire, à assigner lors de l'initialisation
   prestataire: PrestataireModel | undefined; // Objet pour le prestataire
   commentaires: CommentaireModel[] = []; // Initialisation comme tableau
-
+  isRequestingPrestation: boolean = false;
   baseUrl: string = environment.apiurl;
   photoUrl: string = '';
   dateAjout: string = new Date().toISOString(); // Date d'ajout au format ISO
@@ -143,13 +143,12 @@ export class DetailPrestataireComponent implements OnInit {
   getPhotoUrl(photoPath: string): string {
     return `${this.baseUrl}${photoPath}`;
   }
-
-  // ...
-  
-
-  
- 
   demanderPrestation(): void {
+    // Vérifier si une demande est déjà en cours
+    if (this.isRequestingPrestation) {
+      return;
+    }
+  
     if (!this.prestataireId) {
       Swal.fire({
         icon: 'error',
@@ -158,14 +157,16 @@ export class DetailPrestataireComponent implements OnInit {
       });
       return;
     }
-
+  
+    this.isRequestingPrestation = true; // Activer le loader
+  
     const message = `Bonjour,\n\nJe souhaite demander une prestation auprès de ${this.prestataire?.user?.nom}.\n\nMerci!`;
     
     const demande = {
       prestataire_id: this.prestataireId,
       message: message,
     };
-
+  
     this.prestataireService.demanderPrestation(demande).subscribe(
       response => {
         console.log('Demande de prestation envoyée avec succès:', response);
@@ -183,7 +184,25 @@ export class DetailPrestataireComponent implements OnInit {
           text: 'Une erreur est survenue lors de l\'envoi de votre demande.',
         });
       }
-    );
+    ).add(() => {
+      this.isRequestingPrestation = false; // Désactiver le loader dans tous les cas
+    });
   }
-
+  getWhatsAppLink(): string {
+    if (this.prestataire?.user?.telephone) {
+      let phoneNumber = '';
+      if (typeof this.prestataire.user.telephone === 'string') {
+        phoneNumber = this.prestataire.user.telephone.replace(/\D/g, '');
+      } else if (typeof this.prestataire.user.telephone === 'number') {
+        phoneNumber = this.prestataire.user.telephone.toString().replace(/\D/g, '');
+      } else {
+        console.error('Unexpected type for telephone number:', typeof this.prestataire.user.telephone);
+        return '#';
+      }
+      const message = `Bonjour ${this.prestataire.user.nom}, je vous contacte via votre profil.`;
+      const encodedMessage = encodeURIComponent(message);
+      return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    }
+    return '#';
+  }
 }

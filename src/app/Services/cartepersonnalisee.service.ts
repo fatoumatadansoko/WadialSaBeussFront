@@ -65,8 +65,8 @@ getInvites(id: number): Observable<any> {
   // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
   return this.http.get(`${apiUrl}/cartes-personnalisees/${id}/invites`);
-}
 
-  }
+
+  }}
   
 

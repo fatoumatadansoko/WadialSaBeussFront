@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+<<<<<<< HEAD
     // Vérifier l'état initial de connexion uniquement côté navigateur
     if (this.isBrowser) {
       this.checkAuthStatus();
@@ -51,6 +52,52 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }, 60000);
     }
   }
+=======
+    // Abonnement à l'état de connexion pour être informé des changements en temps réel
+    // this.subscription = this.authService.isLoggedIn().subscribe(
+    //   (loggedIn: boolean) => {
+    //     this.isLoggedIn = loggedIn;
+    //     this.checkTokenValidity();
+    //   }
+    // );
+    // this.checkTokenValidity();
+  }
+  // checkTokenValidity(): void {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     if (this.authService.isTokenExpired(token)) {
+  //       // Si le token est expiré, déconnexion automatique
+  //       this.logout();
+  //     } else {
+  //       this.isLoggedIn = true;
+  //     }
+  //   } else {
+  //     this.isLoggedIn = false;
+  //   }
+  // }
+  // logout(): void {
+  //   this.authService.logout().subscribe({
+  //     next: () => {
+  //       localStorage.removeItem('token');
+  //       localStorage.removeItem('user');
+  //       this.router.navigate(['/login']);
+  //       Swal.fire('Déconnexion réussie', 'Vous avez été déconnecté avec succès.', 'success');
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur lors de la déconnexion:', error);
+  //       this.router.navigate(['/login']);
+  //       Swal.fire('Erreur', 'Erreur lors de la déconnexion. Veuillez réessayer.', 'error');
+  //     }
+  //   });
+  // }
+  //Fonction de la déconnexion
+logout() {
+  this.authService.logout();
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  this.router.navigateByUrl("/login");
+}
+>>>>>>> origin/develop
 
   private checkAuthStatus(): void {
     if (!this.isBrowser) return;

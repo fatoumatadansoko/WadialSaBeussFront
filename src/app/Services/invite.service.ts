@@ -18,7 +18,11 @@ export class InviteService {
     // const token = localStorage.getItem('token');
     // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
   
+<<<<<<< HEAD
     return this.http.get(`${apiUrl}/cartes-personnalisees/${id}/invites`);
+=======
+    return this.http.get(`${apiurl}/cartes-personnalisees/${id}/invites`);
+>>>>>>> origin/develop
   }
 }
   

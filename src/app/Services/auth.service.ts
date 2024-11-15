@@ -114,6 +114,7 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     return this.authStatus$;
   }
+<<<<<<< HEAD
 
   getCurrentUser(): User | null {
     const userStr = localStorage.getItem('user');
@@ -123,6 +124,13 @@ export class AuthService {
       return JSON.parse(userStr);
     } catch {
       return null;
+=======
+    getUserId(): number {
+      
+      // Remplacez par votre méthode pour récupérer l'ID utilisateur
+      const user = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('user') || '{}');
+      return user.id; // Assurez-vous que l'ID est stocké dans localStorage
+>>>>>>> origin/develop
     }
   }
 

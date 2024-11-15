@@ -29,6 +29,7 @@ export class UserProfilComponent implements OnInit {
   userRole: string | undefined;
 
   ngOnInit(): void {
+<<<<<<< HEAD
     // Attendre que les deux opérations soient terminées
     Promise.all([
       this.getUserProfile(),
@@ -36,6 +37,20 @@ export class UserProfilComponent implements OnInit {
     ]).catch(error => {
       console.error('Erreur lors de l\'initialisation:', error);
     });
+=======
+    // this.prestataireId = 0; // Par exemple, initialiser à 0 ou toute autre valeur par défaut
+   this.getUserProfile();
+   this.getUserRole(); // Récupérer le rôle de l'utilisateur
+
+}
+getUserProfile(): void {
+  // const prestataire = localStorage.getItem('prestataire');
+  const prestataire = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('prestataire') || "{}");
+
+  if (prestataire) {
+      const prestataireId = JSON.parse(prestataire).id; // Récupère l'ID du client
+    console.log(prestataireId);
+>>>>>>> origin/develop
   }
 
   getUserProfile(): Promise<void> {

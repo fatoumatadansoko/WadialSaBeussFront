@@ -80,6 +80,8 @@ export class DemandeListComponent implements OnInit {
     // if (typeof window !== 'undefined' && localStorage.getItem('prestataire')) {
     const prestataire = localStorage.getItem('prestataire');
     // const prestataire = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('prestataire') || "{}");
+    // const prestataire = localStorage.getItem('prestataire');
+    // const prestataire = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('authUser') || "{}");
     
     if (prestataire) {
         const prestataireId = JSON.parse(prestataire).id; // Récupère l'ID du client

@@ -17,7 +17,11 @@ export class CategorieprestataireService {
   getAllCategorieprestataire(categoryId?: number) {
     // const token = localStorage.getItem('token');
     // const headers = { 'Authorization': `Bearer ${token}` };
+<<<<<<< HEAD
     return this.http.get(`${apiUrl}/categoriesprestataires`);
+=======
+    return this.http.get(`${apiurl}/categoriesprestataires`);
+>>>>>>> origin/develop
     
     // Méthodes pour lister les categories
   }}

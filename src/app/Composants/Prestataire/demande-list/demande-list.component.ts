@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { DemandeService } from '../../../Services/demande.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,9 +6,7 @@ import { FooterComponent } from '../../Commun/footer/footer.component';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { UserService } from '../../../Services/users.service';
 import { DemandePrestationService } from '../../../Services/demandePrestation.service';
-import { PrestataireService } from '../../../Services/prestataire.service';
 import { environment } from '../../../../environnements/environments';
-import { UserModel } from '../../../Models/prestataire.model';
 import { DemandePrestation, EtatDemande } from '../../../Models/demande_prestataires.model';
 import Swal from 'sweetalert2';
 
@@ -40,8 +37,6 @@ export class DemandeListComponent implements OnInit {
     
 
   }
-
-
 
  
   loadPrestataireDemandes(): void {

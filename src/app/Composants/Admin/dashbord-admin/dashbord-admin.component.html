@@ -1,23 +1,35 @@
 <div class="main-layout">
-    <nav class="col-md-2 d-none d-md-block sidebar">
-      <div class="sidebar-sticky">
-        <img src="../../../../assets/images/logo.png" alt="" class="sidebar-logo">
+  <nav class="col-md-2 d-none d-md-block sidebar">
+    <div class="sidebar-sticky">
+        <img src="../../../../assets/images/logo.png" alt="Logo" class="img-fluid mb-3">
         <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="/dashbord-admin">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/users">Utilisateurs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="adminevents">Événements</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/carteadmin">Carte Invitation</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link active" [routerLink]="['/dashbord-admin']" routerLinkActive="active">
+                    <i class="bi bi-house-fill"></i> <!-- Icône Dashboard -->
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  [routerLink]="['/users']" routerLinkActive="active">
+                    <i class="bi bi-person-circle"></i> <!-- Icône Utilisateurs -->
+                    Utilisateurs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/adminevents']" routerLinkActive="active">
+                    <i class="bi bi-calendar-event"></i> <!-- Icône Événements -->
+                    Événements
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/carteadmin']" routerLinkActive="active">
+                    <i class="bi bi-card-text"></i> <!-- Icône Carte Invitation -->
+                    Carte Invitation
+                </a>
+            </li>
         </ul>
-      </div>
-    </nav>
+    </div>
+</nav>
   
     <div class="profile-container" *ngIf="user; else loading">
       <!-- Bannière avec image de fond -->
@@ -53,16 +65,16 @@
               <th>ADRESSE</th>
               <td>{{ user.adresse }}</td>
             </tr>
-            <!-- <tr>
+            <tr>
               <th>DESCRIPTION</th>
               <td>{{ user.description }}</td>
-            </tr> -->
+            </tr>
           </tbody>
         </table>
   
         <!-- Bouton modifier -->
         <div class="d-flex justify-content-start mb-4">
-          <!-- <button class="btn btn-warning">Modifier</button> -->
+          <button class="btn btn-warning">Modifier</button>
         </div>
       </div>
     </div>

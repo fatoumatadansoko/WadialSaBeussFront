@@ -1,89 +1,74 @@
-import { Inject, Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, catchError, tap, BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, throwError, catchError, tap } from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { isPlatformBrowser } from '@angular/common';
 import { apiUrl } from './ApiUrl';
-
-
-interface User {
-  id: number;
-  roles: string[];
-  description?:string;
-  nom?: string;
-  email?: string;
-  password?: string;
-  adresse?: string;
-  telephone?: string;
-  statut?: "active";
-  createdAt?: Date;
-  updatedAt?: Date;
-  logo?:string;
-  // Ajoutez d'autres propriétés selon votre modèle utilisateur
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-    private http = inject(HttpClient);
-    private router = inject(Router);
-    private isBrowser: boolean;
-    
-    private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-    authStatus$ = this.isLoggedInSubject.asObservable();
-  
-    constructor(@Inject(PLATFORM_ID) platformId: Object) {
-      this.isBrowser = isPlatformBrowser(platformId);
-      if (this.isBrowser) {
-        this.checkInitialAuthStatus();
-      }
-    }
-  
-    private checkInitialAuthStatus(): boolean {
-      if (!this.isBrowser) return false;
-      
-      const token = localStorage.getItem('token');
-      if (!token) return false;
-  
-      const isValid = !this.isTokenExpired(token);
-      this.isLoggedInSubject.next(isValid);
-      return isValid;
-    }
-  
+  private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+  private http = inject(HttpClient);
+  private userRoleSubject = new BehaviorSubject<string | null>(null);
 
-  register(identifiant: any): Observable<any> {
-    return this.http.post(`${apiUrl}/register`, identifiant).pipe(
-      catchError((error) => {
-        console.error('Erreur lors de l\'inscription:', error);
-        return throwError(() => error);
-      })
-    );
+  
+  // Observable pour le statut de connexion
+  isLoggedIn(): Observable<boolean> {
+    return this.isLoggedInSubject.asObservable();
   }
 
+  getUserRole(): Observable<string | null> {
+    return this.userRoleSubject.asObservable();
+  }
+  // Vérifie si l'utilisateur a un rôle donné
+  getCurrentRole(): string | null {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        return user.role;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
+  hasRole(role: string): boolean {
+    const currentRole = this.getCurrentRole();
+    return currentRole === role;
+  }
+
+
+  // Méthode pour se connecter
   login(identifiant: any): Observable<any> {
     return this.http.post(`${apiUrl}/login`, identifiant).pipe(
       tap((response: any) => {
         if (response.token) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
-          this.isLoggedInSubject.next(true);
+          localStorage.setItem('userRole', response.user.role); // Stocker le rôle
+
+          // Mettre à jour les BehaviorSubjects
+          this.isLoggedInSubject.next(true); 
+          this.userRoleSubject.next(response.user.role); // Mettre à jour le rôle dans le BehaviorSubject
         }
       }),
       catchError((error) => {
-        console.error('Erreur de connexion:', error);
-        return throwError(() => error);
+        console.error('Erreur lors de la connexion:', error);
+        return throwError(error);
       })
     );
   }
 
+  // Méthode pour se déconnecter
   logout(): Observable<any> {
     const token = localStorage.getItem('token');
-    
+  
     if (!token) {
-      this.handleLogoutSuccess();
-      return throwError(() => new Error('Aucun token trouvé'));
+      console.error('No authentication token found');
+      return throwError('No authentication token found');
     }
 
     const headers = new HttpHeaders({
@@ -93,85 +78,49 @@ export class AuthService {
 
     return this.http.post(`${apiUrl}/logout`, {}, { headers }).pipe(
       tap(() => {
-        this.handleLogoutSuccess();
+        // Supprimer le token et informer que l'utilisateur est déconnecté
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('userRole'); // Supprimer le rôle de l'utilisateur
+        this.isLoggedInSubject.next(false); // Mise à jour de l'état de connexion
       }),
       catchError((error) => {
         if (error.status === 401) {
-          this.handleLogoutSuccess();
+          console.error('Invalid or expired token, forced logout.');
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('userRole'); // Supprimer le rôle de l'utilisateur
+          this.isLoggedInSubject.next(false); // Mise à jour de l'état de connexion
         }
-        return throwError(() => error);
+        return throwError(error);
       })
     );
   }
 
-  private handleLogoutSuccess(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.isLoggedInSubject.next(false);
-    this.router.navigate(['/login']);
+  // Méthode pour l'inscription
+  register(identifiant: any): Observable<any> {
+    return this.http.post(`${apiUrl}/register`, identifiant).pipe(
+      catchError((error) => {
+        console.error('Registration failed:', error);
+        return throwError(error);
+      })
+    );
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.authStatus$;
-  }
-<<<<<<< HEAD
-
-  getCurrentUser(): User | null {
-    const userStr = localStorage.getItem('user');
-    if (!userStr) return null;
-    
-    try {
-      return JSON.parse(userStr);
-    } catch {
-      return null;
-=======
-    getUserId(): number {
-      
-      // Remplacez par votre méthode pour récupérer l'ID utilisateur
-      const user = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('user') || '{}');
-      return user.id; // Assurez-vous que l'ID est stocké dans localStorage
->>>>>>> origin/develop
-    }
-  }
-
-  getUserId(): number | null {
-    const user = this.getCurrentUser();
-    return user?.id || null;
+  getUserId(): number {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.id; // Assurez-vous que l'ID est stocké dans localStorage
   }
 
   isTokenExpired(token: string): boolean {
-    try {
-      const decodedToken: any = jwtDecode(token);
-      return (decodedToken.exp * 1000) < Date.now();
-    } catch {
-      return true;
-    }
+    const decodedToken: any = jwtDecode(token);
+    const expirationDate = decodedToken.exp * 1000; // La date d'expiration est en secondes
+    return expirationDate < Date.now();
   }
-
-  updateAuthStatus(status: boolean): void {
-    this.isLoggedInSubject.next(status);
-  }
-
-  // Méthode pour rafraîchir le token si nécessaire
-  refreshToken(): Observable<any> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return throwError(() => new Error('Aucun token trouvé'));
-    }
-
-    // Implémentez votre logique de rafraîchissement de token ici
-    return this.http.post(`${apiUrl}/refresh-token`, {}).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-        }
-      })
-    );
-  }
-
-  // Méthode utilitaire pour vérifier si l'utilisateur a un rôle spécifique
-  hasRole(role: string): boolean {
-    const user = this.getCurrentUser();
-    return user?.roles?.includes(role) || false;
+  getUser(): Observable<any> {
+    return this.http.get(`${apiUrl}/getUser`);
   }
 }
+
+
+ 

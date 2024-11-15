@@ -17,22 +17,14 @@ export class CategorieService {
   getAllCategories() {
     // const token = localStorage.getItem('token');
     // const headers = { 'Authorization': `Bearer ${token}` };    
-<<<<<<< HEAD
     return this.http.get(`${apiUrl}/categories`);
-=======
-    return this.http.get(`${apiurl}/categories`);
->>>>>>> origin/develop
     
     // Méthodes pour lister les categories
   }
   getAllCategorie() {
     // const token = localStorage.getItem('token');
     // const headers = { 'Authorization': `Bearer ${token}` };    
-<<<<<<< HEAD
     return this.http.get(`${apiUrl}/categories`);
-=======
-    return this.http.get(`${apiurl}/categories`);
->>>>>>> origin/develop
     
     // Méthodes pour lister les categories
   }

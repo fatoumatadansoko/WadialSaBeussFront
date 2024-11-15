@@ -45,7 +45,7 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
     const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`,
         // Vous pouvez ajouter d'autres en-têtes si nécessaire
-        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/json'
     });
 
     // Cloner et modifier la requête pour inclure les nouveaux en-têtes

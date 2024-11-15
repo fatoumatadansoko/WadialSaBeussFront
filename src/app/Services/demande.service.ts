@@ -9,6 +9,7 @@ import { apiUrl } from './ApiUrl';
   providedIn: 'root'
 })
 export class DemandeService {
+
   constructor(private http: HttpClient) {}
 
   // Méthode pour récupérer les demandes d'un prestataire
@@ -16,14 +17,7 @@ export class DemandeService {
     return this.http.get<any>(`${apiUrl}/prestataires/${prestataireId}/demandes`);
   }
 
-//   approuverDemande(demandeId: number) {
-//     return this.http.post(`${this.apiUrl}/demande/${demandeId}/approuver`, {});
-//   }
 
-// refuserDemande(demandeId: number): Observable<{ success: boolean; message?: string }> {
-//     return this.http.post(`${this.apiUrl}/demande/${demandeId}/refuser`, {});
-//   }
-// }
 approuverDemande(demandeId: number): Observable<{ success: boolean; message?: string }> {
   return this.http.put<{ success: boolean; message?: string }>(`${apiUrl}/prestataires/demandes/${demandeId}/accepter`, {});
 }

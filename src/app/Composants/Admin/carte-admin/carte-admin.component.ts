@@ -3,46 +3,36 @@ import { Component, inject } from '@angular/core';
 import { CarteinvitationService } from '../../../Services/carteinvitation.service';
 import { HttpClient } from '@angular/common/http';
 import { carteinvitationModel } from '../../../Models/carteinvitation.model';
-import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Router, RouterModule } from '@angular/router';
-import { CategorieService } from '../../../Services/categorie.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carte-admin',
   standalone: true,
   imports: [
-    NgFor,FormsModule,NgFor,NgIf,RouterModule,ReactiveFormsModule,
+    NgFor,FormsModule,NgFor,NgIf,RouterModule
   ],
   templateUrl: './carte-admin.component.html',
   styleUrls: ['./carte-admin.component.scss']
 })
 export class CarteAdminComponent {
   isFormVisible: boolean = false; // Variable pour contrôler la visibilité du formulaire
-  selectedCarte: any = null; // Initialize as null or empty object
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+  totalPages: number = 0;
+  carteinvitations: carteinvitationModel[] = [];
+  categories: any[] = []; // Déclarez cette propriété pour stocker les catégories
 
 
   private CarteinvitationService = inject(CarteinvitationService);    
-
-  // Ajout de FormBuilder dans le constructeur
-  constructor(
-    private http: HttpClient,
-    private categorieService: CategorieService,
-    private router: Router,
-    private carteinvitationService: CarteinvitationService, 
-    private fb: FormBuilder
-  ) { 
-    // Initialisation du formulaire avec des validations
-    this.updateForm = this.fb.group({
-      nom: ['', Validators.required],
-      contenu: ['', Validators.required],
-      image: [''] // L'image est optionnelle
-    });
-  }
+  router: any;
+  constructor(private http: HttpClient,
+    private categorieService: CarteinvitationService 
+  ) { }
   
   // Déclaration des variables
-  carteinvitations: carteinvitationModel[] = [];
   newCarte: carteinvitationModel = {
     id: 0,
     nom: '',
@@ -50,19 +40,16 @@ export class CarteAdminComponent {
     categorie_id: '', // Initialisation
     image: '', // Initialisation
   };
-  
-  categories: any[] = []; // Déclarez cette propriété pour stocker les catégories
-  updateForm: FormGroup;
-  selectedFile: File | null = null;
 
-  // Méthode appelée lors de l'initialisation du composant
+  //Déclaration des methodes
   ngOnInit(): void {
     this.fetchCarteinvitations();
     this.fetchCategoriecartes();
-  }
+}
+
 
 fetchCategoriecartes(): void {
-  // const authToken = localStorage.getItem('token');
+  const authToken = localStorage.getItem('token');
   this.categorieService.getAllCategories().subscribe(
     (response: any) => {
       console.log(response.data);
@@ -74,24 +61,53 @@ fetchCategoriecartes(): void {
   );
 }
    
-  fetchCarteinvitations(): void {
-    this.CarteinvitationService.getAllCarteinvitations().subscribe(
-      (response: any) => {
-        console.log('Réponse complète:', response); // Vérification de la structure de la réponse
-        
-        // Vérification si la structure contient les cartes dans "data"
-        if (response && response.data && Array.isArray(response.data)) {
-          this.carteinvitations = response.data; // Inversement des cartes si nécessaire
-          console.log('Cartes:', this.carteinvitations);
-        } else {
-          console.error('Erreur: la réponse ne contient pas de données utilisateur');
-        }
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des utilisateurs:', error);
+fetchCarteinvitations(): void {
+  this.CarteinvitationService.getAllCarteinvitations().subscribe(
+    (response: any) => {
+      if (response && response.data && Array.isArray(response.data)) {
+        this.carteinvitations = response.data;
+        this.totalItems = this.carteinvitations.length;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+      } else {
+        console.error('Erreur: la réponse ne contient pas de données de cartes');
       }
-    );
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des cartes:', error);
+    }
+  );
+}
+
+// Getter pour les cartes paginées
+get paginatedCards(): carteinvitationModel[] {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.carteinvitations.slice(startIndex, endIndex);
+}
+
+// Méthodes de pagination
+nextPage(): void {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
   }
+}
+
+previousPage(): void {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
+
+goToPage(page: number): void {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
+
+get pageNumbers(): number[] {
+  return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+}
+
     // Ajoutez cette méthode dans votre composant CarteAdminComponent
     onImageChange(event: any): void {
       const file = event.target.files[0]; // Récupère le fichier image sélectionné
@@ -137,63 +153,7 @@ fetchCategoriecartes(): void {
         }
       );
     }
-    // Méthode pour ouvrir le modal avec les données de la carte à modifier
-  // Méthode pour ouvrir le modal avec les données de la carte à modifier
-  openModal(carte: carteinvitationModel): void {
-    this.updateForm.patchValue({
-      nom: carte.nom,
-      contenu: carte.contenu
-    });
-  }
-
-  // Méthode pour gérer la sélection d'image
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-  }
-
- // Méthode pour modifier une carte
- editCarte(carte: carteinvitationModel): void {
-  this.newCarte = { ...carte }; // Charger la carte dans le formulaire pour modification
-  this.isFormVisible = true; // Afficher le formulaire si nécessaire
-}
-onSubmit(carteId: number) {
-  // Your logic for handling the form submission
-  console.log('Submitted form for card with ID:', carteId);
-  // Add your update logic here
-}
-
-
-  // Méthode pour supprimer une carte
-  deleteCarte(carteId: number): void {
-    const token = localStorage.getItem('token');
-    const headers = {
-      'Authorization': `Bearer ${token}`
-    };
-
-    Swal.fire({
-      title: 'Êtes-vous sûr de vouloir supprimer cette carte?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Oui, supprimer',
-      cancelButtonText: 'Annuler'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.CarteinvitationService.deleteCarte(carteId).subscribe(
-          (response: any) => {
-            Swal.fire('Supprimé!', 'La carte a été supprimée avec succès.', 'success');
-            this.fetchCarteinvitations(); // Rafraîchir la liste après suppression
-          },
-          (error: any) => {
-            console.error('Erreur lors de la suppression de la carte:', error);
-          }
-        );
-      }
-    });
-  }
-
+    
 
   }
   
-

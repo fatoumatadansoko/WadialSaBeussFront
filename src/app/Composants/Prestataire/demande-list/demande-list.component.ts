@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { DemandeService } from '../../../Services/demande.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,9 +6,7 @@ import { FooterComponent } from '../../Commun/footer/footer.component';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { UserService } from '../../../Services/users.service';
 import { DemandePrestationService } from '../../../Services/demandePrestation.service';
-import { PrestataireService } from '../../../Services/prestataire.service';
 import { environment } from '../../../../environnements/environments';
-import { UserModel } from '../../../Models/prestataire.model';
 import { DemandePrestation, EtatDemande } from '../../../Models/demande_prestataires.model';
 import Swal from 'sweetalert2';
 
@@ -27,12 +24,12 @@ export class DemandeListComponent implements OnInit {
   user: any; // Variable pour stocker les infos de l'utilisateur connecté
   baseUrl: string = environment.apiurl;
   users: any[] = []; // Initialisez comme tableau vide
+  isApprovingMap: Map<number, boolean> = new Map(); // Pour suivre l'état de chargement par demande
+  isRejectingMap: Map<number, boolean> = new Map();
   // Utilisation de l'injection avec la méthode 'inject' (Angular >= 16)
   private demandeService = inject(DemandeService);
   private userService = inject(UserService);
   private demandePrestationService = inject(DemandePrestationService);
-  private route = inject(ActivatedRoute);
-  private prestataireService = inject(PrestataireService);
 
   ngOnInit(): void {
     this.loadPrestataireDemandes(); // Charge les demandes du prestataire connecté
@@ -41,47 +38,46 @@ export class DemandeListComponent implements OnInit {
 
   }
 
-
-
  
   loadPrestataireDemandes(): void {
     const prestataire = localStorage.getItem('prestataire');
-
+  
     if (prestataire) {
-        const prestataireId = JSON.parse(prestataire).id;
-
-        this.demandePrestationService.getDemandesByPrestataireId(prestataireId).subscribe(
-            (response: any) => {
-                if (response.success) {
-                    this.demandes = response.prestataire.demandes;
-
-                    // Assigner le nom du client directement depuis la réponse API
-                    this.demandes.forEach(demande => {
-                        demande.clientNom = demande.client ? demande.client.nom : 'Nom inconnu';
-                    });
-
-                    console.log('Demandes avec noms de clients:', this.demandes);
-
-                } else {
-                    console.error(response.message);
-                }
-            },
-            (error) => {
-                console.error('Erreur lors de la récupération des demandes', error);
-            }
-        );
+      const prestataireId = JSON.parse(prestataire).id;
+  
+      this.demandePrestationService.getDemandesByPrestataireId(prestataireId).subscribe(
+        (response) => {
+          if (response.success) {
+            this.demandes = response.prestataire.demandes;
+  
+            this.demandes.forEach(demande => {
+              demande.clientNom = demande.client ? demande.client.nom : 'Nom inconnu';
+              
+              // Vérifier l'état stocké dans le localStorage pour désactiver le bouton
+              const savedEtat = localStorage.getItem(`demande_${demande.id}_etat`);
+              if (savedEtat && savedEtat !== 'en_attente') {
+                demande.etat = savedEtat as EtatDemande;
+              }
+            });
+          } else {
+            console.error(response.message);
+          }
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des demandes', error);
+        }
+      );
     } else {
-        console.error('Prestataire non trouvé dans le localStorage');
+      console.error('Prestataire non trouvé dans le localStorage');
     }
-}
+  }
+  
 
 
   getUserProfile(): void {
     // if (typeof window !== 'undefined' && localStorage.getItem('prestataire')) {
     const prestataire = localStorage.getItem('prestataire');
     // const prestataire = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('prestataire') || "{}");
-    // const prestataire = localStorage.getItem('prestataire');
-    // const prestataire = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('authUser') || "{}");
     
     if (prestataire) {
         const prestataireId = JSON.parse(prestataire).id; // Récupère l'ID du client
@@ -117,92 +113,60 @@ export class DemandeListComponent implements OnInit {
       }
     );
   }
- // Méthode pour approuver une demande
- approuverDemande(demandeId: number): void {
-  this.demandeService.approuverDemande(demandeId).subscribe(
-    (response: { success: boolean; message?: string }): void => {
-      
-      if (response.success) {
-        const demande = this.demandes.find(d => d.id === demandeId);
-        if (demande) {
-          demande.etat = EtatDemande.APPROUVE; // Utilisation de l'énumération
-          console.log('Demande approuvée avec succès.');
-          // Afficher SweetAlert pour succès
-          Swal.fire({
-            title: 'Demande approuvée!',
-            text: 'La demande a été approuvée avec succès.',
-            icon: 'success',
-            timer: 3000, // Ferme après 3 secondes
-            showConfirmButton: false
-          });
+  approuverDemande(demandeId: number): void {
+    this.isApprovingMap.set(demandeId, true); 
+    
+    this.demandeService.approuverDemande(demandeId).subscribe(
+      (response) => {
+        if (response.success) {
+          const demande = this.demandes.find(d => d.id === demandeId);
+          if (demande) {
+            demande.etat = EtatDemande.APPROUVE;
+            localStorage.setItem(`demande_${demandeId}_etat`, EtatDemande.APPROUVE); // Sauvegarder l'état
+            Swal.fire({
+              title: 'Demande approuvée!',
+              text: 'La demande a été approuvée avec succès.',
+              icon: 'success',
+              timer: 3000,
+              showConfirmButton: false
+            });
+          }
         }
-      } else {
-        console.error('Erreur lors de l\'approbation de la demande:', response.message);
-        // Afficher SweetAlert pour erreur
-        Swal.fire({
-          title: 'Erreur',
-          text: response.message || 'Une erreur est survenue.',
-          icon: 'error',
-          timer: 3000,
-          showConfirmButton: false
-        });
+      },
+      error => {
+        console.error('Erreur lors de l\'approbation de la demande:', error);
       }
-    },
-    error => {
-      console.error('Erreur lors de l\'approbation de la demande:', error);
-      // Afficher SweetAlert pour erreur
-      Swal.fire({
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors de l\'approbation de la demande.',
-        icon: 'error',
-        timer: 3000,
-        showConfirmButton: false
-      });
-    }
-  );
-}
-
-// Méthode pour refuser une demande
-refuserDemande(demandeId: number): void {
-  this.demandeService.refuserDemande(demandeId).subscribe(
-    (response: { success: boolean; message?: string }): void => {
-      if (response.success) {
-        const demande = this.demandes.find(d => d.id === demandeId);
-        if (demande) {
-          demande.etat = EtatDemande.REJETE; // Utilisation de l'énumération
-          console.log('Demande rejetée avec succès.');
-          // Afficher SweetAlert pour succès
-          Swal.fire({
-            title: 'Demande rejetée!',
-            text: 'La demande a été refusée avec succès.',
-            icon: 'success',
-            timer: 3000,
-            showConfirmButton: false
-          });
+    ).add(() => {
+      this.isApprovingMap.set(demandeId, false); 
+    });
+  }
+  
+  refuserDemande(demandeId: number): void {
+    this.isRejectingMap.set(demandeId, true); 
+    
+    this.demandeService.refuserDemande(demandeId).subscribe(
+      (response) => {
+        if (response.success) {
+          const demande = this.demandes.find(d => d.id === demandeId);
+          if (demande) {
+            demande.etat = EtatDemande.REJETE;
+            localStorage.setItem(`demande_${demandeId}_etat`, EtatDemande.REJETE); // Sauvegarder l'état
+            Swal.fire({
+              title: 'Demande rejetée!',
+              text: 'La demande a été refusée avec succès.',
+              icon: 'success',
+              timer: 3000,
+              showConfirmButton: false
+            });
+          }
         }
-      } else {
-        console.error('Erreur lors du rejet de la demande:', response.message);
-        // Afficher SweetAlert pour erreur
-        Swal.fire({
-          title: 'Erreur',
-          text: response.message || 'Une erreur est survenue.',
-          icon: 'error',
-          timer: 3000,
-          showConfirmButton: false
-        });
+      },
+      error => {
+        console.error('Erreur lors du rejet de la demande:', error);
       }
-    },
-    error => {
-      console.error('Erreur lors du rejet de la demande:', error);
-      // Afficher SweetAlert pour erreur
-      Swal.fire({
-        title: 'Erreur',
-        text: 'Une erreur est survenue lors du rejet de la demande.',
-        icon: 'error',
-        timer: 3000,
-        showConfirmButton: false
-      });
-    }
-  );
-}
+    ).add(() => {
+      this.isRejectingMap.set(demandeId, false); 
+    });
+  }
+  
 }

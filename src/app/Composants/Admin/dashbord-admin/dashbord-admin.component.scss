@@ -3,40 +3,71 @@
   display: flex; /* Permet d'afficher la sidebar et le contenu à côté */
   height: 100vh; /* Prend toute la hauteur de l'écran */
 }
-
-/* Sidebar fixe avec une hauteur pleine */
+/* Sidebar */
 .sidebar {
-  width: 250px; /* Largeur de la sidebar */
-  background-color: #fff; /* Couleur de fond */
-  height: 100vh; /* Prend toute la hauteur de l'écran visible */
-  position: fixed; /* Reste fixe sur la gauche */
-  top: 0; /* Assure que la sidebar commence en haut de la page */
-  left: 0; /* Aligne la sidebar à gauche */
-  border-right: 1px solid #ddd; /* Bordure droite */
-  padding: 20px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding: 30px 20px; /* Augmente la marge en haut */
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  z-index: 1000;
 }
 
-.sidebar-logo {
-  width: 150px;
-  margin-bottom: 30px;
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
-/* Style des liens de la sidebar */
 .nav-link {
   color: #333;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-link i {
+  margin-right: 8px; /* Espace entre l'icône et le texte */
+  font-size: 1.2em;
+}
+
+.nav-link:hover {
+  background-color: #f2f2f2; /* Couleur de fond au survol */
 }
 
 .nav-link.active {
-  color: #b46c20;
+  color: #fff;
+  background-color: #b46c20; /* Carré marron pour le lien actif */
+  font-weight: bold;
+  border-radius: 4px;
 }
 
+/* Logo dans la sidebar */
+.sidebar img {
+  margin-top: 60px;
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+
+/* Adaptation de la mise en page pour le contenu */
+@media (min-width: 768px) {
+  main {
+      margin-left: 250px;
+  }
+}
 /* Contenu principal à droite de la sidebar */
 .profile-container {
   flex-grow: 1; /* Prend tout l'espace disponible */
   margin-left: 250px; /* Compense la largeur de la sidebar */
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #f8f9fa;
 }
 
@@ -52,13 +83,18 @@
   background-image: url(../../../../assets/images/headerprofileuser.png);
 }
 
-.text-white{
-  margin-left: 50px;
-  margin-right: 10px;
-  margin-bottom: 100px;
+/* Alignement des contenus dans la bannière */
+.banner-content {
+  width: 80%;
+  padding-left: 200px;
+  padding-right: 200px;
 }
 
-
+/* Nom de profil */
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
 /* Logo de profil */
 .profile-logo {
@@ -66,9 +102,6 @@
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  margin-left: 800px;
-  margin-right: 50px;
-  margin-bottom: 100px;
 }
 
 /* Boutons */

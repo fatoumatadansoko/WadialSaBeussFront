@@ -3,7 +3,7 @@ import { PrestataireModel } from "./prestataire.model";
 // Définir une énumération pour l'état
 export enum EtatDemande {
     EN_ATTENTE = 'en_attente',
-    APPROUVE = 'approuvée',
+    APPROUVE = 'approuve',
     REJETE = 'rejete'
 }
 
@@ -16,6 +16,8 @@ export interface DemandePrestation {
     updatedAt?: Date;
     clientNom?: string; // Ajout du nom du client
     client: UserModel; //
+    isApproved: boolean;
+    isRejected: boolean;
 }
 
 export interface UserModel {

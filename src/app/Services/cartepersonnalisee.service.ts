@@ -1,7 +1,6 @@
 import { Injectable, inject,  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { carteinvitationModel } from '../Models/carteinvitation.model';
+import { Observable} from 'rxjs';
 import { apiUrl } from './ApiUrl';
 
 
@@ -16,7 +15,7 @@ export class CartepersonnaliseeService {
 
 
  
-     // Méthodes pour lister les cartes
+    // Méthodes pour lister les cartes
   getCarteinvitationById(id: number): Observable<any> {
     // const token = localStorage.getItem('token');
     // const headers = { 'Authorization': `Bearer ${token}` };
@@ -47,17 +46,10 @@ getCartesByClientId(clientId: number): Observable<any> {
   return this.http.get(`${apiUrl}/cartes-personnalisees/client/${clientId}`);
 }
 // Dans CartepersonnaliseeService
-envoyerCarte(id: number, invites: { nom: string, email: string }[]): Observable<any> {
-  const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  });
-
-  const body = { invites }; // Utilise le tableau d'invités avec nom et email
-  
-  return this.http.post(`${apiUrl}/cartes-personnalisees/${id}/envoyer`, body, { headers });
+envoyerCarte(carteId: number, formData: FormData): Observable<any> {
+  return this.http.post(`${apiUrl}/cartes-personnalisees/${carteId}/envoyer`, formData);
 }
+
 
 
 getInvites(id: number): Observable<any> {
@@ -65,8 +57,6 @@ getInvites(id: number): Observable<any> {
   // const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
   return this.http.get(`${apiUrl}/cartes-personnalisees/${id}/invites`);
-
-
-  }}
+}
+  }
   
-

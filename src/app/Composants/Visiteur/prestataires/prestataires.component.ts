@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Injectable } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.model';
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +18,7 @@ import { CommentaireService } from '../../../Services/commentaire.service';
 @Component({
   selector: 'app-prestataires',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf],
+  imports: [HeaderComponent, FooterComponent,NgFor,FormsModule,RouterLink,NgIf,NgClass,CommonModule],
   templateUrl: './prestataires.component.html',
   styleUrls: ['./prestataires.component.scss']  // Correction : 'styleUrls' au lieu de 'styleUrl'
 })
@@ -39,6 +39,8 @@ export class PrestatairesComponent implements OnInit {
   users: UserModel[] = [];
   selectedCategorie: any = null;  
   message: string=''; 
+  isSortedByRating: boolean = false;
+
       // La catégorie actuellement sélectionnée
 
   // Méthode appelée lors de l'initialisation du composant
@@ -51,37 +53,31 @@ export class PrestatairesComponent implements OnInit {
       const prestataire = this.prestataires[0]; // Ex. : récupérer le premier prestataire
       this.getCommentaires(prestataire.id); // Passe l'id du prestataire ici
     }
-  } 
-  sortByRating(): void {
-    this.prestataires.sort((a, b) => {
-      const noteA = this.getAverageNoteForPrestataire(a.id); // Calculer la note moyenne de chaque prestataire
-      const noteB = this.getAverageNoteForPrestataire(b.id);
-      return noteB - noteA;
-    });
+  } // Nouvelle méthode pour trier par note
+  toggleSortByRating(): void {
+    this.isSortedByRating = !this.isSortedByRating;
   
-    this.prestataires = [...this.prestataires]; // Actualiser la vue en déclenchant la détection de changements
+    if (this.isSortedByRating) {
+      // Fetch comments for each prestataire
+      this.prestataires.forEach(prestataire => {
+        this.commentaireService.getAllCommentaires()
+          .subscribe(comments => {
+            prestataire.comments = comments;
+  
+            // Calculate average rating for the prestataire
+            const totalNotes = comments.reduce((sum: any, comment: { note: any; }) => sum + (comment.note || 0), 0);
+            prestataire.rating = comments.length > 0 ? totalNotes / comments.length : 0;
+  
+            // Sort prestataires by rating
+            this.prestataires.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          });
+      });
+    } else {
+      // Revenir à la liste normale si le tri est désactivé
+      this.fetchPrestataires();
+    }
   }
   
-  getAverageNoteForPrestataire(prestataireId: number): number {
-    const filteredCommentaires = this.commentaires.filter(comment => comment.prestataire_id === prestataireId);
-    const totalNotes = filteredCommentaires.reduce((sum, comment) => sum + (comment.note || 0), 0);
-    return filteredCommentaires.length > 0 ? totalNotes / filteredCommentaires.length : 0;
-  }
-  
-  
-
-  convertToInt(note: any): number {
-    const parsedNote = parseInt(note, 10);
-    return isNaN(parsedNote) ? 0 : parsedNote;
-  }
-
-  // Calcul de la note moyenne
-  getAverageNote(prestataireId: number): number {
-    const filteredCommentaires = this.commentaires.filter(comment => comment.prestataire_id === prestataireId);
-    const totalNotes = filteredCommentaires.reduce((sum, comment) => sum + this.convertToInt(comment.note), 0);
-    return filteredCommentaires.length > 0 ? totalNotes / filteredCommentaires.length : 0;
-  }
-
   getCommentaires(id: number): void {
     this.commentaireService.getAllCommentaires(id).subscribe(
       (response: any) => {
@@ -93,7 +89,7 @@ export class PrestatairesComponent implements OnInit {
     );
   }//écupération de toutes les catégories des prestataires
   fetchCategorieprestataires(): void {
-    // const authToken = localStorage.getItem('token');  // Ou tout autre mécanisme de stockage du token
+    const authToken = localStorage.getItem('token');  // Ou tout autre mécanisme de stockage du token
     this.categorieprestataireService.getAllCategorieprestataire().subscribe(
       (response: any) => {
         console.log(response.data);

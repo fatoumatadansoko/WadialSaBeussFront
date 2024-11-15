@@ -1,63 +1,5 @@
 <app-header></app-header>
 
-    
-<!-- =================================================================-->
-
-<section class="caroussel">
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner nosrealisations">
-      <!-- Carousel Item 1 -->
-      <div class="carousel-item active">
-        <div class="container">
-          <div class="row">
-            <div class="col-3 carousselimage">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 1" class="img-fluid partenaire"/>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 2" class="img-fluid partenaire"/>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 3" class="img-fluid partenaire"/>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 4" class="img-fluid partenaire"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Carousel Item 2 -->
-      <div class="carousel-item">
-        <div class="container">
-          <div class="row">
-            <div class="col-3 carousselimage">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 5" class="img-fluid partenaire"/>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 6" class="img-fluid partenaire"/>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 7" class="img-fluid partenaire"/>
-            </div>
-            <div class="col-3">
-              <img src="../../../../assets/images/categorie1.png" alt="Partenaire 8" class="img-fluid partenaire"/>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Ajoute d'autres éléments au besoin -->
-    </div>
-    
-    <!-- Carousel Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    </button>
-  </div>
-</section>
 
 
 
@@ -74,7 +16,7 @@
     </div>
   
 </div>
-  <div class="text-center">
+  <div class="text-left">
     <h2 class="fw-bold mt-6 presta">Nos prestataires </h2>
   </div>
   <!-- Dropdown de catégories -->
@@ -86,12 +28,16 @@
       <li *ngFor="let categorieprestataire of categoriesprestataires">
         <a class="dropdown-item" (click)="onCategorieSelect(categorieprestataire)">
           {{ categorieprestataire.titre }}
+          <!-- <p>Note moyenne: {{ prestataires.rating | number:'1.1-1' }}</p> -->
+
         </a>
       </li>
     </ul>
   </div>
-  <button class="btn btn-primary my-3" (click)="sortByRating()">Trier par les mieux notés</button>
-
+  <!-- <button class="btn btn-drop d-flex align-items-center" (click)="toggleSortByRating()">
+    <i class="bi" [ngClass]="{'bi-sort-down': !isSortedByRating, 'bi-sort-down-alt': isSortedByRating}"></i>
+    Trier par note
+  </button> -->
   <div class="row">
     <div class="col-md-4" *ngFor="let prestataire of prestataires"> 
       <!-- Utilisation de [routerLink] pour passer l'ID dynamique -->
@@ -101,6 +47,7 @@
           <p class="card-text text-muted">
             {{ prestataire.description }}
           </p>
+          
           <h5 class="card-title text-warning fw-bold">{{prestataire.user?.nom}}</h5>
         </div>
       </a>

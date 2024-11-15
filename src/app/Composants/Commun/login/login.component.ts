@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Role, UserModel } from '../../../Models/users.model';
+import { UserModel } from '../../../Models/users.model';
 import { AuthService } from '../../../Services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';
 
 
 
@@ -50,7 +49,7 @@ export class LoginComponent {
               if (response.user.roles[0].name === 'admin') {
                 this.router.navigateByUrl('dashbord-admin');
               } else if (response.user.roles[0].name === 'prestataire') {
-                this.router.navigateByUrl('acceuil');
+                this.router.navigateByUrl('profile');
               } else if (response.user.roles[0].name === 'client') {
                 this.router.navigate(['acceuil']);
               } else {
@@ -68,38 +67,15 @@ export class LoginComponent {
     }
   }
   
-//     logout() {
-//     return this.authService.logout().subscribe(
-//         (response: any) => {
-//             console.log(response);
-//             localStorage.removeItem('access_token');
-//             localStorage.removeItem('user');
-//             this.router.navigateByUrl('/login');
-            
-//             // Afficher une alerte de succès avec SweetAlert
-//             Swal.fire({
-//                 title: 'Déconnexion réussie',
-//                 text: 'Vous avez été déconnecté avec succès.',
-//                 icon: 'success',
-//                 confirmButtonText: 'OK'
-//             });
-//         },
-//         (error) => {
-//             console.error(error);
-//             // Afficher une alerte d'erreur avec SweetAlert
-//             Swal.fire({
-//                 title: 'Erreur',
-//                 text: 'Erreur lors de la déconnexion. Veuillez réessayer.',
-//                 icon: 'error',
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//     );
-// }
-logout() {
-  this.authService.logout();
-  localStorage.removeItem("user && token");
-  this.router.navigateByUrl("/login");
+    logout() {
+    return this.authService.logout().subscribe(
+        (response: any) => {
+            console.log(response);
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.router.navigateByUrl('/login'); 
+        },
+    );
 }
 
 }  

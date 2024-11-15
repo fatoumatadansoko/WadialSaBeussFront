@@ -7,7 +7,9 @@ export interface PrestataireModel {
     user_id?: number, 
     logo?: string,
     ninea?: string,
+    comments?: CommentaireModel[]; // Add comments property
     categorie_prestataire_id?:CategoriePrestataireModel,
+    rating?: number,
     createdAt?: Date,
     updatedAt?: Date,
     user?: UserModel; // Ajoute cette ligne pour inclure user
@@ -20,7 +22,7 @@ export interface UserModel {
     email?: string,
     password?: string,
     adresse?: string,
-    telephone?: string,
+    telephone?: string | number; // Ajoutez ce type si ce n'est pas encore fait
     statut?: "active",
     createdAt?: Date,
     updatedAt?: Date,

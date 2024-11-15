@@ -1,159 +1,172 @@
 .container {
-    padding: 10rem;
-  }
-  .container .btn-success {
-    background-color:#a0753d  ;
-  }
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  .prestataire-details {
-    display: flex;
-    flex-wrap: wrap;
-  
-    .contact-container {
-      margin-top: 1rem;
-  
-      .contact-info {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
-  
-        i {
-          margin-right: 0.5rem;
-          color: #a0753d ; /* Couleur orange */
-        }
-  
-        span {
-          margin-right: 2rem; /* Ajout d'espacement entre les informations */
-        }
-      }
-  
-      /* Pour aligner toutes les informations en ligne */
-      display: flex;
-      justify-content: flex-start;
-      gap: 1rem; /* Espace entre les différents éléments (adresse, téléphone, email) */
-    }
-  }
-  
-  .testimonials {
-    h4 {
-      margin-bottom: 1rem;
-    }
-    .commentaire {
-      margin-bottom: 1.5rem;
-      background-color: #f9f9f9;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-  }
-  
-  .rating {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .bi-star {
-    font-size: 24px;
-    cursor: pointer;
-    color: #d3d3d3; /* Couleur des étoiles non remplies */
-  }
-  
-  .filled {
-    color: #a0753d ; /* Couleur des étoiles remplies */
-  }
-  
-  .bi-star:hover, .bi-star.filled:hover {
-    color: #a0753d ; /* Couleur des étoiles lors du hover */
-  }
-  .rating {
-    color: lightgray; /* Couleur par défaut pour les étoiles vides */
-  }
-  
-  .rating .filled {
-    color: gold; /* Couleur pour les étoiles remplies */
-  }
-  
-  
-  
-  .review-section {
-    margin-top: 3rem;
-    .btn {
-      background-color: #9e9f8d;
-      border-color: #9e9f8d;
-    }
-  }
-  /* Media Query pour tablettes et plus petits écrans */
-@media (max-width: 768px) {
-  .container {
-    padding: 5rem 1rem; /* Réduire le padding sur mobile */
-  }
+  padding: 10rem;
+}
+.container .btn-success {
+  background-color:#a0753d  ;
+}
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
 
-  .prestataire-details {
-    flex-direction: column; /* Empiler les éléments en colonne sur mobile */
-    align-items: center; /* Centrer les éléments */
-
-    .col-md-6 {
-      width: 100%; /* Assurer que les colonnes prennent toute la largeur sur mobile */
-      margin-bottom: 2rem; /* Ajouter un espace entre les éléments */
-    }
-
-    img {
-      width: 80%; /* Réduire la taille de l'image sur mobile */
-      max-width: 300px; /* Limiter la taille de l'image */
-    }
-  }
+.prestataire-details {
+  display: flex;
+  flex-wrap: wrap;
 
   .contact-container {
-    flex-direction: column; /* Mettre les éléments de contact en colonne */
-    gap: 0.5rem; /* Réduire l'espacement entre les éléments */
-    align-items: center;
-  }
+    margin-top: 1rem;
 
-  .review-section {
-    padding: 0 1rem;
-  }
+    .contact-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
 
-  .testimonials .row {
-    flex-direction: column; /* Afficher les commentaires en colonne */
-  }
+      i {
+        margin-right: 0.5rem;
+        color: #a0753d ; /* Couleur orange */
+      }
 
-  .commentaire {
+      span {
+        margin-right: 2rem; /* Ajout d'espacement entre les informations */
+      }
+    }
+
+    /* Pour aligner toutes les informations en ligne */
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem; /* Espace entre les différents éléments (adresse, téléphone, email) */
+  }
+}
+
+.testimonials {
+  h4 {
     margin-bottom: 1rem;
-    text-align: center;
   }
+  .commentaire {
+    margin-bottom: 1.5rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.rating {
+  display: flex;
+  gap: 5px;
+}
+
+.bi-star {
+  font-size: 24px;
+  cursor: pointer;
+  color: #d3d3d3; /* Couleur des étoiles non remplies */
+}
+
+.filled {
+  color: #a0753d ; /* Couleur des étoiles remplies */
+}
+
+.bi-star:hover, .bi-star.filled:hover {
+  color: #a0753d ; /* Couleur des étoiles lors du hover */
+}
+.rating {
+  color: lightgray; /* Couleur par défaut pour les étoiles vides */
+}
+
+.rating .filled {
+  color: gold; /* Couleur pour les étoiles remplies */
+}
+
+
+
+.review-section {
+  margin-top: 3rem;
+  .btn {
+    background-color: #9e9f8d;
+    border-color: #9e9f8d;
+  }
+}
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Media Query pour tablettes et plus petits écrans */
+@media (max-width: 768px) {
+.container {
+  padding: 5rem 1rem; /* Réduire le padding sur mobile */
+}
+
+.prestataire-details {
+  flex-direction: column; /* Empiler les éléments en colonne sur mobile */
+  align-items: center; /* Centrer les éléments */
+
+  .col-md-6 {
+    width: 100%; /* Assurer que les colonnes prennent toute la largeur sur mobile */
+    margin-bottom: 2rem; /* Ajouter un espace entre les éléments */
+  }
+
+  img {
+    width: 80%; /* Réduire la taille de l'image sur mobile */
+    max-width: 300px; /* Limiter la taille de l'image */
+  }
+}
+
+.contact-container {
+  flex-direction: column; /* Mettre les éléments de contact en colonne */
+  gap: 0.5rem; /* Réduire l'espacement entre les éléments */
+  align-items: center;
+}
+
+.review-section {
+  padding: 0 1rem;
+}
+
+.testimonials .row {
+  flex-direction: column; /* Afficher les commentaires en colonne */
+}
+
+.commentaire {
+  margin-bottom: 1rem;
+  text-align: center;
+}
 }
 
 /* Media Query pour les très petits écrans (moins de 576px) */
 @media (max-width: 576px) {
-  .container {
-    padding: 2rem 0.5rem; /* Réduire encore plus le padding */
-  }
+.container {
+  padding: 2rem 0.5rem; /* Réduire encore plus le padding */
+}
 
-  h1 {
-    font-size: 1.5rem; /* Réduire la taille du titre sur mobile */
-    text-align: center;
-  }
+h1 {
+  font-size: 1.5rem; /* Réduire la taille du titre sur mobile */
+  text-align: center;
+}
 
-  .prestataire-details {
-    text-align: center; /* Centrer le texte sur les petits écrans */
-  }
+.prestataire-details {
+  text-align: center; /* Centrer le texte sur les petits écrans */
+}
 
-  .contact-container {
-    align-items: flex-start; /* Aligner les infos de contact à gauche */
-    text-align: left;
-  }
+.contact-container {
+  align-items: flex-start; /* Aligner les infos de contact à gauche */
+  text-align: left;
+}
 
-  .review-section textarea {
-    width: 100%; /* S'assurer que le champ de commentaire prend toute la largeur */
-  }
+.review-section textarea {
+  width: 100%; /* S'assurer que le champ de commentaire prend toute la largeur */
+}
 
-  .testimonials h4 {
-    text-align: center;
-  }
+.testimonials h4 {
+  text-align: center;
+}
 
-  .commentaire {
-    text-align: center; /* Centrer le contenu du commentaire */
-  }
+.commentaire {
+  text-align: center; /* Centrer le contenu du commentaire */
+}
 }

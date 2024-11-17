@@ -1,8 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CarteinvitationService } from '../../../Services/carteinvitation.service';
-import { HttpClient } from '@angular/common/http';
 import { carteinvitationModel } from '../../../Models/carteinvitation.model';
-import { Observable } from 'rxjs';
 import { HeaderComponent } from '../../Commun/header/header.component';
 import { FooterComponent } from '../../Commun/footer/footer.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -31,7 +29,6 @@ export class CarteInvitationComponent {
  // Déclaration des services via le constructeur
  constructor(
   private fb: FormBuilder,
-  private http: HttpClient,
   private CarteinvitationService: CarteinvitationService,
   private categorieService: CategorieService,
   private router: Router // Injection du routeur pour la redirection

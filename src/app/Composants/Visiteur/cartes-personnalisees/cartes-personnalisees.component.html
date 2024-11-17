@@ -2,6 +2,7 @@
 
 <div class="container d-flex flex-wrap justify-content-center">
   <div class="cartein card-container" *ngFor="let carteItem of carte">
+      <!-- <a [routerLink]="['/telecharger-carte', carteItem.id]" > -->
     <a [routerLink]="['/invites', carteItem.id]" class="card position-relative" id="carte-{{ carteItem.id }}">
       <img *ngIf="carteItem.image" [src]="getPhotoUrl(carteItem.image)" class="card-img-top rounded-top img-fluid" alt="{{ carteItem.nom }}">
       <div class="card-content position-absolute top-50 start-50 translate-middle text-center">

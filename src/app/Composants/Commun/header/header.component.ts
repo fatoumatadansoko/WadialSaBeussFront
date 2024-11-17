@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
     CommonModule,RouterLink,RouterLinkActive,RouterModule
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']  // Notez l'utilisation de scss au lieu de css
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   isLoggedIn: boolean = false;

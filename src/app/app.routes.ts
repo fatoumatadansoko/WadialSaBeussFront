@@ -22,6 +22,7 @@ import { CartesPersonnaliseesComponent } from './Composants/Visiteur/cartes-pers
 import { InvitesComponent } from './Composants/Visiteur/invites/invites.component';
 import { EventadminComponent } from './Composants/Admin/eventadmin/eventadmin.component';
 import { EvenementsComponent } from './Composants/Visiteur/evenements/evenements.component';
+import { TelechargerinvitationComponent } from './Composants/Visiteur/telechargerinvitation/telechargerinvitation.component';
 
 
 export const routes: Routes = [
@@ -50,6 +51,7 @@ export const routes: Routes = [
    { path: 'carte-personnalisee', component: CartesPersonnaliseesComponent},
    { path: 'invites/:id', component: InvitesComponent},
    { path: 'prestataires/:prestataireId/demandes', component: DemandeListComponent },
+   { path: 'telecharger-carte/:id/:token', component: TelechargerinvitationComponent},
 
 
     // Routes pour l'admin
@@ -68,7 +70,12 @@ export const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: false,  // Mettez à true si vous avez des problèmes de routage
+      enableTracing: true, // Pour le débogage uniquement
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

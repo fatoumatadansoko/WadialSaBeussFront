@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CartepersonnaliseeService } from '../../../Services/cartepersonnalisee.service';
 import { AuthService } from '../../../Services/auth.service';
@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './cartes-personnalisees.component.html',
   styleUrls: ['./cartes-personnalisees.component.scss']
 })
-export class CartesPersonnaliseesComponent implements OnInit{
+export class CartesPersonnaliseesComponent {
     @Input() carteId!: number;
     carte: any[] = [];
     showModal = false;
@@ -73,48 +73,57 @@ export class CartesPersonnaliseesComponent implements OnInit{
     }
     
     // Envoyer les invitations
-    sendInvitation(carte: any): void {
-      const invitesFormArray = this.emailForm.get('invites') as FormArray;
-      
-      if (invitesFormArray.invalid) {
-        Swal.fire({
-          title: 'Erreur!',
-          text: 'Veuillez vérifier les informations des invités.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-        return;
-      }
-  
-      const invites = invitesFormArray.value; // Récupère les valeurs du formulaire
-  
-      this.cartepersonnaliseeService.envoyerCarte(carte.id, invites).subscribe({
-        next: (response) => {
-          Swal.fire({
-            title: 'Succès!',
-            text: response.message,
-            icon: 'success',
-            timer: 3000,
-            showConfirmButton: false
-          });
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Erreur lors de l\'envoi des invitations', error);
-          Swal.fire({
-            title: 'Erreur!',
-            text: 'Erreur lors de l\'envoi des invitations: ' + (error.error?.message || 'Erreur inconnue.'),
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
+   // Envoyer les invitations
+sendInvitation(carte: any): void {
+  const invitesFormArray = this.emailForm.get('invites') as FormArray;
+
+  if (invitesFormArray.invalid) {
+    Swal.fire({
+      title: 'Erreur!',
+      text: 'Veuillez vérifier les informations des invités.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+    return;
+  }
+
+  const Invite = invitesFormArray.value; // Récupère les valeurs du formulaire
+  const formData = new FormData();
+
+  // Transformation des données des invités en FormData
+  Invite.forEach((Invite: { nom: string | Blob; email: string | Blob; }, index: any) => {
+    formData.append(`invites[${index}][nom]`, Invite.nom);
+    formData.append(`invites[${index}][email]`, Invite.email);
+  });
+
+  // Appel au backend avec FormData
+  this.cartepersonnaliseeService.envoyerCarte(carte.id, formData).subscribe({
+    next: (response) => {
+      Swal.fire({
+        title: 'Succès!',
+        text: response.message,
+        icon: 'success',
+        timer: 3000,
+        showConfirmButton: false
+      });
+      this.closeModal();
+    },
+    error: (error) => {
+      console.error('Erreur lors de l\'envoi des invitations', error);
+      Swal.fire({
+        title: 'Erreur!',
+        text: 'Erreur lors de l\'envoi des invitations: ' + (error.error?.message || 'Erreur inconnue.'),
+        icon: 'error',
+        confirmButtonText: 'OK'
       });
     }
+  });
+}
+
   
     // Charger les cartes personnalisées de l'utilisateur
     loadUserCartes(): void {
-      // const client = localStorage.getItem('client');
-      const client = JSON.parse(typeof window !== 'undefined' && localStorage.getItem('user') || "{}");
+      const client = localStorage.getItem('client');
   
       if (client) {
         const clientId = JSON.parse(client).id; // Récupère l'ID du client

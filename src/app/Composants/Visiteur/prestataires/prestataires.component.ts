@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Injectable } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../Commun/header/header.component";
 import { FooterComponent } from "../../Commun/footer/footer.component";
 import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
@@ -6,7 +6,6 @@ import { CategoriePrestataireModel } from '../../../Models/categorieprestataire.
 import { CategorieprestataireService } from '../../../Services/categorieprestataire.service';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CategorieModel } from '../../../Models/categorie.model';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { PrestataireModel, UserModel } from '../../../Models/prestataire.model';

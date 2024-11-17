@@ -1,0 +1,35 @@
+<div class="container d-flex flex-wrap justify-content-center" *ngIf="carte">
+    <div class="cartein card-container">
+      <div class="card position-relative">
+        <img *ngIf="carte.image" 
+             #cardImage
+             [src]="getPhotoUrl(carte.image)" 
+             class="card-img-top rounded-top img-fluid" 
+             [alt]="carte.nom"
+             (load)="onImageLoad()">
+        <div class="card-content position-absolute top-50 start-50 translate-middle text-center">
+          <h3>{{ carte.nom }}</h3>
+          <p>{{ carte.contenu }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Ajoutez une div cachée pour le rendu HTML -->
+  <div #pdfContent style="display: none">
+    <div class="card-container">
+      <h3>{{ carte?.nom }}</h3>
+      <img *ngIf="carte?.image" [src]="getPhotoUrl(carte?.image)" [alt]="carte?.nom">
+      <p>{{ carte?.contenu }}</p>
+    </div>
+  </div>
+  <div class="text-center mt-3 w-100">
+    <button type="button" class="btn btn-custom" (click)="downloadPDF()" [disabled]="isGeneratingPDF">
+      <i class="bi bi-download"></i>
+      {{ isGeneratingPDF ? 'Génération en cours...' : 'Télécharger la carte' }}
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger mt-3">
+    {{ error }}
+  </div>
+

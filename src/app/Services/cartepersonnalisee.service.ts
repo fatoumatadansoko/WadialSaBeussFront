@@ -58,5 +58,15 @@ getInvites(id: number): Observable<any> {
 
   return this.http.get(`${apiUrl}/cartes-personnalisees/${id}/invites`);
 }
+// Ajoutez cette méthode au service existant
+getCarteByIdAndToken(id: number, token: string) {
+  return this.http.get(`${apiUrl}/cartes-personnalisees/${id}?token=${token}`);
+}
+
+
+// Méthode pour vérifier si un token est valide
+validateInvitationToken(token: string): Observable<any> {
+  return this.http.post(`${apiUrl}/verify-invitation`, { token });
+}
   }
   

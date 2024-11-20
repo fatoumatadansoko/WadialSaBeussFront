@@ -129,47 +129,45 @@ p {
 .icons i:last-child {
   margin-right: 0;
 }
+/* Styles pour le dropdown */
 .dropdown {
-  display: flex; 
-  flex-direction: column; 
-  align-items: flex-end; 
-  position: relative; 
-}
-
-/* Style pour le bouton */
-.dropdown-toggle {
-  margin-bottom: 5px; 
-}
-.dropdown .btn-drop{
-  background-color: #725111; 
-  color: white; 
-  padding: 10px 20px; 
-  border-radius: 5px; 
-  cursor: pointer; 
-
-}
-/* Styles pour le menu */
-.dropdown-menu {
-  animation: slideIn 0.3s; 
-  background-color: #725111; 
-  color: white; 
-  font-family: 'Playfair Display', serif; 
-  right: 0; 
-  left: auto; 
-  padding: 10px; 
-}
-
-/* Autres styles */
-.dropdown-item {
   display: flex;
-  align-items: center;
-  color: white; 
-}
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
 
-.dropdown-item:hover {
-  background-color: rgb(221, 128, 128); 
-}
+  &-toggle {
+    margin-bottom: 5px;
+  }
 
+  .btn-drop {
+    background-color: #725111;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  &-menu {
+    animation: slideIn 0.3s;
+    background-color: #725111;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    right: 0;
+    left: auto;
+    padding: 10px;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    &:hover {
+      background-color: rgb(221, 128, 128);
+    }
+  }
+}
 
 /* Modal */
 .modal {
@@ -191,6 +189,8 @@ p {
 }
 
 .modal-footer .btnsauv {
+  width:100px ;
+  height: 35px;
   background-color: #725111; 
   color:white ;
 }

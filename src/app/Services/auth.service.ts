@@ -60,6 +60,7 @@ export class AuthService {
         return throwError(error);
       })
     );
+
   }
 
   // Méthode pour se déconnecter

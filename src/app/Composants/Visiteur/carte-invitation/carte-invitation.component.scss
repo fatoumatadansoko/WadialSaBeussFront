@@ -119,55 +119,55 @@ p {
 .icons {
   display: flex;
   justify-content: center;
-  align-items: center; /* S'assure que les icônes sont alignées verticalement */
+  align-items: center; 
 }
 
 .icons i {
-  margin-right: 10px; /* Espacement entre les icônes */
+  margin-right: 10px; 
 }
 
 .icons i:last-child {
-  margin-right: 0; /* Supprimer la marge après la dernière icône */
+  margin-right: 0;
 }
 .dropdown {
-  display: flex; /* Utilisation de Flexbox pour aligner les éléments */
-  flex-direction: column; /* Les éléments sont empilés verticalement */
-  align-items: flex-end; /* Aligne tout à droite */
-  position: relative; /* Nécessaire pour le positionnement */
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-end; 
+  position: relative; 
 }
 
 /* Style pour le bouton */
 .dropdown-toggle {
-  margin-bottom: 5px; /* Ajout d'un petit espacement entre le bouton et le dropdown */
+  margin-bottom: 5px; 
 }
 .dropdown .btn-drop{
-  background-color: #725111; /* Couleur orange pour le bouton */
-  color: white; /* Couleur du texte en blanc */
-  padding: 10px 20px; /* Espacement et taille du bouton */
-  border-radius: 5px; /* Couronne arrondi */
-  cursor: pointer; /* Change le curseur pour pointer sur le bouton */
+  background-color: #725111; 
+  color: white; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  cursor: pointer; 
 
 }
 /* Styles pour le menu */
 .dropdown-menu {
-  animation: slideIn 0.3s; /* Animation d'apparition */
-  background-color: #725111; /* Couleur de fond rouge */
-  color: white; /* Couleur du texte en blanc */
-  font-family: 'Playfair Display', serif; /* Police de caractères Playfair Display */
-  right: 0; /* Affiche le dropdown à droite */
-  left: auto; /* Évite le décalage */
-  padding: 10px; /* Espacement autour des éléments */
+  animation: slideIn 0.3s; 
+  background-color: #725111; 
+  color: white; 
+  font-family: 'Playfair Display', serif; 
+  right: 0; 
+  left: auto; 
+  padding: 10px; 
 }
 
 /* Autres styles */
 .dropdown-item {
   display: flex;
   align-items: center;
-  color: white; /* Couleur du texte en blanc pour les éléments */
+  color: white; 
 }
 
 .dropdown-item:hover {
-  background-color: rgb(221, 128, 128); /* Couleur au survol (ajuster si nécessaire) */
+  background-color: rgb(221, 128, 128); 
 }
 
 
@@ -190,6 +190,10 @@ p {
   align-items: center;
 }
 
+.modal-footer .btnsauv {
+  background-color: #725111; 
+  color:white ;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-container {

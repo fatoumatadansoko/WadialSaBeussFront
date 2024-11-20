@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../environnements/environments';
 import { UserModel } from '../../../Models/prestataire.model';
 import { SidebarComponent } from "../../Commun/sidebar/sidebar.component";
+import { AuthService } from '@/app/Services/auth.service';
 
 @Component({
   selector: 'app-dashbord-admin',
@@ -18,6 +19,7 @@ import { SidebarComponent } from "../../Commun/sidebar/sidebar.component";
   styleUrl: './dashbord-admin.component.scss'
 })
 export class DashbordAdminComponent {
+  private authService = inject(AuthService);
   private userService = inject(UserService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
@@ -43,6 +45,16 @@ export class DashbordAdminComponent {
      );
      
    }
+   logout() {
+    return this.authService.logout().subscribe(
+        (response: any) => {
+            console.log(response);
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.router.navigateByUrl('/login'); 
+        },
+    );
+}
    getPhotoUrl(photoPath: string): string {
      return `${this.baseUrl}${photoPath}`;
    }

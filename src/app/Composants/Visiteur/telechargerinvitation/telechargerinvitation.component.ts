@@ -7,7 +7,6 @@ import { FooterComponent } from '../../Commun/footer/footer.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { NgClass } from '@angular/common';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 
 
@@ -20,6 +19,11 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./telechargerinvitation.component.scss']
 })
 export class TelechargerinvitationComponent {
+//   }
+// }
+alert(arg0: string) {
+throw new Error('Method not implemented.');
+}
   @ViewChild('cardImage') cardImage!: ElementRef<HTMLImageElement>;
   @ViewChild('pdfContent') pdfContent!: ElementRef;
 
@@ -75,53 +79,49 @@ export class TelechargerinvitationComponent {
         }
       });
     }
-    onImageLoad(): void {
-      this.imageLoaded = true;
-      console.log('Image chargée avec succès.');
+    // downloadPDF(): void {
+    //   console.log('Clic sur le bouton de téléchargement');
+  
+    //   if (!this.carte) {
+    //     console.error('Pas de carte disponible');
+    //     this.error = 'Aucune carte à télécharger';
+    //     return;
+    //   }
+  
+    //   console.log('Début de la génération du PDF');
+    //   this.error = null;
+  
+    //   try {
+    //     const pdf = new jsPDF();
+  
+    //     // Ajouter un titre au PDF
+    //     pdf.setFont('helvetica', 'bold');
+    //     pdf.setFontSize(18);
+    //     pdf.text('Titre de la Carte', 20, 20);
+  
+    //     // Ajouter une image statique (remplacez par votre image en base64 ou chemin local)
+    //     const imgData = 'data:image/png;base64,...'; // Remplacez par une vraie image base64
+    //     pdf.addImage(imgData, 'PNG', 15, 30, 180, 100);
+  
+    //     // Ajouter un texte supplémentaire
+    //     pdf.setFontSize(12);
+    //     pdf.text(`Nom de la carte : ${this.carte.nom}`, 20, 150);
+  
+    //     // Télécharger le PDF
+    //     pdf.save(`carte_${this.carte.nom}.pdf`);
+    //     console.log('PDF généré avec succès');
+    //   } catch (error) {
+    //     console.error('Erreur lors de la génération du PDF:', error);
+    //     this.error = 'Erreur lors de la génération du PDF';
+    //   }
+    // }
+  
+    downloadPDF(): void {
+      console.log('Bouton cliqué');
+      const pdf = new jsPDF();
+      pdf.text('Ceci est un test PDF.', 10, 10);
+      pdf.save('test.pdf');
     }
-    
-  
-    async downloadPDF(): Promise<void> {
-      alert('Bouton cliqué');  // Test simple
-
-      console.log('Clic sur le bouton de téléchargement');
-      
-      if (!this.carte) {
-        console.error('Pas de carte disponible');
-        this.error = 'Aucune carte à télécharger';
-        return;
-      }
-  
-      console.log('Début de la génération du PDF');
-      this.isGeneratingPDF = true;
-      this.error = null;
-  
-      try {
-        console.log('Création du PDF...');
-        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        
-        // Utilisez html2canvas pour capturer le contenu
-        const element = this.pdfContent.nativeElement;
-        const canvas = await html2canvas(element);
-        const imgData = canvas.toDataURL('image/png');
-        
-        // Ajoutez l'image au PDF
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`carte_${this.carte.nom}.pdf`);
-        
-        console.log('PDF généré avec succès');
-      } catch (error) {
-        console.error('Erreur lors de la génération du PDF:', error);
-        this.error = 'Erreur lors de la génération du PDF';
-      } finally {
-        this.isGeneratingPDF = false;
-      }
-    }
-  
     
   getPhotoUrl(photoPath: string): string {
     if (!photoPath) return '';

@@ -3,7 +3,8 @@ import { UserService } from '../../../Services/users.service';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../../../Models/users.model';
 import { NgFor, NgIf } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '@/app/Services/auth.service';
 
 @Component({
   selector: 'app-access-users',
@@ -16,6 +17,8 @@ import { RouterModule } from '@angular/router';
 })
 export class AccessUsersComponent {
 
+  private authService = inject(AuthService);
+  private router =inject(Router);
 
   private UserService = inject(UserService);    
   constructor(private http: HttpClient) { }
@@ -79,7 +82,16 @@ export class AccessUsersComponent {
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
-
+  logout() {
+    return this.authService.logout().subscribe(
+        (response: any) => {
+            console.log(response);
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.router.navigateByUrl('/login'); 
+        },
+    );
+}
 
   }
   

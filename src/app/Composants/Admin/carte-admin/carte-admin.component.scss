@@ -50,6 +50,31 @@
   max-width: 100%;
   margin-bottom: 30px;
 }
+  /* Déconnexion en bas */
+  .nav-item.mt-auto {
+    margin-top: auto; /* Pousse l'élément en bas de la sidebar */
+  }
+  
+  .logout-link {
+    color: #b46c20;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-link i {
+    margin-right: 8px; /* Espace entre l'icône et le texte */
+    font-size: 1.2em;
+  }
+  
+  .logout-link:hover {
+    background-color: #f2f2f2;
+    color: #9a561a;
+  }
+  
 
 /* Adaptation de la mise en page pour le contenu */
 @media (min-width: 768px) {

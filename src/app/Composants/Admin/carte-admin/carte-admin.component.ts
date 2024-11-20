@@ -6,6 +6,7 @@ import { carteinvitationModel } from '../../../Models/carteinvitation.model';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '@/app/Services/auth.service';
 
 @Component({
   selector: 'app-carte-admin',
@@ -25,7 +26,7 @@ export class CarteAdminComponent {
   carteinvitations: carteinvitationModel[] = [];
   categories: any[] = []; // Déclarez cette propriété pour stocker les catégories
 
-
+  private authService = inject(AuthService);
   private CarteinvitationService = inject(CarteinvitationService);    
   router: any;
   constructor(private http: HttpClient,
@@ -154,6 +155,15 @@ get pageNumbers(): number[] {
       );
     }
     
-
+    logout() {
+      return this.authService.logout().subscribe(
+          (response: any) => {
+              console.log(response);
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              this.router.navigateByUrl('/login'); 
+          },
+      );
+  }
   }
   

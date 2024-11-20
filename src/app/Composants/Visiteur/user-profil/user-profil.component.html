@@ -12,16 +12,14 @@
         <div class="profile-info mt-4">
             <div class="d-flex justify-content-end mb-3">
                 <button *ngIf="userRole === 'client'" class="btn btn-outline-secondary me-2" [routerLink]="['/carte-personnalisee']">Mes cartes</button>
-                <button *ngIf="userRole === 'prestataire'" class="btn btn-outline-secondary" [routerLink]="['/prestataires', prestataireId, 'demandes']">
-                    Demandes
-                </button>
+                <button *ngIf="userRole === 'prestataire'" class="btn btn-outline-secondary" [routerLink]="['/prestataires', prestataireId, 'demandes']">Demandes</button>
             </div>
 
             <form [formGroup]="userForm">
                 <table class="table table-bordered bg-white">
                     <tbody>
                         <tr>
-                            <th>PRENOM ET NOM</th>
+                            <th>PRENOM ET NOM </th>
                             <td class="position-relative">
                                 <!-- Mode lecture -->
                                 <div *ngIf="!editStates.nom" 
@@ -128,6 +126,14 @@
                                         </button>
                                     </div>
                                 </div>
+                            </td>
+                        </tr>
+                        <!-- Rôle -->
+                        <tr>
+                            <th>RÔLE</th>
+                            <td>
+                                <span *ngIf="userRole === 'client'">Client</span>
+                                <span *ngIf="userRole === 'prestataire'">Prestataire</span>
                             </td>
                         </tr>
                     </tbody>
